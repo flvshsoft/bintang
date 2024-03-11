@@ -28,6 +28,9 @@ class productController extends BaseController
             'satuan_product' => $this->request->getPost('satuan_product'),
             'id_supplier' => $this->request->getPost('id_supplier'),
             'stock_product' => $this->request->getPost('stock_product'),
+            'area' => 0,
+            'defect' => 0,
+            'sample' => 0,
         ];
         // print_r($data);
         // exit;
@@ -66,6 +69,9 @@ class productController extends BaseController
             'satuan_product' => $this->request->getPost('satuan_product'),
             'id_supplier' => $this->request->getPost('id_supplier'),
             'stock_product' => $this->request->getPost('stock_product'),
+            'area' => $this->request->getPost('area'),
+            'sample' => $this->request->getPost('sample'),
+            'defect' => $this->request->getPost('defect'),
         ];
         // print_r($data);
         // exit;

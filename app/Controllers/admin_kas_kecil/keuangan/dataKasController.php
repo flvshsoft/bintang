@@ -15,13 +15,16 @@ class dataKasController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'VOUCHER KAS & BANK';
-        return view('admin/keuangan/data_kas/voucher', $data);
+        return view('admin_kas_kecil/keuangan/data_kas/voucher', $data);
     }
     public function neraca_saldo(): string
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'NERACA SALDO';
-        return view('admin/keuangan/data_kas/neraca_saldo', $data);
+        $data['model'] = $this->mdBank->findAll();
+        // $data['model'] = $this->mdBank->findAll();
+
+        return view('admin_kas_kecil/keuangan/data_kas/neraca_saldo', $data);
     }
     public function mutasi_bank(): string
     {
@@ -34,13 +37,13 @@ class dataKasController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'FORM UANG MASUK KAS KECIL';
-        return view('admin/keuangan/data_kas/uang_kas_kecil', $data);
+        return view('admin_kas_kecil/keuangan/data_kas/uang_kas_kecil', $data);
     }
 
     public function form_transfer(): string
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'FORM UANG MASUK KAS BESAR';
-        return view('admin/keuangan/data_kas/form_transfer', $data);
+        return view('admin_kas_kecil/keuangan/data_kas/form_transfer', $data);
     }
 }

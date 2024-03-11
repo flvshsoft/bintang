@@ -9,7 +9,8 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">DATA KEUANGAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/pengeluaran_kantor') ?>">PENGELUARAN</a>
+                    <li class="breadcrumb-item"><a
+                            href="<?= base_url('/akk/keuangan/pengeluaran_kantor') ?>">PENGELUARAN</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page"><?= $judul1 ?></li>
                 </ol>
@@ -19,11 +20,13 @@
             <div class="col-md-9 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/pengeluaran_kantor/edit') ?>">
+                        <form class="forms-sample" method="POST"
+                            action="<?= base_url('/akk/keuangan/pengeluaran_kantor/edit') ?>">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Keterangan</label>
                                 <div class="col-sm-9">
-                                    <input type="hidden" class="form-control" value="<?= $model['id_pengeluaran_kantor'] ?>" name="id_pengeluaran_kantor">
+                                    <input type="hidden" class="form-control"
+                                        value="<?= $model['id_pengeluaran_kantor'] ?>" name="id_pengeluaran_kantor">
                                     <select class="form-control" name="keterangan_pengeluaran_kantor">
                                         <option><?= $model['keterangan_pengeluaran_kantor'] ?></option>
                                         <option> AIR LISTRIK & INTERNET</option>
@@ -60,13 +63,16 @@
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Detail
                                     Keterangan</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" rows="3" name="remark_pengeluaran_kantor"><?= $model['remark_pengeluaran_kantor'] ?></textarea>
+                                    <textarea class="form-control" rows="3"
+                                        name="remark_pengeluaran_kantor"><?= $model['remark_pengeluaran_kantor'] ?></textarea>
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Biaya</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" value="<?= $model['biaya_pengeluaran_kantor'] ?>" name="biaya_pengeluaran_kantor">
+                                    <input type="number" class="form-control"
+                                        value="<?= $model['biaya_pengeluaran_kantor'] ?>"
+                                        name="biaya_pengeluaran_kantor">
                                 </div>
 
                             </div>
@@ -136,12 +142,15 @@
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Tgl
                                     Pengeluaran</label>
                                 <div class="col-sm-9">
-                                    <input type="date" class="form-control" value="<?= $model['tgl_pengeluaran_kantor'] ?>" name="tgl_pengeluaran_kantor">
+                                    <input type="date" class="form-control"
+                                        value="<?= $model['tgl_pengeluaran_kantor'] ?>" name="tgl_pengeluaran_kantor">
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/akk/pengeluaran_kantor') ?>" class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
-                                <button type="submit" class="btn btn-warning btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i></button>
+                                <a href="<?= base_url('/akk/keuangan/pengeluaran_kantor') ?>"
+                                    class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-warning btn-xs"><i
+                                        class="mdi mdi-content-save-all icon-sm"></i></button>
                             </div>
                         </form>
                     </div>

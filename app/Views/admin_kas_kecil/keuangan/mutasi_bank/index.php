@@ -8,8 +8,8 @@
             <h3 class="page-title"><?= $judul1 ?></h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/keuangan') ?>">DATA KEUANGAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">DATA KEUANGAN</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><?= $judul1 ?></li>
                 </ol>
             </nav>
@@ -67,7 +67,7 @@
                                         </td>
                                         <td>
                                             <a
-                                                href="<?= base_url('/akk/mutasi_bank/edit/' . $value['id_mutasi_bank']) ?>">
+                                                href="<?= base_url('/akk/keuangan/mutasi_bank/edit/' . $value['id_mutasi_bank']) ?>">
                                                 <i class="mdi mdi-pencil-circle icon-md">
                                                 </i>
                                             </a>

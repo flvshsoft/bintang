@@ -1,16 +1,16 @@
-<?= $this->extend('layout/admin'); ?>
+<?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
 
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"><?= $judul1?></h3>
+            <h3 class="page-title"><?= $judul1 ?></h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/keuangan') ?>">DATA KEUANGAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/master_cash_receipt') ?>">DATA KAS</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><?= $judul1?></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">DATA KEUANGAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/data_kas') ?>">DATA KAS</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?= $judul1 ?></li>
                 </ol>
             </nav>
         </div>
@@ -181,7 +181,7 @@
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/master_cash_receipt')?>" class="btn btn-warning btn-xs"><i
+                                <a href="<?= base_url('/akk/keuangan/data_kas') ?>" class="btn btn-warning btn-xs"><i
                                         class="mdi mdi-backburger icon-sm"></i></a>
                                 <button type="submit" class="btn btn-success btn-xs"><i
                                         class="mdi mdi-content-save-all icon-sm"></i></button>

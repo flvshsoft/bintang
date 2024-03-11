@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group col-12">
-                            <a href="<?= base_url('/akk/pengeluaran_kantor/tambah') ?>">
+                            <a href="<?= base_url('/akk/keuangan/pengeluaran_kantor/tambah') ?>">
                                 <button type="button" class="btn btn-success btn-xs">
                                     <i class="mdi mdi-database-plus icon-sm"> </i>
                                     Tambah
@@ -74,7 +74,7 @@
                                         </td>
                                         <td>
                                             <a
-                                                href="<?= base_url('/akk/pengeluaran_kantor/edit/' . $value['id_pengeluaran_kantor']) ?>">
+                                                href="<?= base_url('/akk/keuangan/pengeluaran_kantor/edit/' . $value['id_pengeluaran_kantor']) ?>">
                                                 <i class="mdi mdi-pencil-circle icon-md">
                                                 </i>
                                             </a>

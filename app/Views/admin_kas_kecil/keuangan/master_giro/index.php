@@ -1,18 +1,18 @@
-<?= $this->extend('layout/admin'); ?>
+<?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
 
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                <?= $judul1?>
+                <?= $judul1 ?>
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/keuangan') ?>">KEUANGAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">KEUANGAN</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        <?= $judul1?>
+                        <?= $judul1 ?>
                     </li>
                 </ol>
             </nav>
