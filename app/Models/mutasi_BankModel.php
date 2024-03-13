@@ -15,6 +15,7 @@ class mutasi_BankModel extends Model
     protected $usSoftDeletes = true;
 
     protected $allowedFields = ['id_bank', 'tgl_mutasi_bank', 'user', 'approved_by', 'type_mutasi_bank', 'week_mutasi_bank', 'biaya_mutasi_bank', 'remark_mutasi_bank'];
+    //protected $allowedFields =  ['id_bank', 'id_user', 'keterangan_mutasi', 'jumlah_uang', 'minggu_ke', 'type_mutasi'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

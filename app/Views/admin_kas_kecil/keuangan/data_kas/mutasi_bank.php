@@ -18,25 +18,16 @@
             <div class="col-md-9 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample">
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Tanggal</label>
-                                <div class="col-sm-8">
-                                    <input type="date" class="form-control form-control-sm">
-                                </div>
-                            </div>
+                        <form class="forms-sample" action="<?= base_url('/akk/keuangan/data_kas/mutasi_bank')?>"
+                            method="POST">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Nama Bank</label>
                                 <div class="col-sm-8">
-                                    <select name="" id="" class="form-control form-control-sm">
-                                        <option> BANK BRI</option>
-                                        <option> BANK MANDIRI</option>
-                                        <option> BANK MANDIRI 2</option>
-                                        <option> BRANKAS</option>
-                                        <option> BRANKAS KAS KECIL DI HEAD OFFICE</option>
-                                        <option> GIRO</option>
-                                        <option> KAS</option>
-                                        <option> KAS KECIL</option>
+                                    <select name="id_bank" id="" class="form-control form-control-sm">
+                                        <option> </option>
+                                        <?php foreach ($bank as $value) { ?>
+                                        <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
+                                        <?php }; ?>
                                     </select>
                                 </div>
                             </div>
@@ -44,13 +35,14 @@
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Jumlah
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control form-control-sm" placeholder="UANG KANTOR">
+                                    <input type="text" class="form-control form-control-sm" name="biaya_mutasi_bank"
+                                        placeholder="UANG KANTOR">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputPassword2" class="col-sm-4 col-form-label">Pekan Ke-</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control form-control-sm">
+                                    <select class="form-control form-control-sm" name="week_mutasi_bank">
                                         <option></option>
                                         <option>1</option>
                                         <option>2</option>
@@ -112,7 +104,7 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Type Mutasi</label>
                                 <div class="col-sm-8">
-                                    <select name="" id="" class="form-control form-control-sm">
+                                    <select name="type_mutasi_bank" id="" class="form-control form-control-sm">
                                         <option> </option>
                                         <option> UANG KELUAR</option>
                                         <option> MUTASI HO BOP</option>
@@ -125,8 +117,8 @@
                                 <label for="exampleInputEmail2" class="col-sm-4 col-form-label">Keterangan
                                 </label>
                                 <div class="col-sm-8">
-                                    <textarea class="form-control form-control-sm" placeholder="Remark"
-                                        rows="3"></textarea>
+                                    <textarea class="form-control form-control-sm" name="remark_mutasi_bank"
+                                        placeholder="Remark" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">

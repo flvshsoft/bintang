@@ -206,8 +206,11 @@ $routes->get('/akk/keuangan/data_kas', 'admin_kas_kecil\keuangan\dataKasControll
 $routes->get('/akk/keuangan/data_kas/voucher', 'admin_kas_kecil\keuangan\dataKasController::voucher');
 $routes->get('/akk/keuangan/data_kas/neraca_saldo', 'admin_kas_kecil\keuangan\dataKasController::neraca_saldo');
 $routes->get('/akk/keuangan/data_kas/mutasi_bank', 'admin_kas_kecil\keuangan\dataKasController::mutasi_bank');
+$routes->post('/akk/keuangan/data_kas/mutasi_bank', 'admin_kas_kecil\keuangan\dataKasController::mutasi_bank_add');
 $routes->get('/akk/keuangan/data_kas/uang_kas_kecil', 'admin_kas_kecil\keuangan\dataKasController::uang_kas_kecil');
+$routes->post('/akk/keuangan/data_kas/uang_kas_kecil', 'admin_kas_kecil\keuangan\dataKasController::uang_kas_kecil_add');
 $routes->get('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan\dataKasController::form_transfer');
+$routes->post('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan\dataKasController::form_transfer_add');
 
 $routes->post('/proses_login', 'LoginController::proseslogin');
 $routes->post('/proses_register', 'LoginController::proses_register');

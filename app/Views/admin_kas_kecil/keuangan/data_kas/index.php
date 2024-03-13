@@ -41,7 +41,6 @@
                                 <thead class="table table-primary">
                                     <tr>
                                         <th style="font-size: 11px;"> ID </th>
-                                        <th style="font-size: 11px;"> Source </th>
                                         <th style="font-size: 11px;"> Konsumen </th>
                                         <th style="font-size: 11px;"> Paymen Method </th>
                                         <th style="font-size: 11px;"> Type Payment</th>
@@ -53,39 +52,44 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($model as $value) { ?>
                                     <tr>
                                         <td style="font-size: 11px;">
-                                            160876
+                                            <?= $value['id_kas'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            160876
+                                            <?= $value['id_konsumen'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-
+                                            <?= $value['metode_bayar'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-
+                                            <?= $value['nama_bank'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            BANK BRI
+                                            <?php if ($value['id_bank'] == 5 && $value['ket'] == 'PENGGANTIAN') { ?>
+                                            <?= $value['ket'] . ' MINGGU KE ' . $value['pergantian_minggu'] ?>
+                                            <?php } elseif ($value['id_bank'] == 5 && $value['ket'] == 'KASBON') { ?>
+                                            <?= $value['ket'] . ' MINGGU KE ' . $value['pergantian_minggu'] ?>
+                                            <?php } else { ?>
+                                            <?= $value['ket']  ?>
+                                            <?php } ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            TRANSFER SALESMAN
+                                            <?= 'Rp. ' . number_format($value['uang_kas'], 0, ',', '.') ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            17.000.000
+                                            <?= $value['created_at'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            2023-09-30 00:00:00
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            ADE
+                                            <?= $value['nama_user'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
                                             <a href="<?= base_url('/akk/keuangan/data_kas/voucher') ?>"><i
                                                     class="mdi mdi-credit-card icon-md"></i></a>
                                         </td>
                                     </tr>
+                                    <?php }; ?>
                                 </tbody>
                             </table>
                         </div>
