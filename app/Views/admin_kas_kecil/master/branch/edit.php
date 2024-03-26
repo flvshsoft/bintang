@@ -20,30 +20,25 @@
             <div class="col-md-9 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/master_branch/tambah') ?>">
+                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/master_branch/edit') ?>">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Branch</label>
                                 <div class="col-sm-9">
-                                    <input type="hidden" class="form-control form-control-sm" name="id_branch"
-                                        value="<?= $model['id_branch']?>">
-                                    <input type="text" class="form-control form-control-sm" name="nama_branch"
-                                        value="<?= $model['nama_branch']?>">
+                                    <input type="hidden" class="form-control form-control-sm" name="id_branch" value="<?= $model['id_branch'] ?>">
+                                    <input type="text" class="form-control form-control-sm" name="nama_branch" value="<?= $model['nama_branch'] ?>">
                                 </div>
                             </div>
 
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Cabang</label>
                                 <div class="col-sm-9">
-                                    <textarea type="text" class="form-control form-control-sm" name="cabang"
-                                        value="<?= $model['cabang']?>"></textarea>
+                                    <textarea type="text" class="form-control form-control-sm" name="cabang" value="<?= $model['cabang'] ?>"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group text-center mb-0">
-                                <button type="submit" class="btn btn-success btn-xs"><i
-                                        class="mdi mdi-content-save-all icon-sm"></i></button>
-                                <a class="btn btn-light btn-xs" href="<?= base_url('/akk/master_branch') ?>"><i
-                                        class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-success btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i></button>
+                                <a class="btn btn-light btn-xs" href="<?= base_url('/akk/master_branch') ?>"><i class="mdi mdi-backburger icon-sm"></i></a>
                             </div>
                         </form>
                     </div>

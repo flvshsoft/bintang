@@ -24,14 +24,14 @@ class branchController extends BaseController
             'nama_branch' => $this->request->getPost('nama_branch'),
         ];
         $this->mdBranch->insert($data);
-        return redirect()->to(base_url('/akk/branch'));
+        return redirect()->to(base_url('/akk/master_branch'));
     }
 
     public function hapus($id_branch)
     {
         $delete = $this->mdBranch->delete($id_branch);
         if ($delete) {
-            return redirect()->to(base_url('/akk/branch'));
+            return redirect()->to(base_url('/akk/master_branch'));
         } else {
             echo 'Gagal menghapus data.';
         }
@@ -55,7 +55,9 @@ class branchController extends BaseController
             'cabang' => $this->request->getPost('cabang'),
             'nama_branch' => $this->request->getPost('nama_branch'),
         ];
+        // print_r($data);
+        // exit;
         $this->mdBranch->save($data);
-        return redirect()->to(base_url('/akk/branch'));
+        return redirect()->to(base_url('/akk/master_branch'));
     }
 }
