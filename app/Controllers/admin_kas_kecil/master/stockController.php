@@ -9,6 +9,7 @@ class stockController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Data Stock';
         $data['model'] = $this->mdStock
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->join('product', 'product.id_product=stock.id_product', 'left')
             ->findAll();
         return view('admin_kas_kecil/master/stock/index', $data);
@@ -17,7 +18,9 @@ class stockController extends BaseController
     {
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Data Stock';
-        $data['product'] =  $this->mdProduct->findAll();
+        $data['product'] =  $this->mdProduct
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/master/stock/tambah', $data);
     }
     public function input()
@@ -28,12 +31,14 @@ class stockController extends BaseController
             'id_product' => $id_product,
             'jumlah_stock' => $jumlah_stock,
             'tanggal_masuk' => date('d-m-y h:i:s'),
+            // 'id_branch'=> Session('userData')['id_branch']
         ];
         $this->mdStock->insert($data);
 
         $data1 = [
             'id_product' => $this->request->getPost('id_product'),
             'stock_product' => $this->request->getPost('jumlah_stock'),
+            // 'id_branch'=> Session('userData')['id_branch']
         ];
         // print_r($data1);
         // exit;
@@ -60,7 +65,9 @@ class stockController extends BaseController
             ->join('product', 'product.id_product=stock.id_product')
             ->where('id_stock', $id_stock)
             ->find()[0];
-        $data['product'] =  $this->mdProduct->findAll();
+        $data['product'] =  $this->mdProduct
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/master/stock/edit', $data);
     }
 
@@ -78,9 +85,9 @@ class stockController extends BaseController
 
         print_r($data);
         exit;
-        
+
         $this->mdProduct->where('id_product', $id_product)
-         ->increment('stock_product', $jumlah_stock);
+            ->increment('stock_product', $jumlah_stock);
         return redirect()->to(base_url('/akk/stock'));
     }
 }

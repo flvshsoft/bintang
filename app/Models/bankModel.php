@@ -15,7 +15,7 @@ class bankModel extends Model
     protected $useSoftDeletes = true;
     protected $useTimestamps = true;
     protected $skipValidation = false;
-    protected $allowedFields = ['payment_code',  'nama_bank', 'created_by', 'saldo'];
+    protected $allowedFields = ['payment_code',  'nama_bank', 'created_by', 'saldo', 'id_branch'];
 
 
     protected $dateFormat    = 'datetime';

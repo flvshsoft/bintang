@@ -9,6 +9,7 @@ class productController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Data Product';
         $data['model'] = $this->mdProduct
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->join('supplier', 'supplier.id_supplier=product.id_supplier')
             ->findAll();
 
@@ -18,7 +19,9 @@ class productController extends BaseController
     {
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Data Product';
-        $data['supplier'] =  $this->mdSupplier->findAll();
+        $data['supplier'] =  $this->mdSupplier
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/master/product/tambah', $data);
     }
     public function input()
@@ -31,6 +34,7 @@ class productController extends BaseController
             'area' => 0,
             'defect' => 0,
             'sample' => 0,
+            // 'id_branch', Session('userData')['id_branch']
         ];
         // print_r($data);
         // exit;
@@ -55,8 +59,11 @@ class productController extends BaseController
         $data['model'] = $this->mdProduct
             ->join('supplier', 'supplier.id_supplier=product.id_supplier')
             ->where('id_product', $id_product)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->find()[0];
-        $data['supplier'] =  $this->mdSupplier->findAll();
+        $data['supplier'] =  $this->mdSupplier
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/master/product/edit', $data);
     }
 

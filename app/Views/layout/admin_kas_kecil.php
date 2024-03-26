@@ -252,6 +252,7 @@ if (!isset(Session('userData')['nama_user'])) {
                             <li class="nav-item"> <a class="nav-link text-black" href="<?= base_url('/akk/master_barang_harga') ?>">Barang Harga</a></li>
                             <!-- <li class="nav-item"> <a class="nav-link text-black"
                                     href="<?= base_url('/akk/master_price') ?>">Harga</a></li> -->
+                            <li class="nav-item"> <a class="nav-link text-black" href="<?= base_url('/akk/master_branch') ?>">Branch</a></li>
                             <!-- <li class="nav-item"> <a class="nav-link text-black"
                                     href="<?= base_url('/akk/master_jenis_cuti') ?>">Jenis Cuti</a></li> -->
                             <li class="nav-item"> <a class="nav-link text-black" href="<?= base_url('/akk/master_jenis_harga') ?>">Jenis Harga</a></li>

@@ -109,12 +109,12 @@ $routes->get('/akk/transaksi/stock_akhir/nota/(:any)', 'admin_kas_kecil\transaks
 $routes->post('/akk/transaksi/stock_akhir/nota', 'admin_kas_kecil\transaksi\StockAkhirController::input_closing');
 $routes->post('/akk/transaksi/stock_akhir/nota/detail', 'admin_kas_kecil\transaksi\StockAkhirController::input_detail_closing');
 
-$routes->get('/akk/stock', 'admin_kas_kecil\master\stockController::index');
-$routes->get('/akk/master_stock', 'admin_kas_kecil\master\stockController::tambah');
-$routes->post('/akk/save_stock', 'admin_kas_kecil\master\stockController::input');
-$routes->get('/akk/del_stock/(:any)', 'admin_kas_kecil\master\stockController::hapus/$1');
-$routes->get('/akk/form_stock/(:any)', 'admin_kas_kecil\master\stockController::edit/$1');
-$routes->post('/akk/update_stock', 'admin_kas_kecil\master\stockController::update');
+$routes->get('/akk/master_branch', 'admin_kas_kecil\master\branchController::index');
+$routes->get('/akk/master_branch/tambah', 'admin_kas_kecil\master\branchController::tambah');
+$routes->post('/akk/master_branch/tambah', 'admin_kas_kecil\master\branchController::input');
+$routes->get('/akk/master_branch/hapus/(:any)', 'admin_kas_kecil\master\branchController::hapus/$1');
+$routes->get('/akk/master_branch/edit/(:any)', 'admin_kas_kecil\master\branchController::edit/$1');
+$routes->post('/akk/master_branch/edit', 'admin_kas_kecil\master\branchController::update');
 
 $routes->get('/akk/piutang_usaha', 'admin_kas_kecil\piutang_usahaController::index');
 $routes->get('/akk/piutang_usaha/hapus/(:any)', 'admin_kas_kecil\piutang_usahaController::hapus/$1');

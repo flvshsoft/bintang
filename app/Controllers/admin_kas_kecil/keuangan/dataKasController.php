@@ -35,7 +35,9 @@ class dataKasController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'FORM UANG KELUAR';
-        $data['bank'] = $this->mdBank->findAll();
+        $data['bank'] = $this->mdBank
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/keuangan/data_kas/mutasi_bank', $data);
     }
     public function mutasi_bank_add()

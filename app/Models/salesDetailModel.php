@@ -14,7 +14,7 @@ class salesDetailModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['id_sales',  'id_product', 'satuan_sales_detail',  'jumlah_sales', 'id_price_detail'];
+    protected $allowedFields = ['id_sales', 'id_branch', 'id_product', 'satuan_sales_detail',  'jumlah_sales', 'id_price_detail'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

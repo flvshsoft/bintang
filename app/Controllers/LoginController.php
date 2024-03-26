@@ -55,6 +55,7 @@ class LoginController extends BaseController
         if ($user['level_user'] == 'Kas Kecil') {
             $this->session->set('userData', [
                 'id_user'            => $user["id_user"],
+                'id_branch'            => $user["id_branch"],
                 'username'          => $user["username"],
                 'nama_user'          => $user["nama_user"],
                 'password_hash'          => $user["password_hash"],

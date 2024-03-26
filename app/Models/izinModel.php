@@ -14,7 +14,7 @@ class izinModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['remark_izin',  'created_by'];
+    protected $allowedFields = ['remark_izin',  'created_by', 'id_branch'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

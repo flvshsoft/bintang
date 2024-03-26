@@ -8,7 +8,9 @@ class assetController extends BaseController
     {
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Data Asset';
-        $data['model'] =  $this->mdAsset->findAll();
+        $data['model'] =  $this->mdAsset
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/master/asset/index', $data);
     }
     public function tambah_asset()
@@ -33,6 +35,7 @@ class assetController extends BaseController
             'tgl_berakhir_plat' => $this->request->getPost('tgl_berakhir_plat'),
             'pic' => $this->request->getPost('pic'),
             'lokasi' => $this->request->getPost('lokasi'),
+            //'id_branch'=> Session('userData')['id_branch'],
         ];
         // print_r($data);
         // exit;
@@ -45,6 +48,7 @@ class assetController extends BaseController
         $data['judul1'] = 'Edit Asset';
         $data['model'] =  $this->mdAsset
             ->where('id_asset', $id_asset)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->find()[0];
 
         return view('admin_kas_kecil/master/asset/edit', $data);
@@ -66,6 +70,7 @@ class assetController extends BaseController
             'tgl_berakhir_plat' => $this->request->getPost('tgl_berakhir_plat'),
             'pic' => $this->request->getPost('pic'),
             'lokasi' => $this->request->getPost('lokasi'),
+            //'id_branch' => Session('userData')['id_branch']
         ];
         //  print_r($data);
         //  exit;

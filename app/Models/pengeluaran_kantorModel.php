@@ -14,7 +14,7 @@ class pengeluaran_kantorModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['keterangan_pengeluaran_kantor', 'tgl_pengeluaran_kantor', 'created_by', 'approved_by', 'approved_date', 'week_pengeluaran_kantor', 'biaya_pengeluaran_kantor', 'remark_pengeluaran_kantor'];
+    protected $allowedFields = ['keterangan_pengeluaran_kantor', 'tgl_pengeluaran_kantor', 'created_by', 'approved_by', 'approved_date', 'id_branch', 'week_pengeluaran_kantor', 'biaya_pengeluaran_kantor', 'remark_pengeluaran_kantor'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

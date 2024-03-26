@@ -14,7 +14,7 @@ class lokasiModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['maps',  'nama_lokasi', 'created_by'];
+    protected $allowedFields = ['maps',  'nama_lokasi', 'created_by', 'id_branch'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

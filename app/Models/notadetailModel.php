@@ -14,7 +14,7 @@ class notadetailModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['id_nota',  'id_sales_detail', 'id_product', 'id_jenis_harga', 'diskon_penjualan', 'satuan_penjualan'];
+    protected $allowedFields = ['id_nota', 'id_branch', 'id_sales_detail', 'id_product', 'id_jenis_harga', 'diskon_penjualan', 'satuan_penjualan'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

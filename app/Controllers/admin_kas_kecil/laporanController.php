@@ -64,8 +64,12 @@ class laporanController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'LAPORAN TAGIHAN PIUTANG USAHA';
-        $data['area'] = $this->mdArea->findAll();
-        $data['partner'] = $this->mdPartner->findAll();
+        $data['area'] = $this->mdArea
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        $data['partner'] = $this->mdPartner
+            //->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/laporan/form_sisa', $data);
     }
 
@@ -80,6 +84,7 @@ class laporanController extends BaseController
         $data['model'] = $this->mdSales
             ->join('nota', 'nota.id_sales=sales.id_sales')
             ->join('customer', 'customer.id_customer=nota.id_customer')
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->orderBY('id_nota', 'DESC')
             // ->where('nota.created_at >=', $dt1)
             // ->where('nota.created_at <=', $dt2)
@@ -92,6 +97,7 @@ class laporanController extends BaseController
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->join('nota', 'nota.id_sales=sales.id_sales')
             ->orderBY('id_nota', 'DESC')
+            //  ->where('id_branch', Session('userData')['id_branch'])
             // ->where('nota.created_at >=', $dt1)
             // ->where('nota.created_at <=', $dt2)
             ->where('sales.id_area', $id_area)

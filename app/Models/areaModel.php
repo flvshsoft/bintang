@@ -14,7 +14,7 @@ class areaModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['id_nama_area',  'nama_area'];
+    protected $allowedFields = ['id_nama_area',  'nama_area', 'id_branch'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

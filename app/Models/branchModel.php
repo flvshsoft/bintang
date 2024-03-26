@@ -4,19 +4,19 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class cutiModel extends Model
+class branchModel extends Model
 {
-    protected $table = 'cuti';
-    protected $primaryKey = 'id_cuti';
+    protected $table = 'branch';
+    protected $primaryKey = 'id_branch';
 
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['remark_cuti',  'created_by', 'id_branch'];
+    protected $allowedFields = ['nama_branch',  'cabang'];
 
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $deletedField  = 'deleted_at';
 }

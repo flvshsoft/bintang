@@ -9,6 +9,7 @@ class izinController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Jenis Izin';
         $data['model'] = $this->mdIzin
+            // ->where('id_branch', Session('userData')['id_branch'])
             // ->join('user', 'user.id_user=izin.created_by', 'left')
             ->findAll();
         return view('admin_kas_kecil/master/izin/index', $data);
@@ -19,6 +20,7 @@ class izinController extends BaseController
         $data = [
             'created_by' => 'System',
             'remark_izin' => $this->request->getPost('remark_izin'),
+            // 'id_branch', Session('userData')['id_branch']
         ];
         // print_r($data);
         // exit;
