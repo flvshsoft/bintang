@@ -227,6 +227,15 @@ $routes->post('/akk/karyawan/edit', 'admin_kas_kecil\sdmController::karyawan_upd
 $routes->get('/akk/karyawan/edit/(:any)', 'admin_kas_kecil\sdmController::karyawan_edit/$1');
 $routes->get('/akk/karyawan/hapus/(:any)', 'admin_kas_kecil\sdmController::hapus/$1');
 
+$routes->get('/akk/keuangan/master_pengeluaran', 'admin_kas_kecil\keuangan\masterPengeluaranController::index');
+$routes->get('/akk/keuangan/spending_operational', 'admin_kas_kecil\keuangan\masterPengeluaranController::spending_operational');
+$routes->get('/akk/keuangan/master_pengeluaran_op', 'admin_kas_kecil\keuangan\masterPengeluaranController::master_pengeluaran_op');
+$routes->get('/akk/keuangan/detail_biaya_operasional', 'admin_kas_kecil\keuangan\masterPengeluaranController::detail_biaya_operasional');
+
+$routes->get('/akk/keuangan/master_hutang', 'admin_kas_kecil\keuangan\masterHutangController::index');
+$routes->get('/akk/keuangan/master_hutang/pelunasan', 'admin_kas_kecil\keuangan\masterHutangController::pelunasan');
+$routes->get('/akk/keuangan/master_hutang/pot', 'admin_kas_kecil\keuangan\masterHutangController::pot');
+$routes->get('/akk/keuangan/master_hutang/input', 'admin_kas_kecil\keuangan\masterHutangController::tambah');
 
 $routes->post('/proses_login', 'LoginController::proseslogin');
 $routes->post('/proses_register', 'LoginController::proses_register');

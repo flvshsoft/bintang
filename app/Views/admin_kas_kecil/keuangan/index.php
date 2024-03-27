@@ -40,6 +40,16 @@
                             <td class="menu-item" style="vertical-align:middle;">
                                 <b>
                                     <a style="text-decoration:none;color:black;"
+                                        href="<?= base_url('/akk/keuangan/master_hutang') ?>">
+                                        <i class="mdi mdi-cash-100 text-dark icon-md"></i>
+                                        Hutang Usaha
+                                    </a>
+                                </b>
+                            </td>
+                            <hr>
+                            <td class="menu-item" style="vertical-align:middle;">
+                                <b>
+                                    <a style="text-decoration:none;color:black;"
                                         href="<?= base_url('/akk/keuangan/data_kas') ?>">
                                         <i class="mdi mdi-cash-usd text-dark icon-md"></i>
                                         Kas & Bank
