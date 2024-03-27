@@ -190,6 +190,14 @@ $routes->post('/akk/laporan/form_sisa/print', 'admin_kas_kecil\laporanController
 
 $routes->get('/akk/form_cost_ratio', 'admin_kas_kecil\laporanController::form_cost_ratio');
 
+
+$routes->get('/akk/stock', 'admin_kas_kecil\master\stockController::index');
+$routes->get('/akk/master_stock', 'admin_kas_kecil\master\stockController::tambah');
+$routes->post('/akk/save_stock', 'admin_kas_kecil\master\stockController::input');
+$routes->post('/akk/master_bank/edit', 'admin_kas_kecil\master\stockController::edit');
+$routes->get('/akk/master_bank/update/(:any)', 'admin_kas_kecil\master\stockController::update/$1');
+$routes->get('/akk/del_stock/(:any)', 'admin_kas_kecil\master\stockController::hapus/$1');
+
 $routes->get('/akk/keuangan', 'admin_kas_kecil\keuanganController::index');
 $routes->get('/akk/keuangan/pengeluaran_kantor', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::index');
 $routes->get('/akk/keuangan/pengeluaran_kantor/tambah', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::tambah');
@@ -211,6 +219,10 @@ $routes->get('/akk/keuangan/data_kas/uang_kas_kecil', 'admin_kas_kecil\keuangan\
 $routes->post('/akk/keuangan/data_kas/uang_kas_kecil', 'admin_kas_kecil\keuangan\dataKasController::uang_kas_kecil_add');
 $routes->get('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan\dataKasController::form_transfer');
 $routes->post('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan\dataKasController::form_transfer_add');
+
+$routes->get('/akk/karyawan', 'admin_kas_kecil\sdmController::karyawan');
+$routes->get('/akk/karyawan/tambah', 'admin_kas_kecil\sdmController::karyawan_tambah');
+$routes->post('/akk/karyawan/tambah', 'admin_kas_kecil\sdmController::karyawan_input');
 
 $routes->post('/proses_login', 'LoginController::proseslogin');
 $routes->post('/proses_register', 'LoginController::proses_register');

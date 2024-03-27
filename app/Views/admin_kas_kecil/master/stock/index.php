@@ -20,14 +20,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group col-12">
-                                <a class="btn btn-gradient-success btn-xs btn-icon-text my-1"
-                                    href="<?= base_url('/akk/master_stock') ?>">
+                                <a class="btn btn-gradient-success btn-xs btn-icon-text my-1" href="<?= base_url('/akk/master_stock') ?>">
                                     <i class="mdi mdi-database-plus icon-sm"></i> Input Barang</a>
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-sm table-bordered table-striped" id="dataTable" width="100%"
-                                cellspacing="0">
+                            <table class="table table-sm table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>
                                         <th style="font-size: 11px;"> No </th>
@@ -41,34 +39,31 @@
                                 <tbody>
                                     <?php $no = 1;
                                     foreach ($model as $value) { ?>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            <?= $no ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <b>
-                                                <a style="text-decoration:none"
-                                                    href="#<?= base_url('/akk/form_stock/' . $value['id_stock']) ?>">
-                                                    <?= $value['id_stock'] ?>
-                                                </a>
-                                            </b>
-                                        </td>
+                                        <tr>
+                                            <td style="font-size: 11px;">
+                                                <?= $no ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <b>
+                                                    <a style="text-decoration:none" href="#<?= base_url('/akk/form_stock/' . $value['id_stock']) ?>">
+                                                        <?= $value['id_stock'] ?>
+                                                    </a>
+                                                </b>
+                                            </td>
 
-                                        <td style="font-size: 11px;">
-                                            <?= $value['jumlah_stock'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['nama_product'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['tanggal_masuk'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
-                                                href="<?= base_url('/akk/del_product/' . $value['id_stock']) ?>"> <i
-                                                    class="mdi mdi-delete-circle text-default icon-md"></i> </a>
-                                        </td>
-                                    </tr>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['jumlah_stock'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['nama_product'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['tanggal_masuk'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')" href="<?= base_url('/akk/del_stock/' . $value['id_stock']) ?>"> <i class="mdi mdi-delete-circle text-default icon-md"></i> </a>
+                                            </td>
+                                        </tr>
                                     <?php $no++;
                                     } ?>
                                 </tbody>
@@ -82,12 +77,12 @@
 </div>
 
 <style>
-.table-bordered-custom {
-    border: 1px solid #000;
-    /* Ganti dengan warna dan ketebalan sesuai preferensi Anda */
-}
+    .table-bordered-custom {
+        border: 1px solid #000;
+        /* Ganti dengan warna dan ketebalan sesuai preferensi Anda */
+    }
 
-/* Tambahkan class ini pada tabel Anda */
+    /* Tambahkan class ini pada tabel Anda */
 </style>
 
 <?= $this->endSection() ?>

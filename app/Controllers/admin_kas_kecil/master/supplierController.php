@@ -9,7 +9,7 @@ class supplierController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Data Supplier';
         $data['model'] = $this->mdSupplier
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/master/supplier/index', $data);
     }
@@ -25,7 +25,7 @@ class supplierController extends BaseController
             'nama_supplier' => $this->request->getPost('nama_supplier'),
             'no_hp_supplier' => $this->request->getPost('no_hp_supplier'),
             'alamat_supplier' => $this->request->getPost('alamat_supplier'),
-            // 'id_branch'=> Session('userData')['id_branch']
+            'id_branch' => Session('userData')['id_branch']
         ];
         // print_r($data);
         // exit;
@@ -62,6 +62,8 @@ class supplierController extends BaseController
             'nama_supplier' => $this->request->getPost('nama_supplier'),
             'no_hp_supplier' => $this->request->getPost('no_hp_supplier'),
             'alamat_supplier' => $this->request->getPost('alamat_supplier'),
+            'id_branch' => Session('userData')['id_branch']
+
         ];
         // print_r($data);
         // exit;

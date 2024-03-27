@@ -9,7 +9,7 @@ class stockController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Data Stock';
         $data['model'] = $this->mdStock
-            // ->where('id_branch', Session('userData')['id_branch'])
+            //->where('product.id_branch', Session('userData')['id_branch'])
             ->join('product', 'product.id_product=stock.id_product', 'left')
             ->findAll();
         return view('admin_kas_kecil/master/stock/index', $data);

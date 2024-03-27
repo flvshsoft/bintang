@@ -9,13 +9,14 @@ class barangHargaController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Barang Harga';
         $data['model'] = $this->mdBarangHarga
-            // ->where('id_branch', Session('userData')['id_branch'])
             ->join('product', 'product.id_product=barang_harga.id_product')
+            ->where('product.id_branch', Session('userData')['id_branch'])
             ->join('jenis_harga', 'jenis_harga.id_jenis_harga=barang_harga.id_jenis_harga')
             // ->join('user', 'user.id_user=barang_harga.created_by')
+            ->groupBy('product.id_product')
             ->findAll();
         $data['product'] = $this->mdProduct
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         $data['jenis_harga'] = $this->mdJenisHarga
             // ->where('id_branch', Session('userData')['id_branch'])
@@ -146,8 +147,8 @@ class barangHargaController extends BaseController
             'id_price' => $id_price,
             'id_product' => $id_product,
             'id_jenis_harga' => $id_jenis_harga,
-            'harga' => $this->request->getPost('harga')
-            // 'id_branch'=> Session('userData')['id_branch']
+            'harga' => $this->request->getPost('harga'),
+            'id_branch' => Session('userData')['id_branch']
         ];
         $this->mdJenisHargaDetail->insert($data);
         // print_r($data);

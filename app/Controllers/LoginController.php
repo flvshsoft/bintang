@@ -53,7 +53,12 @@ class LoginController extends BaseController
         $this->session->set('isLoggedIn', true);
 
         if ($user['level_user'] == 'Kas Kecil') {
+            $modelBranch = $this->mdBranch
+                ->where('id_branch', $user["id_branch"])
+                ->findAll();
+
             $this->session->set('userData', [
+                'nama_branch' => $modelBranch[0]["nama_branch"],
                 'id_user'            => $user["id_user"],
                 'id_branch'            => $user["id_branch"],
                 'username'          => $user["username"],

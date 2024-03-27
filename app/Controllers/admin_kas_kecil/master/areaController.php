@@ -9,7 +9,7 @@ class areaController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Area Penjualan';
         $data['model'] = $this->mdArea
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/master/area/index', $data);
     }
