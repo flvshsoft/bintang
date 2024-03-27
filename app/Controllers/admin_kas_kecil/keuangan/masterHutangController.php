@@ -14,7 +14,7 @@ class masterHutangController extends BaseController
     public function pelunasan(): string
     {
         $data['judul'] = 'Bintang Distributor';
-        $data['judul1'] = 'TRANSASCT PENGELUARAN OPERASIONAL';
+        $data['judul1'] = 'PELUNASAN HUTANG PABRIK';
         return view('admin_kas_kecil/keuangan/master_hutang/pelunasan', $data);
     }
     public function pot(): string
