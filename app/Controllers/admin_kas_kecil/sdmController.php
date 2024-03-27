@@ -49,7 +49,8 @@ class sdmController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'MASTER DATA KARYAWAN';
         $data['model'] = $this->mdKaryawan
-            ->where('id_branch', Session('userData')['id_branch'])
+            ->join('user', 'user.id_user=karyawan.id_user')
+            ->where('karyawan.id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/sdm/master_employee/index', $data);
     }
@@ -61,16 +62,17 @@ class sdmController extends BaseController
         return view('admin_kas_kecil/sdm/master_employee/tambah', $data);
     }
 
-    public function input()
+    public function karyawan_input()
     {
         $data = [
             'nip' => $this->request->getPost('nip'),
             'nik' => $this->request->getPost('nik'),
             'nama_karyawan' => $this->request->getPost('nama_karyawan'),
             'id_branch' => Session('userData')['id_branch'],
+            'id_user' => Session('userData')['id_user'],
             'no_hp' => $this->request->getPost('no_hp'),
             'tempat_lahir' => $this->request->getPost('tempat_lahir'),
-            'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+            'tgl_lahir' => $this->request->getPost('tgl_lahir'),
             'domisili' => $this->request->getPost('domisili'),
             'jk' => $this->request->getPost('jk'),
             'status' => $this->request->getPost('status'),
@@ -83,23 +85,86 @@ class sdmController extends BaseController
             'jurusan' => $this->request->getPost('jurusan'),
             'tgl_kerja' => $this->request->getPost('tgl_kerja'),
             'lama_kerja' => $this->request->getPost('lama_kerja'),
-            // 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-            // 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-            // 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-            // 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-            // 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-            // 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-            // 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-            // 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-            // 'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-
+            'saldo_cuti' => $this->request->getPost('saldo_cuti'),
+            'status_kawin' => $this->request->getPost('status_kawin'),
+            'status_pekerjaan' => $this->request->getPost('status_pekerjaan'),
+            'salary' => $this->request->getPost('salary'),
+            'tunjangan' => $this->request->getPost('tunjangan'),
+            'tgl_selesai_kerja' => $this->request->getPost('tgl_selesai_kerja'),
+            'nilai_terakhir' => $this->request->getPost('nilai_terakhir'),
+            'tgl_sekolah' => $this->request->getPost('tgl_sekolah'),
+            'tgl_selesai_sekolah' => $this->request->getPost('tgl_selesai_sekolah'),
+            'schedule_set' => $this->request->getPost('schedule_set'),
         ];
-        print_r($data);
-        exit;
+        // print_r($data);
+        // exit;
         $this->mdKaryawan->insert($data);
         return redirect()->to(base_url('/akk/karyawan'));
     }
 
+    public function hapus($id_karyawan)
+    {
+        $delete = $this->mdKaryawan->delete($id_karyawan);
+        if ($delete) {
+            return redirect()->to(base_url('/akk/karyawan'));
+        } else {
+            echo 'Gagal menghapus data.';
+        }
+    }
+
+    public function karyawan_edit($id_karyawan)
+    {
+        $data['judul'] = 'Bintang';
+        $data['judul1'] = 'Data Karyawan';
+        $data['model'] = $this->mdKaryawan
+            ->where('id_karyawan', $id_karyawan)
+            ->find()[0];
+        return view('admin_kas_kecil/sdm/master_employee/edit', $data);
+    }
+
+    public function karyawan_update()
+    {
+        $id_karyawan = $this->request->getPost('id_karyawan');
+        $data = [
+            'id_karyawan' => $id_karyawan,
+            'nip' => $this->request->getPost('nip'),
+            'nik' => $this->request->getPost('nik'),
+            'nama_karyawan' => $this->request->getPost('nama_karyawan'),
+            'id_branch' => Session('userData')['id_branch'],
+            'id_user' => Session('userData')['id_user'],
+            'no_hp' => $this->request->getPost('no_hp'),
+            'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+            'tgl_lahir' => $this->request->getPost('tgl_lahir'),
+            'domisili' => $this->request->getPost('domisili'),
+            'jk' => $this->request->getPost('jk'),
+            'status' => $this->request->getPost('status'),
+            'gol_darah' => $this->request->getPost('gol_darah'),
+            'agama' => $this->request->getPost('agama'),
+            'posisi' => $this->request->getPost('posisi'),
+            'jabatan' => $this->request->getPost('jabatan'),
+            'tamatan' => $this->request->getPost('tamatan'),
+            'instansi' => $this->request->getPost('instansi'),
+            'jurusan' => $this->request->getPost('jurusan'),
+            'tgl_kerja' => $this->request->getPost('tgl_kerja'),
+            'lama_kerja' => $this->request->getPost('lama_kerja'),
+            'saldo_cuti' => $this->request->getPost('saldo_cuti'),
+            'status_kawin' => $this->request->getPost('status_kawin'),
+            'status_pekerjaan' => $this->request->getPost('status_pekerjaan'),
+            'salary' => $this->request->getPost('salary'),
+            'tunjangan' => $this->request->getPost('tunjangan'),
+            'tgl_selesai_kerja' => $this->request->getPost('tgl_selesai_kerja'),
+            'nilai_terakhir' => $this->request->getPost('nilai_terakhir'),
+            'tgl_sekolah' => $this->request->getPost('tgl_sekolah'),
+            'tgl_selesai_sekolah' => $this->request->getPost('tgl_selesai_sekolah'),
+            'schedule_set' => $this->request->getPost('schedule_set'),
+        ];
+        $this->mdKaryawan->save($data);
+
+        print_r($data);
+        exit;
+
+        return redirect()->to(base_url('/akk/karyawan'));
+    }
 
     public function edit_general(): string
     {

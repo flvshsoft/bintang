@@ -223,6 +223,10 @@ $routes->post('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan
 $routes->get('/akk/karyawan', 'admin_kas_kecil\sdmController::karyawan');
 $routes->get('/akk/karyawan/tambah', 'admin_kas_kecil\sdmController::karyawan_tambah');
 $routes->post('/akk/karyawan/tambah', 'admin_kas_kecil\sdmController::karyawan_input');
+$routes->post('/akk/karyawan/edit', 'admin_kas_kecil\sdmController::karyawan_update');
+$routes->get('/akk/karyawan/edit/(:any)', 'admin_kas_kecil\sdmController::karyawan_edit/$1');
+$routes->get('/akk/karyawan/hapus/(:any)', 'admin_kas_kecil\sdmController::hapus/$1');
+
 
 $routes->post('/proses_login', 'LoginController::proseslogin');
 $routes->post('/proses_register', 'LoginController::proses_register');
