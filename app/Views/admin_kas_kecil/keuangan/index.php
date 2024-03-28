@@ -20,6 +20,16 @@
                             <td class="menu-item" style="vertical-align:middle;">
                                 <b>
                                     <a style="text-decoration:none;color:black;"
+                                        href="<?= base_url('/akk/keuangan/master_app_mutasi') ?>">
+                                        <i class="mdi mdi-check-circle text-dark icon-md"></i>
+                                        Approval Pembayaran Kas & Bank
+                                    </a>
+                                </b>
+                            </td>
+                            <hr>
+                            <td class="menu-item" style="vertical-align:middle;">
+                                <b>
+                                    <a style="text-decoration:none;color:black;"
                                         href="<?= base_url('/akk/keuangan/pengeluaran_kantor') ?>">
                                         <i class="mdi mdi-book-minus text-dark icon-md"></i>
                                         Biaya Kantor

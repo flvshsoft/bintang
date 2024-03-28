@@ -72,8 +72,7 @@
                                         </td>
                                         <td><a href="<?= base_url('/akk/keuangan/master_hutang/') ?>"><i
                                                     class="mdi mdi-pencil-circle text-default icon-md"></i></a>
-                                            <a href="<?= base_url('/akk/keuangan/master_hutang/') ?>"><i
-                                                    class="mdi mdi-close-circle text-danger icon-md"></i></a>
+
                                         </td>
                                     </tr>
                                     <?php// }; ?>

@@ -9,7 +9,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">DATA KEUANGAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/mutasi_bank') ?>">PENGELUARAN</a>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/master_hutang') ?>">HUTANG</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page"><?= $judul1 ?></li>
                 </ol>
@@ -21,29 +21,21 @@
                     <div class="card-body">
                         <form class="forms-sample" method="POST"
                             action="<?= base_url('/akk/keuangan/mutasi_bank/tambah') ?>">
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputConfirmPassword2"
-                                    class="col-sm-3 col-form-label">Tanggal</label>
-                                <div class="col-sm-9">
-                                    <input type="date" class="form-control form-control-sm" name="tgl_mutasi_bank">
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Bank</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" name="id_bank">
-                                        <option> Pilih Bank </option>
-                                        <?php foreach ($bank as $value) { ?>
-                                        <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
-                                        <?php }; ?>
-                                    </select>
-                                </div>
-                            </div>
+
                             <div class="form-group row mb-4">
-                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Jumlah</label>
+                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">
+                                    No Faktur</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" placeholder="Uang Keluar"
-                                        name="biaya_mutasi_bank">
+                                    <textarea class="form-control" disabled value="" rows="3"
+                                        name="remark_mutasi_bank"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Supplier</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="type_mutasi_bank">
+                                        <option>Pilih Supplier</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -109,29 +101,25 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Type Mutasi</label>
+                                <label for="exampleInputConfirmPassword2"
+                                    class="col-sm-3 col-form-label">Tanggal</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="type_mutasi_bank">
-                                        <option>Pilih Mutasi</option>
-                                        <option>Uang Keluar</option>
-                                        <option>Mutasi HO BOP</option>
-                                        <option>Mutasi HO Deviden</option>
-                                        <option>Mutasi Kas Pengembangan</option>
-                                    </select>
+                                    <input type="date" class="form-control form-control-sm" name="tgl_mutasi_bank">
                                 </div>
                             </div>
+
+
                             <div class="form-group row mb-4">
-                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">
-                                    Keterangan</label>
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Nilai Hutang</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" placeholder="Keterangan" rows="3"
-                                        name="remark_mutasi_bank"></textarea>
+                                    <input type="number" class="form-control" value="Uang Keluar"
+                                        name="biaya_mutasi_bank">
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/akk/keuangan/mutasi_bank') ?>" class="btn btn-primary btn-xs"><i
-                                        class="mdi mdi-backburger icon-sm"></i></a>
-                                <button type="submit" class="btn btn-warning btn-xs"><i
+                                <a href="<?= base_url('/akk/keuangan/master_hutang') ?>"
+                                    class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-success btn-xs"><i
                                         class="mdi mdi-content-save-all icon-sm"></i></button>
                             </div>
                         </form>
