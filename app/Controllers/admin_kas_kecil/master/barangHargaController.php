@@ -13,7 +13,7 @@ class barangHargaController extends BaseController
             ->where('product.id_branch', Session('userData')['id_branch'])
             ->join('jenis_harga', 'jenis_harga.id_jenis_harga=barang_harga.id_jenis_harga')
             // ->join('user', 'user.id_user=barang_harga.created_by')
-            ->groupBy('product.id_product')
+            // ->groupBy('product.id_product')
             ->findAll();
         $data['product'] = $this->mdProduct
             ->where('id_branch', Session('userData')['id_branch'])

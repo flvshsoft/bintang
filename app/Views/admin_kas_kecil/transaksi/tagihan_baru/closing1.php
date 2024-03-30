@@ -362,18 +362,19 @@ function tgl_indo($tanggal)
 
     $bulan = array(
         1 => 'Januari',
-        'Februari',
-        'Maret',
-        'April',
-        'Mei',
-        'Juni',
-        'Juli',
-        'Agustus',
-        'September',
-        'Oktober',
-        'November',
-        'Desember'
+        2 => 'Februari',
+        3 => 'Maret',
+        4 => 'April',
+        5 => 'Mei',
+        6 => 'Juni',
+        7 => 'Juli',
+        8 => 'Agustus',
+        9 => 'September',
+        10 => 'Oktober',
+        11 => 'November',
+        12 => 'Desember'
     );
+
 
     // $pecahkan = explode('-', $tanggal);
     // $nama_hari = date('w', strtotime($tanggal));
@@ -388,7 +389,16 @@ function tgl_indo($tanggal)
     $nama_hari = date('w', strtotime($tanggal));
     $nama_hari = $hari[$nama_hari];
 
-    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
+    if (is_array($pecahkanTanggal)) {
+        // echo 'te';
+        // print_r((int)$pecahkanTanggal[1]);
+        // exit;
+        $result = $nama_hari . ', ' . $pecahkanTanggal[2] . '/' . (int)$pecahkanTanggal[1] . '/' . $pecahkanTanggal[0];
+        // $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[3] . ' ' . $pecahkanTanggal[0];
+        // $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[((int)$pecahkanTanggal[1])] . ' ' . $pecahkanTanggal[0];
+    } else {
+        $result = '';
+    }
 
     if ($waktu !== null) {
         $result .= ' ' . $waktu;
