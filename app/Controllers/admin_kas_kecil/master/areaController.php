@@ -8,7 +8,9 @@ class areaController extends BaseController
     {
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Area Penjualan';
-        $data['model'] = $this->mdArea->findAll();
+        $data['model'] = $this->mdArea
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/master/area/index', $data);
     }
 
@@ -18,6 +20,7 @@ class areaController extends BaseController
             // 'id_area' => $this->request->getPost('id_area'),
             'id_nama_area' => $this->request->getPost('id_nama_area'),
             'nama_area' => $this->request->getPost('nama_area'),
+            'id_branch' => Session('userData')['id_branch']
         ];
 
         $this->mdArea->insert($data);

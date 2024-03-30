@@ -13,6 +13,7 @@ class tunaiController extends BaseController
             ->join('nota', 'nota.id_sales=sales.id_sales')
             ->join('area', 'area.id_area=nota.id_area')
             // ->where('payment_method', 'CASH')
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/piutang_usaha/lunas/index', $data);
     }
@@ -26,6 +27,7 @@ class tunaiController extends BaseController
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->join('area', 'area.id_area=sales.id_area')
             ->where('sales.id_sales', $id_sales)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->find()[0];
         $data['model'] = $this->mdSales
             ->join('partner', 'partner.id_partner=sales.id_partner')
@@ -38,6 +40,7 @@ class tunaiController extends BaseController
             ->join('product', 'product.id_product=price_detail.id_product')
             ->groupBy('nota.id_nota')
             ->where('sales.id_sales', $id_sales)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/piutang_usaha/lunas/tambah', $data);
     }

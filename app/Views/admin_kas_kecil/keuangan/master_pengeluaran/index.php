@@ -1,18 +1,18 @@
-<?= $this->extend('layout/admin'); ?>
+<?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
 
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                <?= $judul1?>
+                <?= $judul1 ?>
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/keuangan') ?>">KEUANGAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">KEUANGAN</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        <?= $judul1?>
+                        <?= $judul1 ?>
                     </li>
                 </ol>
             </nav>
@@ -22,7 +22,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
-                            <a class="btn btn-success btn-xs" href="<?= base_url('/master_pengeluaran_op')?>">
+                            <a class="btn btn-success btn-xs"
+                                href="<?= base_url('/akk/keuangan/master_pengeluaran_op') ?>">
                                 <i class="mdi mdi-book-multiple-variant icon-sm"></i>Riwayat</a>
                         </div>
                         <div class="table-responsive">
@@ -63,59 +64,7 @@
                                             Muhammad
                                         </td>
                                         <td style="font-size: 11px;">
-                                            <a href="<?= base_url('/spending_operational')?>"><i
-                                                    class="mdi mdi-database-plus icon-md"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            160009910
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            ANDANI
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            39
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            PKUKVS
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            02864 </td>
-                                        <td style="font-size: 11px;">
-                                            2023-09-27 11:22:57
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Muhammad
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <a href="<?= base_url('/spending_operational')?>"><i
-                                                    class="mdi mdi-database-plus icon-md"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            160009907
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            HIDAYAT
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            39
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            SIAKDRP
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            02861 </td>
-                                        <td style="font-size: 11px;">
-                                            2023-09-27 11:16:28
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Muhammad
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <a href="<?= base_url('/spending_operational')?>"><i
+                                            <a href="<?= base_url('/akk/keuangan/spending_operational') ?>"><i
                                                     class="mdi mdi-database-plus icon-md"></i></a>
                                         </td>
                                     </tr>

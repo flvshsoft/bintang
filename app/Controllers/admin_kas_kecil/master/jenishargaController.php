@@ -9,6 +9,7 @@ class jenishargaController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Jenis Harga';
         $data['model'] = $this->mdJenisHarga
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->join('user', 'user.id_user=jenis_harga.created_by', 'left')
             ->findAll();
         return view('admin_kas_kecil/master/jenis_harga/index', $data);
@@ -17,6 +18,7 @@ class jenishargaController extends BaseController
     public function input()
     {
         $data = [
+            //'id_branch', Session('userData')['id_branch'],
             'created_by' => SESSION('userData')['id_user'],
             'remark_jenis_harga' => $this->request->getPost('remark_jenis_harga'),
         ];

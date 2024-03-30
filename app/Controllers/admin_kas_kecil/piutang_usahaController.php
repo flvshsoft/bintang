@@ -15,6 +15,7 @@ class piutang_usahaController extends BaseController
             ->join('partner', 'partner.id_partner=nota.id_partner')
             ->join('user', 'user.id_user=nota.created_by')
             ->where('status', 'Lunas')
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->where('payment_method', 'KREDIT')
             ->groupBy('nota.id_nota')
             ->findAll();

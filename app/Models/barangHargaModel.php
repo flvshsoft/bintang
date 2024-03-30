@@ -11,7 +11,7 @@ class barangHargaModel extends Model
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
-    protected $allowedFields = ['id_product', 'id_jenis_harga', 'harga_aktif', 'created_by'];
+    protected $allowedFields = ['id_product', 'id_jenis_harga', 'harga_aktif', 'created_by', 'id_branch'];
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $deletedField  = 'deleted_at';

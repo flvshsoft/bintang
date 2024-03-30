@@ -14,7 +14,7 @@ class cutiModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['remark_cuti',  'created_by'];
+    protected $allowedFields = ['remark_cuti',  'created_by', 'id_branch'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

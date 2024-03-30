@@ -14,7 +14,7 @@ class stockModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['id_product',  'jumlah_stock', 'tanggal_masuk'];
+    protected $allowedFields = ['id_product', 'id_branch', 'jumlah_stock', 'tanggal_masuk'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

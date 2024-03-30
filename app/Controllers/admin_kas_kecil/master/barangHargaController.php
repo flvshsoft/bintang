@@ -10,11 +10,17 @@ class barangHargaController extends BaseController
         $data['judul1'] = 'Master Barang Harga';
         $data['model'] = $this->mdBarangHarga
             ->join('product', 'product.id_product=barang_harga.id_product')
+            ->where('product.id_branch', Session('userData')['id_branch'])
             ->join('jenis_harga', 'jenis_harga.id_jenis_harga=barang_harga.id_jenis_harga')
             // ->join('user', 'user.id_user=barang_harga.created_by')
+            ->groupBy('product.id_product')
             ->findAll();
-        $data['product'] = $this->mdProduct->findAll();
-        $data['jenis_harga'] = $this->mdJenisHarga->findAll();
+        $data['product'] = $this->mdProduct
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        $data['jenis_harga'] = $this->mdJenisHarga
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/master/barang_harga/index', $data);
     }
     public function tambah()
@@ -30,6 +36,7 @@ class barangHargaController extends BaseController
             'id_jenis_harga' => $this->request->getPost('id_jenis_harga'),
             'harga_aktif' => $this->request->getPost('harga_aktif'),
             'created_by' => SESSION('userData')['id_user'],
+            // 'id_branch'=> Session('userData')['id_branch']
         ];
         $this->mdBarangHarga->insert($data);
         return redirect()->to(base_url('/akk/master_barang_harga'));
@@ -77,6 +84,7 @@ class barangHargaController extends BaseController
             ->join('product', 'product.id_product=price_detail.id_product')
             ->join('jenis_harga', 'jenis_harga.id_jenis_harga=price_detail.id_jenis_harga')
             ->where('price_detail.id_price', $id_price)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('id_price_detail', 'DESC')
             ->findAll();
         // print_r($data['model']);
@@ -85,6 +93,7 @@ class barangHargaController extends BaseController
             ->join('user', 'user.id_user=price.created_by',)
             // ->join('product', 'product.id_product=price_detail.id_product')
             // ->join('jenis_harga', 'jenis_harga.id_jenis_harga=price_detail.id_jenis_harga')
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->where('id_price', $id_price)
             ->orderBy('id_price', 'DESC')
             ->find()[0];
@@ -101,14 +110,21 @@ class barangHargaController extends BaseController
             ->join('product', 'product.id_product=price_detail.id_price')
             ->join('jenis_harga', 'jenis_harga.id_jenis_harga=price.id_price')
             ->where('price_detail.id_price', $id_price)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('id_price_detail', 'DESC')
             ->findAll();
         $data['id_price'] = $this->mdJenisHarga
             ->where('id_price', $id_price)
             ->find()[0];
-        $data['product'] = $this->mdProduct->findAll();
-        $data['jenis_harga'] = $this->mdJenisHarga->findAll();
-        $data['price'] = $this->mdJenisHarga->findAll();
+        $data['product'] = $this->mdProduct
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        $data['jenis_harga'] = $this->mdJenisHarga
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        $data['price'] = $this->mdJenisHarga
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/master/barang_harga/detail_tambah', $data);
     }
 
@@ -131,7 +147,8 @@ class barangHargaController extends BaseController
             'id_price' => $id_price,
             'id_product' => $id_product,
             'id_jenis_harga' => $id_jenis_harga,
-            'harga' => $this->request->getPost('harga')
+            'harga' => $this->request->getPost('harga'),
+            'id_branch' => Session('userData')['id_branch']
         ];
         $this->mdJenisHargaDetail->insert($data);
         // print_r($data);
@@ -149,11 +166,18 @@ class barangHargaController extends BaseController
             ->join('product', 'product.id_product=price_detail.id_product')
             ->join('jenis_harga', 'jenis_harga.id_jenis_harga=price_detail.id_jenis_harga')
             ->where('id_price_detail', $id_price_detail)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('id_price_detail', 'DESC')
             ->find()[0];
-        $data['product'] = $this->mdProduct->findAll();
-        $data['jenis_harga'] = $this->mdJenisHarga->findAll();
-        $data['price'] = $this->mdJenisHarga->findAll();
+        $data['product'] = $this->mdProduct
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        $data['jenis_harga'] = $this->mdJenisHarga
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        $data['price'] = $this->mdJenisHarga
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/master/barang_harga/detail_edit', $data);
     }
     public function update_detail_price()
@@ -168,6 +192,7 @@ class barangHargaController extends BaseController
             'id_product' => $id_product,
             'id_jenis_harga' => $id_jenis_harga,
             'harga' => $this->request->getPost('harga')
+
         ];
         $this->mdJenisHargaDetail->save($data);
         return redirect()->to(base_url('/akk/detail_price/' . $id_price));

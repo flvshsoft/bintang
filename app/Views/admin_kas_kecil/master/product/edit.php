@@ -24,8 +24,10 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Product</label>
                                 <div class="col-sm-9">
-                                    <input type="hidden" class="form-control form-control-sm" name="id_product" value="<?= $model['id_product'] ?>">
-                                    <input type="text" class="form-control form-control-sm" name="nama_product" value="<?= $model['nama_product'] ?>">
+                                    <input type="hidden" class="form-control form-control-sm" name="id_product"
+                                        value="<?= $model['id_product'] ?>">
+                                    <input type="text" class="form-control form-control-sm" name="nama_product"
+                                        value="<?= $model['nama_product'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -36,9 +38,9 @@
                                         <option value="<?= $model['id_supplier'] ?>"> <?= $model['nama_supplier'] ?>
                                         </option>
                                         <?php foreach ($supplier as $value) { ?>
-                                            <option value="<?= $value['id_supplier'] ?>">
-                                                <?= $value['nama_supplier'] ?>
-                                            </option>
+                                        <option value="<?= $value['id_supplier'] ?>">
+                                            <?= $value['nama_supplier'] ?>
+                                        </option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -63,12 +65,36 @@
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Stok Awal
                                     Barang</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="stock_product" value="<?= $model['stock_product'] ?>">
+                                    <input type="text" class="form-control form-control-sm" name="stock_product"
+                                        value="<?= $model['stock_product'] ?>">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Area</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" name="area"
+                                        value="<?= $model['area'] ?>">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Defect</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" name="defect"
+                                        value="<?= $model['defect'] ?>">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Sample</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" name="sample"
+                                        value="<?= $model['sample'] ?>">
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <button type="submit" class="btn btn-success btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i></button>
-                                <a class="btn btn-light btn-xs" href="<?= base_url('/akk/master_product') ?>"><i class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-success btn-xs"><i
+                                        class="mdi mdi-content-save-all icon-sm"></i></button>
+                                <a class="btn btn-light btn-xs" href="<?= base_url('/akk/master_product') ?>"><i
+                                        class="mdi mdi-backburger icon-sm"></i></a>
                             </div>
                         </form>
                     </div>

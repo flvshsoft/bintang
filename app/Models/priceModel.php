@@ -14,7 +14,7 @@ class priceModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['keterangan_price', 'tanggal_aktif', 'created_by'];
+    protected $allowedFields = ['keterangan_price', 'id_branch', 'tanggal_aktif', 'created_by'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

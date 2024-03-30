@@ -109,12 +109,12 @@ $routes->get('/akk/transaksi/stock_akhir/nota/(:any)', 'admin_kas_kecil\transaks
 $routes->post('/akk/transaksi/stock_akhir/nota', 'admin_kas_kecil\transaksi\StockAkhirController::input_closing');
 $routes->post('/akk/transaksi/stock_akhir/nota/detail', 'admin_kas_kecil\transaksi\StockAkhirController::input_detail_closing');
 
-$routes->get('/akk/stock', 'admin_kas_kecil\master\stockController::index');
-$routes->get('/akk/master_stock', 'admin_kas_kecil\master\stockController::tambah');
-$routes->post('/akk/save_stock', 'admin_kas_kecil\master\stockController::input');
-$routes->get('/akk/del_stock/(:any)', 'admin_kas_kecil\master\stockController::hapus/$1');
-$routes->get('/akk/form_stock/(:any)', 'admin_kas_kecil\master\stockController::edit/$1');
-$routes->post('/akk/update_stock', 'admin_kas_kecil\master\stockController::update');
+$routes->get('/akk/master_branch', 'admin_kas_kecil\master\branchController::index');
+$routes->get('/akk/master_branch/tambah', 'admin_kas_kecil\master\branchController::tambah');
+$routes->post('/akk/master_branch/tambah', 'admin_kas_kecil\master\branchController::input');
+$routes->get('/akk/master_branch/hapus/(:any)', 'admin_kas_kecil\master\branchController::hapus/$1');
+$routes->get('/akk/master_branch/edit/(:any)', 'admin_kas_kecil\master\branchController::edit/$1');
+$routes->post('/akk/master_branch/edit', 'admin_kas_kecil\master\branchController::update');
 
 $routes->get('/akk/piutang_usaha', 'admin_kas_kecil\piutang_usahaController::index');
 $routes->get('/akk/piutang_usaha/hapus/(:any)', 'admin_kas_kecil\piutang_usahaController::hapus/$1');
@@ -131,6 +131,8 @@ $routes->get('/akk/kas', 'admin_kas_kecil\KasController::index');
 
 $routes->get('/akk/master_bank', 'admin_kas_kecil\master\bankController::index');
 $routes->post('/akk/input_bank', 'admin_kas_kecil\master\bankController::input');
+$routes->post('/akk/master_bank/edit', 'admin_kas_kecil\master\bankController::edit');
+$routes->get('/akk/master_bank/update/(:any)', 'admin_kas_kecil\master\bankController::update/$1');
 $routes->get('/akk/del_bank/(:any)', 'admin_kas_kecil\master\bankController::hapus/$1');
 $routes->get('/akk/master_lokasi', 'admin_kas_kecil\master\lokasiController::index');
 $routes->post('/akk/input_lokasi', 'admin_kas_kecil\master\lokasiController::input');
@@ -188,24 +190,65 @@ $routes->post('/akk/laporan/form_sisa/print', 'admin_kas_kecil\laporanController
 
 $routes->get('/akk/form_cost_ratio', 'admin_kas_kecil\laporanController::form_cost_ratio');
 
+
+$routes->get('/akk/stock', 'admin_kas_kecil\master\stockController::index');
+$routes->get('/akk/master_stock', 'admin_kas_kecil\master\stockController::tambah');
+$routes->post('/akk/save_stock', 'admin_kas_kecil\master\stockController::input');
+$routes->post('/akk/master_bank/edit', 'admin_kas_kecil\master\stockController::edit');
+$routes->get('/akk/master_bank/update/(:any)', 'admin_kas_kecil\master\stockController::update/$1');
+$routes->get('/akk/del_stock/(:any)', 'admin_kas_kecil\master\stockController::hapus/$1');
+
 $routes->get('/akk/keuangan', 'admin_kas_kecil\keuanganController::index');
-$routes->get('/akk/pengeluaran_kantor', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::index');
-$routes->get('/akk/pengeluaran_kantor/tambah', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::tambah');
-$routes->post('/akk/pengeluaran_kantor/tambah', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::add');
-$routes->get('/akk/pengeluaran_kantor/edit/(:any)', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::edit/$1');
-$routes->post('/akk/pengeluaran_kantor/edit/', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::update');
-$routes->get('/akk/mutasi_bank', 'admin_kas_kecil\keuangan\mutasiBankController::index');
-$routes->get('/akk/mutasi_bank/tambah', 'admin_kas_kecil\keuangan\mutasiBankController::tambah');
-$routes->post('/akk/mutasi_bank/tambah', 'admin_kas_kecil\keuangan\mutasiBankController::add');
-$routes->get('/akk/mutasi_bank/edit/(:any)', 'admin_kas_kecil\keuangan\mutasiBankController::edit/$1');
-$routes->post('/akk/mutasi_bank/edit', 'admin_kas_kecil\keuangan\mutasiBankController::update');
-$routes->get('/akk/master_giro', 'admin_kas_kecil\keuangan\masterGiroController::index');
-$routes->get('/akk/master_cash_receipt', 'admin_kas_kecil\keuangan\dataKasController::index');
-$routes->get('/akk/voucher', 'admin_kas_kecil\keuangan\dataKasController::voucher');
-$routes->get('/akk/neraca_saldo', 'admin_kas_kecil\keuangan\dataKasController::neraca_saldo');
-$routes->get('/akk/mutasi_bank', 'admin_kas_kecil\keuangan\dataKasController::mutasi_bank');
-$routes->get('/akk/uang_kas_kecil', 'admin_kas_kecil\keuangan\dataKasController::uang_kas_kecil');
-$routes->get('/akk/form_transfer', 'admin_kas_kecil\keuangan\dataKasController::form_transfer');
+$routes->get('/akk/keuangan/pengeluaran_kantor', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::index');
+$routes->get('/akk/keuangan/pengeluaran_kantor/tambah', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::tambah');
+$routes->post('/akk/keuangan/pengeluaran_kantor/tambah', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::add');
+$routes->get('/akk/keuangan/pengeluaran_kantor/edit/(:any)', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::edit/$1');
+$routes->post('/akk/keuangan/pengeluaran_kantor/edit/', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::update');
+$routes->get('/akk/keuangan/mutasi_bank', 'admin_kas_kecil\keuangan\mutasiBankController::index');
+$routes->get('/akk/keuangan/mutasi_bank/tambah', 'admin_kas_kecil\keuangan\mutasiBankController::tambah');
+$routes->post('/akk/keuangan/mutasi_bank/tambah', 'admin_kas_kecil\keuangan\mutasiBankController::add');
+$routes->get('/akk/keuangan/mutasi_bank/edit/(:any)', 'admin_kas_kecil\keuangan\mutasiBankController::edit/$1');
+$routes->post('/akk/keuangan/mutasi_bank/edit', 'admin_kas_kecil\keuangan\mutasiBankController::update');
+$routes->get('/akk/keuangan/master_giro', 'admin_kas_kecil\keuangan\masterGiroController::index');
+$routes->get('/akk/keuangan/data_kas', 'admin_kas_kecil\keuangan\dataKasController::index');
+$routes->get('/akk/keuangan/data_kas/voucher', 'admin_kas_kecil\keuangan\dataKasController::voucher');
+$routes->get('/akk/keuangan/data_kas/neraca_saldo', 'admin_kas_kecil\keuangan\dataKasController::neraca_saldo');
+$routes->get('/akk/keuangan/data_kas/mutasi_bank', 'admin_kas_kecil\keuangan\dataKasController::mutasi_bank');
+$routes->post('/akk/keuangan/data_kas/mutasi_bank', 'admin_kas_kecil\keuangan\dataKasController::mutasi_bank_add');
+$routes->get('/akk/keuangan/data_kas/uang_kas_kecil', 'admin_kas_kecil\keuangan\dataKasController::uang_kas_kecil');
+$routes->post('/akk/keuangan/data_kas/uang_kas_kecil', 'admin_kas_kecil\keuangan\dataKasController::uang_kas_kecil_add');
+$routes->get('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan\dataKasController::form_transfer');
+$routes->post('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan\dataKasController::form_transfer_add');
+
+$routes->get('/akk/karyawan', 'admin_kas_kecil\sdmController::karyawan');
+$routes->get('/akk/karyawan/tambah', 'admin_kas_kecil\sdmController::karyawan_tambah');
+$routes->post('/akk/karyawan/tambah', 'admin_kas_kecil\sdmController::karyawan_input');
+$routes->post('/akk/karyawan/edit', 'admin_kas_kecil\sdmController::karyawan_update');
+$routes->get('/akk/karyawan/edit/(:any)', 'admin_kas_kecil\sdmController::karyawan_edit/$1');
+$routes->get('/akk/karyawan/hapus/(:any)', 'admin_kas_kecil\sdmController::hapus/$1');
+
+$routes->get('/akk/akun', 'admin_kas_kecil\akunController::akun');
+$routes->get('/akk/akun/tambah', 'admin_kas_kecil\akunController::akun_tambah');
+$routes->post('/akk/akun/tambah', 'admin_kas_kecil\akunController::akun_input');
+$routes->post('/akk/akun/edit', 'admin_kas_kecil\akunController::akun_update');
+$routes->get('/akk/akun/edit/(:any)', 'admin_kas_kecil\akunController::akun_edit/$1');
+$routes->get('/akk/akun/hapus/(:any)', 'admin_kas_kecil\akunController::hapus/$1');
+
+$routes->get('/akk/keuangan/master_pengeluaran', 'admin_kas_kecil\keuangan\masterPengeluaranController::index');
+$routes->get('/akk/keuangan/spending_operational', 'admin_kas_kecil\keuangan\masterPengeluaranController::spending_operational');
+$routes->get('/akk/keuangan/master_pengeluaran_op', 'admin_kas_kecil\keuangan\masterPengeluaranController::master_pengeluaran_op');
+$routes->get('/akk/keuangan/detail_biaya_operasional', 'admin_kas_kecil\keuangan\masterPengeluaranController::detail_biaya_operasional');
+
+$routes->get('/akk/keuangan/master_hutang', 'admin_kas_kecil\keuangan\masterHutangController::index');
+$routes->get('/akk/keuangan/master_hutang/pelunasan', 'admin_kas_kecil\keuangan\masterHutangController::pelunasan');
+$routes->get('/akk/keuangan/master_hutang/pot', 'admin_kas_kecil\keuangan\masterHutangController::pot');
+$routes->get('/akk/keuangan/master_hutang/tambah', 'admin_kas_kecil\keuangan\masterHutangController::tambah');
+
+$routes->get('/akk/keuangan/master_app_mutasi', 'admin_kas_kecil\keuangan\masterAppMutasiController::index');
+$routes->get('/akk/keuangan/master_app_mutasi/pelunasan', 'admin_kas_kecil\keuangan\masterAppMutasiController::pelunasan');
+$routes->get('/akk/keuangan/master_app_mutasi/pot', 'admin_kas_kecil\keuangan\masterAppMutasiController::pot');
+$routes->get('/akk/keuangan/master_app_mutasi/input', 'admin_kas_kecil\keuangan\masterAppMutasiController::tambah');
+
 
 $routes->post('/proses_login', 'LoginController::proseslogin');
 $routes->post('/proses_register', 'LoginController::proses_register');

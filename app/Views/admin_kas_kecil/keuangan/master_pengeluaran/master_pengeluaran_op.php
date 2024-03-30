@@ -1,19 +1,20 @@
-<?= $this->extend('layout/admin'); ?>
+<?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
 
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                <?= $judul1?>
+                <?= $judul1 ?>
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/keuangan') ?>">KEUANGAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/master_pengeluaran') ?>">PENGELUARAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">KEUANGAN</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="<?= base_url('/akk/keuangan/master_pengeluaran') ?>">PENGELUARAN</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        <?= $judul1?>
+                        <?= $judul1 ?>
                     </li>
                 </ol>
             </nav>
@@ -60,63 +61,7 @@
                                             2023-09-30 13:35:11
                                         </td>
                                         <td style="font-size: 11px;" class="text-center">
-                                            <a href="<?= base_url('/detail_biaya_operasional')?>">
-                                                <i class="mdi mdi-pencil-circle icon-md"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            23022414
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            160009785
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            38
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Pengeluaran Operasional Salesman : HIDAYAT
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            609.000
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            ALDO
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            2023-09-23 13:48:37
-                                        </td>
-                                        <td style="font-size: 11px;" class="text-center">
-                                            <a href="<?= base_url('/detail_biaya_operasional')?>">
-                                                <i class="mdi mdi-pencil-circle icon-md"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            23022086
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            160009662
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            37
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Pengeluaran Operasional Salesman : HIDAYAT
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            800.000
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            ALDO
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            2023-09-16 13:37:16
-                                        </td>
-                                        <td style="font-size: 11px;" class="text-center">
-                                            <a href="<?= base_url('/detail_biaya_operasional')?>">
+                                            <a href="<?= base_url('/akk/keuangan/detail_biaya_operasional') ?>">
                                                 <i class="mdi mdi-pencil-circle icon-md"></i>
                                             </a>
                                         </td>

@@ -1,16 +1,16 @@
-<?= $this->extend('layout/admin'); ?>
+<?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
 
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"><?= $judul1?></h3>
+            <h3 class="page-title"><?= $judul1 ?></h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/keuangan') ?>">DATA KEUANGAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/master_cash_receipt') ?>">DATA KAS</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><?= $judul1?></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">DATA KEUANGAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/data_kas') ?>">DATA KAS</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?= $judul1 ?></li>
                 </ol>
             </nav>
         </div>
@@ -18,32 +18,23 @@
             <div class="col-md-9 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample">
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Tanggal</label>
-                                <div class="col-sm-8">
-                                    <input type="date" class="form-control form-control-sm">
-                                </div>
-                            </div>
+                        <form class="forms-sample" method="POST"
+                            action="<?= base_url('/akk/keuangan/data_kas/uang_kas_kecil') ?>">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Nama Bank</label>
                                 <div class="col-sm-8">
-                                    <select name="" id="" class="form-control form-control-sm">
-                                        <option> BANK BRI</option>
-                                        <option> BANK MANDIRI</option>
-                                        <option> BANK MANDIRI 2</option>
-                                        <option> BRANKAS</option>
-                                        <option> BRANKAS KAS KECIL DI HEAD OFFICE</option>
-                                        <option> GIRO</option>
-                                        <option> KAS</option>
-                                        <option> KAS KECIL</option>
+                                    <select name="id_bank" id="" class="form-control form-control-sm">
+                                        <option> </option>
+                                        <?php foreach ($bank as $value) { ?>
+                                        <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
+                                        <?php }; ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputPassword2" class="col-sm-4 col-form-label">Minggu Ke-</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control form-control-sm">
+                                    <select class="form-control form-control-sm" name="minggu">
                                         <option></option>
                                         <option>1</option>
                                         <option>2</option>
@@ -106,7 +97,7 @@
                                 <label for="exampleInputPassword2" class="col-sm-4 col-form-label">pergantian
                                     Minggu</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control form-control-sm">
+                                    <select class="form-control form-control-sm" name="pergantian_minggu">
                                         <option></option>
                                         <option>1</option>
                                         <option>2</option>
@@ -169,19 +160,23 @@
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Jumlah
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control form-control-sm" placeholder="UANG KANTOR">
+                                    <input type="text" class="form-control form-control-sm" name="uang_kas"
+                                        placeholder="JUMLAH UANG">
                                 </div>
                             </div>
                             <div class="form-group row mb-2">
                                 <label for="exampleInputEmail2" class="col-sm-4 col-form-label">Keterangan
                                 </label>
                                 <div class="col-sm-8">
-                                    <textarea class="form-control form-control-sm" placeholder="Remark"
-                                        rows="3"></textarea>
+                                    <select class="form-control form-control-sm" name="ket">
+                                        <option></option>
+                                        <option>PENGGANTIAN</option>
+                                        <option>KASBON</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/master_cash_receipt')?>" class="btn btn-warning btn-xs"><i
+                                <a href="<?= base_url('/akk/keuangan/data_kas') ?>" class="btn btn-warning btn-xs"><i
                                         class="mdi mdi-backburger icon-sm"></i></a>
                                 <button type="submit" class="btn btn-success btn-xs"><i
                                         class="mdi mdi-content-save-all icon-sm"></i></button>

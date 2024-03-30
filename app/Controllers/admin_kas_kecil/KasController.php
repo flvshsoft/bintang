@@ -15,6 +15,7 @@ class KasController extends BaseController
             ->join('partner', 'partner.id_partner=nota.id_partner')
             ->join('user', 'user.id_user=nota.created_by')
             ->where('status', 'Lunas')
+            //->where('id_branch', Session('userData')['id_branch'])
             ->groupBy('nota.id_nota')
             ->findAll();
         return view('admin_kas_kecil/kas/index', $data);

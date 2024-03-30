@@ -1,20 +1,22 @@
-<?= $this->extend('layout/admin'); ?>
+<?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
 
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                <?= $judul1?>
+                <?= $judul1 ?>
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/keuangan') ?>">KEUANGAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/master_pengeluaran') ?>">PENGELUARAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/master_pengeluaran_op') ?>">PENGELUARAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">KEUANGAN</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="<?= base_url('/akk/keuangan/master_pengeluaran') ?>">PENGELUARAN</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="<?= base_url('/akk/keuangan/master_pengeluaran_op') ?>">PENGELUARAN</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        <?= $judul1?>
+                        <?= $judul1 ?>
                     </li>
                 </ol>
             </nav>
@@ -85,8 +87,8 @@
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/master_pengeluaran_op')?>" class="btn btn-primary btn-xs"><i
-                                        class="mdi mdi-backburger icon-sm"></i></a>
+                                <a href="<?= base_url('/akk/keuangan/master_pengeluaran_op') ?>"
+                                    class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
                                 <button type="submit" class="btn btn-success btn-xs"><i
                                         class="mdi mdi-content-save-all icon-sm"></i> Update</button>
                             </div>

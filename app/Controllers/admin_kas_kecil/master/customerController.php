@@ -8,7 +8,9 @@ class customerController extends BaseController
     {
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Data Konsumen';
-        $data['model'] = $this->mdCustomer->findAll();
+        $data['model'] = $this->mdCustomer
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/master/customer/index', $data);
     }
     public function tambah()
@@ -23,6 +25,7 @@ class customerController extends BaseController
             'nama_customer' => $this->request->getPost('nama_customer'),
             'no_hp_customer' => $this->request->getPost('no_hp_customer'),
             'alamat_customer' => $this->request->getPost('alamat_customer'),
+            'id_branch' => Session('userData')['id_branch']
         ];
         // print_r($data);
         // exit;
@@ -55,6 +58,7 @@ class customerController extends BaseController
     {
         $id_customer = $this->request->getPost('id_customer');
         $data = [
+            'id_branch' => Session('userData')['id_branch'],
             'id_customer' => $id_customer,
             'nama_customer' => $this->request->getPost('nama_customer'),
             'no_hp_customer' => $this->request->getPost('no_hp_customer'),

@@ -9,6 +9,7 @@ class StockAkhirController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Stock Akhir Salesman';
         $data['model'] = $this->mdStockAkhir
+            // ->where('id_branch', Session('userData')['id_branch'])
             // ->join('partner', 'partner.id_partner=sales.id_partner',)
             // ->join('area', 'area.id_area=sales.id_area')
             // ->join('asset', 'asset.id_asset=sales.id_asset')
@@ -20,10 +21,18 @@ class StockAkhirController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'Transasct Pengembalian Barang Salesman';
-        $data['salesman'] = $this->mdPartner->findAll();
-        $data['area'] = $this->mdArea->findAll();
-        $data['asset'] = $this->mdAsset->findAll();
-        $data['product'] = $this->mdProduct->findAll();
+        $data['salesman'] = $this->mdPartner
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        $data['area'] = $this->mdArea
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        $data['asset'] = $this->mdAsset
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        $data['product'] = $this->mdProduct
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
 
 
         return view('admin_kas_kecil/transaksi/stock_akhir/tambah', $data);
@@ -31,6 +40,7 @@ class StockAkhirController extends BaseController
     public function input()
     {
         $data = [
+            // 'id_branch', Session('userData')['id_branch']
             'id_product' => $this->request->getPost('id_product'),
             'jumlah_stock_kembali' => $this->request->getPost('jumlah_stock_kembali'),
             'satuan' => $this->request->getPost('satuan'),
@@ -48,6 +58,7 @@ class StockAkhirController extends BaseController
 
         $mdProduct = $this->mdProduct
             ->join('supplier', 'supplier.id_supplier=product.id_supplier')
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->where('id_product', $id_product)
             ->find()[0];
         $stock_product = $mdProduct['stock_product'] + $this->request->getPost('jumlah_stock_kembali');
@@ -77,14 +88,21 @@ class StockAkhirController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Data Product';
         $data['model'] = $this->mdSales
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->join('partner', 'partner.id_partner=sales.id_partner',)
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
             ->where('id_sales', $id_sales)
             ->find()[0];
-        $data['salesman'] = $this->mdPartner->findAll();
-        $data['area'] = $this->mdArea->findAll();
-        $data['asset'] = $this->mdAsset->findAll();
+        $data['salesman'] = $this->mdPartner
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        $data['area'] = $this->mdArea
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        $data['asset'] = $this->mdAsset
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/transaksi/stock_akhir/edit', $data);
     }
 
@@ -100,6 +118,7 @@ class StockAkhirController extends BaseController
             'week' => $this->request->getPost('week'),
             'tgl_do' => $this->request->getPost('tgl_do'),
             'keterangan' => $this->request->getPost('keterangan'),
+            // 'id_branch'=>Session('userData')['id_branch']
         ];
         // print_r($data);
         // exit;
@@ -112,6 +131,7 @@ class StockAkhirController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Detail Product';
         $data['model'] = $this->mdSalesDetail
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->join('sales', 'sales.id_sales=sales_detail.id_sales',)
             ->join('price_detail', 'price_detail.id_price_detail=sales_detail.id_price_detail')
             ->join('product', 'product.id_product=price_detail.id_product')
@@ -122,6 +142,7 @@ class StockAkhirController extends BaseController
         // print_r($data['model']);
         // exit;
         $data['id_sales'] = $this->mdSales
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->where('id_sales', $id_sales)
             ->find()[0];
         return view('admin_kas_kecil/transaksi/stock_akhir/detail', $data);
@@ -132,15 +153,18 @@ class StockAkhirController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Detail Product';
         $data['model'] = $this->mdSales
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->join('partner', 'partner.id_partner=sales.id_partner',)
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
             ->where('id_sales', $id_sales)
             ->findAll();
         $data['id_sales'] = $this->mdSales
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->where('id_sales', $id_sales)
             ->find()[0];
         $data['product'] = $this->mdProduct
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->join('price_detail', 'price_detail.id_product=product.id_product')
 
             ->join('jenis_harga', 'jenis_harga.id_jenis_harga=price_detail.id_jenis_harga')
@@ -148,8 +172,12 @@ class StockAkhirController extends BaseController
             ->findAll();
         // print_r($data['product']);
         // exit;
-        $data['area'] = $this->mdArea->findAll();
-        $data['asset'] = $this->mdAsset->findAll();
+        $data['area'] = $this->mdArea
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        $data['asset'] = $this->mdAsset
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         //  $data['product'] = $this->mdProduct ->findAll();
         return view('admin_kas_kecil/transaksi/stock_akhir/detail_tambah', $data);
     }
@@ -158,6 +186,7 @@ class StockAkhirController extends BaseController
     {
         $id = $this->request->getVar('id');
         $data['product'] = $this->mdProduct
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->join('price_detail', 'price_detail.id_product=product.id_product')
             ->join('sales_detail', 'sales_detail.id_price_detail=price_detail.id_price_detail')
             ->join('jenis_harga', 'jenis_harga.id_jenis_harga=price_detail.id_jenis_harga')
@@ -178,9 +207,10 @@ class StockAkhirController extends BaseController
             'id_product' => 0,
             'satuan_sales_detail' => $satuan_sales_detail,
             'id_price_detail' => $id_price_detail,
+            //'id_branch' => Session('userData')['id_branch']
         ];
-        print_r($data);
-        exit;
+        // print_r($data);
+        // exit;
         $this->mdSalesDetail->insert($data);
         $this->mdProduct->where('id_product', $id_product)->decrement('stock_product', $satuan_sales_detail);
 
@@ -192,9 +222,11 @@ class StockAkhirController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Detail Product';
         $data['id_sales'] = $this->mdSalesDetail
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->where('id_sales_detail', $id_sales_detail)
             ->find()[0];
         $data['model'] = $this->mdSalesDetail
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->join('sales', 'sales.id_sales=sales_detail.id_sales',)
             ->join('product', 'product.id_product=sales_detail.id_product')
             ->where('sales_detail.id_sales_detail', $id_sales_detail)
@@ -211,6 +243,7 @@ class StockAkhirController extends BaseController
             'id_sales_detail' => $id_sales_detail,
             'id_sales' => $id_sales,
             'id_product' => $id_product,
+            // 'id_branch'=> Session('userData')['id_branch'],
             'satuan_sales_detail' => $this->request->getPost('satuan_sales_detail'),
             // 'jumlah_sales' => $this->request->getPost('jumlah_sales'),
         ];
@@ -237,6 +270,7 @@ class StockAkhirController extends BaseController
             ->join('product', 'product.id_product=sales_detail.id_product',)
             ->join('sales', 'sales.id_sales=sales_detail.id_sales')
             ->where('sales_detail.id_sales', $id_sales)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         $data['sales'] = $this->mdSales
             ->where('id_sales', $id_sales)

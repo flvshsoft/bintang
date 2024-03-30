@@ -14,6 +14,7 @@ class pembayaranController extends BaseController
             ->join('nota', 'nota.id_sales=sales.id_sales')
             ->join('area', 'area.id_area=nota.id_area')
             ->where('status !=', 'Lunas')
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/piutang_usaha/pembayaran/index', $data);
     }
@@ -28,6 +29,7 @@ class pembayaranController extends BaseController
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->join('area', 'area.id_area=sales.id_area')
             ->where('sales.id_sales', $id_sales)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->find()[0];
         $data['model'] = $this->mdSales
             ->join('partner', 'partner.id_partner=sales.id_partner')
@@ -38,6 +40,7 @@ class pembayaranController extends BaseController
             ->join('nota_detail', 'nota_detail.id_nota=nota.id_nota')
             ->groupBy('nota.id_nota')
             ->where('status !=', 'Lunas')
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->where('sales.id_sales', $id_sales)
             ->findAll();
 

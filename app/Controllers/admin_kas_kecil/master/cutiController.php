@@ -9,6 +9,7 @@ class cutiController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Jenis Cuti';
         $data['model'] = $this->mdCuti
+            // ->where('id_branch', Session('userData')['id_branch'])
             // ->join('user', 'user.id_user=cuti.created_by', 'left')
             ->findAll();
         return view('admin_kas_kecil/master/cuti/index', $data);
@@ -19,6 +20,7 @@ class cutiController extends BaseController
         $data = [
             'created_by' => 'System',
             'remark_cuti' => $this->request->getPost('remark_cuti'),
+            // id_branch'=> Session('userData')['id_branch']
         ];
         // print_r($data);
         // exit;

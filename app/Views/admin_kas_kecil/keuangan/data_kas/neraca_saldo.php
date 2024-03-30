@@ -1,19 +1,19 @@
-<?= $this->extend('layout/admin'); ?>
+<?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
 
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                <?= $judul1?>
+                <?= $judul1 ?>
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/keuangan') ?>">KEUANGAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/master_cash_receipt') ?>">DATA KAS</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">KEUANGAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/data_kas') ?>">DATA KAS</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        <?= $judul1?>
+                        <?= $judul1 ?>
                     </li>
                 </ol>
             </nav>
@@ -27,56 +27,37 @@
                                 cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>
-                                        <th style="font-size: 11px;"><b> NAMA BANK</b> </th>
-                                        <th style="font-size: 11px;"><b> SALDO AKHIR</b> </th>
+                                        <th class="text-center" style="font-size: 11px;"><b> NAMA BANK</b> </th>
+                                        <th class="text-center" style="font-size: 11px;"><b> SALDO AKHIR</b> </th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+                                    $total_saldo = 0;
+                                    foreach ($model as $value) {
+                                        $saldo = $value['saldo'];
+                                        $total_saldo += $saldo;
+                                    ?>
                                     <tr>
                                         <td style=" font-size: 11px;">
-                                            BANK BRI
+                                            <?= $value['nama_bank'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            188,606,540
+                                            <a style="text-decoration: none;"
+                                                href="<?= base_url('/akk/master_bank/update/' . $value['id_bank']) ?>">
+                                                <?= 'Rp. ' . number_format($value['saldo'], 0, ',', '.') ?>
+                                            </a>
+
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td style=" font-size: 11px;">
-                                            BANK MANDIRI
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            4,884,839
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style=" font-size: 11px;">
-                                            BRANKAS </td>
-                                        <td style="font-size: 11px;">
-                                            528,038,844
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style=" font-size: 11px;">
-                                            GIRO
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            1,161,000,000
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style=" font-size: 11px;">
-                                            KAS KECIL
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            124,210,472
-                                        </td>
-                                    </tr>
-                                    <tr>
+                                    <?php }; ?>
+                                    <tr class="table-primary">
                                         <td class="text-center" style=" font-size: 11px;">
                                             <b>TOTAL SALDO</b>
                                         </td>
                                         <td class="text-center" style="font-size: 11px;">
-                                            <b>2,006,737,701
+                                            <b>
+                                                <?= 'Rp. ' . number_format($total_saldo, 0, ',', '.') ?>
                                             </b>
                                         </td>
                                     </tr>
@@ -84,7 +65,7 @@
                             </table>
                         </div>
                         <div class="form-group text-center mb-0">
-                            <a href="<?= base_url('/master_cash_receipt')?>" class="btn btn-warning btn-xs"><i
+                            <a href="<?= base_url('/akk/keuangan/data_kas') ?>" class="btn btn-warning btn-xs"><i
                                     class="mdi mdi-backburger icon-sm"></i></a>
                             <!-- <button type="submit" class="btn btn-warning btn-xs"><i
                                     class="mdi mdi-content-save-all icon-sm"></i></button> -->
@@ -95,6 +76,34 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Edit -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Saldo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="forms-sample" action="<?= base_url('/akk/master_bank/edit') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Saldo</label>
+                        <div class="col-sm-9">
+                            <input type="hidden" class="form-control" value="<?= $value['id_bank'] ?>" name="id_bank"
+                                </div>
+                            <input type="text" class="form-control" value="<?= $value['saldo'] ?>" name="saldo" </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <style>
 .menu-item {
     display: flex;

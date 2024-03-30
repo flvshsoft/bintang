@@ -5,14 +5,14 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                <?= $judul1?>
+                <?= $judul1 ?>
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/keuangan') ?>">KEUANGAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">KEUANGAN</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
-                        <?= $judul1?>
+                        <?= $judul1 ?>
                     </li>
                 </ol>
             </nav>
@@ -22,13 +22,17 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
-                            <a class="btn btn-success btn-xs" href="<?= base_url('/form_transfer')?>">
+                            <a class="btn btn-success btn-xs"
+                                href="<?= base_url('/akk/keuangan/data_kas/uang_kas_besar') ?>">
                                 <i class="mdi mdi-database-plus icon-sm"></i> Kas Besar</a>
-                            <a class="btn btn-warning btn-xs" href="<?= base_url('/uang_kas_kecil')?>">
+                            <a class="btn btn-warning btn-xs"
+                                href="<?= base_url('/akk/keuangan/data_kas/uang_kas_kecil') ?>">
                                 <i class="mdi mdi-database-plus icon-sm"></i> Kas Kecil</a>
-                            <a class="btn btn-danger btn-xs" href="<?= base_url('/mutasi_bank')?>">
+                            <a class="btn btn-danger btn-xs"
+                                href="<?= base_url('/akk/keuangan/data_kas/mutasi_bank') ?>">
                                 <i class="mdi mdi-database-minus icon-sm"></i> Mutasi</a>
-                            <a class="btn btn-primary btn-xs" href="<?= base_url('/neraca_saldo')?>">
+                            <a class="btn btn-primary btn-xs"
+                                href="<?= base_url('/akk/keuangan/data_kas/neraca_saldo') ?>">
                                 <i class="mdi mdi-printer"></i> Neraca</a>
                         </div>
                         <div class="table-responsive">
@@ -37,7 +41,6 @@
                                 <thead class="table table-primary">
                                     <tr>
                                         <th style="font-size: 11px;"> ID </th>
-                                        <th style="font-size: 11px;"> Source </th>
                                         <th style="font-size: 11px;"> Konsumen </th>
                                         <th style="font-size: 11px;"> Paymen Method </th>
                                         <th style="font-size: 11px;"> Type Payment</th>
@@ -49,39 +52,44 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($model as $value) { ?>
                                     <tr>
                                         <td style="font-size: 11px;">
-                                            160876
+                                            <?= $value['id_kas'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            160876
+                                            <?= $value['id_konsumen'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-
+                                            <?= $value['metode_bayar'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-
+                                            <?= $value['nama_bank'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            BANK BRI
+                                            <?php if ($value['id_bank'] == 5 && $value['ket'] == 'PENGGANTIAN') { ?>
+                                            <?= $value['ket'] . ' MINGGU KE ' . $value['pergantian_minggu'] ?>
+                                            <?php } elseif ($value['id_bank'] == 5 && $value['ket'] == 'KASBON') { ?>
+                                            <?= $value['ket'] . ' MINGGU KE ' . $value['pergantian_minggu'] ?>
+                                            <?php } else { ?>
+                                            <?= $value['ket']  ?>
+                                            <?php } ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            TRANSFER SALESMAN
+                                            <?= 'Rp. ' . number_format($value['uang_kas'], 0, ',', '.') ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            17.000.000
+                                            <?= $value['created_at'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            2023-09-30 00:00:00
+                                            <?= $value['nama_user'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            ADE
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <a href="<?= base_url('/voucher')?>"><i
+                                            <a href="<?= base_url('/akk/keuangan/data_kas/voucher') ?>"><i
                                                     class="mdi mdi-credit-card icon-md"></i></a>
                                         </td>
                                     </tr>
+                                    <?php }; ?>
                                 </tbody>
                             </table>
                         </div>

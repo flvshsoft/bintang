@@ -14,7 +14,7 @@ class salesModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['id_asset',  'id_area', 'id_partner', 'km', 'keterangan', 'tgl_do', 'week'];
+    protected $allowedFields = ['id_asset', 'id_branch', 'id_area', 'id_partner', 'km', 'keterangan', 'tgl_do', 'week'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

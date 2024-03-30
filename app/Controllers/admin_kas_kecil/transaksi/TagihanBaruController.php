@@ -12,6 +12,7 @@ class TagihanBaruController extends BaseController
             ->join('partner', 'partner.id_partner=sales.id_partner',)
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('id_sales', 'DESC')
             ->findAll();
         return view('admin_kas_kecil/transaksi/tagihan_baru/index', $data);
@@ -25,6 +26,7 @@ class TagihanBaruController extends BaseController
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->join('area', 'area.id_area=nota.id_area')
             ->join('user', 'user.id_user=nota.created_by')
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/transaksi/tagihan_baru/master_closing', $data);
     }
@@ -38,11 +40,13 @@ class TagihanBaruController extends BaseController
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
             ->where('id_sales', $id_sales)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('id_sales', 'DESC')
             ->find()[0];
         $data['sales_detail'] = $this->mdSalesDetail
             ->join('product', 'product.id_product=sales_detail.id_product',)
             ->where('id_sales', $id_sales)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('id_sales', 'DESC')
             ->findAll();
         $data['cek_nota'] = $this->mdNota
@@ -51,11 +55,14 @@ class TagihanBaruController extends BaseController
             ->join('area', 'area.id_area=sales.id_area')
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->where('sales.id_sales', $id_sales)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         // print_r($data['cek_nota']);
         // exit;
         $data['lastIdNota'] = $this->mdNota->getLastIdNota();
-        $data['customer'] = $this->mdCustomer->findAll();
+        $data['customer'] = $this->mdCustomer
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/transaksi/tagihan_baru/closing', $data);
     }
 
@@ -74,7 +81,7 @@ class TagihanBaruController extends BaseController
         $id_area = $this->request->getPost('id_area');
         $payment_method = $this->request->getPost('payment_method');
         $status = "";
-        if($payment_method == "CASH"){
+        if ($payment_method == "CASH") {
             $status = 'Lunas';
         }
 
@@ -89,6 +96,7 @@ class TagihanBaruController extends BaseController
             'payment_method' => $payment_method,
             'pay' => NULL,
             'status' => $status,
+            'id_branch' => Session('userData')['id_branch'],
             'created_by' => SESSION('userData')['id_user'],
             'tgl_bayar' =>  $this->request->getPost('tgl_bayar'),
         ];
@@ -111,6 +119,7 @@ class TagihanBaruController extends BaseController
             ->join('sales', 'sales.id_sales=nota.id_sales')
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->join('partner', 'partner.id_partner=nota.id_partner')
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->where('id_nota', $id_nota)
             ->find()[0];
         $data['customer'] = $this->mdCustomer->findAll();
@@ -122,6 +131,7 @@ class TagihanBaruController extends BaseController
             //->join('product', 'product.id_product=price_detail.id_product')
             ->join('nota', 'nota.id_sales=sales_detail.id_sales')
             ->where('id_nota', $id_nota)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         $data['model'] = $this->mdNotaDetail
             // ->select('sales.created_at as created_at')
@@ -130,6 +140,7 @@ class TagihanBaruController extends BaseController
             ->join('jenis_harga', 'jenis_harga.id_jenis_harga=nota_detail.id_jenis_harga')
             // ->join('barang_harga', 'barang_harga.id_product=product.id_product')
             ->where('nota_detail.id_nota', $id_nota)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->groupBy('id_nota_detail')
             ->findAll();
 
@@ -138,6 +149,7 @@ class TagihanBaruController extends BaseController
             $mdBarangHarga = $this->mdBarangHarga
                 ->where('id_product', $value['id_product'])
                 ->where('id_jenis_harga', $value['id_jenis_harga'])
+                // ->where('id_branch', Session('userData')['id_branch'])
                 ->find()[0];
             // echo $value['id_nota_detail'];
             // print_r($mdBarangHarga);
@@ -152,6 +164,7 @@ class TagihanBaruController extends BaseController
             ->join('product', 'product.id_product=price_detail.id_product')
             ->join('nota', 'nota.id_nota=nota_detail.id_nota')
             ->where('nota_detail.id_nota', $id_nota)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->find();
 
         if (count($data['detail']) > 0) {
@@ -166,6 +179,7 @@ class TagihanBaruController extends BaseController
             ->join('area', 'area.id_area=sales.id_area')
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->where('nota.id_sales', $id_sales)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
 
         return view('admin_kas_kecil/transaksi/tagihan_baru/closing1', $data);
@@ -189,6 +203,7 @@ class TagihanBaruController extends BaseController
             ->join('product', 'product.id_product=sales_detail.id_product')
             ->join('price_detail', 'price_detail.id_price_detail=sales_detail.id_price_detail')
             ->where('nota_detail.id_nota', $id_nota)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         $total = 0;
         foreach ($data['model'] as $key => $value) {
@@ -206,6 +221,7 @@ class TagihanBaruController extends BaseController
         $satuan_penjualan = $this->request->getPost('satuan_penjualan');
         $mdSalesDetail = $this->mdSalesDetail
             ->where('id_sales_detail', $id_sales_detail)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->find();
         $id_product = $mdSalesDetail[0]['id_product'];
 
@@ -222,6 +238,7 @@ class TagihanBaruController extends BaseController
         $mdBarangHarga = $this->mdBarangHarga
             ->where('id_product', $id_product)
             ->where('id_jenis_harga', $id_jenis_harga)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->find();
 
         if (count($mdBarangHarga) > 0) {
@@ -273,12 +290,14 @@ class TagihanBaruController extends BaseController
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->join('partner', 'partner.id_partner=nota.id_partner')
             ->where('id_nota', $id_nota)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->find()[0];
 
         $data['sales_detail'] = $this->mdSalesDetail
             ->join('product', 'product.id_product=sales_detail.id_product')
             ->join('nota', 'nota.id_sales=sales_detail.id_sales')
             ->where('id_nota', $id_nota)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         $data['model'] = $this->mdNotaDetail
             ->join('sales_detail', 'sales_detail.id_sales_detail=nota_detail.id_sales_detail')
@@ -286,6 +305,7 @@ class TagihanBaruController extends BaseController
             ->join('price_detail', 'price_detail.id_product=product.id_product')
             ->join('nota', 'nota.id_nota=nota_detail.id_nota')
             ->where('nota_detail.id_nota', $id_nota)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->groupBy('id_nota_detail')
             ->findAll();
         $data['cek_nota'] = $this->mdNota
@@ -294,6 +314,7 @@ class TagihanBaruController extends BaseController
             ->join('area', 'area.id_area=sales.id_area')
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->where('nota.id_nota', $id_nota)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
 
         // $total = 0;

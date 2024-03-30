@@ -57,6 +57,7 @@ abstract class BaseController extends Controller
         //$this->session = \Config\Service::session();
         $this->db = db_connect();
         $this->mdUser = model('userModel', true, $this->db);
+        $this->mdBranch = model('branchModel', true, $this->db);
 
         $this->session = \Config\Services::session();
     }

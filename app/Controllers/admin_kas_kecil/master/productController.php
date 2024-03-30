@@ -10,7 +10,11 @@ class productController extends BaseController
         $data['judul1'] = 'Master Data Product';
         $data['model'] = $this->mdProduct
             ->join('supplier', 'supplier.id_supplier=product.id_supplier')
+            ->where('product.id_branch', Session('userData')['id_branch'])
+            //->groupBy('id_product')
             ->findAll();
+        // print_r($data);
+        // exit;
 
         return view('admin_kas_kecil/master/product/index', $data);
     }
@@ -18,7 +22,9 @@ class productController extends BaseController
     {
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Data Product';
-        $data['supplier'] =  $this->mdSupplier->findAll();
+        $data['supplier'] =  $this->mdSupplier
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/master/product/tambah', $data);
     }
     public function input()
@@ -28,6 +34,10 @@ class productController extends BaseController
             'satuan_product' => $this->request->getPost('satuan_product'),
             'id_supplier' => $this->request->getPost('id_supplier'),
             'stock_product' => $this->request->getPost('stock_product'),
+            'area' => 0,
+            'defect' => 0,
+            'sample' => 0,
+            'id_branch', Session('userData')['id_branch']
         ];
         // print_r($data);
         // exit;
@@ -52,8 +62,11 @@ class productController extends BaseController
         $data['model'] = $this->mdProduct
             ->join('supplier', 'supplier.id_supplier=product.id_supplier')
             ->where('id_product', $id_product)
+            // ->where('id_branch', Session('userData')['id_branch'])
             ->find()[0];
-        $data['supplier'] =  $this->mdSupplier->findAll();
+        $data['supplier'] =  $this->mdSupplier
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/master/product/edit', $data);
     }
 
@@ -66,6 +79,9 @@ class productController extends BaseController
             'satuan_product' => $this->request->getPost('satuan_product'),
             'id_supplier' => $this->request->getPost('id_supplier'),
             'stock_product' => $this->request->getPost('stock_product'),
+            'area' => $this->request->getPost('area'),
+            'sample' => $this->request->getPost('sample'),
+            'defect' => $this->request->getPost('defect'),
         ];
         // print_r($data);
         // exit;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\admin\keuangan;
+namespace App\Controllers\admin_kas_kecil\keuangan;
 
 class masterGiroController extends BaseController
 {
@@ -8,6 +8,6 @@ class masterGiroController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'MASTER PENCAIRAN GIRO';
-        return view('admin/keuangan/master_giro/index', $data);
+        return view('admin_kas_kecil/keuangan/master_giro/index', $data);
     }
 }

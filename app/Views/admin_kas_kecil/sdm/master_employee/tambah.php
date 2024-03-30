@@ -1,4 +1,4 @@
-<?= $this->extend('layout/admin'); ?>
+<?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
 <div class="main-panel">
     <div class="content-wrapper">
@@ -8,9 +8,9 @@
             </h6>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb" style="font-size: 11px;">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>"> BERANDA </a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/sdm') ?>"> SDM</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/master_employee') ?>"> PEKERJA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>"> BERANDA </a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/sdm') ?>"> SDM</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/master_employee') ?>"> PEKERJA</a></li>
                     <li class="breadcrumb-item active" aria-current="page"> <?= $judul1 ?></li>
                 </ol>
             </nav>
@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">GENERAL PERSONAL</h4>
-                    <form class="forms-sample" method="POST" action="">
+                    <form class="forms-sample" method="POST" action="<?= base_url('/akk/karyawan/tambah') ?>">
                         <div class="form-group row">
                             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">
                                 No. Induk Karyawan
@@ -28,7 +28,7 @@
                             </label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control form-control-sm " value="002.051220.017"
-                                    placeholder="Username" required>
+                                    placeholder="Username" name="nip" required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -43,7 +43,7 @@
                             <label for="exampleInputMobile" class="col-sm-3 col-form-label">Nama Lengkap</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control form-control-sm" id="exampleInputMobile" required
-                                    placeholder="Nama Lengkap" name="nama_lengkap">
+                                    placeholder="Nama Lengkap" name="nama_karyawan">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -67,7 +67,7 @@
                                 Lahir</label>
                             <div class="col-sm-9">
                                 <input type="date" class="form-control form-control-sm"
-                                    id="exampleInputConfirmPassword2" required name="tanggal_lahir">
+                                    id="exampleInputConfirmPassword2" required name="tgl_lahir">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -81,7 +81,7 @@
                             <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Jenis
                                 Kelamin</label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="exampleSelectGender" status="jenis_kelamin" required>
+                                <select class="form-control" id="exampleSelectGender" name="jk" required>
                                     <option></option>
                                     <option>Male</option>
                                     <option>Female</option>
@@ -105,7 +105,7 @@
                             <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Golongan
                                 Darah</label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="exampleSelectGender" name="golongan_darah">
+                                <select class="form-control" id="exampleSelectGender" name="gol_darah">
                                     <option></option>
                                     <option>A</option>
                                     <option>B</option>
@@ -141,7 +141,7 @@
                             <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Posisi
                                 Pekerjaan</label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="exampleSelectGender" required name="posisi_pekerjaan">
+                                <select class="form-control" id="exampleSelectGender" required name="posisi">
                                     <option></option>
                                     <option>Office</option>
                                     <option>Salesman</option>
@@ -157,7 +157,7 @@
                             <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Tingkat
                                 Pekerjaan</label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="exampleSelectGender" required name="tingkat_pekerjaan">
+                                <select class="form-control" id="exampleSelectGender" required name="jabatan">
                                     <option></option>
                                     <option>CEO</option>
                                     <option>Manager</option>
@@ -198,7 +198,7 @@
                                 Mulai Kerja</label>
                             <div class="col-sm-9">
                                 <input type="date" class="form-control form-control-sm"
-                                    id="exampleInputConfirmPassword2" required name="tanggal_mulai_kerja">
+                                    id="exampleInputConfirmPassword2" required name="tgl_kerja">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -206,7 +206,7 @@
                                 Selesai Kerja</label>
                             <div class="col-sm-9">
                                 <input type="date" class="form-control form-control-sm"
-                                    id="exampleInputConfirmPassword2" required name="tanggal_selesai_kerja">
+                                    id="exampleInputConfirmPassword2" required name="tgl_selesai_kerja">
                             </div>
                         </div>
                         <h4 class="card-title">LAST EDUCATION</h4>
@@ -252,7 +252,7 @@
                             <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Start Date</label>
                             <div class="col-sm-9">
                                 <input type="date" class="form-control form-control-sm"
-                                    id="exampleInputConfirmPassword2" required name="start_date">
+                                    id="exampleInputConfirmPassword2" required name="tgl_sekolah">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -260,14 +260,14 @@
                             </label>
                             <div class="col-sm-9">
                                 <input type="date" class="form-control form-control-sm"
-                                    id="exampleInputConfirmPassword2" required name="end_date">
+                                    id="exampleInputConfirmPassword2" required name="tgl_selesai_sekolah">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Absen Status
                             </label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="exampleSelectGender" required name="absen_status">
+                                <select class="form-control" id="exampleSelectGender" required name="status">
                                     <option></option>
                                     <option>OUTSTATION</option>
                                     <option>OFFICE</option>
@@ -278,14 +278,14 @@
                             <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Schedule Set
                             </label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="exampleSelectGender" required name="Schedule Set">
+                                <select class="form-control" id="exampleSelectGender" required name="schedule_set">
                                     <option></option>
                                     <option>OFFICE</option>
                                     <option>SALES</option>
                                 </select>
                             </div>
                         </div>
-                        <a href="<?= base_url('/master_employee')?>" class="btn btn-light"><i
+                        <a href="<?= base_url('/akk/karyawan') ?>" class="btn btn-light"><i
                                 class="mdi mdi mdi-backburger icon-sm"></i></a>
                         <button type="submit" class="btn btn-gradient-primary me-2"><i
                                 class="mdi mdi-content-save-all icon-sm"></i></button>

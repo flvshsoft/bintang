@@ -14,7 +14,7 @@ class partnerModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['nama_lengkap',  'no_hp', 'alamat', 'set_karyawan', 'nik'];
+    protected $allowedFields = ['nama_lengkap', 'id_branch', 'no_hp', 'alamat', 'set_karyawan', 'nik'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
