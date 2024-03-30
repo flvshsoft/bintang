@@ -10,10 +10,11 @@ class barangHargaController extends BaseController
         $data['judul1'] = 'Master Barang Harga';
         $data['model'] = $this->mdBarangHarga
             ->join('product', 'product.id_product=barang_harga.id_product')
-            ->where('product.id_branch', Session('userData')['id_branch'])
             ->join('jenis_harga', 'jenis_harga.id_jenis_harga=barang_harga.id_jenis_harga')
+            ->where('product.id_branch', Session('userData')['id_branch'])
             // ->join('user', 'user.id_user=barang_harga.created_by')
             // ->groupBy('product.id_product')
+            ->orderBy('product.nama_product', 'ASC')
             ->findAll();
         $data['product'] = $this->mdProduct
             ->where('id_branch', Session('userData')['id_branch'])
@@ -22,6 +23,61 @@ class barangHargaController extends BaseController
             // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/master/barang_harga/index', $data);
+    }
+    public function generate()
+    {
+        $data['judul'] = 'Bintang';
+        $data['judul1'] = 'Master Barang Harga Generate';
+        $id_branch = Session('userData')['id_branch'];
+        // model
+        $data['model'] = $this->mdBarangHarga
+            ->join('product', 'product.id_product=barang_harga.id_product')
+            ->join('jenis_harga', 'jenis_harga.id_jenis_harga=barang_harga.id_jenis_harga')
+            ->where('product.id_branch', $id_branch)
+            // ->join('user', 'user.id_user=barang_harga.created_by')
+            // ->groupBy('product.id_product')
+            ->findAll();
+        $data['product'] = $this->mdProduct
+            ->where('id_branch', $id_branch)
+            ->orderBy('nama_product', 'ASC')
+            ->findAll();
+        $data['jenis_harga'] = $this->mdJenisHarga
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+
+
+        // print_r($data['model']);
+        // exit;
+
+        $temp = [];
+        foreach ($data['model'] as $key => $value) :
+            $temp[$value['id_product']][$value['id_jenis_harga']] = $value['harga_aktif'];
+        endforeach;
+
+        // generate
+        $count = 0;
+        foreach ($data['product'] as $key => $value) :
+            foreach ($data['jenis_harga'] as $key2 => $value2) :
+                if (!isset($temp[$value['id_product']][$value2['id_jenis_harga']])) {
+                    // print_r($temp[$value['id_product']][$value2['id_jenis_harga']]);
+                    // echo '<br>';
+                    $count++;
+                    $data_save = [
+                        'id_product' => $value['id_product'],
+                        'id_jenis_harga' => $value2['id_jenis_harga'],
+                        'harga_aktif' => '0',
+                        'created_by' => SESSION('userData')['id_user'],
+                        'id_branch' => Session('userData')['id_branch']
+                    ];
+                    // $this->mdBarangHarga->save($data_save);
+                }
+            endforeach;
+        endforeach;
+        // echo 'Menambah ' . $count . ' data';
+
+        return redirect()->to(base_url('/akk/master_barang_harga'));
+        // exit;
+        // return view('admin_kas_kecil/master/barang_harga/generate', $data);
     }
     public function tambah()
     {

@@ -163,6 +163,7 @@ $routes->post('/tambah_nama_harga', 'admin_kas_kecil\master\priceController::tam
 
 
 $routes->get('/akk/master_barang_harga', 'admin_kas_kecil\master\barangHargaController::index');
+$routes->get('/akk/master_barang_harga_generate', 'admin_kas_kecil\master\barangHargaController::generate');
 $routes->get('/akk/barang_harga', 'admin_kas_kecil\master\barangHargaController::tambah');
 $routes->post('/akk/save_barang_harga', 'admin_kas_kecil\master\barangHargaController::input');
 $routes->get('/akk/del_barang_harga/(:any)', 'admin_kas_kecil\master\barangHargaController::hapus/$1');
