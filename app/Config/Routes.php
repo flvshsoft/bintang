@@ -227,6 +227,13 @@ $routes->post('/akk/karyawan/edit', 'admin_kas_kecil\sdmController::karyawan_upd
 $routes->get('/akk/karyawan/edit/(:any)', 'admin_kas_kecil\sdmController::karyawan_edit/$1');
 $routes->get('/akk/karyawan/hapus/(:any)', 'admin_kas_kecil\sdmController::hapus/$1');
 
+$routes->get('/akk/akun', 'admin_kas_kecil\akunController::akun');
+$routes->get('/akk/akun/tambah', 'admin_kas_kecil\akunController::akun_tambah');
+$routes->post('/akk/akun/tambah', 'admin_kas_kecil\akunController::akun_input');
+$routes->post('/akk/akun/edit', 'admin_kas_kecil\akunController::akun_update');
+$routes->get('/akk/akun/edit/(:any)', 'admin_kas_kecil\akunController::akun_edit/$1');
+$routes->get('/akk/akun/hapus/(:any)', 'admin_kas_kecil\akunController::hapus/$1');
+
 $routes->get('/akk/keuangan/master_pengeluaran', 'admin_kas_kecil\keuangan\masterPengeluaranController::index');
 $routes->get('/akk/keuangan/spending_operational', 'admin_kas_kecil\keuangan\masterPengeluaranController::spending_operational');
 $routes->get('/akk/keuangan/master_pengeluaran_op', 'admin_kas_kecil\keuangan\masterPengeluaranController::master_pengeluaran_op');
