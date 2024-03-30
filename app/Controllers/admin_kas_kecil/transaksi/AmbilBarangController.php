@@ -7,9 +7,9 @@ class AmbilBarangController extends BaseController
     public function index(): string
     {
         $data['judul'] = 'Bintang';
-        $data['judul1'] = 'Pengambilan Barang';
+        $data['judul1'] = 'Pengambilan Barang (DO)';
         $data['model'] = $this->mdSales
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('sales.id_branch', Session('userData')['id_branch'])
             ->join('partner', 'partner.id_partner=sales.id_partner',)
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
@@ -46,7 +46,7 @@ class AmbilBarangController extends BaseController
             'week' => $this->request->getPost('week'),
             'tgl_do' => $this->request->getPost('tgl_do'),
             'keterangan' => $this->request->getPost('keterangan'),
-            // 'id_branch'=> Session('userData')['id_branch']
+            'id_branch' => Session('userData')['id_branch']
         ];
 
         // print_r($data);
@@ -200,7 +200,7 @@ class AmbilBarangController extends BaseController
         // print_r($data);
         // exit;
         $this->mdSalesDetail->insert($data);
-        //$this->mdProduct->where('id_product', $id_product)->decrement('stock_product', $satuan_sales_detail);
+        $this->mdProduct->where('id_product', $id_product)->decrement('stock_product', $satuan_sales_detail);
         return redirect()->to(base_url('/akk/transaksi/ambil_barang/detail/' . $id_sales));
     }
     public function edit_detail_sales($id_sales_detail)

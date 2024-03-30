@@ -25,7 +25,7 @@
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        <label class="col-sm-2 col-form-label">MINGGU KE - <?= $model['week'] ?>
+                                        <label class="col-12 col-form-label">MINGGU KE - <?= $model['week'] ?>
                                         </label>
 
                                     </div>
@@ -271,7 +271,8 @@ function tgl_indo($tanggal)
     $nama_hari = date('w', strtotime($tanggal));
     $nama_hari = $hari[$nama_hari];
 
-    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
+    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . '/' . (int)$pecahkanTanggal[1] . '/' . $pecahkanTanggal[0];
+    // $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
 
     if ($waktu !== null) {
         $result .= ' ' . $waktu;

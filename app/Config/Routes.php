@@ -101,13 +101,15 @@ $routes->post('/akk/transaksi/tagihan_baru/nota/detail', 'admin_kas_kecil\transa
 $routes->get('/akk/transaksi/stock_akhir', 'admin_kas_kecil\transaksi\StockAkhirController::index');
 $routes->get('/akk/transaksi/stock_akhir/tambah', 'admin_kas_kecil\transaksi\StockAkhirController::tambah');
 $routes->post('/akk/transaksi/stock_akhir/tambah', 'admin_kas_kecil\transaksi\StockAkhirController::input');
-$routes->post('/akk/transaksi/stock_akhir/nota/detail/edit', 'admin_kas_kecil\transaksi\StockAkhirController::edit_detail_closing');
-$routes->get('/akk/transaksi/stock_akhir/nota/detail/hapus/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::hapus_detail/$1');
-$routes->get('/akk/transaksi/stock_akhir/nota/detail/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::closing_detail/$1');
-$routes->get('/akk/transaksi/stock_akhir/riwayat_penjualan/print/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::print/$1');
-$routes->get('/akk/transaksi/stock_akhir/nota/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::closing/$1');
-$routes->post('/akk/transaksi/stock_akhir/nota', 'admin_kas_kecil\transaksi\StockAkhirController::input_closing');
-$routes->post('/akk/transaksi/stock_akhir/nota/detail', 'admin_kas_kecil\transaksi\StockAkhirController::input_detail_closing');
+$routes->get('/akk/transaksi/stock_akhir/edit/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::edit/$1');
+$routes->post('/akk/transaksi/stock_akhir/edit', 'admin_kas_kecil\transaksi\StockAkhirController::edit_save');
+// $routes->post('/akk/transaksi/stock_akhir/nota/detail/edit', 'admin_kas_kecil\transaksi\StockAkhirController::edit_detail_closing');
+// $routes->get('/akk/transaksi/stock_akhir/nota/detail/hapus/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::hapus_detail/$1');
+// $routes->get('/akk/transaksi/stock_akhir/nota/detail/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::closing_detail/$1');
+// $routes->get('/akk/transaksi/stock_akhir/riwayat_penjualan/print/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::print/$1');
+// $routes->get('/akk/transaksi/stock_akhir/nota/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::closing/$1');
+// $routes->post('/akk/transaksi/stock_akhir/nota', 'admin_kas_kecil\transaksi\StockAkhirController::input_closing');
+// $routes->post('/akk/transaksi/stock_akhir/nota/detail', 'admin_kas_kecil\transaksi\StockAkhirController::input_detail_closing');
 
 $routes->get('/akk/master_branch', 'admin_kas_kecil\master\branchController::index');
 $routes->get('/akk/master_branch/tambah', 'admin_kas_kecil\master\branchController::tambah');

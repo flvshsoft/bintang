@@ -14,7 +14,7 @@ class stockAkhirModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['id_product', 'id_branch', 'jumlah_stock_kembali', 'satuan', 'id_sales', 'id_salesman'];
+    protected $allowedFields = ['id_sales_do', 'id_product', 'jumlah_stock_kembali', 'satuan', 'created_by'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

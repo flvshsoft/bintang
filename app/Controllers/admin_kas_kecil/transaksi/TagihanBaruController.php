@@ -7,12 +7,12 @@ class TagihanBaruController extends BaseController
     public function index(): string
     {
         $data['judul'] = 'Bintang Distributor';
-        $data['judul1'] = 'INPUT TAGIHAN BARU';
+        $data['judul1'] = 'INPUT TAGIHAN BARU (NOTA)';
         $data['model'] = $this->mdSales
             ->join('partner', 'partner.id_partner=sales.id_partner',)
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('sales.id_branch', Session('userData')['id_branch'])
             ->orderBy('id_sales', 'DESC')
             ->findAll();
         return view('admin_kas_kecil/transaksi/tagihan_baru/index', $data);
@@ -245,7 +245,7 @@ class TagihanBaruController extends BaseController
         if (count($mdBarangHarga) > 0) {
             $this->mdNotaDetail->insert($data);
             $this->mdSalesDetail->where('id_sales_detail', $id_sales_detail)->decrement('jumlah_sales', $satuan_penjualan);
-            $this->mdProduct->where('id_product', $id_product)->decrement('stock_product', $satuan_penjualan);
+            // $this->mdProduct->where('id_product', $id_product)->decrement('stock_product', $satuan_penjualan);
         } else {
             return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota));
         }
