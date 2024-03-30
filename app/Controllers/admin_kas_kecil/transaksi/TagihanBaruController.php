@@ -46,7 +46,7 @@ class TagihanBaruController extends BaseController
         $data['sales_detail'] = $this->mdSalesDetail
             ->join('product', 'product.id_product=sales_detail.id_product',)
             ->where('id_sales', $id_sales)
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('id_sales', 'DESC')
             ->findAll();
         $data['cek_nota'] = $this->mdNota
@@ -55,13 +55,14 @@ class TagihanBaruController extends BaseController
             ->join('area', 'area.id_area=sales.id_area')
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->where('sales.id_sales', $id_sales)
-            // ->where('id_branch', Session('userData')['id_branch'])
+            // ->where('customer.id_branch', Session('userData')['id_branch'])
             ->findAll();
         // print_r($data['cek_nota']);
         // exit;
         $data['lastIdNota'] = $this->mdNota->getLastIdNota();
         $data['customer'] = $this->mdCustomer
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('customer.nama_customer', 'ASC')
             ->findAll();
         return view('admin_kas_kecil/transaksi/tagihan_baru/closing', $data);
     }

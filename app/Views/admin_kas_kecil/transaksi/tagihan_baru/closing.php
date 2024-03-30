@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-8 justify-content-center">
+                                <div class="col-md-7 justify-content-center">
                                     <div class="col-md-12">
                                         <div class="row form-group">
                                             <label class="col-3 col-form-label">Metode Bayar</label>
@@ -72,7 +72,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="col-md-12 mb-0">
                                         <div class="form-group d-flex">
                                             <label class="col-5 col-form-label">TANGGAL</label>
