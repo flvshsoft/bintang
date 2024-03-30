@@ -95,18 +95,12 @@ class StockAkhirController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Stock Akhir - Edit';
         $data['id_sales_do'] = $id_sales;
-        $data['salesman'] = $this->mdPartner
-            // ->where('id_branch', Session('userData')['id_branch'])
+        $data['model'] = $this->mdStockAkhir
+            ->join('product', 'product.id_product=stock_akhir.id_product')
+            ->join('sales_detail', 'sales_detail.id_product=stock_akhir.id_product')
+            ->where('stock_akhir.id_sales_do', $id_sales)
             ->findAll();
-        $data['area'] = $this->mdArea
-            // ->where('id_branch', Session('userData')['id_branch'])
-            ->findAll();
-        $data['asset'] = $this->mdAsset
-            // ->where('id_branch', Session('userData')['id_branch'])
-            ->findAll();
-        $data['product'] = $this->mdProduct
-            // ->where('id_branch', Session('userData')['id_branch'])
-            ->findAll();
+        // sales
         $data['info'] = $this->mdSales
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->join('area', 'area.id_area=sales.id_area')
@@ -117,11 +111,23 @@ class StockAkhirController extends BaseController
         $data['sales_detail'] = $this->mdSalesDetail
             ->join('product', 'product.id_product=sales_detail.id_product')
             //->join('price_detail', 'price_detail.id_price_detail=sales_detail.id_price_detail')
-            //->join('product', 'product.id_product=price_detail.id_product')
             ->join('nota', 'nota.id_sales=sales_detail.id_sales')
             ->where('id_nota', $id_sales)
+            // ->where('jumlah_sales >', '0')
             // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
+
+
+        $temp = [];
+        $temp2 = [];
+        foreach ($data['sales_detail'] as $key => $value) {
+            $temp[$value['id_sales_detail']] = $value;
+            if($value['jumlah_sales'] > 0){
+                $temp2[$value['id_sales_detail']] = $value;
+            }
+        }
+        $data['sales_detail_basic'] = $temp;
+        $data['sales_detail'] = $temp2;
 
         return view('admin_kas_kecil/transaksi/stock_akhir/edit', $data);
     }
@@ -130,33 +136,42 @@ class StockAkhirController extends BaseController
     {
         $id_sales_do = $this->request->getPost('id_sales_do');
         $id_product = $this->request->getPost('id_product');
-        $temp = explode(',',$id_product);
+        $temp = explode(',', $id_product);
         $id_sales_detail = $temp[0];
         $id_product = $temp[1];
         $satuan = $this->request->getPost('satuan');
         $jumlah_stock_kembali = $this->request->getPost('jumlah_stock_kembali');
-        $data = [
-            'id_sales_do' => $id_sales_do,
-            'id_product' => $id_product,
-            'jumlah_stock_kembali' => $jumlah_stock_kembali,
-            'satuan' => $satuan,
-            'created_by' => SESSION('userData')['id_user'],
-            // 'id_branch'=>Session('userData')['id_branch']
-        ];
-        print_r($data);
-        // exit;
-        $this->mdStockAkhir->save($data);
+        // sales detail
+        $modelSalesDetail = $this->mdSalesDetail->where('id_sales_detail', $id_sales_detail);
+        // cek stok
+        if ($jumlah_stock_kembali <= $modelSalesDetail->find()[0]['jumlah_sales']) {
 
-        // Stock
-        if ($satuan == "Defect") {
-            $a = $this->mdProduct->where('id_product', $id_product)->increment('defect', $jumlah_stock_kembali);
-        } elseif ($satuan == "Sample") {
-            $a = $this->mdProduct->where('id_product', $id_product)->increment('sample', $jumlah_stock_kembali);
+            // data
+            $data = [
+                'id_sales_do' => $id_sales_do,
+                'id_product' => $id_product,
+                'jumlah_stock_kembali' => $jumlah_stock_kembali,
+                'satuan' => $satuan,
+                'created_by' => SESSION('userData')['id_user'],
+                // 'id_branch'=>Session('userData')['id_branch']
+            ];
+            print_r($data);
+            // exit;
+            $this->mdStockAkhir->save($data);
+
+            // Stock
+            if ($satuan == "Defect") {
+                $a = $this->mdProduct->where('id_product', $id_product)->increment('defect', $jumlah_stock_kembali);
+            } elseif ($satuan == "Sample") {
+                $a = $this->mdProduct->where('id_product', $id_product)->increment('sample', $jumlah_stock_kembali);
+            } else {
+                $this->mdProduct->where('id_product', $id_product)->increment('stock_product', $jumlah_stock_kembali);
+            }
+            $modelSalesDetail->decrement('jumlah_sales', $jumlah_stock_kembali);
+            return redirect()->to(base_url('/akk/transaksi/stock_akhir/edit/' . $id_sales_do));
         } else {
-            $this->mdProduct->where('id_product', $id_product)->increment('stock_product', $jumlah_stock_kembali);
+            return redirect()->to(base_url('/akk/transaksi/stock_akhir/edit/' . $id_sales_do . '#stok_tidak_cukup'));
         }
-        $this->mdSalesDetail->where('id_sales_detail', $id_sales_detail)->decrement('jumlah_sales', $jumlah_stock_kembali);
-        // return redirect()->to(base_url('/akk/stock_akhir/edit/'.$id_sales_do));
     }
 
     // public function detail($id_sales)

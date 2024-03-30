@@ -40,17 +40,39 @@
                                         <th style="font-size: 11px;"> Stock Gudang Sales</th>
                                         <th style="font-size: 11px;"> Jumlah Stock Kembali </th>
                                         <th style="font-size: 11px;"> Satuan </th>
-                                        <th style="font-size: 11px;"> GUDANG </th>
+                                        <th style="font-size: 11px;"> # </th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($model as $key => $value) : ?>
+                                        <tr>
+
+                                            <td style="font-size: 11px;">
+                                                <input type="text" disabled class="form-control" value="<?= $value['id_product'] ?>">
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <input type="text" disabled class="form-control" value="<?= $value['nama_product'] ?>">
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <input type="text" disabled class="form-control" value="<?= number_format($sales_detail_basic[$value['id_sales_detail']]['satuan_sales_detail']) ?>">
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <input type="text" disabled class="form-control" value="<?= $value['jumlah_stock_kembali'] ?>">
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <input type="text" disabled class="form-control" value="<?= $value['satuan'] ?>">
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                     <tr>
                                         <form action="<?= base_url('/akk/transaksi/stock_akhir/edit') ?>" method="post">
                                             <input type="hidden" name="id_sales_do" class="form-control" value="<?= $id_sales_do ?>">
 
                                             <td style="font-size: 11px;">
                                                 <select class="form-control form-control-sm" name="id_product" required>
-                                                    <option value="id_sales_detail"> Pilih Produk</option>
+                                                    <option value=""> Pilih Produk</option>
                                                     <?php foreach ($sales_detail as $value) { ?>
                                                         <option value="<?= $value['id_sales_detail'] ?>,<?= $value['id_product'] ?>">
                                                             <?= $value['id_product'] ?>
