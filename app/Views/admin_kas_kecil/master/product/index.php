@@ -61,7 +61,7 @@
                                                 <?= $value['satuan_product'] ?>
                                             </td>
                                             <td style="font-size: 11px;">
-                                                <?= number_format($value['stock_product']) ?>
+                                                <?= number_format((int)$value['stock_product']) ?>
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <?= number_format($value['area']) ?>

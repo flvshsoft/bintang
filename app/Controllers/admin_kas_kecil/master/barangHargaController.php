@@ -69,11 +69,11 @@ class barangHargaController extends BaseController
                         'created_by' => SESSION('userData')['id_user'],
                         'id_branch' => Session('userData')['id_branch']
                     ];
-                    // $this->mdBarangHarga->save($data_save);
+                    $this->mdBarangHarga->save($data_save);
                 }
             endforeach;
         endforeach;
-        // echo 'Menambah ' . $count . ' data';
+        echo 'Menambah ' . $count . ' data';
 
         return redirect()->to(base_url('/akk/master_barang_harga'));
         // exit;
