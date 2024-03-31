@@ -97,7 +97,7 @@ class StockAkhirController extends BaseController
         $data['id_sales_do'] = $id_sales;
         $data['model'] = $this->mdStockAkhir
             ->join('product', 'product.id_product=stock_akhir.id_product')
-            ->join('sales_detail', 'sales_detail.id_product=stock_akhir.id_product')
+            // ->join('sales_detail', 'sales_detail.id_product=stock_akhir.id_product')
             ->where('stock_akhir.id_sales_do', $id_sales)
             ->findAll();
         // sales
@@ -111,8 +111,8 @@ class StockAkhirController extends BaseController
         $data['sales_detail'] = $this->mdSalesDetail
             ->join('product', 'product.id_product=sales_detail.id_product')
             //->join('price_detail', 'price_detail.id_price_detail=sales_detail.id_price_detail')
-            ->join('nota', 'nota.id_sales=sales_detail.id_sales')
-            ->where('id_nota', $id_sales)
+            // ->join('nota', 'nota.id_sales=sales_detail.id_sales')
+            ->where('sales_detail.id_sales', $id_sales)
             // ->where('jumlah_sales >', '0')
             // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
@@ -122,12 +122,16 @@ class StockAkhirController extends BaseController
         $temp2 = [];
         foreach ($data['sales_detail'] as $key => $value) {
             $temp[$value['id_sales_detail']] = $value;
-            if($value['jumlah_sales'] > 0){
+            if ($value['jumlah_sales'] > 0) {
                 $temp2[$value['id_sales_detail']] = $value;
             }
         }
         $data['sales_detail_basic'] = $temp;
         $data['sales_detail'] = $temp2;
+
+        // print_r($temp);
+        // print_r($temp2);
+        // exit;
 
         return view('admin_kas_kecil/transaksi/stock_akhir/edit', $data);
     }
@@ -143,6 +147,9 @@ class StockAkhirController extends BaseController
         $jumlah_stock_kembali = $this->request->getPost('jumlah_stock_kembali');
         // sales detail
         $modelSalesDetail = $this->mdSalesDetail->where('id_sales_detail', $id_sales_detail);
+        // print_r($jumlah_stock_kembali);
+        // print_r($modelSalesDetail->find());
+        // exit;
         // cek stok
         if ($jumlah_stock_kembali <= $modelSalesDetail->find()[0]['jumlah_sales']) {
 
@@ -155,7 +162,7 @@ class StockAkhirController extends BaseController
                 'created_by' => SESSION('userData')['id_user'],
                 // 'id_branch'=>Session('userData')['id_branch']
             ];
-            print_r($data);
+            // print_r($data);
             // exit;
             $this->mdStockAkhir->save($data);
 
@@ -167,7 +174,7 @@ class StockAkhirController extends BaseController
             } else {
                 $this->mdProduct->where('id_product', $id_product)->increment('stock_product', $jumlah_stock_kembali);
             }
-            $modelSalesDetail->decrement('jumlah_sales', $jumlah_stock_kembali);
+            $this->mdSalesDetail->where('id_sales_detail', $id_sales_detail)->decrement('jumlah_sales', $jumlah_stock_kembali);
             return redirect()->to(base_url('/akk/transaksi/stock_akhir/edit/' . $id_sales_do));
         } else {
             return redirect()->to(base_url('/akk/transaksi/stock_akhir/edit/' . $id_sales_do . '#stok_tidak_cukup'));

@@ -108,7 +108,7 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="table-responsive">
+                        <div class="table-responsive d-none">
                             <table class="table table-striped" width="100%" height="88%" cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>

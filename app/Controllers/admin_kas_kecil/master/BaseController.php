@@ -9,6 +9,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Config\Services;
+use CodeIgniter\HTTP\Response;
 
 /**
  * Class BaseController
@@ -54,6 +55,16 @@ abstract class BaseController extends Controller
         $this->req = Services::request();
         $this->session = Services::session();
         $this->calendar = Services::calendar();
+        // Check session here
+        if (!$this->session->has('userData')) {
+            // Set the redirection header
+            $response->setHeader('Location', base_url('/'), true);
+            // Set the status code for redirection
+            $response->setStatusCode(302);
+            // Send the response
+            $response->send();
+            exit;
+        }
 
         // Preload any models, libraries, etc, here.
         $this->db = db_connect();
@@ -75,6 +86,6 @@ abstract class BaseController extends Controller
         $this->mdPriceDetail = model('pricedetailModel', true, $this->db);
         $this->mdBarangHarga = model('barangHargaModel', true, $this->db);
         $this->mdBranch = model('branchModel', true, $this->db);
-        $this->session = \Config\Services::session();
+        // $this->session = \Config\Services::session();
     }
 }

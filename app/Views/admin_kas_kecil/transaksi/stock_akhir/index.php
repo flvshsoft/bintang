@@ -21,8 +21,9 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group col-6">
-                                <a class="btn btn-primary btn-xs" href="<?= base_url('/akk/transaksi/stock_akhir/tambah') ?>">
-                                    <i class="mdi mdi-history btn-icon-prepend"></i> Riwayat</a>
+                                <!-- <a class="btn btn-primary btn-xs" href="<?= base_url('/akk/transaksi/stock_akhir/tambah') ?>">
+                                    <i class="mdi mdi-history btn-icon-prepend"></i> Riwayat
+                                </a> -->
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -35,7 +36,7 @@
                                         <th style="font-size: 11px;"> AREA </th>
                                         <th style="font-size: 11px;"> WEEKS </th>
                                         <th style="font-size: 11px;"> REMARK </th>
-                                        <th style="font-size: 11px;"> CREATED DATE </th>
+                                        <!-- <th style="font-size: 11px;"> CREATED DATE </th> -->
                                         <th style="font-size: 11px;"> CREATED DO </th>
                                         <th style="font-size: 11px;"> </th>
                                     </tr>
@@ -68,9 +69,9 @@
                                             <td style=" font-size: 11px;">
                                                 <?= $value['keterangan'] ?>
                                             </td>
-                                            <td style=" font-size: 11px;">
+                                            <!-- <td style=" font-size: 11px;">
                                                 <?= $value['created_at'] ?>
-                                            </td>
+                                            </td> -->
                                             <td style=" font-size: 11px;">
                                                 <?= $value['tgl_do'] ?>
                                             </td>
