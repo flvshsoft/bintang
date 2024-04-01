@@ -36,7 +36,7 @@ class akunController extends BaseController
             'username' => $this->request->getPost('username'),
             'nama_user' => $this->request->getPost('nama_user'),
             'password' => $this->request->getPost('password'),
-            'level_user' => 'Admin',
+            'level_user' => 'Kas Kecil',
             'status_user' => 1,
             'id_branch' => $this->request->getPost('id_branch'),
             'created_at' => date('d-m-y')

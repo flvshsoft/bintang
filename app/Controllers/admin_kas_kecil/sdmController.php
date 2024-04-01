@@ -49,7 +49,7 @@ class sdmController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'MASTER DATA KARYAWAN';
         $data['model'] = $this->mdKaryawan
-            //->join('user', 'user.id_user=karyawan.id_user')
+            ->join('user', 'user.id_user=karyawan.id_user')
             ->where('karyawan.id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/sdm/master_employee/index', $data);
