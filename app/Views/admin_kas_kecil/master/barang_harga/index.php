@@ -20,14 +20,16 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group col-12">
-                                <a class="btn btn-gradient-success btn-xs btn-icon-text my-1"
-                                    href="<?= base_url('/akk/master_price') ?>">
-                                    <i class="mdi mdi-database-plus icon-sm"></i> Histori </a>
+                                <a class="btn btn-gradient-success btn-xs btn-icon-text my-1" href="<?= base_url('/akk/master_price') ?>">
+                                    <i class="mdi mdi-database-plus icon-sm"></i> Histori
+                                </a>
+                                <a class="btn btn-gradient-success btn-xs btn-icon-text my-1 float-end" href="<?= base_url('/akk/master_barang_harga_generate') ?>">
+                                    <i class="mdi mdi-database-plus icon-sm"></i> Generate
+                                </a>
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped" id="dataTable" width="100%"
-                                cellspacing="0">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>
                                         <th style="font-size: 11px;"> ID </th>
@@ -47,9 +49,9 @@
                                                 <select name="id_product" class="form-control form-control-sm">
                                                     <option>Pilih Barang</option>
                                                     <?php foreach ($product as $value) { ?>
-                                                    <option value="<?= $value['id_product'] ?>">
-                                                        <?= $value['nama_product'] ?>
-                                                    </option>
+                                                        <option value="<?= $value['id_product'] ?>">
+                                                            <?= $value['nama_product'] ?>
+                                                        </option>
                                                     <?php }; ?>
                                                 </select>
                                             </td>
@@ -57,48 +59,46 @@
                                                 <select name="id_jenis_harga" class="form-control form-control-sm">
                                                     <option>Pilih</option>
                                                     <?php foreach ($jenis_harga as $value) { ?>
-                                                    <option value="<?= $value['id_jenis_harga'] ?>">
-                                                        <?= $value['remark_jenis_harga'] ?>
-                                                    </option>
+                                                        <option value="<?= $value['id_jenis_harga'] ?>">
+                                                            <?= $value['remark_jenis_harga'] ?>
+                                                        </option>
                                                     <?php }; ?>
                                                 </select>
                                             </td>
                                             <td style="font-size: 11px;">
-                                                <input type="text" name="harga_aktif" placeholder="Input Harga"
-                                                    class="form-control form-control-sm">
+                                                <input type="text" name="harga_aktif" placeholder="Input Harga" class="form-control form-control-sm">
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <div class="justify-content-center">
-                                                    <button type="text" class="btn btn-primary btn-xs tip-top"
-                                                        data-toggle="tooltip" data-original-title="Simpan Data"
-                                                        type="submit">S</button>
+                                                    <button type="text" class="btn btn-primary btn-xs tip-top" data-toggle="tooltip" data-original-title="Simpan Data" type="submit">S</button>
                                                 </div>
                                             </td>
                                         </form>
                                     </tr>
-                                    <?php foreach ($model as $value) { ?>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['id_barang_harga'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['nama_product'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['remark_jenis_harga'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= 'Rp ' . number_format($value['harga_aktif'], 0, ',', '.') ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <div class="justify-content-center">
-                                                <a
-                                                    href="<?//= base_url('/akk/del_barang_harga/' . $value['id_barang_harga']) ?>">
-                                                    <i class="mdi mdi-delete-circle icon-md text-default"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <?php foreach ($model as $key => $value) { ?>
+                                        <tr>
+                                            <td style="font-size: 11px;">
+                                                <?= (++$key) //$value['id_barang_harga'] 
+                                                ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['nama_product'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['remark_jenis_harga'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= 'Rp ' . number_format($value['harga_aktif'], 0, ',', '.') ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <div class="justify-content-center">
+                                                    <a href="<? //= base_url('/akk/del_barang_harga/' . $value['id_barang_harga']) 
+                                                                ?>">
+                                                        <i class="mdi mdi-delete-circle icon-md text-default"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -111,12 +111,12 @@
 </div>
 
 <style>
-.table-bordered-custom {
-    border: 1px solid #000;
-    /* Ganti dengan warna dan ketebalan sesuai preferensi Anda */
-}
+    .table-bordered-custom {
+        border: 1px solid #000;
+        /* Ganti dengan warna dan ketebalan sesuai preferensi Anda */
+    }
 
-/* Tambahkan class ini pada tabel Anda */
+    /* Tambahkan class ini pada tabel Anda */
 </style>
 
 <?= $this->endSection() ?>

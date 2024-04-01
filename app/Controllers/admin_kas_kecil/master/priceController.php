@@ -23,7 +23,7 @@ class priceController extends BaseController
     public function input()
     {
         $data = [
-            // 'id_branch', Session('userData')['id_branch'],
+            'id_branch', Session('userData')['id_branch'],
             'keterangan_price' => $this->request->getPost('keterangan_price'),
             'tanggal_aktif' =>  date('d-m-y h:i:s'),
             'created_by' => SESSION('userData')['id_user'],
@@ -108,7 +108,8 @@ class priceController extends BaseController
             // ->where('id_branch', Session('userData')['id_branch'])
             ->find()[0];
         $data['product'] = $this->mdProduct
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('nama_product', 'ASC')
             ->findAll();
         $data['jenis_harga'] = $this->mdJenisHarga
             // ->where('id_branch', Session('userData')['id_branch'])
@@ -138,8 +139,8 @@ class priceController extends BaseController
             'id_price' => $id_price,
             'id_product' => $id_product,
             'id_jenis_harga' => $id_jenis_harga,
-            'harga' => $this->request->getPost('harga')
-            // 'id_branch'=> Session('userData')['id_branch']
+            'harga' => $this->request->getPost('harga'),
+            'id_branch'=> Session('userData')['id_branch']
         ];
         $this->mdPriceDetail->insert($data);
         // print_r($data);
@@ -156,8 +157,8 @@ class priceController extends BaseController
                 'id_barang_harga' => $mdBarangHarga[0]['id_barang_harga'],
                 'id_product' => $id_product,
                 'id_jenis_harga' => $id_jenis_harga,
-                'harga_aktif' => $this->request->getPost('harga')
-                // 'id_branch' => Session('userData')['id_branch']
+                'harga_aktif' => $this->request->getPost('harga'),
+                'id_branch' => Session('userData')['id_branch']
             ];
             $this->mdBarangHarga->save($data2);
         } else {
@@ -165,8 +166,8 @@ class priceController extends BaseController
             $data2 = [
                 'id_product' => $id_product,
                 'id_jenis_harga' => $id_jenis_harga,
-                'harga_aktif' => $this->request->getPost('harga')
-                // 'id_branch' => Session('userData')['id_branch']
+                'harga_aktif' => $this->request->getPost('harga'),
+                'id_branch' => Session('userData')['id_branch']
             ];
             $this->mdBarangHarga->insert($data2);
             //

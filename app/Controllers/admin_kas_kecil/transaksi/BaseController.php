@@ -56,6 +56,16 @@ abstract class BaseController extends Controller
         $this->session = Services::session();
         $this->calendar = Services::calendar();
         //$this->session = \Config\Service::session();
+        // Check session here
+        if (!$this->session->has('userData')) {
+            // Set the redirection header
+            $response->setHeader('Location', base_url('/'), true);
+            // Set the status code for redirection
+            $response->setStatusCode(302);
+            // Send the response
+            $response->send();
+            exit;
+        }
         $this->db = db_connect();
         $this->mdUser = model('userModel', true, $this->db);
         $this->mdArea = model('areaModel', true, $this->db);
@@ -72,6 +82,8 @@ abstract class BaseController extends Controller
         $this->mdBarangHarga = model('barangHargaModel', true, $this->db);
         $this->mdStockAkhir = model('stockAkhirModel', true, $this->db);
 
-        $this->session = \Config\Services::session();
+        // $this->session = \Config\Services::session();
+
+
     }
 }

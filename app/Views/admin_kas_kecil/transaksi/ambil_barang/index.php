@@ -22,8 +22,9 @@
                         <div class="row">
                             <div class="form-group col-6">
                                 <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/penjualan_barang') ?>">
-                                    <i class="mdi mdi-database-plus btn-icon-prepend"></i> Proses</a>
-                                <a class="btn btn-primary btn-xs" href="<?//= base_url('/akk/riwayat_sales') ?>">
+                                    <i class="mdi mdi-database-plus btn-icon-prepend"></i> Tambah (DO)</a>
+                                <a class="btn btn-primary btn-xs" href="<? //= base_url('/akk/riwayat_sales') 
+                                                                        ?>">
                                     <i class="mdi mdi-history btn-icon-prepend"></i> Riwayat</a>
                             </div>
                         </div>

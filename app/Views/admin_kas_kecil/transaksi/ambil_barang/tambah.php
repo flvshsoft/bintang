@@ -20,16 +20,15 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample" method="POST"
-                            action="<?= base_url('/akk/transaksi/save_penjualan_barang') ?>">
+                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/transaksi/save_penjualan_barang') ?>">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Salesman</label>
                                 <div class="col-sm-9">
                                     <select name="id_partner" class="form-control">
                                         <option> Pilih Salesman </option>
                                         <?php foreach ($salesman as $value) { ?>
-                                        <option value="<?= $value['id_partner'] ?>"> <?= $value['nama_lengkap'] ?>
-                                        </option>
+                                            <option value="<?= $value['id_partner'] ?>"> <?= $value['nama_lengkap'] ?>
+                                            </option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -41,9 +40,9 @@
                                     <select name="id_asset" class="form-control">
                                         <option> Pilih No Plat - Nama Mobil </option>
                                         <?php foreach ($asset as $value) { ?>
-                                        <option value="<?= $value['id_asset'] ?>"> <?= $value['no_plat'] ?> -
-                                            <?= $value['nama_asset'] ?>
-                                        </option>
+                                            <option value="<?= $value['id_asset'] ?>"> <?= $value['no_plat'] ? $value['no_plat'] . ' - ' : '## #### ## - ' ?>
+                                                <?= $value['nama_asset'] ?>
+                                            </option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -61,9 +60,9 @@
                                     <select name="id_area" class="form-control">
                                         <option> Pilih Area </option>
                                         <?php foreach ($area as $value) { ?>
-                                        <option value="<?= $value['id_area'] ?>">
-                                            <?= $value['nama_area'] ?>
-                                        </option>
+                                            <option value="<?= $value['id_area'] ?>">
+                                                <?= $value['nama_area'] ?>
+                                            </option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -133,20 +132,17 @@
                             <div class="form-group row mb-1">
                                 <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Tgl DO</label>
                                 <div class="col-sm-9">
-                                    <input type="datetime-local" class="form-control form-control-sm" rows="3"
-                                        name="tgl_do">
+                                    <input type="datetime-local" class="form-control form-control-sm" rows="3" name="tgl_do" value="<?= date('Y-m-d H:i:s') ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-1">
                                 <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Keterangan</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control form-control-sm" rows="3"
-                                        name="keterangan"></textarea>
+                                    <textarea class="form-control form-control-sm" rows="3" name="keterangan"></textarea>
                                 </div>
                             </div>
                             <div class="form-group mb-0 text-center">
-                                <button type="submit" class="btn btn-gradient-success btn-xs"><i
-                                        class="mdi mdi-content-save-all icon-sm"></i> Transasct</button>
+                                <button type="submit" class="btn btn-gradient-success btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i> Transasct</button>
                                 <a href="<?= base_url('/akk/transaksi/ambil_barang') ?>" class="btn btn-light btn-xs">
                                     <i class="mdi mdi-backburger"></i> Cancel
                                 </a>

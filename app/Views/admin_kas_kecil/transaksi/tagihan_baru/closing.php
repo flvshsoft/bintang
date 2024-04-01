@@ -25,7 +25,7 @@
                             <div class="row">
                                 <div class="col-md-9">
                                     <div class="form-group">
-                                        <label class="col-sm-2 col-form-label">MINGGU KE - <?= $model['week'] ?>
+                                        <label class="col-12 col-form-label">MINGGU KE - <?= $model['week'] ?>
                                         </label>
 
                                     </div>
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-8 justify-content-center">
+                                <div class="col-md-7 justify-content-center">
                                     <div class="col-md-12">
                                         <div class="row form-group">
                                             <label class="col-3 col-form-label">Metode Bayar</label>
@@ -72,7 +72,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <div class="col-md-12 mb-0">
                                         <div class="form-group d-flex">
                                             <label class="col-5 col-form-label">TANGGAL</label>
@@ -108,7 +108,7 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="table-responsive">
+                        <div class="table-responsive d-none">
                             <table class="table table-striped" width="100%" height="88%" cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>
@@ -271,7 +271,8 @@ function tgl_indo($tanggal)
     $nama_hari = date('w', strtotime($tanggal));
     $nama_hari = $hari[$nama_hari];
 
-    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
+    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . '/' . (int)$pecahkanTanggal[1] . '/' . $pecahkanTanggal[0];
+    // $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
 
     if ($waktu !== null) {
         $result .= ' ' . $waktu;

@@ -27,20 +27,20 @@
                         <form action="<?= base_url('/akk/transaksi/tagihan_baru/nota/detail') ?>" method="POST">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label class="col-sm-2 col-form-label">MINGGU KE - <?= $nota['week'] ?></label>
+                                    <div class="form-group mb-0 pt-4">
+                                        <label class="col-12 col-form-label">MINGGU KE - <?= $nota['week'] ?></label>
                                         <!-- <div class="col-sm-1">
                                             <input type="text" name="weeks" class="form-control form-control-sm"
                                                 value="<?= $nota['weeks'] ?>">
                                         </div> -->
                                     </div>
                                 </div>
-                                <div class="col-md-3 preview-list">
-                                    <a class="dropdown-item preview-item">
-                                        <div class="preview-thumbnail">
+                                <div class="col-3 pt-4">
+                                    <a class="text-black text-decoration-none">
+                                        <!-- <div class="preview-thumbnail">
                                             <img src="<?= base_url() ?>/public/assets/images/faces/face4.jpg" alt="image" class="profile-pic rounded">
-                                        </div>
-                                        <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                        </div> -->
+                                        <div class="d-flex align-items-start flex-column justify-content-center">
                                             <h6 class="preview-subject ellipsis mb-0 font-weight-normal">
                                                 NO DO : <?= $nota['id_sales'] ?>
                                                 <input type="hidden" name="id_sales" class="form-control" value="<?= $nota['id_sales'] ?>">
@@ -53,21 +53,22 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <!-- metode faktur -->
                                 <div class="col-md-8 justify-content-center">
-                                    <div class="col-md-12">
-                                        <div class="row form-group">
-                                            <label class="col-5 col-form-label">Metode Bayar :
-                                                <?= $nota['payment_method'] ?></label>
-                                            <!-- <div class="col-3">
+                                    <!-- <div class="col-md-12"> -->
+                                    <div class="row form-group mb-0">
+                                        <label class="col-5 col-form-label">Metode Bayar :
+                                            <?= $nota['payment_method'] ?></label>
+                                        <!-- <div class="col-3">
                                                 <input type="text" name="payment_method"
                                                     class="form-control form-control-sm"
                                                     value="<?= $nota['payment_method'] ?>">
                                             </div> -->
-                                        </div>
                                     </div>
-                                    <div class="form-group d-flex mt-4">
+                                    <!-- </div> -->
+                                    <div class="form-group d-flex mt-0">
                                         <label class="col-sm-9 col-form-label">FAKTUR NO :
-                                            99 - <?= $nota['no_nota'] ?>
+                                            <?= $nota['no_nota'] ?>
                                         </label>
                                         <!-- <div class="col-sm-3 justify-content-start">
                                             <input type="text" name="id_nota" class="form-control form-control-sm"
@@ -75,19 +76,16 @@
                                         </div> -->
                                     </div>
                                 </div>
+                                <!-- Tgl Toko -->
                                 <div class="col-md-4">
-                                    <div class="col-md-12 mb-0">
-                                        <div class="form-group d-flex">
-                                            <label class="col-9 col-form-label">
-                                                TANGGAL : <?= tgl_indo($nota['tgl_bayar']) ?></label>
-                                            <!-- <div class="col-7">
-                                                <input type="text" name="tgl_bayar" class="form-control form-control-sm"
-                                                    value="<?= $nota['tgl_bayar'] ?>">
-                                            </div> -->
-                                        </div>
+                                    <!-- <div class="col-md-12 mb-0"> -->
+                                    <div class="form-group d-flex mb-0">
+                                        <label class="col-9 col-form-label">
+                                            TANGGAL : <?= tgl_indo($nota['tgl_bayar']) ?></label>
                                     </div>
+                                    <!-- </div> -->
                                     <div class="col-md-12">
-                                        <div class="form-group d-flex">
+                                        <div class="form-group d-flex mb-0">
                                             <label class="col-5 col-form-label">TOKO</label>
                                             <div class="col-7">
                                                 <select class="form-control select2" name="id_customer">
@@ -104,7 +102,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="row justify-content-right mb-4">
+                                        <div class="row justify-content-right mb-2">
                                             <div class="col-md-12">
                                                 <button class="btn btn-gradient-warning btn-rounded btn-fw btn-sm float-end ms-auto">
                                                     Save
@@ -142,14 +140,14 @@
                                                 <?= $no ?>
                                             </td>
                                             <!-- <td style=" font-size: 11px;">
-                                            <b>
-                                                <a style="text-decoration:none"
-                                                    href="<?= base_url('/akk/form_customer/' . $value['id_nota_detail']) ?>"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <?= $value['id_nota_detail'] ?>
-                                                </a>
-                                            </b>
-                                        </td> -->
+                                                <b>
+                                                    <a style="text-decoration:none"
+                                                        href="<?= base_url('/akk/form_customer/' . $value['id_nota_detail']) ?>"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        <?= $value['id_nota_detail'] ?>
+                                                    </a>
+                                                </b>
+                                            </td> -->
                                             <td style=" font-size: 11px;">
                                                 <?= $value['nama_product'] ?>
                                             </td>
@@ -362,18 +360,19 @@ function tgl_indo($tanggal)
 
     $bulan = array(
         1 => 'Januari',
-        'Februari',
-        'Maret',
-        'April',
-        'Mei',
-        'Juni',
-        'Juli',
-        'Agustus',
-        'September',
-        'Oktober',
-        'November',
-        'Desember'
+        2 => 'Februari',
+        3 => 'Maret',
+        4 => 'April',
+        5 => 'Mei',
+        6 => 'Juni',
+        7 => 'Juli',
+        8 => 'Agustus',
+        9 => 'September',
+        10 => 'Oktober',
+        11 => 'November',
+        12 => 'Desember'
     );
+
 
     // $pecahkan = explode('-', $tanggal);
     // $nama_hari = date('w', strtotime($tanggal));
@@ -388,7 +387,16 @@ function tgl_indo($tanggal)
     $nama_hari = date('w', strtotime($tanggal));
     $nama_hari = $hari[$nama_hari];
 
-    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
+    if (is_array($pecahkanTanggal)) {
+        // echo 'te';
+        // print_r((int)$pecahkanTanggal[1]);
+        // exit;
+        $result = $nama_hari . ', ' . $pecahkanTanggal[2] . '/' . (int)$pecahkanTanggal[1] . '/' . $pecahkanTanggal[0];
+        // $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[3] . ' ' . $pecahkanTanggal[0];
+        // $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[((int)$pecahkanTanggal[1])] . ' ' . $pecahkanTanggal[0];
+    } else {
+        $result = '';
+    }
 
     if ($waktu !== null) {
         $result .= ' ' . $waktu;

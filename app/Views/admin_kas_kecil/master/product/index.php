@@ -31,8 +31,11 @@
                                         <th style="font-size: 11px;"> No </th>
                                         <th style="font-size: 11px;"> Kode Barang </th>
                                         <th style="font-size: 11px;"> Nama Barang </th>
-                                        <th style="font-size: 11px;"> Stok Barang </th>
                                         <th style="font-size: 11px;"> Satuan </th>
+                                        <th style="font-size: 11px;"> Gudang </th>
+                                        <th style="font-size: 11px;"> Area </th>
+                                        <th style="font-size: 11px;"> Defect </th>
+                                        <th style="font-size: 11px;"> Sample </th>
                                         <th style="font-size: 11px;"> Supplier </th>
                                         <th style="font-size: 11px;"> </th>
                                     </tr>
@@ -55,10 +58,19 @@
                                                 <?= $value['nama_product'] ?>
                                             </td>
                                             <td style="font-size: 11px;">
-                                                <?= $value['stock_product'] ?>
+                                                <?= $value['satuan_product'] ?>
                                             </td>
                                             <td style="font-size: 11px;">
-                                                <?= $value['satuan_product'] ?>
+                                                <?= number_format((int)$value['stock_product']) ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= number_format($value['area']) ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= number_format($value['defect']) ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= number_format($value['sample']) ?>
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <?= $value['nama_supplier'] ?>

@@ -7,12 +7,12 @@ class TagihanBaruController extends BaseController
     public function index(): string
     {
         $data['judul'] = 'Bintang Distributor';
-        $data['judul1'] = 'INPUT TAGIHAN BARU';
+        $data['judul1'] = 'INPUT TAGIHAN BARU (NOTA)';
         $data['model'] = $this->mdSales
             ->join('partner', 'partner.id_partner=sales.id_partner',)
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('sales.id_branch', Session('userData')['id_branch'])
             ->orderBy('id_sales', 'DESC')
             ->findAll();
         return view('admin_kas_kecil/transaksi/tagihan_baru/index', $data);
@@ -46,7 +46,7 @@ class TagihanBaruController extends BaseController
         $data['sales_detail'] = $this->mdSalesDetail
             ->join('product', 'product.id_product=sales_detail.id_product',)
             ->where('id_sales', $id_sales)
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('id_sales', 'DESC')
             ->findAll();
         $data['cek_nota'] = $this->mdNota
@@ -55,13 +55,14 @@ class TagihanBaruController extends BaseController
             ->join('area', 'area.id_area=sales.id_area')
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->where('sales.id_sales', $id_sales)
-            // ->where('id_branch', Session('userData')['id_branch'])
+            // ->where('customer.id_branch', Session('userData')['id_branch'])
             ->findAll();
         // print_r($data['cek_nota']);
         // exit;
         $data['lastIdNota'] = $this->mdNota->getLastIdNota();
         $data['customer'] = $this->mdCustomer
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('customer.nama_customer', 'ASC')
             ->findAll();
         return view('admin_kas_kecil/transaksi/tagihan_baru/closing', $data);
     }
@@ -244,7 +245,7 @@ class TagihanBaruController extends BaseController
         if (count($mdBarangHarga) > 0) {
             $this->mdNotaDetail->insert($data);
             $this->mdSalesDetail->where('id_sales_detail', $id_sales_detail)->decrement('jumlah_sales', $satuan_penjualan);
-            $this->mdProduct->where('id_product', $id_product)->decrement('stock_product', $satuan_penjualan);
+            // $this->mdProduct->where('id_product', $id_product)->decrement('stock_product', $satuan_penjualan);
         } else {
             return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota));
         }
