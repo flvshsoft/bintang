@@ -9,6 +9,7 @@ class pengeluaran_kantorController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'DATA PENGELUARAN KANTOR';
         $data['model'] = $this->mdPengeluaranKantor
+            ->where('pengeluaran_kantor.id_branch', SESSION('userData')['id_branch'])
             ->join('user', 'user.id_user=pengeluaran_kantor.created_by')
             ->findAll();
         return view('admin_kas_kecil/keuangan/pengeluaran_kantor/index', $data);
@@ -30,12 +31,13 @@ class pengeluaran_kantorController extends BaseController
             'week_pengeluaran_kantor' => $this->request->getPost('week_pengeluaran_kantor'),
             'tgl_pengeluaran_kantor' => $this->request->getPost('tgl_pengeluaran_kantor'),
             'created_by' => SESSION('userData')['id_user'],
+            'id_branch' => SESSION('userData')['id_branch'],
             'approved_by' => SESSION('userData')['id_user'],
             'approved_date' => date('d-m-Y H:i:s')
         ];
 
         $this->mdPengeluaranKantor->insert($data);
-        return redirect()->to(base_url('/akk/pengeluaran_kantor'));
+        return redirect()->to(base_url('/akk/keuangan/pengeluaran_kantor'));
     }
 
     public function edit($id): string
@@ -64,6 +66,16 @@ class pengeluaran_kantorController extends BaseController
             'approved_date' => date('d-m-Y H:i:s')
         ];
         $this->mdPengeluaranKantor->save($data);
-        return redirect()->to(base_url('/akk/pengeluaran_kantor'));
+        return redirect()->to(base_url('/akk/keuangan/pengeluaran_kantor'));
+    }
+
+    public function hapus($id_pengeluaran_kantor)
+    {
+        $delete = $this->mdPengeluaranKantor->delete($id_pengeluaran_kantor);
+        if ($delete) {
+            return redirect()->to(base_url('/akk/keuangan/pengeluaran_kantor'));
+        } else {
+            echo 'Gagal menghapus data.';
+        }
     }
 }

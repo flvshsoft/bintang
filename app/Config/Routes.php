@@ -207,6 +207,8 @@ $routes->get('/akk/keuangan/pengeluaran_kantor/tambah', 'admin_kas_kecil\keuanga
 $routes->post('/akk/keuangan/pengeluaran_kantor/tambah', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::add');
 $routes->get('/akk/keuangan/pengeluaran_kantor/edit/(:any)', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::edit/$1');
 $routes->post('/akk/keuangan/pengeluaran_kantor/edit/', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::update');
+$routes->get('/akk/keuangan/pengeluaran_kantor/hapus/(:any)', 'admin_kas_kecil\keuangan\pengeluaran_kantorController::hapus/$1');
+
 $routes->get('/akk/keuangan/mutasi_bank', 'admin_kas_kecil\keuangan\mutasiBankController::index');
 $routes->get('/akk/keuangan/mutasi_bank/tambah', 'admin_kas_kecil\keuangan\mutasiBankController::tambah');
 $routes->post('/akk/keuangan/mutasi_bank/tambah', 'admin_kas_kecil\keuangan\mutasiBankController::add');

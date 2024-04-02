@@ -78,6 +78,9 @@
                                                 <i class="mdi mdi-pencil-circle icon-md">
                                                 </i>
                                             </a>
+                                            <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
+                                                href="<?= base_url('/akk/keuangan/pengeluaran_kantor/hapus/' . $value['id_pengeluaran_kantor']) ?>">
+                                                <i class="mdi mdi-delete-circle text-danger icon-md"></i> </a>
                                         </td>
                                     </tr>
                                     <?php }; ?>
