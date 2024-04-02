@@ -32,6 +32,67 @@ class laporanController extends BaseController
         return view('admin_kas_kecil/laporan/form_closing', $data);
     }
 
+    public function form_closing_mingguan()
+    {
+        $data['judul'] = 'Bintang Distributor';
+        $data['judul1'] = 'LAPORAN CLOSING';
+        $id_branch = SESSION('userData')['id_branch'];
+
+        $data['nota_putih'] = $this->mdSales
+            //->join('nota', 'nota.id_sales=sales.id_sales')
+            ->join('partner', 'partner.id_partner=sales.id_partner')
+            ->where('sales.id_branch', $id_branch)
+            //->orderBY('id_nota', 'DESC')
+            ->findAll();
+
+        $data['bank'] = $this->mdBank
+            ->orderBY('nama_bank', 'ASC')
+            ->where('id_branch', $id_branch)
+            ->findAll();
+
+
+        $data['kontan_nota'] = $this->mdNota
+            //  ->join('area', 'area.id_area=sales.id_area')
+            ->join('partner', 'partner.id_partner=nota.id_partner')
+            ->orderBY('id_nota', 'DESC')
+            ->where('nota.id_branch', $id_branch)
+            ->findAll();
+
+        // print_r($data['kontan_nota']);
+        // exit;
+
+
+        //foreach('')
+
+        // if (!empty($data['info'])) {
+        //     $data['info'] = $data['info'][0];
+        // } else {
+        //     $data['info'];
+        //     return redirect()->to(base_url('/akk/laporan/form_closing/mingguan#kosong'));
+        //     exit;
+        // }
+
+        $mpdf = new \Mpdf\Mpdf();
+        $html = view('admin_kas_kecil/laporan/form_closing/mingguan', $data, []);
+        $mpdf->WriteHTML($html);
+        $this->response->setHeader('Content-Type', 'application/pdf');
+        $mpdf->Output($data['judul1'], 'I'); // opens in browser
+    }
+
+    public function form_closing_bulanan(): string
+    {
+        $data['judul'] = 'Bintang Distributor';
+        $data['judul1'] = 'CLOSING';
+        return view('admin_kas_kecil/laporan/form_closing/bulanan', $data);
+    }
+
+    public function form_closing_tahunan(): string
+    {
+        $data['judul'] = 'Bintang Distributor';
+        $data['judul1'] = 'CLOSING';
+        return view('admin_kas_kecil/laporan/form_closing/tahunan', $data);
+    }
+
     public function deposit(): string
     {
         $data['judul'] = 'Bintang Distributor';

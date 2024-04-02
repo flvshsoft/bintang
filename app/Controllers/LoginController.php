@@ -59,6 +59,7 @@ class LoginController extends BaseController
 
             $this->session->set('userData', [
                 'nama_branch' => $modelBranch[0]["nama_branch"],
+                'cabang' => $modelBranch[0]["cabang"],
                 'id_user'            => $user["id_user"],
                 'id_branch'            => $user["id_branch"],
                 'username'          => $user["username"],
