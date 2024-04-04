@@ -10,7 +10,8 @@ class bankController extends BaseController
         $data['judul1'] = 'Master Bank';
         $data['model'] = $this->mdBank
             ->where('bank.id_branch', Session('userData')['id_branch'])
-            ->join('user', 'user.id_user=bank.created_by', 'left')->findAll();
+            ->join('user', 'user.id_user=bank.created_by', 'left')
+            ->findAll();
         return view('admin_kas_kecil/master/bank/index', $data);
     }
 

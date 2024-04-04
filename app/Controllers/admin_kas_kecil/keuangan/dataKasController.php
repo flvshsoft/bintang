@@ -28,7 +28,10 @@ class dataKasController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'NERACA SALDO';
-        $data['model'] = $this->mdBank->findAll();
+        $data['model'] = $this->mdBank
+            ->where('bank.id_branch', Session('userData')['id_branch'])
+            // ->join('user', 'user.id_user=bank.created_by', 'left')
+            ->findAll();
         return view('admin_kas_kecil/keuangan/data_kas/neraca_saldo', $data);
     }
     public function mutasi_bank(): string

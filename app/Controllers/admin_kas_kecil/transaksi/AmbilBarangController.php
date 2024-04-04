@@ -46,7 +46,8 @@ class AmbilBarangController extends BaseController
             'week' => $this->request->getPost('week'),
             'tgl_do' => $this->request->getPost('tgl_do'),
             'keterangan' => $this->request->getPost('keterangan'),
-            'id_branch' => Session('userData')['id_branch']
+            'id_branch' => Session('userData')['id_branch'],
+            'created_date' => date('Y-m-d H:i:s'),
         ];
 
         // print_r($data);
