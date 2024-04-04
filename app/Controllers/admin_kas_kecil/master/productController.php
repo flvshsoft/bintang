@@ -10,6 +10,7 @@ class productController extends BaseController
         $data['judul1'] = 'Master Data Product';
         $data['model'] = $this->mdProduct
             ->join('supplier', 'supplier.id_supplier=product.id_supplier')
+            ->where('product.id_branch', Session('userData')['id_branch'])
             ->where('supplier.id_branch', Session('userData')['id_branch'])
             //->groupBy('id_product')
             ->findAll();

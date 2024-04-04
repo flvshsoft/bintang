@@ -40,8 +40,7 @@
                                         <th style="font-size: 11px;"> REMARK </th>
                                         <th style="font-size: 11px;"> CREATED DATE </th>
                                         <th style="font-size: 11px;"> CREATED DO </th>
-                                        <th style="font-size: 11px;"> PRINT </th>
-                                        <th style="font-size: 11px;"> </th>
+                                        <th style="font-size: 11px;">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -78,16 +77,18 @@
                                             <td style=" font-size: 11px;">
                                                 <?= $value['tgl_do'] ?>
                                             </td>
-                                            <td style=" font-size: 11px;">
-                                                <a href="<?= base_url('/akk/transaksi/print_penjualan_barang/' . $value['id_sales']) ?>">
-                                                    <i class="mdi mdi-file-pdf icon-md"></i></a>
-                                            </td>
                                             <td>
                                                 <a href="<?= base_url('/akk/transaksi/ambil_barang/detail/' . $value['id_sales']) ?>">
-                                                    <i class="mdi mdi-plus-circle text-default icon-md"></i> </a>
+                                                    <i class="mdi mdi-plus-circle text-default icon-md"></i>
+                                                </a>
+
+                                                <a href="<?= base_url('/akk/transaksi/print_penjualan_barang/' . $value['id_sales']) ?>">
+                                                    <i class="mdi mdi-file-pdf icon-md"></i>
+                                                </a>
 
                                                 <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')" href="<?= base_url('/akk/transaksi/hapus_penjualan_barang/' . $value['id_sales']) ?>">
-                                                    <i class="mdi mdi-delete-circle text-default icon-md"></i> </a>
+                                                    <i class="mdi mdi-delete-circle text-default icon-md"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php $no++;
