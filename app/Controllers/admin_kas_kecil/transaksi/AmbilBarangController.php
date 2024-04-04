@@ -9,6 +9,7 @@ class AmbilBarangController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Pengambilan Barang (DO)';
         $data['model'] = $this->mdSales
+            ->select(['*', 'sales.created_at as created_at'])
             ->where('sales.id_branch', Session('userData')['id_branch'])
             ->join('partner', 'partner.id_partner=sales.id_partner',)
             ->join('area', 'area.id_area=sales.id_area')
