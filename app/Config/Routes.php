@@ -183,6 +183,10 @@ $routes->get('/akk/laporan', 'admin_kas_kecil\laporanController::index');
 $routes->get('/akk/laporan/form_report_assets', 'admin_kas_kecil\laporanController::form_report_assets');
 $routes->get('/akk/laporan/form_kas_kecil', 'admin_kas_kecil\laporanController::form_kas_kecil');
 $routes->get('/akk/laporan/form_closing', 'admin_kas_kecil\laporanController::form_closing');
+$routes->post('/akk/laporan/form_closing/mingguan', 'admin_kas_kecil\laporanController::form_closing_mingguan');
+$routes->post('/akk/laporan/form_closing/bulanan', 'admin_kas_kecil\laporanController::form_closing_bulanan');
+$routes->post('/akk/laporan/form_closing/tahunan', 'admin_kas_kecil\laporanController::form_closing_tahunan');
+
 $routes->get('/akk/laporan/deposit', 'admin_kas_kecil\laporanController::deposit');
 $routes->get('/akk/laporan/form_tertagih', 'admin_kas_kecil\laporanController::form_tertagih');
 $routes->get('/akk/laporan/form_cetak_labarugi', 'admin_kas_kecil\laporanController::form_cetak_labarugi');
