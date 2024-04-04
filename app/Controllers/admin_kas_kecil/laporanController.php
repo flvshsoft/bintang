@@ -58,12 +58,6 @@ class laporanController extends BaseController
             ->where('nota.id_branch', $id_branch)
             ->findAll();
 
-        // print_r($data['kontan_nota']);
-        // exit;
-
-
-        //foreach('')
-
         // if (!empty($data['info'])) {
         //     $data['info'] = $data['info'][0];
         // } else {
@@ -126,10 +120,12 @@ class laporanController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'LAPORAN TAGIHAN PIUTANG USAHA';
         $data['area'] = $this->mdArea
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('id_nama_area', 'ASC')
             ->findAll();
         $data['partner'] = $this->mdPartner
-            //->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('nama_lengkap', 'ASC')
             ->findAll();
         return view('admin_kas_kecil/laporan/form_sisa', $data);
     }
@@ -145,10 +141,10 @@ class laporanController extends BaseController
         $data['model'] = $this->mdSales
             ->join('nota', 'nota.id_sales=sales.id_sales')
             ->join('customer', 'customer.id_customer=nota.id_customer')
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('sales.id_branch', Session('userData')['id_branch'])
             ->orderBY('id_nota', 'DESC')
-            // ->where('nota.created_at >=', $dt1)
-            // ->where('nota.created_at <=', $dt2)
+            ->where('nota.created_at >=', $dt1)
+            ->where('nota.created_at <=', $dt2)
             ->where('sales.id_area', $id_area)
             ->where('nota.id_partner', $id_partner)
             ->findAll();
@@ -158,9 +154,9 @@ class laporanController extends BaseController
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->join('nota', 'nota.id_sales=sales.id_sales')
             ->orderBY('id_nota', 'DESC')
-            //  ->where('id_branch', Session('userData')['id_branch'])
-            // ->where('nota.created_at >=', $dt1)
-            // ->where('nota.created_at <=', $dt2)
+            ->where('sales.id_branch', Session('userData')['id_branch'])
+            ->where('nota.created_at >=', $dt1)
+            ->where('nota.created_at <=', $dt2)
             ->where('sales.id_area', $id_area)
             ->where('nota.id_partner', $id_partner)
             ->find();
@@ -177,11 +173,7 @@ class laporanController extends BaseController
         $html = view('admin_kas_kecil/laporan/form_sisa/cetak_area', $data, []);
         $mpdf->WriteHTML($html);
         $this->response->setHeader('Content-Type', 'application/pdf');
-        $mpdf->Output($data['judul1'], 'I'); // opens in browser
-
-
-        // print_r($data['model']);
-        // exit;
+        $mpdf->Output($data['judul1'], 'I');
     }
 
     public function form_report_sales(): string

@@ -79,16 +79,19 @@ class AmbilBarangController extends BaseController
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
             ->where('id_sales', $id_sales)
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('sales.id_branch', Session('userData')['id_branch'])
             ->find()[0];
         $data['salesman'] = $this->mdPartner
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('nama_lengkap', 'ASC')
             ->findAll();
         $data['area'] = $this->mdArea
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('id_nama_area', 'ASC')
             ->findAll();
         $data['asset'] = $this->mdAsset
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('nama_asset', 'ASC')
             ->findAll();
         return view('admin_kas_kecil/transaksi/ambil_barang/edit', $data);
     }
@@ -105,7 +108,7 @@ class AmbilBarangController extends BaseController
             'week' => $this->request->getPost('week'),
             'tgl_do' => $this->request->getPost('tgl_do'),
             'keterangan' => $this->request->getPost('keterangan'),
-            //'id_branch'=>Session('userData')['id_branch']
+            'id_branch' => Session('userData')['id_branch']
         ];
         // print_r($data);
         // exit;
@@ -147,7 +150,7 @@ class AmbilBarangController extends BaseController
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
             ->where('id_sales', $id_sales)
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('sales.id_branch', Session('userData')['id_branch'])
             ->findAll();
 
         $data['product'] = $this->mdProduct
@@ -157,16 +160,18 @@ class AmbilBarangController extends BaseController
             //->join('jenis_harga', 'jenis_harga.id_jenis_harga=price_detail.id_jenis_harga')
             ->orderBy('nama_product', 'ASC')
             ->findAll();
+        // print_r($data['product']);
+        // exit;
 
         $data['id_sales'] = $this->mdSales
             ->where('id_sales', $id_sales)
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
             ->find()[0];
         $data['area'] = $this->mdArea
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         $data['asset'] = $this->mdAsset
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/transaksi/ambil_barang/detail_tambah', $data);
     }

@@ -23,7 +23,7 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Id Area</label>
                                 <div class="col-sm-9">
-                                    <select required name="id_area" class="form-control form-control-sm">
+                                    <select required name="id_area" class="form-control form-control-sm select2">
                                         <option></option>
                                         <?php foreach ($area as $value) { ?>
                                         <option value="<?= $value['id_area'] ?>">
@@ -36,7 +36,7 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Salesman</label>
                                 <div class="col-sm-9">
-                                    <select required name="id_partner" class="form-control form-control-sm">
+                                    <select required name="id_partner" class="form-control form-control-sm select2">
                                         <option></option>
                                         <?php foreach ($partner as $value) { ?>
                                         <option value="<?= $value['id_partner'] ?>">

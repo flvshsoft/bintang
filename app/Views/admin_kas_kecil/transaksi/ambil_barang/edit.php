@@ -25,7 +25,7 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Salesman</label>
                                 <div class="col-sm-9">
-                                    <select name="id_partner" class="form-control">
+                                    <select name="id_partner" class="form-control select2">
                                         <option value="<?= $model['id_partner'] ?>"> <?= $model['nama_lengkap'] ?>
                                         </option>
                                         <?php foreach ($salesman as $value) { ?>
@@ -39,7 +39,7 @@
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">No Plat Mobil
                                 </label>
                                 <div class="col-sm-9">
-                                    <select name="id_asset" class="form-control">
+                                    <select name="id_asset" class="form-control select2">
                                         <option value="<?= $model['id_asset'] ?>"> <?= $model['no_plat'] ?> -
                                             <?= $model['nama_asset'] ?>
                                         </option>
@@ -64,7 +64,7 @@
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Id Area
                                 </label>
                                 <div class="col-sm-9">
-                                    <select name="id_area" class="form-control">
+                                    <select name="id_area" class="form-control select2">
                                         <option value="<?= $model['id_area'] ?>"> <?= $model['id_nama_area'] ?> -
                                             <?= $model['nama_area'] ?>
                                         </option>
@@ -79,7 +79,7 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Week</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="week">
+                                    <select class="form-control select2" name="week">
                                         <option value="<?= $model['week'] ?>"> <?= $model['week'] ?>
                                         </option>
                                         <option>1</option>
