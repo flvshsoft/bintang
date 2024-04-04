@@ -9,10 +9,11 @@ class productController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Master Data Product';
         $data['model'] = $this->mdProduct
-            ->join('supplier', 'supplier.id_supplier=product.id_supplier')
+            ->join('supplier', 'supplier.id_supplier=product.id_supplier', 'left')
             ->where('product.id_branch', Session('userData')['id_branch'])
-            ->where('supplier.id_branch', Session('userData')['id_branch'])
-            //->groupBy('id_product')
+            // ->where('supplier.id_branch', Session('userData')['id_branch'])
+            ->orderBy('product.nama_product', 'ASC')
+            ->groupBy('id_product')
             ->findAll();
         // print_r($data);
         // exit;
@@ -67,6 +68,7 @@ class productController extends BaseController
             ->find()[0];
         $data['supplier'] =  $this->mdSupplier
             ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('nama_supplier', 'ASC')
             ->findAll();
         return view('admin_kas_kecil/master/product/edit', $data);
     }
