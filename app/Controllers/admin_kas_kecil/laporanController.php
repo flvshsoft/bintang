@@ -138,16 +138,31 @@ class laporanController extends BaseController
         $dt2 =  $this->request->getPost("tgl_berakhir");
         $id_area =  $this->request->getPost("id_area");
         $id_partner = $this->request->getPost("id_partner");
-        $data['model'] = $this->mdSales
-            ->join('nota', 'nota.id_sales=sales.id_sales')
+        // $data['model'] = $this->mdSales
+        //     ->join('nota', 'nota.id_sales=sales.id_sales')
+        //     ->join('customer', 'customer.id_customer=nota.id_customer')
+        //     ->where('sales.id_branch', Session('userData')['id_branch'])
+        //     ->where('nota.created_at >=', $dt1)
+        //     ->where('nota.created_at <=', $dt2)
+        //     ->where('sales.id_area', $id_area)
+        //     ->where('nota.id_partner', $id_partner)
+        //     ->orderBY('id_nota', 'DESC')
+        //     ->findAll();
+        $data['model'] = $this->mdNota
+            // ->join('nota', 'nota.id_sales=sales.id_sales')
             ->join('customer', 'customer.id_customer=nota.id_customer')
-            ->where('sales.id_branch', Session('userData')['id_branch'])
-            ->orderBY('id_nota', 'DESC')
+            // ->where('nota.id_branch', Session('userData')['id_branch'])
             ->where('nota.created_at >=', $dt1)
-            ->where('nota.created_at <=', $dt2)
-            ->where('sales.id_area', $id_area)
+            ->where('nota.created_at <=', $dt2 . ' 23:59:59')
+            ->where('nota.id_area', $id_area)
             ->where('nota.id_partner', $id_partner)
+            ->where('nota.payment_method', 'KREDIT')
+            // ->orderBY('id_nota', 'DESC')
             ->findAll();
+
+            // print_r($this->request->getPost());
+            // print_r($data);
+            // exit;
 
         $data['info'] = $this->mdSales
             ->join('area', 'area.id_area=sales.id_area')

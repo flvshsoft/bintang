@@ -57,6 +57,7 @@
     table,
     th,
     td {
+        font-size: 11px;
         /* border: 1px solid black; */
     }
 
@@ -107,7 +108,7 @@
                 <tr>
                     <th>
                         <p style="font-size: 10px;">
-                            Print Date : <?= date('Y-m-d') ?>
+                            Print Date : <?= tgl_indo(date('Y-m-d'), 'full') ?>
                         </p>
                     </th>
                     <th>
@@ -154,7 +155,7 @@
                 <tr style="font-size:11px ;">
                     <td><?= $no ?> </td>
                     <td><?= $value['no_nota'] ?> </td>
-                    <td><?= tgl_indo($value['tgl_bayar']) ?> </td>
+                    <td><?= tgl_indo($value['tgl_bayar'], 'normal') ?> </td>
                     <td><?= $value['nama_customer'] ?> </td>
                     <td><?= 'Rp. ' . number_format($value['total_beli'], 0, ',', '.') ?></td>
                     <td><?= $value['no_hp_customer'] ?> </td>
@@ -207,7 +208,7 @@
 
 
 <?php
-function tgl_indo($tanggal)
+function tgl_indo($tanggal, $mode)
 {
     $hari = array(
         'Minggu',
@@ -247,7 +248,11 @@ function tgl_indo($tanggal)
     $nama_hari = date('w', strtotime($tanggal));
     $nama_hari = $hari[$nama_hari];
 
-    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
+    if($mode=='full'){
+        $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
+    }else{
+        $result = $pecahkanTanggal[2] . '-' . $pecahkanTanggal[1] . '-' . $pecahkanTanggal[0];
+    }
 
     if ($waktu !== null) {
         $result .= ' ' . $waktu;
