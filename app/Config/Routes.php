@@ -193,7 +193,10 @@ $routes->get('/akk/laporan/form_cetak_labarugi', 'admin_kas_kecil\laporanControl
 $routes->get('/akk/laporan/form_print_pengeluaran', 'admin_kas_kecil\laporanController::form_print_pengeluaran');
 $routes->get('/akk/laporan/form_report_sales', 'admin_kas_kecil\laporanController::form_report_sales');
 $routes->get('/akk/laporan/form_sisa', 'admin_kas_kecil\laporanController::form_sisa');
-$routes->post('/akk/laporan/form_sisa/print', 'admin_kas_kecil\laporanController::cetak_form_sisa');
+// Laporan - Piutang - Area - Cetak
+$routes->post('/akk/laporan/piutang/area/print', 'admin_kas_kecil\laporan\PiutangController::areaPrint');
+// Laporan - Piutang - All Salesman - Cetak
+$routes->post('/akk/laporan/piutang/salesman/print', 'admin_kas_kecil\laporan\PiutangController::salesmanPrint');
 
 $routes->get('/akk/form_cost_ratio', 'admin_kas_kecil\laporanController::form_cost_ratio');
 

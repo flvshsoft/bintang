@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\admin_kas_kecil;
+namespace App\Controllers\admin_kas_kecil\laporan;
 
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
@@ -9,6 +9,8 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Config\Services;
+use CodeIgniter\HTTP\Response;
+
 /**
  * Class BaseController
  *
@@ -50,11 +52,9 @@ abstract class BaseController extends Controller
     {
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
-
         $this->req = Services::request();
         $this->session = Services::session();
         $this->calendar = Services::calendar();
-
         // Check session here
         if (!$this->session->has('userData')) {
             // Set the redirection header
@@ -67,8 +67,7 @@ abstract class BaseController extends Controller
         }
 
         // Preload any models, libraries, etc, here.
-
-        // E.g.: $this->session = \Config\Services::session();
+        $this->db = db_connect();
         $this->mdUser = model('userModel', true, $this->db);
         $this->mdArea = model('areaModel', true, $this->db);
         $this->mdAsset = model('assetModel', true, $this->db);
