@@ -111,7 +111,7 @@ foreach ($data2 as $key => $value) {
     if ($row_sql) {
         $value[5] = $row_sql['id_customer'];
 
-        $sql = "INSERT INTO `nota` (`id_nota`, `no_nota`, `id_sales`, `id_partner`, `weeks`, `payment_method`, `total_beli`, `id_customer`, `id_branch`, `id_area`, `id_bank`, `tgl_bayar`, `pay`, `status`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES (NULL, ?, ?, ?, ?, 'KREDIT', ?, ?, ?, ?, '1', ?, NULL, '', '', '2024-04-15 22:01:52.000000', '2024-04-15 22:01:52.000000', '2024-04-15 22:01:52.000000');";
+        $sql = "INSERT INTO `nota` (`id_nota`, `no_nota`, `id_sales`, `id_partner`, `weeks`, `payment_method`, `total_beli`, `id_customer`, `id_branch`, `id_area`, `id_bank`, `tgl_bayar`, `pay`, `status`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES (NULL, ?, ?, ?, ?, 'KREDIT', ?, ?, ?, ?, '1', ?, NULL, '', '34563', '2024-04-15 22:01:52.000000', '2024-04-15 22:01:52.000000', '2024-04-15 22:01:52.000000');";
         $stmt = $conn->prepare($sql);
         // Check if the prepare() succeeded
         if (!$stmt) {
