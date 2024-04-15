@@ -132,6 +132,7 @@ class TagihanBaruController extends BaseController
             //->join('product', 'product.id_product=price_detail.id_product')
             ->join('nota', 'nota.id_sales=sales_detail.id_sales')
             ->where('id_nota', $id_nota)
+            ->where('jumlah_sales >', '0')
             // ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         $data['model'] = $this->mdNotaDetail
@@ -266,7 +267,16 @@ class TagihanBaruController extends BaseController
         }
         $data['total'] = $total;
 
-        $this->mdNota->where('id_nota', $id_nota)->set(['total_beli' => $total])->update();
+        // Nota
+        $mdNota = $this->mdNota
+            ->where('id_nota', $id_nota)
+            ->find();
+
+        if ($mdNota[0]['payment_method'] == 'CASH') {
+            $this->mdNota->where('id_nota', $id_nota)->set(['total_beli' => $total, 'pay' => $total])->update();
+        } else {
+            $this->mdNota->where('id_nota', $id_nota)->set(['total_beli' => $total])->update();
+        }
 
         return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota));
     }

@@ -41,8 +41,8 @@ class pembayaranController extends BaseController
             ->join('nota_detail', 'nota_detail.id_nota=nota.id_nota')
             ->groupBy('nota.id_nota')
             ->where('status !=', 'Lunas')
-            // ->where('id_branch', Session('userData')['id_branch'])
-            ->where('sales.id_sales', $id_sales)
+            ->where('sales.id_branch', Session('userData')['id_branch'])
+            // ->where('sales.id_sales', $id_sales)
             ->findAll();
 
         return view('admin_kas_kecil/piutang_usaha/pembayaran/tambah', $data);

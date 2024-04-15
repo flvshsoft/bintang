@@ -11,7 +11,7 @@ class barangHargaController extends BaseController
         $data['model'] = $this->mdBarangHarga
             ->join('product', 'product.id_product=barang_harga.id_product')
             ->join('jenis_harga', 'jenis_harga.id_jenis_harga=barang_harga.id_jenis_harga')
-            ->where('product.id_branch', Session('userData')['id_branch'])
+            ->where('barang_harga.id_branch', Session('userData')['id_branch'])
             // ->join('user', 'user.id_user=barang_harga.created_by')
             // ->groupBy('product.id_product')
             ->orderBy('product.nama_product', 'ASC')
@@ -87,14 +87,33 @@ class barangHargaController extends BaseController
     }
     public function input()
     {
+        $id_product = $this->request->getPost('id_product');
+        $id_branch = Session('userData')['id_branch'];
+        $id_jenis_harga = $this->request->getPost('id_jenis_harga');
         $data = [
-            'id_product' => $this->request->getPost('id_product'),
-            'id_jenis_harga' => $this->request->getPost('id_jenis_harga'),
+            'id_product' => $id_product,
+            'id_jenis_harga' => $id_jenis_harga,
             'harga_aktif' => $this->request->getPost('harga_aktif'),
             'created_by' => SESSION('userData')['id_user'],
-            // 'id_branch'=> Session('userData')['id_branch']
+            'id_branch'=> $id_branch,
         ];
-        $this->mdBarangHarga->insert($data);
+        
+        $model = $this->mdBarangHarga
+        ->where('id_product', $id_product)
+        ->where('id_branch', $id_branch)
+        ->where('id_jenis_harga', $id_jenis_harga)
+        ->find();
+
+        // print_r($model);
+        // exit;
+
+        if(count($model) > 0 ){
+            $data['id_barang_harga'] = $model[0]['id_barang_harga'];
+        }
+
+        // print_r($data);
+        // exit;
+        $this->mdBarangHarga->save($data);
         return redirect()->to(base_url('/akk/master_barang_harga'));
     }
 

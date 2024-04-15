@@ -54,11 +54,11 @@
                             </div>
                             <div class="row">
                                 <!-- metode faktur -->
-                                <div class="col-md-8 justify-content-center">
+                                <div class="col-8 justify-content-center">
                                     <!-- <div class="col-md-12"> -->
-                                    <div class="row form-group mb-0">
-                                        <label class="col-5 col-form-label">Metode Bayar :
-                                            <?= $nota['payment_method'] ?></label>
+                                    <div class="form-group d-flex mt-0 mb-0">
+                                        <label class="col-3 col-form-label">Metode Bayar</label>
+                                        <label class="col-9 col-form-label">: <?= $nota['payment_method'] ?></label>
                                         <!-- <div class="col-3">
                                                 <input type="text" name="payment_method"
                                                     class="form-control form-control-sm"
@@ -66,15 +66,21 @@
                                             </div> -->
                                     </div>
                                     <!-- </div> -->
-                                    <div class="form-group d-flex mt-0">
-                                        <label class="col-sm-9 col-form-label">FAKTUR NO :
-                                            <?= $nota['no_nota'] ?>
-                                        </label>
+                                    <div class="form-group d-flex mt-0 mb-0">
+                                        <label class="col-3 col-form-label">FAKTUR NO</label>
+                                        <label class="col-9 col-form-label">: <?= $nota['no_nota'] ?></label>
                                         <!-- <div class="col-sm-3 justify-content-start">
                                             <input type="text" name="id_nota" class="form-control form-control-sm"
                                                 value="<?= $nota['id_nota'] ?>">
                                         </div> -->
                                     </div>
+                                    <!-- </div> -->
+                                    <?php if ($nota['payment_method'] == 'CASH') : ?>
+                                        <div class="form-group d-flex mt-0">
+                                            <label class="col-3 col-form-label">Total</label>
+                                            <label class="col-9 col-form-label">: <?= number_format($nota['total_beli']) ?></label>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <!-- Tgl Toko -->
                                 <div class="col-md-4">
@@ -102,13 +108,13 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="row justify-content-right mb-2">
+                                        <!-- <div class="row justify-content-right mb-2">
                                             <div class="col-md-12">
                                                 <button class="btn btn-gradient-warning btn-rounded btn-fw btn-sm float-end ms-auto">
                                                     Save
                                                 </button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

@@ -120,7 +120,8 @@
                 foreach ($nota_putih as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td><?= $value['nama_lengkap'] ?> </td>
                         <td><?= 'Rp. ' . number_format(0, 0, ',', '.') ?></td>
                     </tr>
@@ -194,7 +195,7 @@
                     $grand_total_tertagih += $total_tertagih;
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        <td width="20px"><?= $no ?> </td>
                         <td><?= $salesman ?> </td>
                         <td><?= 'Rp. ' . number_format($total_kontan, 0, ',', '.') ?></td>
                         <td><?= 'Rp. ' . number_format($total_tertagih, 0, ',', '.') ?></td>
@@ -235,7 +236,8 @@
                 foreach ($nota_putih as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td> </td>
                         <td><?= 'Rp. ' . number_format(0, 0, ',', '.') ?></td>
                     </tr>
@@ -272,7 +274,8 @@
                 foreach ($nota_putih as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td> </td>
                         <td><?= 'Rp. ' . number_format(0, 0, ',', '.') ?></td>
                     </tr>
@@ -309,7 +312,8 @@
                 foreach ($nota_putih as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td> </td>
                         <td><?= 'Rp. ' . number_format(0, 0, ',', '.') ?></td>
                     </tr>
@@ -350,7 +354,8 @@
                 foreach ($nota_putih as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td> </td>
                         <td> </td>
                         <td> </td>
@@ -402,7 +407,8 @@
                 foreach ($nota_putih as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td> </td>
                         <td> </td>
                         <td> </td>
@@ -444,7 +450,8 @@
                 foreach ($nota_putih as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td> </td>
                         <td><?= 'Rp. ' . number_format(0, 0, ',', '.') ?></td>
                     </tr>
@@ -481,7 +488,8 @@
                 foreach ($nota_putih as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td><?= 'Rp. ' . number_format(0, 0, ',', '.') ?></td>
                         <td>
                         </td>
@@ -516,7 +524,8 @@
                 foreach ($nota_putih as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td> </td>
                         <td><?= 'Rp. ' . number_format(0, 0, ',', '.') ?></td>
                         <td><?= 'Rp. ' . number_format(0, 0, ',', '.') ?></td>
@@ -566,7 +575,8 @@
                 foreach ($bank as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td>
                             <?= $value['nama_bank'] ?>
                         </td>
@@ -600,7 +610,8 @@
                 foreach ($nota_putih as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td>
 
                         </td>
@@ -653,7 +664,8 @@
                 foreach ($nota_putih as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td></td>
                         <td><?= 'Rp. ' . number_format(0, 0, ',', '.') ?></td>
                     </tr>
@@ -690,7 +702,8 @@
                 foreach ($nota_putih as $value) {
                 ?>
                     <tr style=" font-size:11px ;">
-                        <td><?= $no ?> </td>
+                        
+                        <td width="20px"><?= $no ?> </td>
                         <td></td>
                         <td><?= 'Rp. ' . number_format(0, 0, ',', '.') ?></td>
                     </tr>

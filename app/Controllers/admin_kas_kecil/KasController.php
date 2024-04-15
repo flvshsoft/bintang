@@ -17,7 +17,11 @@ class KasController extends BaseController
             ->where('status', 'Lunas')
             //->where('id_branch', Session('userData')['id_branch'])
             ->groupBy('nota.id_nota')
+            ->orderBy('nota.id_nota','DESC')
             ->findAll();
+
+            // print_r($data['model']);
+            // exit;
         return view('admin_kas_kecil/kas/index', $data);
     }
 
