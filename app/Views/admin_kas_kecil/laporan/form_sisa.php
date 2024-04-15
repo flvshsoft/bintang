@@ -14,21 +14,21 @@
             </nav>
         </div>
         <div class="row">
+            <!-- Area -->
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">USAHA PER AREA</h4>
-                        <form class="forms-sample" method="POST"
-                            action="<?= base_url('/akk/laporan/form_sisa/print') ?>">
+                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/laporan/piutang/area/print') ?>" target="_blank">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Id Area</label>
                                 <div class="col-sm-9">
                                     <select required name="id_area" class="form-control form-control-sm select2">
-                                        <option></option>
+                                        <option value="">-- Pilih Area --</option>
                                         <?php foreach ($area as $value) { ?>
-                                        <option value="<?= $value['id_area'] ?>">
-                                            <?= $value['id_nama_area'], ' - ', $value['nama_area'] ?>
-                                        </option>
+                                            <option value="<?= $value['id_area'] ?>">
+                                                <?= $value['id_nama_area'], ' - ', $value['nama_area'] ?>
+                                            </option>
                                         <?php }; ?>
                                     </select>
                                 </div>
@@ -37,11 +37,11 @@
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Salesman</label>
                                 <div class="col-sm-9">
                                     <select required name="id_partner" class="form-control form-control-sm select2">
-                                        <option></option>
+                                        <option value="">-- Pilih Salesman --</option>
                                         <?php foreach ($partner as $value) { ?>
-                                        <option value="<?= $value['id_partner'] ?>">
-                                            <?= $value['nama_lengkap'] ?>
-                                        </option>
+                                            <option value="<?= $value['id_partner'] ?>">
+                                                <?= $value['nama_lengkap'] ?>
+                                            </option>
                                         <?php }; ?>
                                     </select>
                                 </div>
@@ -50,60 +50,61 @@
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Start
                                     Date</label>
                                 <div class="col-sm-9">
-                                    <input required type="date" name="tgl_mulai" class="form-control form-control-sm">
+                                    <input required type="date" name="tgl_mulai" class="form-control form-control-sm" value="<?= date('Y-m-d') ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">End
                                     Date</label>
                                 <div class="col-sm-9">
-                                    <input required type="date" name="tgl_berakhir"
-                                        class="form-control form-control-sm">
+                                    <input required type="date" name="tgl_berakhir" class="form-control form-control-sm" value="<?= date('Y-m-d') ?>">
                                 </div>
                             </div>
-                            <div class="form-group text-center mb-0">
+                            <div class="form-group text-left mb-0">
                                 <a href="<?= base_url('/akk/laporan') ?>" class="btn btn-primary btn-sm">
                                     <i class="mdi mdi-backburger icon-sm"></i>
                                 </a>
-                                <button class="btn btn-dark btn-sm" type="submit"><i
-                                        class="mdi mdi-printer icon-sm"></i></button>
+                                <button class="btn btn-dark btn-sm float-end" type="submit"><i class="mdi mdi-printer icon-sm"></i></button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+            <!-- All Salesman -->
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">USAHA ALL SALESMAN
                         </h4>
-                        <form class="forms-sample">
-                            <div class="form-group row">
+                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/laporan/piutang/salesman/print') ?>" target="_blank">
+                            <div class="form-group row mb-0">
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Start
                                     Date</label>
                                 <div class="col-sm-9">
-                                    <input type="date" class="form-control form-control-sm">
+                                    <input required type="date" name="tgl_mulai" class="form-control form-control-sm" value="<?= date('Y-m-d') ?>">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row mb-0">
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">End
                                     Date</label>
                                 <div class="col-sm-9">
-                                    <input type="date" class="form-control form-control-sm">
+                                    <input required type="date" name="tgl_berakhir" class="form-control form-control-sm" value="<?= date('Y-m-d') ?>">
                                 </div>
                             </div>
-                            <div class="form-group text-center">
+                            <div class="form-group text-left mt-4">
                                 <a href="<?= base_url('/akk/laporan') ?>" class="btn btn-primary btn-sm">
                                     <i class="mdi mdi-backburger icon-sm"></i>
                                 </a>
-                                <button class="btn btn-dark btn-sm"><i class="mdi mdi-printer icon-sm"></i></button>
-                                <button class="btn btn-success btn-sm"><i
-                                        class="mdi mdi-file-excel icon-sm"></i></button>
+                                <button class="btn btn-success btn-sm float-end"><i class="mdi mdi-file-excel icon-sm"></i></button>
+                                <button class="btn btn-dark btn-sm float-end" type="submit">
+                                    <i class="mdi mdi-printer icon-sm"></i>
+                                </button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+            <!-- Karyawan -->
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
@@ -134,6 +135,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Internal -->
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
