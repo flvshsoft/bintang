@@ -15,6 +15,7 @@ class pembayaranController extends BaseController
             ->join('area', 'area.id_area=nota.id_area')
             ->where('status !=', 'Lunas')
             ->where('nota.id_branch', Session('userData')['id_branch'])
+            ->orderBy('sales.id_sales','DESC')
             ->findAll();
 
         return view('admin_kas_kecil/piutang_usaha/pembayaran/index', $data);
@@ -24,8 +25,8 @@ class pembayaranController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'INPUT PELUNASAN HUTANG TUNAI';
-        $data['info'] = $this->mdSalesDetail
-            ->join('sales', 'sales.id_sales=sales_detail.id_sales')
+        $data['info'] = $this->mdSales
+            // ->join('sales', 'sales.id_sales=sales_detail.id_sales')
             ->join('nota', 'nota.id_sales=sales.id_sales')
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->join('area', 'area.id_area=sales.id_area')
@@ -37,8 +38,8 @@ class pembayaranController extends BaseController
             ->join('nota', 'nota.id_sales=sales.id_sales')
             ->join('area', 'area.id_area=nota.id_area')
             ->join('customer', 'customer.id_customer=nota.id_customer')
-            ->join('sales_detail', 'sales_detail.id_sales=sales.id_sales')
-            ->join('nota_detail', 'nota_detail.id_nota=nota.id_nota')
+            // ->join('sales_detail', 'sales_detail.id_sales=sales.id_sales')
+            // ->join('nota_detail', 'nota_detail.id_nota=nota.id_nota')
             ->groupBy('nota.id_nota')
             ->where('status !=', 'Lunas')
             ->where('sales.id_branch', Session('userData')['id_branch'])

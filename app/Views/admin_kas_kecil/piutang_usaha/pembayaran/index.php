@@ -24,6 +24,7 @@
                             <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>
+                                        <th style="font-size: 11px;"> NO </th>
                                         <th style="font-size: 11px;"> NO. DO </th>
                                         <th style="font-size: 11px;"> SALESMAN </th>
                                         <th style="font-size: 11px;"> METHOD </th>
@@ -36,8 +37,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($model as $value) { ?>
+                                    <?php foreach ($model as $key => $value) { ?>
                                         <tr>
+                                            <td style="font-size: 11px;">
+                                                <?= $key+1 ?>
+                                            </td>
                                             <td style="font-size: 11px;">
                                                 <?= $value['id_sales'] ?>
                                             </td>
