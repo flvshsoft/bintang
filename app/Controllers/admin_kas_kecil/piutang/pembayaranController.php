@@ -44,6 +44,7 @@ class pembayaranController extends BaseController
             ->where('status !=', 'Lunas')
             ->where('sales.id_branch', Session('userData')['id_branch'])
             // ->where('sales.id_sales', $id_sales)
+            ->orderBy('nota.id_nota','DESC')
             ->findAll();
 
         return view('admin_kas_kecil/piutang_usaha/pembayaran/tambah', $data);

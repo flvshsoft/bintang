@@ -58,6 +58,7 @@
                                 cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>
+                                        <th style="font-size: 11px;"> NO </th>
                                         <th style="font-size: 11px;"> NO. Tagihan </th>
                                         <th style="font-size: 11px;"> No Nota </th>
                                         <th style="font-size: 11px;"> Salesman </th>
@@ -70,11 +71,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($model as $value) {
+                                    <?php foreach ($model as $key => $value) {
                                         $total_tagihan = $value['total_beli'] - $value['pay'] ?>
 
                                     <tr>
                                         <form method="POST" action="<?= base_url('/akk/piutang_usaha/input/add') ?>">
+                                            <td style="font-size: 11px;">
+                                                <?= $key + 1 ?>
+                                            </td>
                                             <td style="font-size: 11px;">
                                                 <?= $value['id_nota'] ?>
                                                 <input type="hidden" class="form-control form-control-sm" name="id_nota"
