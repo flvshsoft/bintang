@@ -83,7 +83,7 @@
                                     <?php foreach ($cek_nota as $key => $value) { ?>
                                         <tr>
                                             <td style=" font-size: 11px;"><?= $key + 1 ?></td>
-                                            <td style=" font-size: 11px;"><?= $value['id_nota'] ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['no_nota'] ?></td>
                                             <td style=" font-size: 11px;"><?= $value['nama_customer'] ?></td>
                                             <td style=" font-size: 11px;"></td>
                                             <td style=" font-size: 11px;"></td>
