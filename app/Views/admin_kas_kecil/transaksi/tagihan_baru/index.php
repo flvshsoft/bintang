@@ -71,8 +71,13 @@
                                             </td>
 
                                             <td>
-                                                <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales']) ?>">
-                                                    <i class="mdi mdi-database-plus icon-sm"></i> </a>
+                                                <a class="btn btn-info btn-xs p-2" href="<?= base_url('/akk/transaksi/tagihan_baru/closing-sales/' . $value['id_sales']) ?>">
+                                                <i class="mdi mdi-database-plus icon-sm"></i> 
+                                                    Closing Sales
+                                                </a>
+                                                    <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales']) ?>">
+                                                    <i class="mdi mdi-database-plus icon-sm"></i> 
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php $no++;

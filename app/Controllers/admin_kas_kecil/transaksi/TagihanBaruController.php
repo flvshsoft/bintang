@@ -335,4 +335,30 @@ class TagihanBaruController extends BaseController
         // $data['total'] = $total;
         return view('admin_kas_kecil/transaksi/tagihan_baru/print_invoice', $data);
     }
+
+    public function closing_sales($id_sales): string
+    {
+        $data['judul'] = 'CLOSING SALES';
+        $data['judul1'] = 'CLOSING SALES';
+        $data['model'] = $this->mdSales
+            ->join('partner', 'partner.id_partner=sales.id_partner')
+            ->join('area', 'area.id_area=sales.id_area')
+            ->join('asset', 'asset.id_asset=sales.id_asset')
+            ->where('id_sales', $id_sales)
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('id_sales', 'DESC')
+            ->find()[0];
+        $data['cek_nota'] = $this->mdNota
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->join('partner', 'partner.id_partner=sales.id_partner')
+            ->join('area', 'area.id_area=sales.id_area')
+            ->join('customer', 'customer.id_customer=nota.id_customer')
+            ->where('sales.id_sales', $id_sales)
+            // ->where('customer.id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        // print_r($data['cek_nota']);
+        // exit;
+        $data['lastIdNota'] = $this->mdNota->getLastIdNota();
+        return view('admin_kas_kecil/transaksi/tagihan_baru/closing_sales', $data);
+    }
 }

@@ -60,11 +60,16 @@ $row_sql = $result->fetch_assoc();
 // End
 $hitung['id_area'] = $row_sql['id_area'];
 $hitung['id_branch'] = $row_sql['id_branch'];
-$hitung['id_partner'] = $data[0][2];
-$hitung['week'] = $data[0][3];
-$hitung['id_asset'] = $data[0][4];
+// Start
+$sql = "SELECT * FROM `partner` WHERE `nama_lengkap` LIKE '" . $data[0][1] . "' AND `id_branch` = '".$hitung['id_branch']."'"; // Replace with your table name
+$result = $conn->query($sql);
+$row_sql = $result->fetch_assoc();
+// End
+$hitung['id_partner'] = $row_sql['id_partner'];
+$hitung['week'] = $data[0][2];
+$hitung['id_asset'] = '50000001';
 // tanggal
-$unixTimestamp = ($data[0][5] - 25569) * 86400; // Convert Excel date to Unix timestamp
+$unixTimestamp = ($data[0][3] - 25569) * 86400; // Convert Excel date to Unix timestamp
 $date = new DateTime("@$unixTimestamp"); // Create DateTime object using Unix timestamp
 $formattedDate = $date->format('Y-m-d H:i:s'); // Format the date as desired
 $hitung['tgl_do'] = $formattedDate;
