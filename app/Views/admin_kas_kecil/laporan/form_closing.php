@@ -18,12 +18,11 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">LAPORAN CLOSING PER MINGGU</h4>
-                        <form class="forms-sample" method="post"
-                            action="<?= base_url('/akk/laporan/form_closing/mingguan')?>">
+                        <form class="forms-sample" method="post" action="<?= base_url('/akk/laporan/form_closing/mingguan') ?>" target="_blank">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Week</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control form-control-sm">
+                                    <select class="form-control form-control-sm" name="week" required>
                                         <option></option>
                                         <option>1</option>
                                         <option>2</option>
@@ -85,15 +84,12 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Year</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control form-control-sm">
-                                        <option></option>
-                                        <option>2018</option>
-                                        <option>2019</option>
-                                        <option>2020</option>
-                                        <option>2021</option>
-                                        <option>2022</option>
-                                        <option>2023</option>
-                                        <option>2024</option>
+                                    <select class="form-control form-control-sm" name="year" required>
+                                        <?php
+                                        for ($i = date('Y'); $i > 2018; $i--) :
+                                        ?>
+                                            <option><?= $i ?></option>
+                                        <?php endfor; ?>
                                     </select>
                                 </div>
                             </div>
@@ -112,8 +108,7 @@
                     <div class="card-body">
                         <h4 class="card-title">LAPORAN CLOSING BULANAN
                         </h4>
-                        <form class="forms-sample" method="post"
-                            action="<?= base_url('/akk/laporan/form_closing/bulanan')?>">
+                        <form class="forms-sample" method="post" action="<?= base_url('/akk/laporan/form_closing/bulanan') ?>">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Month</label>
                                 <div class="col-sm-9">
@@ -164,8 +159,7 @@
                     <div class="card-body">
                         <h4 class="card-title">LAPORAN CLOSING TAHUNAN
                         </h4>
-                        <form class="forms-sample" method="post"
-                            action="<?= base_url('/akk/laporan/form_closing/tahunan')?>">
+                        <form class="forms-sample" method="post" action="<?= base_url('/akk/laporan/form_closing/tahunan') ?>">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Year</label>
                                 <div class="col-sm-9">

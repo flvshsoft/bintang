@@ -69,7 +69,7 @@
                         <!-- tabel -->
                         <div class="table-responsive">
                             <table class="table table-striped" width="100%" height="88%" cellspacing="0">
-                                <thead class="table table-primary">
+                                <thead class="table table-success">
                                     <tr>
                                         <th style=" font-size: 11px;"> NO </th>
                                         <th style=" font-size: 11px;"> NO TAGIHAN </th>
@@ -80,17 +80,155 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $sub_total = 0; ?>
                                     <?php foreach ($cek_nota as $key => $value) { ?>
+                                        <?php
+                                        $kredit = 0;
+                                        $cash = 0;
+                                        if ($value['payment_method'] == 'CASH') {
+                                            $cash = $value['total_beli'] - $value['pay'];
+                                        } else {
+                                            $kredit = $value['total_beli'] - $value['pay'];
+                                        }
+                                        $sub_total += $cash + $kredit;
+                                        ?>
                                         <tr>
                                             <td style=" font-size: 11px;"><?= $key + 1 ?></td>
                                             <td style=" font-size: 11px;"><?= $value['no_nota'] ?></td>
                                             <td style=" font-size: 11px;"><?= $value['nama_customer'] ?></td>
-                                            <td style=" font-size: 11px;"></td>
-                                            <td style=" font-size: 11px;"></td>
-                                            <td style=" font-size: 11px;"></td>
+                                            <td style=" font-size: 11px;"><?= number_format($kredit) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($cash) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
                                         </tr>
                                     <?php }; ?>
                                 </tbody>
+                            </table>
+                        </div><br>
+                        </form>
+                        <!-- tabel -->
+                        <h3>CASH / KONTAN</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead class="table table-success">
+                                    <tr>
+                                        <th style=" font-size: 11px;"> NO </th>
+                                        <th style=" font-size: 11px;"> KODE BARANG </th>
+                                        <th style=" font-size: 11px;"> NAMA PRODUCT </th>
+                                        <th style=" font-size: 11px;"> HARGA </th>
+                                        <th style=" font-size: 11px;"> QTY </th>
+                                        <th style=" font-size: 11px;"> TOTAL KONTAN </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $no = 1;$total_qty=0;$total=0; ?>
+                                    <?php foreach ($product_list['CASH'] as $key => $value) { ?>
+                                        <?php
+                                        $qty = $value['qty'];
+                                        $harga_aktif = $value['harga_aktif'];
+                                        $sub_total = $qty * $harga_aktif;
+                                        $total_qty += $qty;
+                                        $total += $sub_total;
+                                        ?>
+                                        <tr>
+                                            <td style=" font-size: 11px;"><?= $no++ ?></td>
+                                            <td style=" font-size: 11px;"><?= $key ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['nama_product'] ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($harga_aktif) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($qty) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
+                                        </tr>
+                                    <?php }; ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">Grand Total Omset</td>
+                                        <td><?= number_format($total_qty) ?></td>
+                                        <td><?= number_format($total) ?></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <?php 
+                                $totalList = [];
+                                $totalList['Total Cash'] = $total;
+                            ?>
+                        </div><br>
+                        <!-- tabel -->
+                        <h3>KREDIT</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead class="table table-success">
+                                    <tr>
+                                        <th style=" font-size: 11px;"> NO </th>
+                                        <th style=" font-size: 11px;"> KODE BARANG </th>
+                                        <th style=" font-size: 11px;"> NAMA PRODUCT </th>
+                                        <th style=" font-size: 11px;"> HARGA </th>
+                                        <th style=" font-size: 11px;"> QTY </th>
+                                        <th style=" font-size: 11px;"> TOTAL KONTAN </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $no = 1;$total_qty=0;$total=0; ?>
+                                    <?php foreach ($product_list['KREDIT'] as $key => $value) { ?>
+                                        <?php
+                                        $qty = $value['qty'];
+                                        $harga_aktif = $value['harga_aktif'];
+                                        $sub_total = $qty * $harga_aktif;
+                                        $total_qty += $qty;
+                                        $total += $sub_total;
+                                        ?>
+                                        <tr>
+                                            <td style=" font-size: 11px;"><?= $no++ ?></td>
+                                            <td style=" font-size: 11px;"><?= $key ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['nama_product'] ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($harga_aktif) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($qty) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
+                                        </tr>
+                                    <?php }; ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4">Grand Total Omset</td>
+                                        <td><?= number_format($total_qty) ?></td>
+                                        <td><?= number_format($total) ?></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <?php 
+                                $totalList['Total Kredit'] = $total;
+                            ?>
+                        </div><br>
+
+                         <!-- tabel -->
+                         <h3>TOTAL</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead class="table table-success">
+                                    <tr>
+                                        <th style=" font-size: 11px;"> NO </th>
+                                        <th style=" font-size: 11px;"> KETERANGAN </th>
+                                        <th style=" font-size: 11px;"> TOTAL </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $no = 1;$total=0; ?>
+                                    <?php foreach ($totalList as $key => $value) { ?>
+                                        <?php
+                                        $total += $value;
+                                        ?>
+                                        <tr>
+                                            <td style=" font-size: 11px;"><?= $no++ ?></td>
+                                            <td style=" font-size: 11px;"><?= $key ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($value) ?></td>
+                                        </tr>
+                                    <?php }; ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="2">Grand Total Omset</td>
+                                        <td><?= number_format($total) ?></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div><br>
                     </div>
@@ -98,7 +236,7 @@
             </div>
         </div>
 
-        
+
     </div>
 
 

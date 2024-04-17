@@ -78,7 +78,7 @@
             margin-top: 20px;
         }
     </style>
-    <title>Invoice Client</title>
+    <title>LAPORAN CLOSING</title>
 </head>
 
 <body>
@@ -193,13 +193,14 @@
 
                     $grand_total_kontan += $total_kontan;
                     $grand_total_tertagih += $total_tertagih;
+                    $saldo =  $grand_total_kontan + $grand_total_tertagih;
                 ?>
                     <tr style=" font-size:11px ;">
                         <td width="20px"><?= $no ?> </td>
                         <td><?= $salesman ?> </td>
                         <td><?= 'Rp. ' . number_format($total_kontan, 0, ',', '.') ?></td>
                         <td><?= 'Rp. ' . number_format($total_tertagih, 0, ',', '.') ?></td>
-                        <td><?= 'Rp. ' . number_format(0, 0, ',', '.') ?></td>
+                        <td><?= 'Rp. ' . number_format($saldo, 0, ',', '.') ?></td>
                     </tr>
                 <?php $no++;
                 }

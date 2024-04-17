@@ -356,7 +356,33 @@ class TagihanBaruController extends BaseController
             ->where('sales.id_sales', $id_sales)
             // ->where('customer.id_branch', Session('userData')['id_branch'])
             ->findAll();
-        // print_r($data['cek_nota']);
+
+        $notaList = [];
+        foreach ($data['cek_nota'] as $key => $value) {
+            $notaList[$value['id_nota']] = $value['id_nota'];
+        }
+
+        $mdNotaDetail = $this->mdNotaDetail
+            ->join('nota', 'nota.id_nota=nota_detail.id_nota')
+            ->join('product', 'product.id_product=nota_detail.id_product')
+            ->join('barang_harga', 'barang_harga.id_product=nota_detail.id_product')
+            ->whereIn('nota_detail.id_nota', $notaList)
+            ->findAll();
+
+        $temp = [];
+        foreach ($mdNotaDetail as $key => $value) {
+            $temp2 = [];
+            $temp2['nama_product'] = $value['nama_product'];
+            if(isset($temp[$value['payment_method']][$value['id_product']])){
+                $temp2['qty'] = $temp[$value['payment_method']][$value['id_product']]['qty'] + $value['satuan_penjualan'];
+            }else{
+                $temp2['qty'] = $value['satuan_penjualan'];
+            }
+            $temp2['harga_aktif'] = $value['harga_aktif'];
+            $temp[$value['payment_method']][$value['id_product']] = $temp2;
+        }
+        $data['product_list'] = $temp;
+        // print_r($temp);
         // exit;
         $data['lastIdNota'] = $this->mdNota->getLastIdNota();
         return view('admin_kas_kecil/transaksi/tagihan_baru/closing_sales', $data);

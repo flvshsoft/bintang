@@ -35,7 +35,9 @@ class laporanController extends BaseController
     public function form_closing_mingguan()
     {
         $data['judul'] = 'Bintang Distributor';
-        $data['judul1'] = 'LAPORAN CLOSING';
+        $week = $this->request->getPost('week');
+        $year = $this->request->getPost('year');
+        $data['judul1'] = "LAPORAN CLOSING MINGGUAN KE-$week $year";
         $id_branch = SESSION('userData')['id_branch'];
 
         $data['nota_putih'] = $this->mdSales
@@ -45,12 +47,6 @@ class laporanController extends BaseController
             //->orderBY('id_nota', 'DESC')
             ->findAll();
 
-        $data['bank'] = $this->mdBank
-            ->orderBY('nama_bank', 'ASC')
-            ->where('id_branch', $id_branch)
-            ->findAll();
-
-
         $data['kontan_nota'] = $this->mdNota
             //  ->join('area', 'area.id_area=sales.id_area')
             ->join('partner', 'partner.id_partner=nota.id_partner')
@@ -58,6 +54,10 @@ class laporanController extends BaseController
             ->where('nota.id_branch', $id_branch)
             ->findAll();
 
+        $data['bank'] = $this->mdBank
+            ->orderBY('nama_bank', 'ASC')
+            ->where('id_branch', $id_branch)
+            ->findAll();
         // if (!empty($data['info'])) {
         //     $data['info'] = $data['info'][0];
         // } else {
