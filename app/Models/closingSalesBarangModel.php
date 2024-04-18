@@ -14,7 +14,7 @@ class closingSalesBarangModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['id_nota',  'id_product', 'id_branch', 'week', 'qty', 'harga'];
+    protected $allowedFields = ['id_branch', 'id_product', 'id_sales', 'id_nota', 'week', 'payment_method', 'harga', 'qty'];
 
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';

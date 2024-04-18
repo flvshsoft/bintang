@@ -3,6 +3,11 @@
 ## Mysql
 mysqld --console --skip-grant-tables --skip-external-locking
 
+## migrate
+php spark make:migration create_closing_sales
+php spark migrate
+php spark migrate:rollback 2024-04-18-114823_CreateClosingSalesBarang.php
+
 ## What is CodeIgniter?
 
 CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.

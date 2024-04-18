@@ -393,8 +393,14 @@ class TagihanBaruController extends BaseController
 
     public function closing_sales_save()
     {
-        $data['lastIdNota'] = $this->mdNota->getLastIdNota();
         $id_sales = $this->request->getPost('id_sales');
+        $hapus1 = $this->mdClosingSales
+            ->where('id_sales', $id_sales)
+            ->delete();
+        $hapus2 = $this->mdClosingSalesBarang
+            ->where('id_sales', $id_sales)
+            ->delete();
+        $data['lastIdNota'] = $this->mdNota->getLastIdNota();
         $data['model'] = $this->mdSales
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->join('area', 'area.id_area=sales.id_area')
@@ -412,6 +418,7 @@ class TagihanBaruController extends BaseController
             ->findAll();
 
         $notaList = [];
+        $week = 0;
         foreach ($data['cek_nota'] as $key => $value) {
             $notaList[$value['id_nota']] = $value['id_nota'];
             $kredit = 0;
@@ -421,6 +428,8 @@ class TagihanBaruController extends BaseController
             } else {
                 $kredit = $value['total_beli'] - $value['pay'];
             }
+
+            $week = $value['week'];
             $data = [
                 'id_nota' => $value['id_nota'],
                 'id_partner' => $value['id_partner'],
@@ -445,6 +454,13 @@ class TagihanBaruController extends BaseController
         $temp['KREDIT'] = [];
         foreach ($mdNotaDetail as $key => $value) {
             $temp2 = [];
+            $temp2['id_nota'] = $value['id_nota'];
+            $temp2['id_sales'] = $value['id_sales'];
+            $temp2['id_branch'] = $value['id_branch'];
+            $temp2['id_partner'] = $value['id_partner'];
+            $temp2['id_product'] = $value['id_product'];
+            $temp2['week'] = $week;
+            $temp2['payment_method'] = $value['payment_method'];
             $temp2['nama_product'] = $value['nama_product'];
             if (isset($temp[$value['payment_method']][$value['id_product']])) {
                 $temp2['qty'] = $temp[$value['payment_method']][$value['id_product']]['qty'] + $value['satuan_penjualan'];
@@ -453,17 +469,32 @@ class TagihanBaruController extends BaseController
             }
             $temp2['harga_aktif'] = $value['harga_aktif'];
             $temp[$value['payment_method']][$value['id_product']] = $temp2;
-            /// total closing sales barang
-            $total_qty = 0;
-            $total = 0;
-            foreach ($temp as $key => $value2) {
-                $qty = $value2['qty'];
-                $harga_aktif = $value2['harga_aktif'];
+        }
+
+
+        // print_r($temp['CASH']);
+        // exit;
+        foreach ($temp as $key0 => $value0) {
+            foreach ($temp[$key0] as $key => $value) {
+                $qty = $value['qty'];
+                $harga_aktif = $value['harga_aktif'];
                 $sub_total = $qty * $harga_aktif;
-                $total_qty += $qty;
-                $total += $sub_total;
+                $data = [
+                    'id_nota' => $value['id_nota'],
+                    'id_partner' => $value['id_partner'],
+                    'id_product' => $value['id_product'],
+                    'id_branch' => $value['id_branch'],
+                    'id_sales' => $value['id_sales'],
+                    'week' =>  $value['week'],
+                    'payment_method' =>  $value['payment_method'],
+                    'qty' => $qty,
+                    'harga' => $harga_aktif,
+                ];
+                // print_r($data);
+                $this->mdClosingSalesBarang->save($data);
             }
         }
+
         $data['product_list'] = $temp;
         return redirect()->to(base_url('/akk/transaksi/tagihan_baru/closing-sales/' . $id_sales));
     }
