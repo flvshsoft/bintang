@@ -370,6 +370,8 @@ class TagihanBaruController extends BaseController
             ->findAll();
 
         $temp = [];
+        $temp['CASH'] = [];
+        $temp['KREDIT'] = [];
         foreach ($mdNotaDetail as $key => $value) {
             $temp2 = [];
             $temp2['nama_product'] = $value['nama_product'];
