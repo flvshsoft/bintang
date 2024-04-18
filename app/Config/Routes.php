@@ -99,6 +99,7 @@ $routes->post('/akk/transaksi/tagihan_baru/nota', 'admin_kas_kecil\transaksi\Tag
 $routes->post('/akk/transaksi/tagihan_baru/nota/detail', 'admin_kas_kecil\transaksi\TagihanBaruController::input_detail_closing');
 // closing sales
 $routes->get('/akk/transaksi/tagihan_baru/closing-sales/(:any)', 'admin_kas_kecil\transaksi\TagihanBaruController::closing_sales/$1');
+$routes->post('/akk/transaksi/tagihan_baru/closing-sales', 'admin_kas_kecil\transaksi\TagihanBaruController::closing_sales_save');
 
 
 $routes->get('/akk/transaksi/stock_akhir', 'admin_kas_kecil\transaksi\StockAkhirController::index');

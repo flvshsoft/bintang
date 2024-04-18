@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class closingSalesModel extends Model
+class closingSalesBarangModel extends Model
 {
-    protected $table = 'closing_sales';
-    protected $primaryKey = 'id_cs';
+    protected $table = 'closing_sales_barang';
+    protected $primaryKey = 'id_csb';
 
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['id_nota',  'id_sales', 'id_branch', 'week', 'kredit', 'cash'];
+    protected $allowedFields = ['id_nota',  'id_product', 'id_branch', 'week', 'qty', 'harga'];
 
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
