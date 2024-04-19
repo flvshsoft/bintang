@@ -47,7 +47,7 @@ class KasController extends BaseController
     public function form_piutang(): string
     {
         $data['judul'] = 'Bintang Distributor';
-        $data['judul1'] = 'FORM PIUTANG INTERNAL        ';
+        $data['judul1'] = 'FORM PIUTANG INTERNAL';
         return view('admin_kas_kecil/piutang_usaha/tambah', $data);
     }
 }

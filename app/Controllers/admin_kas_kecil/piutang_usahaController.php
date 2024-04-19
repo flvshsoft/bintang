@@ -48,4 +48,17 @@ class piutang_usahaController extends BaseController
         $data['judul1'] = 'FORM PIUTANG INTERNAL        ';
         return view('admin_kas_kecil/piutang_usaha/tambah', $data);
     }
+    public function form_piutang_save()
+    {
+        $data = [
+            'nama_penghutang' => $this->request->getPost('nama_penghutang'),
+            'tgl_piutang' => $this->request->getPost('tgl_piutang'),
+            'type_piutang' => $this->request->getPost('type_piutang'),
+            'jumlah_piutang' => $this->request->getPost('jumlah_piutang'),
+            'id_branch' => Session('userData')['id_branch'],
+            'id_user' => Session('userData')['id_user'],
+        ];
+        $this->mdPiutangUsaha->save($data);
+        return redirect()->to(base_url('/akk/piutang_usaha'));
+    }
 }

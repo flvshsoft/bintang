@@ -49,48 +49,62 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?//php foreach ($model as $value) { ?>
+                                    <?php $no = 1;
+                                    foreach ($model as $value) {
+                                        $dateString = $value['tgl_piutang'];
+                                        $dateTime = new DateTime($dateString);
+                                        $formattedDate = $dateTime->format('d F Y H:i:s');
+                                    ?>
                                     <tr>
                                         <td style="font-size: 11px;">
-
+                                            <a href="<?= base_url('/akk/keuangan/master_hutang/hapus/' . $value['id_piutang_usaha']) ?>"
+                                                onclick="return confirm('Apakah Anda yakin Menghapus Data Piutang Usaha ?')"
+                                                style="text-decoration: none;"><b>
+                                                    <?= $no ?></b>
+                                            </a>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <a href="<?= base_url('/akk/keuangan/master_hutang/edit/' . $value['id_piutang_usaha']) ?>"
+                                                style="text-decoration: none;"><b>
+                                                    <?= $value['id_piutang_usaha'] ?></b>
+                                            </a>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['nama_supplier'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
 
                                         </td>
                                         <td style="font-size: 11px;">
-
+                                            <?= 'Rp ' . number_format($value['jumlah_piutang'], 0, '.', '.') ?>
                                         </td>
                                         <td style="font-size: 11px;">
-
+                                            <?= $formattedDate ?>
                                         </td>
                                         <td style="font-size: 11px;">
-
+                                            <?= $value['minggu-ke'] ?>
                                         </td>
-                                        <td style="font-size: 11px;">
 
-                                        </td>
                                         <td style="font-size: 11px;">
-
-                                        </td>
-                                        <td style="font-size: 11px;">
-
+                                            <?= $value['nama_user'] ?>
                                         </td>
                                         <td class="warning" align="center" width="10px">
-                                            <b><a href="<?= base_url('/akk/keuangan/master_hutang/') ?>"
+                                            <b><a href="<?#= base_url('/akk/keuangan/master_hutang/') ?>"
                                                     style="text-decoration:none" data-toggle="tooltip" class="tip-top"
                                                     data-original-title="Discount Hutang Usaha"><i
                                                         class="mdi mdi-ticket-percent text-default icon-md"></i></a></b>
-                                            <b><a href="<?= base_url('/akk/keuangan/master_hutang/') ?>"
+                                            <b><a href="<?#= base_url('/akk/keuangan/master_hutang/') ?>"
                                                     style="text-decoration:none" data-toggle="tooltip" class="tip-top"
                                                     data-original-title="Retur Hutang"><i
                                                         class="mdi mdi-file-send text-default icon-md"></i></a></b>
-                                            <b><a href="<?= base_url('/akk/keuangan/master_hutang/') ?>"
+                                            <b><a href="<?#= base_url('/akk/keuangan/master_hutang/') ?>"
                                                     style="text-decoration:none" data-toggle="tooltip" class="tip-top"
                                                     data-original-title="Bayar Tagihan"><i
                                                         class="mdi mdi-check-circle text-default icon-md"></i></a></b>
                                         </td>
                                     </tr>
-                                    <?php// }; ?>
+                                    <?php }
+                                    $no++; ?>
                                 </tbody>
                             </table>
                         </div>

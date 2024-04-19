@@ -41,14 +41,11 @@ class laporanController extends BaseController
         $id_branch = SESSION('userData')['id_branch'];
 
         $data['nota_putih'] = $this->mdSales
-            //->join('nota', 'nota.id_sales=sales.id_sales')
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->where('sales.id_branch', $id_branch)
-            //->orderBY('id_nota', 'DESC')
             ->findAll();
 
         $data['kontan_nota'] = $this->mdNota
-            //  ->join('area', 'area.id_area=sales.id_area')
             ->join('partner', 'partner.id_partner=nota.id_partner')
             ->orderBY('id_nota', 'DESC')
             ->where('nota.id_branch', $id_branch)
@@ -58,13 +55,52 @@ class laporanController extends BaseController
             ->orderBY('nama_bank', 'ASC')
             ->where('id_branch', $id_branch)
             ->findAll();
-        // if (!empty($data['info'])) {
-        //     $data['info'] = $data['info'][0];
-        // } else {
-        //     $data['info'];
-        //     return redirect()->to(base_url('/akk/laporan/form_closing/mingguan#kosong'));
-        //     exit;
-        // }
+
+        $data['piutang'] = $this->mdPiutangUsaha
+            ->orderBY('tgl_piutang', 'ASC')
+            //->groupBy('piutang_usaha.id_branch')
+            ->where('type_piutang', 'Karyawan')
+            ->where('piutang_usaha.id_branch', $id_branch)
+            ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
+            ->findAll();
+        $jumlah_piutang_ = 0;
+        foreach ($data['piutang'] as $key => $value) {
+            $value['jumlah_piutang'];
+            $jumlah_piutang_ += $value['jumlah_piutang'];
+        }
+        $data['jumlah_piutang_'] = $jumlah_piutang_;
+
+
+        $data['piutang_karyawan'] = $this->mdPiutangUsaha
+        ->orderBY('tgl_piutang', 'ASC')
+        //->groupBy('piutang_usaha.id_branch')
+        ->where('type_piutang', 'Karyawan')
+        ->where('piutang_usaha.id_branch', $id_branch)
+        ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
+        ->findAll();
+    $jumlah_piutang_karyawan = 0;
+    foreach ($data['piutang'] as $key => $value) {
+        $value['jumlah_piutang'];
+        $jumlah_piutang_karyawan += $value['jumlah_piutang'];
+    }
+    $data['jumlah_piutang_karyawan'] = $jumlah_piutang_karyawan;
+
+
+    $data['hutang_usaha'] = $this->mdPiutangUsaha
+            ->orderBY('tgl_piutang', 'ASC')
+            ->groupBy('supplier.id_supplier')
+            ->where('type_piutang', 'Usaha')
+            ->where('piutang_usaha.id_branch', $id_branch)
+            ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
+            ->findAll();
+        $jumlah_piutang_usaha = 0;
+        foreach ($data['hutang_usaha'] as $key => $value) {
+            $value['jumlah_piutang'];
+            $jumlah_piutang_usaha += $value['jumlah_piutang'];
+        }
+        $data['jumlah_piutang_usaha'] = $jumlah_piutang_usaha;
+
+
 
         $mpdf = new \Mpdf\Mpdf();
         $html = view('admin_kas_kecil/laporan/form_closing/mingguan', $data, []);

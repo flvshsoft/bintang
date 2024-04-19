@@ -126,6 +126,7 @@ $routes->get('/akk/piutang_usaha', 'admin_kas_kecil\piutang_usahaController::ind
 $routes->get('/akk/piutang_usaha/hapus/(:any)', 'admin_kas_kecil\piutang_usahaController::hapus/$1');
 $routes->get('/akk/repayment_detail', 'admin_kas_kecil\piutang_usahaController::repayment_detail');
 $routes->get('/akk/piutang_usaha/form', 'admin_kas_kecil\piutang_usahaController::form_piutang');
+$routes->post('/akk/piutang_usaha/form', 'admin_kas_kecil\piutang_usahaController::form_piutang_save');
 // $routes->get('/akk/piutang_usaha/input', 'admin_kas_kecil\piutang\tunaiController::index');
 $routes->post('/akk/piutang_usaha/input/add', 'admin_kas_kecil\piutang\tunaiController::add');
 // $routes->get('/akk/piutang_usaha/input/detail/(:any)', 'admin_kas_kecil\piutang\tunaiController::detail_input_piutang/$1');
@@ -259,6 +260,10 @@ $routes->get('/akk/keuangan/master_hutang', 'admin_kas_kecil\keuangan\masterHuta
 $routes->get('/akk/keuangan/master_hutang/pelunasan', 'admin_kas_kecil\keuangan\masterHutangController::pelunasan');
 $routes->get('/akk/keuangan/master_hutang/pot', 'admin_kas_kecil\keuangan\masterHutangController::pot');
 $routes->get('/akk/keuangan/master_hutang/tambah', 'admin_kas_kecil\keuangan\masterHutangController::tambah');
+$routes->post('/akk/keuangan/master_hutang/tambah', 'admin_kas_kecil\keuangan\masterHutangController::tambah_save');
+$routes->get('/akk/keuangan/master_hutang/edit/(:any)', 'admin_kas_kecil\keuangan\masterHutangController::edit/$1');
+$routes->post('/akk/keuangan/master_hutang/edit', 'admin_kas_kecil\keuangan\masterHutangController::edit_save');
+$routes->get('/akk/keuangan/master_hutang/hapus/(:any)', 'admin_kas_kecil\keuangan\masterHutangController::hapus/$1');
 
 $routes->get('/akk/keuangan/master_app_mutasi', 'admin_kas_kecil\keuangan\masterAppMutasiController::index');
 $routes->get('/akk/keuangan/master_app_mutasi/pelunasan', 'admin_kas_kecil\keuangan\masterAppMutasiController::pelunasan');
