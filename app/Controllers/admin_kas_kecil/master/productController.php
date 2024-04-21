@@ -39,7 +39,7 @@ class productController extends BaseController
             'area' => 0,
             'defect' => 0,
             'sample' => 0,
-            'id_branch', Session('userData')['id_branch']
+            'id_branch' => Session('userData')['id_branch']
         ];
         // print_r($data);
         // exit;

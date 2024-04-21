@@ -344,9 +344,10 @@ class TagihanBaruController extends BaseController
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
-            ->where('id_sales', $id_sales)
+            ->join('nota', 'nota.id_sales=sales.id_sales')
+            ->where('sales.id_sales', $id_sales)
             // ->where('id_branch', Session('userData')['id_branch'])
-            ->orderBy('id_sales', 'DESC')
+            ->orderBy('sales.id_sales', 'DESC')
             ->find()[0];
         $data['cek_nota'] = $this->mdNota
             ->join('sales', 'sales.id_sales=nota.id_sales')
@@ -370,12 +371,14 @@ class TagihanBaruController extends BaseController
             ->findAll();
 
         $temp = [];
+        $temp['CASH'] = [];
+        $temp['KREDIT'] = [];
         foreach ($mdNotaDetail as $key => $value) {
             $temp2 = [];
             $temp2['nama_product'] = $value['nama_product'];
-            if(isset($temp[$value['payment_method']][$value['id_product']])){
+            if (isset($temp[$value['payment_method']][$value['id_product']])) {
                 $temp2['qty'] = $temp[$value['payment_method']][$value['id_product']]['qty'] + $value['satuan_penjualan'];
-            }else{
+            } else {
                 $temp2['qty'] = $value['satuan_penjualan'];
             }
             $temp2['harga_aktif'] = $value['harga_aktif'];
@@ -386,5 +389,113 @@ class TagihanBaruController extends BaseController
         // exit;
         $data['lastIdNota'] = $this->mdNota->getLastIdNota();
         return view('admin_kas_kecil/transaksi/tagihan_baru/closing_sales', $data);
+    }
+
+    public function closing_sales_save()
+    {
+        $id_sales = $this->request->getPost('id_sales');
+        $hapus1 = $this->mdClosingSales
+            ->where('id_sales', $id_sales)
+            ->delete();
+        $hapus2 = $this->mdClosingSalesBarang
+            ->where('id_sales', $id_sales)
+            ->delete();
+        $data['lastIdNota'] = $this->mdNota->getLastIdNota();
+        $data['model'] = $this->mdSales
+            ->join('partner', 'partner.id_partner=sales.id_partner')
+            ->join('area', 'area.id_area=sales.id_area')
+            ->join('asset', 'asset.id_asset=sales.id_asset')
+            ->join('nota', 'nota.id_sales=sales.id_sales')
+            ->where('sales.id_sales', $id_sales)
+            ->orderBy('sales.id_sales', 'DESC')
+            ->find()[0];
+        $data['cek_nota'] = $this->mdNota
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->join('partner', 'partner.id_partner=sales.id_partner')
+            ->join('area', 'area.id_area=sales.id_area')
+            ->join('customer', 'customer.id_customer=nota.id_customer')
+            ->where('sales.id_sales', $id_sales)
+            ->findAll();
+
+        $notaList = [];
+        $week = 0;
+        foreach ($data['cek_nota'] as $key => $value) {
+            $notaList[$value['id_nota']] = $value['id_nota'];
+            $kredit = 0;
+            $cash = 0;
+            if ($value['payment_method'] == 'CASH') {
+                $cash = $value['total_beli'] - $value['pay'];
+            } else {
+                $kredit = $value['total_beli'] - $value['pay'];
+            }
+
+            $week = $value['week'];
+            $data = [
+                'id_nota' => $value['id_nota'],
+                'id_partner' => $value['id_partner'],
+                'id_branch' => $value['id_branch'],
+                'id_sales' => $value['id_sales'],
+                'week' =>  $value['week'],
+                'cash' => $cash,
+                'kredit' => $kredit,
+            ];
+            $this->mdClosingSales->insert($data);
+        }
+
+        $mdNotaDetail = $this->mdNotaDetail
+            ->join('nota', 'nota.id_nota=nota_detail.id_nota')
+            ->join('product', 'product.id_product=nota_detail.id_product')
+            ->join('barang_harga', 'barang_harga.id_product=nota_detail.id_product')
+            ->whereIn('nota_detail.id_nota', $notaList)
+            ->findAll();
+
+        $temp = [];
+        $temp['CASH'] = [];
+        $temp['KREDIT'] = [];
+        foreach ($mdNotaDetail as $key => $value) {
+            $temp2 = [];
+            $temp2['id_nota'] = $value['id_nota'];
+            $temp2['id_sales'] = $value['id_sales'];
+            $temp2['id_branch'] = $value['id_branch'];
+            $temp2['id_partner'] = $value['id_partner'];
+            $temp2['id_product'] = $value['id_product'];
+            $temp2['week'] = $week;
+            $temp2['payment_method'] = $value['payment_method'];
+            $temp2['nama_product'] = $value['nama_product'];
+            if (isset($temp[$value['payment_method']][$value['id_product']])) {
+                $temp2['qty'] = $temp[$value['payment_method']][$value['id_product']]['qty'] + $value['satuan_penjualan'];
+            } else {
+                $temp2['qty'] = $value['satuan_penjualan'];
+            }
+            $temp2['harga_aktif'] = $value['harga_aktif'];
+            $temp[$value['payment_method']][$value['id_product']] = $temp2;
+        }
+
+
+        // print_r($temp['CASH']);
+        // exit;
+        foreach ($temp as $key0 => $value0) {
+            foreach ($temp[$key0] as $key => $value) {
+                $qty = $value['qty'];
+                $harga_aktif = $value['harga_aktif'];
+                $sub_total = $qty * $harga_aktif;
+                $data = [
+                    'id_nota' => $value['id_nota'],
+                    'id_partner' => $value['id_partner'],
+                    'id_product' => $value['id_product'],
+                    'id_branch' => $value['id_branch'],
+                    'id_sales' => $value['id_sales'],
+                    'week' =>  $value['week'],
+                    'payment_method' =>  $value['payment_method'],
+                    'qty' => $qty,
+                    'harga' => $harga_aktif,
+                ];
+                // print_r($data);
+                $this->mdClosingSalesBarang->save($data);
+            }
+        }
+
+        $data['product_list'] = $temp;
+        return redirect()->to(base_url('/akk/transaksi/tagihan_baru/closing-sales/' . $id_sales));
     }
 }

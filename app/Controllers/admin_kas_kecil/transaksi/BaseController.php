@@ -81,6 +81,9 @@ abstract class BaseController extends Controller
         $this->mdJenisHarga = model('jenishargaModel', true, $this->db);
         $this->mdBarangHarga = model('barangHargaModel', true, $this->db);
         $this->mdStockAkhir = model('stockAkhirModel', true, $this->db);
+        $this->mdClosingSales = model('closingSalesModel', true, $this->db);
+        $this->mdClosingSalesBarang = model('closingSalesBarangModel', true, $this->db);
+        $this->mdPiutangUsaha = model('piutangUsahaModel', true, $this->db);
 
         // $this->session = \Config\Services::session();
 

@@ -8,17 +8,17 @@ class piutang_usahaController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'RIWAYAT DATA PELUNASAN PIUTANG';
-        $data['model'] = $this->mdNotaDetail
-            ->join('nota', 'nota.id_nota=nota_detail.id_nota')
-            ->join('sales_detail', 'sales_detail.id_sales=nota.id_sales')
-            ->join('customer', 'customer.id_customer=nota.id_customer')
-            ->join('partner', 'partner.id_partner=nota.id_partner')
-            ->join('user', 'user.id_user=nota.created_by')
+        $data['model'] = $this->mdNota
             ->where('status', 'Lunas')
             ->where('nota.id_branch', Session('userData')['id_branch'])
             ->where('payment_method', 'KREDIT')
+            ->join('customer', 'customer.id_customer=nota.id_customer')
+            ->join('partner', 'partner.id_partner=nota.id_partner')
+            ->join('user', 'user.id_user=nota.created_by')
+            ->join('nota_detail', 'nota_detail.id_nota=nota.id_nota')
             ->groupBy('nota.id_nota')
             ->findAll();
+
         // print_r($data['model']);
         // exit;
         return view('admin_kas_kecil/piutang_usaha/index', $data);
@@ -47,5 +47,18 @@ class piutang_usahaController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'FORM PIUTANG INTERNAL        ';
         return view('admin_kas_kecil/piutang_usaha/tambah', $data);
+    }
+    public function form_piutang_save()
+    {
+        $data = [
+            'nama_penghutang' => $this->request->getPost('nama_penghutang'),
+            'tgl_piutang' => $this->request->getPost('tgl_piutang'),
+            'type_piutang' => $this->request->getPost('type_piutang'),
+            'jumlah_piutang' => $this->request->getPost('jumlah_piutang'),
+            'id_branch' => Session('userData')['id_branch'],
+            'id_user' => Session('userData')['id_user'],
+        ];
+        $this->mdPiutangUsaha->save($data);
+        return redirect()->to(base_url('/akk/piutang_usaha'));
     }
 }

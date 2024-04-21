@@ -12,11 +12,13 @@ class areaModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['id_nama_area',  'nama_area', 'id_branch'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
     protected $deletedField  = 'deleted_at';
 }

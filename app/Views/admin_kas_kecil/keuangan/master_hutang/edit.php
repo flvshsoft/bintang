@@ -19,23 +19,26 @@
             <div class="col-md-8 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/keuangan/master_hutang/tambah') ?>">
+                        <form class="forms-sample" method="POST"
+                            action="<?= base_url('/akk/keuangan/master_hutang/edit') ?>">
 
                             <div class="form-group row mb-4">
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">
                                     No Faktur</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" disabled rows="3"> <?= $lastPiutangUsaha ?></textarea>
+                                    <textarea class="form-control" disabled
+                                        rows="3"> <?= $model['id_piutang_usaha'] ?></textarea>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Supplier</label>
                                 <div class="col-sm-9">
                                     <select class="form-control select2" name="id_supplier">
-                                        <option>Pilih Supplier</option>
+                                        <option value="<?= $model['id_supplier'] ?>"><?= $model['nama_supplier'] ?>
+                                        </option>
                                         <?php foreach ($supplier as $value) { ?>
-                                            <option value="<?= $value['id_supplier'] ?>"><?= $value['nama_supplier'] ?>
-                                            </option>
+                                        <option value="<?= $value['id_supplier'] ?>"><?= $value['nama_supplier'] ?>
+                                        </option>
                                         <?php }; ?>
                                     </select>
                                 </div>
@@ -44,7 +47,7 @@
                                 <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Pekan Ke-</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="minggu-ke">
-                                        <option></option>
+                                        <option><?= $model['minggu-ke'] ?></option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -102,10 +105,17 @@
                                     </select>
                                 </div>
                             </div>
+                            <?php
+                            $dateString = $model['tgl_piutang'];
+                            $dateTime = new DateTime($dateString);
+                            $formattedDate = $dateTime->format('Y-m-d H:i:s');
+                            ?>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Tanggal</label>
+                                <label for="exampleInputConfirmPassword2"
+                                    class="col-sm-3 col-form-label">Tanggal</label>
                                 <div class="col-sm-9">
-                                    <input type="datetime-local" class="form-control form-control-sm" name="tgl_piutang" value="<?= date('Y-m-d H:i:s') ?>">
+                                    <input type="datetime-local" class="form-control form-control-sm" name="tgl_piutang"
+                                        value="<?= $formattedDate ?>">
                                 </div>
                             </div>
 
@@ -113,12 +123,17 @@
                             <div class="form-group row mb-4">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Nilai Hutang</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" value="Jumlah Utang" name="jumlah_piutang">
+                                    <input type="number" class="form-control" value="<?= $model['jumlah_piutang'] ?>"
+                                        name="jumlah_piutang">
+                                    <input type="hidden" class="form-control" value="<?= $model['id_piutang_usaha'] ?>"
+                                        name="id_piutang_usaha">
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/akk/keuangan/master_hutang') ?>" class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
-                                <button type="submit" class="btn btn-success btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i></button>
+                                <a href="<?= base_url('/akk/keuangan/master_hutang') ?>"
+                                    class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-success btn-xs"><i
+                                        class="mdi mdi-content-save-all icon-sm"></i></button>
                             </div>
                         </form>
                     </div>

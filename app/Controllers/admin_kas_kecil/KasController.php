@@ -9,19 +9,20 @@ class KasController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'RIWAYAT DATA KAS';
         $data['model'] = $this->mdNotaDetail
+            ->where('payment_method', 'CASH')
+            //->where('status', 'Lunas')
+            ->where('nota.id_branch', Session('userData')['id_branch'])
             ->join('nota', 'nota.id_nota=nota_detail.id_nota')
             ->join('sales_detail', 'sales_detail.id_sales=nota.id_sales')
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->join('partner', 'partner.id_partner=nota.id_partner')
             ->join('user', 'user.id_user=nota.created_by')
-            ->where('status', 'Lunas')
-            //->where('id_branch', Session('userData')['id_branch'])
             ->groupBy('nota.id_nota')
-            ->orderBy('nota.id_nota','DESC')
+            ->orderBy('nota.id_nota', 'DESC')
             ->findAll();
 
-            // print_r($data['model']);
-            // exit;
+        // print_r($data['model']);
+        // exit;
         return view('admin_kas_kecil/kas/index', $data);
     }
 
@@ -46,7 +47,7 @@ class KasController extends BaseController
     public function form_piutang(): string
     {
         $data['judul'] = 'Bintang Distributor';
-        $data['judul1'] = 'FORM PIUTANG INTERNAL        ';
+        $data['judul1'] = 'FORM PIUTANG INTERNAL';
         return view('admin_kas_kecil/piutang_usaha/tambah', $data);
     }
 }

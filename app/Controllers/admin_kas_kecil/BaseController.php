@@ -9,6 +9,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Config\Services;
+
 /**
  * Class BaseController
  *
@@ -83,5 +84,8 @@ abstract class BaseController extends Controller
         $this->mdKaryawan = model('karyawanModel', true, $this->db);
         $this->mdBranch = model('branchModel', true, $this->db);
         $this->mdBank = model('bankModel', true, $this->db);
+        $this->mdClosingSales = model('closingSalesModel', true, $this->db);
+        $this->mdClosingSalesBarang = model('closingSalesBarangModel', true, $this->db);
+        $this->mdPiutangUsaha = model('piutangUsahaModel', true, $this->db);
     }
 }

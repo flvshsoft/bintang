@@ -132,6 +132,51 @@
                             </a>
                         </div>
 
+                        
+                        <div class="col-12 mb-3 px-2">
+                            <a href="<?= base_url('/akk/transaksi/tagihan_baru') ?>" class="text-decoration-none">
+                                <div class="card text-white shadow" style="background: #add2e9;">
+                                    <div class="card-body d-flex p-0">
+                                        <div class="col-2 p-0">
+                                            <img src="https://i.pinimg.com/originals/49/37/d4/4937d4d54a3d92d7eaa30fc0e3a1e8e8.gif" alt="Foto" width="100%" class="mt-0">
+                                        </div>
+                                        <div class="col-10 p-3 text-white-90">
+                                            <h5>Closing Sales</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 mb-3 px-2">
+                            <a href="<?= base_url('/akk/laporan/form_closing') ?>" class="text-decoration-none">
+                                <div class="card text-white shadow" style="background: #add2e9;">
+                                    <div class="card-body d-flex p-0">
+                                        <div class="col-2 p-0">
+                                            <img src="https://i.pinimg.com/originals/49/37/d4/4937d4d54a3d92d7eaa30fc0e3a1e8e8.gif" alt="Foto" width="100%" class="mt-0">
+                                        </div>
+                                        <div class="col-10 p-3 text-white-90">
+                                            <h5>Closing Mingguan</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-12 mb-3 px-2">
+                            <a href="<?= base_url('/akk/laporan/form_sisa') ?>" class="text-decoration-none">
+                                <div class="card text-white shadow" style="background: #643a9b;">
+                                    <div class="card-body d-flex p-0">
+                                        <div class="col-2 p-0">
+                                            <img src="https://i.pinimg.com/originals/92/5d/0f/925d0f283ce4c206f23f207a8b4ecfd7.gif" alt="Foto" width="100%" class="mt-0">
+                                        </div>
+                                        <div class="col-10 p-3 text-white-90">
+                                            <h5>Rekap Nota Putih</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
 
                         <div class="col-12 mb-3 px-2">
                             <a href="<?= base_url('/akk/piutang_usaha/input_pembayaran') ?>" class="text-decoration-none">
@@ -162,51 +207,6 @@
                             </a>
                         </div>
 
-
-                        <div class="col-12 mb-3 px-2">
-                            <a href="<?= base_url('/akk/laporan/form_sisa') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #643a9b;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-2 p-0">
-                                            <img src="https://i.pinimg.com/originals/92/5d/0f/925d0f283ce4c206f23f207a8b4ecfd7.gif" alt="Foto" width="100%" class="mt-0">
-                                        </div>
-                                        <div class="col-10 p-3 text-white-90">
-                                            <h5>Rekap Nota Putih</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="col-12 mb-3 px-2">
-                            <a href="<?= base_url('/akk/laporan/form_closing') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #add2e9;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-2 p-0">
-                                            <img src="https://i.pinimg.com/originals/49/37/d4/4937d4d54a3d92d7eaa30fc0e3a1e8e8.gif" alt="Foto" width="100%" class="mt-0">
-                                        </div>
-                                        <div class="col-10 p-3 text-white-90">
-                                            <h5>Closing Sales</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="col-12 mb-3 px-2">
-                            <a href="<?= base_url('/akk/laporan/form_closing') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #add2e9;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-2 p-0">
-                                            <img src="https://i.pinimg.com/originals/49/37/d4/4937d4d54a3d92d7eaa30fc0e3a1e8e8.gif" alt="Foto" width="100%" class="mt-0">
-                                        </div>
-                                        <div class="col-10 p-3 text-white-90">
-                                            <h5>Closing Mingguan</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
 
                     </div>
 
