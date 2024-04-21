@@ -214,7 +214,7 @@
                                     <?php $no = 1;$total=0; ?>
                                     <?php foreach ($totalList as $key => $value) { ?>
                                         <?php
-                                        $total += $value;
+                                        $total += $value; 
                                         ?>
                                         <tr>
                                             <td style=" font-size: 11px;"><?= $no++ ?></td>
