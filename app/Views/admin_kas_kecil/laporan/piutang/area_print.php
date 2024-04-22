@@ -57,7 +57,7 @@
     table,
     th,
     td {
-        font-size: 11px;
+        font-size: 10px;
         /* border: 1px solid black; */
     }
 
@@ -133,7 +133,7 @@
         </table>
         <table border="1">
             <thead>
-                <tr style="font-size:11px ;">
+                <tr style="font-size:10px ;">
                     <th>No.</th>
                     <th>No Nota</th>
                     <th>Tgl Nota</th>
@@ -152,7 +152,7 @@
                     $total += $value['total_beli'];
                     $sisa = $value['total_beli'] - $value['pay'];
                 ?>
-                <tr style="font-size:11px ;">
+                <tr>
                     <td><?= $no ?> </td>
                     <td><?= $value['no_nota'] ?> </td>
                     <td><?= tgl_indo($value['tgl_bayar'], 'normal') ?> </td>
@@ -170,7 +170,7 @@
                 } ?>
             </tbody>
             <tfoot>
-                <tr style="font-size:11px ;">
+                <tr style="font-size:10px ;">
                     <td colspan="4" align="left"><b>Total Tagihan Piutang Usaha </b></td>
                     <td colspan="2" align="left">
                         <?= 'Rp. ' . number_format($total, 0, ',', '.') ?>
@@ -248,9 +248,9 @@ function tgl_indo($tanggal, $mode)
     $nama_hari = date('w', strtotime($tanggal));
     $nama_hari = $hari[$nama_hari];
 
-    if($mode=='full'){
+    if ($mode == 'full') {
         $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
-    }else{
+    } else {
         $result = $pecahkanTanggal[2] . '-' . $pecahkanTanggal[1] . '-' . $pecahkanTanggal[0];
     }
 

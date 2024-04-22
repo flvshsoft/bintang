@@ -21,7 +21,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%"
+                                cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>
                                         <th style="font-size: 11px;"> NO </th>
@@ -38,42 +39,43 @@
                                 </thead>
                                 <tbody>
                                     <?php foreach ($model as $key => $value) { ?>
-                                        <tr>
-                                            <td style="font-size: 11px;">
-                                                <?= $key+1 ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['id_sales'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['nama_lengkap'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['payment_method'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['weeks'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['nama_area'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
+                                    <tr>
+                                        <td style="font-size: 11px;">
+                                            <?= $key+1 ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['id_sales'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['nama_lengkap'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['payment_method'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['weeks'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['nama_area'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
 
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['created_at'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['created_at'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
 
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <div class="justify-content-center text-center">
-                                                    <a href="<?= base_url('/akk/piutang_usaha/input_pembayaran/detail/' . $value['id_sales']) ?>">
-                                                        <i class="mdi mdi-database-plus icon-md"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <div class="justify-content-center text-center">
+                                                <a
+                                                    href="<?= base_url('/akk/piutang_usaha/input_pembayaran/detail/' . $value['id_sales'].'/'.$value['id_nota']) ?>">
+                                                    <i class="mdi mdi-database-plus icon-md"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                     <?php }; ?>
                                 </tbody>
                             </table>
@@ -86,12 +88,12 @@
 </div>
 
 <style>
-    .table-bordered-custom {
-        border: 1px solid #000;
-        /* Ganti dengan warna dan ketebalan sesuai preferensi Anda */
-    }
+.table-bordered-custom {
+    border: 1px solid #000;
+    /* Ganti dengan warna dan ketebalan sesuai preferensi Anda */
+}
 
-    /* Tambahkan class ini pada tabel Anda */
+/* Tambahkan class ini pada tabel Anda */
 </style>
 
 <?= $this->endSection() ?>

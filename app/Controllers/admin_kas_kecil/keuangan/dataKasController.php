@@ -13,7 +13,6 @@ class dataKasController extends BaseController
         $data['model'] = $this->mdKas
             ->join('user', 'user.id_user=kas_bank.id_user')
             ->join('bank', 'bank.id_bank=kas_bank.id_bank')
-
             ->findAll();
         return view('admin_kas_kecil/keuangan/data_kas/index', $data);
     }
@@ -39,7 +38,7 @@ class dataKasController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'FORM UANG KELUAR';
         $data['bank'] = $this->mdBank
-            // ->where('id_branch', Session('userData')['id_branch'])
+            ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/keuangan/data_kas/mutasi_bank', $data);
     }
@@ -55,6 +54,7 @@ class dataKasController extends BaseController
             'approved_by' => Session('userData')['id_user'],
             'metode_bayar' => $this->request->getPost('metode_bayar'),
             'ket' => $this->request->getPost('ket'),
+            'id_branch' => Session('userData')['id_branch'],
             'biaya_mutasi_bank' => $this->request->getPost('biaya_mutasi_bank'),
         ];
         $this->mdMutasiBank->insert($data);
@@ -63,6 +63,7 @@ class dataKasController extends BaseController
             'id_sales' => $this->request->getPost('id_sales'),
             'id_konsumen' => $this->request->getPost('id_konsumen'),
             'id_bank' => $this->request->getPost('id_bank'),
+            'id_branch' => Session('userData')['id_branch'],
             'minggu' => $this->request->getPost('week_mutasi_bank'),
             'pergantian_minggu' => $this->request->getPost('pergantian_minggu'),
             'id_user' => Session('userData')['id_user'],
@@ -88,6 +89,7 @@ class dataKasController extends BaseController
             'id_sales' => $this->request->getPost('id_sales'),
             'id_konsumen' => $this->request->getPost('id_konsumen'),
             'id_bank' => $this->request->getPost('id_bank'),
+            'id_branch' => Session('userData')['id_branch'],
             'minggu' => $this->request->getPost('minggu'),
             'pergantian_minggu' => $this->request->getPost('pergantian_minggu'),
             'id_user' => Session('userData')['id_user'],
@@ -114,6 +116,7 @@ class dataKasController extends BaseController
             'id_sales' => $this->request->getPost('id_sales'),
             'id_konsumen' => $this->request->getPost('id_konsumen'),
             'id_bank' => $this->request->getPost('id_bank'),
+            'id_branch' => Session('userData')['id_branch'],
             'minggu' => $this->request->getPost('minggu'),
             'pergantian_minggu' => $this->request->getPost('pergantian_minggu'),
             'id_user' => Session('userData')['id_user'],
