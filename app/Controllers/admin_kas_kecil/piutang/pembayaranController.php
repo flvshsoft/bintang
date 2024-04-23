@@ -60,41 +60,68 @@ class pembayaranController extends BaseController
         $total_beli = $test[0]['total_beli'];
         $id_customer = $test[0]['id_customer'];
 
+        $bank = $this->mdBank
+            ->where('nama_bank', 'KAS')
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->find();
+        $id_bank = $bank[0]['id_bank'];
+
         if ($bayar > $total_beli) {
             return redirect()->to(base_url('/akk/piutang_usaha/input_pembayaran/detail/' . $id_sales . '#lebih'));
         } else {
             if ($bayar == $total_beli) {
                 $this->mdNota->update($id_nota, ['pay' => $bayar,  'status' => 'Lunas']);
-                $data = [
-                    'id_sales' => $id_sales,
-                    'id_customer' => $id_customer,
-                    'id_bank' => 3,
-                    'metode_bayar' => NULL,
-                    'ket' => 'Cicilan Lunas',
-                    'id_user' => Session('userData')['id_user'],
-                    'uang_kas' => $bayar,
-                ];
-                $this->mdKas->save($data);
-                $this->mdBank->update(['id_bank' => 3,  'saldo' => $bayar, 'id_branch'=>Session('userData')['id_branch']] );
+                $adaSalesKonsumen = $this->mdKas->where('id_sales', $id_sales)
+                    ->where('id_konsumen', $id_customer)
+                    ->first();
+
+                if ($adaSalesKonsumen) {
+                    // Jika entri sudah ada, tambahkan nilai pay ke nilai uang_kas
+                    $adaSalesKonsumen['uang_kas'] += $pay;
+                    // Simpan perubahan
+                    $this->mdKas->save($adaSalesKonsumen);
+                } else {
+                    $data = [
+                        'id_sales' => $id_sales,
+                        'id_konsumen' => $id_customer,
+                        'id_bank' => $id_bank,
+                        'metode_bayar' => NULL,
+                        'ket' => 'Cicilan Lunas',
+                        'id_user' => Session('userData')['id_user'],
+                        'id_branch' => Session('userData')['id_branch'],
+                        'uang_kas' => $pay,
+                    ];
+                    $this->mdKas->save($data);
+                }
+                $this->mdBank->where('id_bank', $id_bank)->increment('saldo', $pay);
                 return redirect()->to(base_url('/akk/piutang_usaha'));
             } else {
                 $this->mdNota->update($id_nota, ['pay' => $bayar]);
-                $data = [
-                    'id_sales' => $id_sales,
-                    'id_customer' => $id_customer,
-                    'id_bank' => 3,
-                    'metode_bayar' => NULL,
-                    'ket' => 'Pelunasan Cicilan',
-                    'id_user' => Session('userData')['id_user'],
-                    'uang_kas' => $bayar,
-                ];
-                $this->mdKas->save($data);
-                $this->mdBank->update(['id_bank' => 3,  'saldo' => $bayar, 'id_branch'=>Session('userData')['id_branch']] );
+                $adaSalesKonsumen = $this->mdKas->where('id_sales', $id_sales)
+                    ->where('id_konsumen', $id_customer)
+                    ->first();
+
+                if ($adaSalesKonsumen) {
+                    // Jika entri sudah ada, tambahkan nilai pay ke nilai uang_kas
+                    $adaSalesKonsumen['uang_kas'] += $pay;
+                    // Simpan perubahan
+                    $this->mdKas->save($adaSalesKonsumen);
+                } else {
+                    $data = [
+                        'id_sales' => $id_sales,
+                        'id_konsumen' => $id_customer,
+                        'id_bank' => $id_bank,
+                        'metode_bayar' => NULL,
+                        'ket' => 'Pelunasan Cicilan',
+                        'id_user' => Session('userData')['id_user'],
+                        'id_branch' => Session('userData')['id_branch'],
+                        'uang_kas' => $pay,
+                    ];
+                    $this->mdKas->save($data);
+                }
+                $this->mdBank->where('id_bank', $id_bank)->increment('saldo', $pay);
             }
         }
-
-
-
         return redirect()->to(base_url('/akk/piutang_usaha/input_pembayaran/detail/' . $id_sales));
     }
 }
