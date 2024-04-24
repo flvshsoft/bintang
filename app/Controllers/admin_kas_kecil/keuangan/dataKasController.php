@@ -11,7 +11,10 @@ class dataKasController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'DATA KAS & BANK';
         $data['model'] = $this->mdKas
+            ->select(['*', 'kas_bank.created_at as created_at'])
+            ->where('kas_bank.id_branch', Session('userData')['id_branch'])
             ->join('user', 'user.id_user=kas_bank.id_user')
+            ->join('customer', 'customer.id_customer=kas_bank.id_konsumen')
             ->join('bank', 'bank.id_bank=kas_bank.id_bank')
             ->findAll();
         return view('admin_kas_kecil/keuangan/data_kas/index', $data);

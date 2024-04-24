@@ -6,78 +6,78 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
 
-    img {
-        max-width: 100%;
-        height: 20%;
-        width: 30%;
-        float: left;
-        margin: 20px 0;
-        margin-top: 10px;
-        /* Atur margin atas dan bawah */
-    }
+        img {
+            max-width: 100%;
+            height: 20%;
+            width: 30%;
+            float: left;
+            margin: 20px 0;
+            margin-top: 10px;
+            /* Atur margin atas dan bawah */
+        }
 
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-    }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    .flex-container {
-        display: flex;
-        justify-content: space-between;
-    }
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+        }
 
-    .header {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    .left-column {
-        flex: 1;
-    }
+        .left-column {
+            flex: 1;
+        }
 
-    .right-column {
-        flex: 1;
-    }
+        .right-column {
+            flex: 1;
+        }
 
-    .details {
-        margin-bottom: 20px;
-    }
+        .details {
+            margin-bottom: 20px;
+        }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        /* margin-bottom: 20px; */
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /* margin-bottom: 20px; */
+        }
 
-    table,
-    th,
-    td {
-        font-size: 10px;
-        /* border: 1px solid black; */
-    }
+        table,
+        th,
+        td {
+            font-size: 10px;
+            /* border: 1px solid black; */
+        }
 
-    th,
-    td {
-        padding: 10px;
-        text-align: left;
-    }
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
 
-    tbody td {
-        vertical-align: top;
-    }
+        tbody td {
+            vertical-align: top;
+        }
 
-    .payment {
-        margin-top: 20px;
-    }
+        .payment {
+            margin-top: 20px;
+        }
 
-    .footer {
-        margin-top: 20px;
-    }
+        .footer {
+            margin-top: 20px;
+        }
     </style>
     <title>Invoice Client</title>
 </head>
@@ -88,8 +88,7 @@
             <thead>
                 <tr>
                     <th style="width: 50px;">
-                        <img src="<?= base_url() ?>/public/assets/images/logo.png" alt="logo"
-                            style="width: 100px;height:auto;">
+                        <img src="<?= base_url() ?>/public/assets/images/logo.png" alt="logo" style="width: 100px;height:auto;">
                     </th>
                     <th style="text-align: center;">
                         <h4><?= $judul ?></h4>
@@ -149,23 +148,23 @@
                 $no = 1;
                 $total = 0;
                 foreach ($model as $value) {
-                    $total += $value['total_beli'];
                     $sisa = $value['total_beli'] - $value['pay'];
+                    $total += $sisa;
                 ?>
-                <tr>
-                    <td><?= $no ?> </td>
-                    <td><?= $value['no_nota'] ?> </td>
-                    <td><?= tgl_indo($value['tgl_bayar'], 'normal') ?> </td>
-                    <td><?= $value['nama_customer'] ?> </td>
-                    <td><?= 'Rp. ' . number_format($value['total_beli'], 0, ',', '.') ?></td>
-                    <td><?= $value['no_hp_customer'] ?> </td>
-                    <td>
+                    <tr>
+                        <td><?= $no ?> </td>
+                        <td><?= $value['no_nota'] ?> </td>
+                        <td><?= tgl_indo($value['tgl_bayar'], 'normal') ?> </td>
+                        <td><?= $value['nama_customer'] ?> </td>
+                        <td><?= 'Rp. ' . number_format($sisa, 0, ',', '.') ?></td>
+                        <td><?= $value['no_hp_customer'] ?> </td>
+                        <td>
 
-                    </td>
-                    <td>
+                        </td>
+                        <td>
 
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 <?php $no++;
                 } ?>
             </tbody>
