@@ -20,6 +20,26 @@ class dataKasController extends BaseController
         return view('admin_kas_kecil/keuangan/data_kas/index', $data);
     }
 
+    public function hapus_kas($id_kas, $id_sales, $id_customer, $uang_kas)
+    {
+        $bank = $this->mdBank
+            ->where('nama_bank', 'KAS')
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->find();
+        $id_bank = $bank[0]['id_bank'];
+        // print_r($bank);
+        // exit;
+        $this->mdKas->delete($id_kas);
+        $this->mdNota
+            ->where('id_sales', $id_sales)
+            ->where('id_customer', $id_customer)
+            ->decrement('pay', $uang_kas);
+        $this->mdBank
+            ->where('id_bank', $id_bank)
+            ->decrement('saldo', $uang_kas);
+        return redirect()->to(base_url('/akk/keuangan/data_kas'));
+    }
+
     public function voucher(): string
     {
         $data['judul'] = 'Bintang Distributor';

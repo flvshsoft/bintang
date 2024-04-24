@@ -236,6 +236,7 @@ $routes->get('/akk/keuangan/data_kas/uang_kas_kecil', 'admin_kas_kecil\keuangan\
 $routes->post('/akk/keuangan/data_kas/uang_kas_kecil', 'admin_kas_kecil\keuangan\dataKasController::uang_kas_kecil_add');
 $routes->get('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan\dataKasController::form_transfer');
 $routes->post('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan\dataKasController::form_transfer_add');
+$routes->get('/akk/keuangan/data_kas/hapus/(:any)', 'admin_kas_kecil\keuangan\dataKasController::hapus_kas/$1');
 
 $routes->get('/akk/karyawan', 'admin_kas_kecil\sdmController::karyawan');
 $routes->get('/akk/karyawan/tambah', 'admin_kas_kecil\sdmController::karyawan_tambah');
