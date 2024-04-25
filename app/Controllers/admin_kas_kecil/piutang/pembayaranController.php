@@ -92,7 +92,6 @@ class pembayaranController extends BaseController
                     'id_sales' => $id_sales,
                     'id_konsumen' => $id_customer,
                     'id_bank' => $id_bank,
-                    'metode_bayar' => NULL,
                     'ket' => 'Cicilan Lunas',
                     'metode_bayar' => $metode_bayar,
                     'id_user' => Session('userData')['id_user'],

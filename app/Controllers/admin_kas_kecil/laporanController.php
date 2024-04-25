@@ -47,7 +47,10 @@ class laporanController extends BaseController
 
         $data['kontan_nota'] = $this->mdNota
             ->join('partner', 'partner.id_partner=nota.id_partner')
+            ->join('sales', 'sales.id_sales=nota.id_sales')
             ->orderBY('id_nota', 'DESC')
+            ->where('sales.week', $week)
+            ->where('YEAR(nota.created_at)', $year)
             ->where('nota.id_branch', $id_branch)
             ->findAll();
 
@@ -72,21 +75,21 @@ class laporanController extends BaseController
 
 
         $data['piutang_karyawan'] = $this->mdPiutangUsaha
-        ->orderBY('tgl_piutang', 'ASC')
-        //->groupBy('piutang_usaha.id_branch')
-        ->where('type_piutang', 'Karyawan')
-        ->where('piutang_usaha.id_branch', $id_branch)
-        ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
-        ->findAll();
-    $jumlah_piutang_karyawan = 0;
-    foreach ($data['piutang'] as $key => $value) {
-        $value['jumlah_piutang'];
-        $jumlah_piutang_karyawan += $value['jumlah_piutang'];
-    }
-    $data['jumlah_piutang_karyawan'] = $jumlah_piutang_karyawan;
+            ->orderBY('tgl_piutang', 'ASC')
+            //->groupBy('piutang_usaha.id_branch')
+            ->where('type_piutang', 'Karyawan')
+            ->where('piutang_usaha.id_branch', $id_branch)
+            ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
+            ->findAll();
+        $jumlah_piutang_karyawan = 0;
+        foreach ($data['piutang'] as $key => $value) {
+            $value['jumlah_piutang'];
+            $jumlah_piutang_karyawan += $value['jumlah_piutang'];
+        }
+        $data['jumlah_piutang_karyawan'] = $jumlah_piutang_karyawan;
 
 
-    $data['hutang_usaha'] = $this->mdPiutangUsaha
+        $data['hutang_usaha'] = $this->mdPiutangUsaha
             ->orderBY('tgl_piutang', 'ASC')
             ->groupBy('supplier.id_supplier')
             ->where('type_piutang', 'Usaha')

@@ -70,5 +70,6 @@ abstract class BaseController extends Controller
         $this->mdPiutangUsaha = model('piutangUsahaModel', true, $this->db);
         $this->mdKas = model('kasModel', true, $this->db);
         $this->mdBank = model('bankModel', true, $this->db);
+        $this->mdNotaPutihSave = model('notaPutihSaveModel', true, $this->db);
     }
 }
