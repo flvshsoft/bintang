@@ -27,7 +27,7 @@ class PiutangController extends BaseController
 
         // $hapus2 = $this->mdNotaPutihSave
         //     ->where('sales.id_area', $id_area)
-        //     ->where('nota.id_partner', $id_partner)
+        //     // ->where('nota.id_partner', $id_partner)
         //     ->delete();
 
         $generate = $this->mdSales
@@ -55,18 +55,23 @@ class PiutangController extends BaseController
         if (!empty($data['info'])) {
             $data['info'] = $data['info'][0];
             foreach ($generate as $key2 => $value) :
-                $generated = [
-                    'id_branch' => Session('userData')['id_branch'],
-                    'id_nota' => $value['id_nota'],
-                    'id_sales' => $value['id_sales'],
-                    'id_user' => Session('userData')['id_user'],
-                    'id_area' => $value['id_area'],
-                    'id_partner' => $value['id_partner'],
-                    'minggu_nota_putih' => $value['week'],
-                    'total_beli' => $value['total_beli'],
-                    'total_bayar' => $value['pay'],
-                ];
-                $this->mdNotaPutihSave->save($generated);
+                $mdNotaPutihSave = $this->mdNotaPutihSave
+                ->where('id_nota', $value['id_nota'])
+                ->find();
+                if(empty($mdNotaPutihSave)){
+                    $generated = [
+                        'id_branch' => Session('userData')['id_branch'],
+                        'id_nota' => $value['id_nota'],
+                        'id_sales' => $value['id_sales'],
+                        'id_user' => Session('userData')['id_user'],
+                        'id_area' => $value['id_area'],
+                        'id_partner' => $value['id_partner'],
+                        'minggu_nota_putih' => $value['week'],
+                        'total_beli' => $value['total_beli'],
+                        'total_bayar' => $value['pay'],
+                    ];
+                    $this->mdNotaPutihSave->save($generated);
+                }
             endforeach;
         } else {
             $data['info'];
