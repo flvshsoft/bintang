@@ -16,12 +16,17 @@ class StockAkhirController extends BaseController
         //     ->orderBy('id_stock_akhir', 'DESC')
         //     ->findAll();
         $data['model'] = $this->mdSales
-            ->where('sales.id_branch', Session('userData')['id_branch'])
+            ->select('sales.id_sales, partner.nama_lengkap, area.nama_area, sales.week, sales.keterangan, sales.tgl_do, sales.created_at, SUM(sales_detail.jumlah_sales) AS total_jumlah_sales')
             ->join('partner', 'partner.id_partner=sales.id_partner',)
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
-            ->orderBy('id_sales', 'DESC')
+            ->join('sales_detail', 'sales_detail.id_sales=sales.id_sales', 'left')
+            ->where('sales.id_branch', Session('userData')['id_branch'])
+            ->orderBy('sales.id_sales', 'DESC')
+            ->groupBy('sales.id_sales')
+            ->having('total_jumlah_sales !=', 0)
             ->findAll();
+            
         return view('admin_kas_kecil/transaksi/stock_akhir/index', $data);
     }
     // public function tambah(): string

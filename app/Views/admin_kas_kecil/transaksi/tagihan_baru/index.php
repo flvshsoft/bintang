@@ -35,7 +35,7 @@
                                         <th style=" font-size: 11px;"> ID Area </th>
                                         <th style=" font-size: 11px;"> Week </th>
                                         <th style=" font-size: 11px;"> Keterangan </th>
-                                        <th style=" font-size: 11px;"> Created By </th>
+                                        <th style=" font-size: 11px;"> Created </th>
                                         <th style=" font-size: 11px;"> </th>
                                     </tr>
                                 </thead>
@@ -60,18 +60,19 @@
                                                 <?= $value['week'] ?>
                                             </td>
                                             <td style=" font-size: 11px;">
-                                                <?= $value['keterangan'] ?>
+                                                <?= $value['keterangan'] ?> 
+                                                <?= $value['total_jumlah_sales'] ?> barang
                                             </td>
                                             <td style=" font-size: 11px;">
-                                            <?= $value['tgl_do'] ?>
+                                                <?= $value['tgl_do'] ?>
                                             </td>
                                             <td>
                                                 <a class="btn btn-info btn-xs p-2" href="<?= base_url('/akk/transaksi/tagihan_baru/closing-sales/' . $value['id_sales']) ?>">
-                                                <i class="mdi mdi-database-plus icon-sm"></i> 
+                                                    <i class="mdi mdi-database-plus icon-sm"></i>
                                                     Closing Sales
                                                 </a>
-                                                    <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales']) ?>">
-                                                    <i class="mdi mdi-database-plus icon-sm"></i> 
+                                                <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales']) ?>">
+                                                    <i class="mdi mdi-database-plus icon-sm"></i>
                                                 </a>
                                             </td>
                                         </tr>
