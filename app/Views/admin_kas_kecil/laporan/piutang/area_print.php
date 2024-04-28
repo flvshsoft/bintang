@@ -133,7 +133,7 @@
         <table border="1">
             <thead>
                 <tr style="font-size:10px ;">
-                    <th>No.</th>
+                    <th>No</th>
                     <th>No Nota</th>
                     <th>Tgl Nota</th>
                     <th>Konsumen</th>
@@ -152,18 +152,14 @@
                     $total += $sisa;
                 ?>
                     <tr>
-                        <td><?= $no ?> </td>
-                        <td><?= $value['no_nota'] ?> </td>
+                        <td style="width:20px;"><?= $no ?> </td>
+                        <td style="width:70px;"><?= $value['no_nota'] ?> </td>
                         <td><?= tgl_indo($value['tgl_bayar'], 'normal') ?> </td>
                         <td><?= $value['nama_customer'] ?> </td>
                         <td><?= 'Rp. ' . number_format($sisa, 0, ',', '.') ?></td>
-                        <td><?= $value['no_hp_customer'] ?> </td>
-                        <td>
-
-                        </td>
-                        <td>
-
-                        </td>
+                        <td style="width:100px;"><?= $value['no_hp_customer'] ?> </td>
+                        <td style="width:100px;"></td>
+                        <td style="width:100px;"></td>
                     </tr>
                 <?php $no++;
                 } ?>
