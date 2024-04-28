@@ -228,22 +228,25 @@ class TagihanBaruController extends BaseController
         $id_product = $mdSalesDetail[0]['id_product'];
 
         $id_nota =  $this->request->getPost('id_nota');
-        $data = [
-            'id_jenis_harga' => $id_jenis_harga,
-            'id_nota' => $id_nota,
-            'id_product' => $id_product,
-            'id_jenis_harga' => $id_jenis_harga,
-            'satuan_penjualan' => $satuan_penjualan,
-            'diskon_penjualan' => $this->request->getPost('diskon_penjualan'),
-        ];
-
+        
         $mdBarangHarga = $this->mdBarangHarga
-            ->where('id_product', $id_product)
-            ->where('id_jenis_harga', $id_jenis_harga)
-            // ->where('id_branch', Session('userData')['id_branch'])
-            ->find();
-
+        ->where('id_product', $id_product)
+        ->where('id_jenis_harga', $id_jenis_harga)
+        // ->where('id_branch', Session('userData')['id_branch'])
+        ->find();
+     
+        
         if (count($mdBarangHarga) > 0) {
+            $harga_nota = $mdBarangHarga[0]['harga_aktif'];
+            $data = [
+                'id_jenis_harga' => $id_jenis_harga,
+                'id_nota' => $id_nota,
+                'id_product' => $id_product,
+                'id_jenis_harga' => $id_jenis_harga,
+                'harga_nota' => $harga_nota,
+                'satuan_penjualan' => $satuan_penjualan,
+                'diskon_penjualan' => $this->request->getPost('diskon_penjualan'),
+            ];
             $this->mdNotaDetail->insert($data);
             $this->mdSalesDetail->where('id_sales_detail', $id_sales_detail)->decrement('jumlah_sales', $satuan_penjualan);
             // $this->mdProduct->where('id_product', $id_product)->decrement('stock_product', $satuan_penjualan);
@@ -340,6 +343,7 @@ class TagihanBaruController extends BaseController
     {
         $data['judul'] = 'CLOSING SALES';
         $data['judul1'] = 'CLOSING SALES';
+        // data sales
         $data['model'] = $this->mdSales
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->join('area', 'area.id_area=sales.id_area')
@@ -349,6 +353,8 @@ class TagihanBaruController extends BaseController
             // ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('sales.id_sales', 'DESC')
             ->find()[0];
+
+        // tabel 1
         $data['cek_nota'] = $this->mdNota
             ->join('sales', 'sales.id_sales=nota.id_sales')
             ->join('partner', 'partner.id_partner=sales.id_partner')
@@ -357,23 +363,32 @@ class TagihanBaruController extends BaseController
             ->where('sales.id_sales', $id_sales)
             // ->where('customer.id_branch', Session('userData')['id_branch'])
             ->findAll();
+            // print_r($data['cek_nota']);
+            // exit;
 
         $notaList = [];
         foreach ($data['cek_nota'] as $key => $value) {
             $notaList[$value['id_nota']] = $value['id_nota'];
         }
+        // print_r($notaList);
 
+        // nota detail
         $mdNotaDetail = $this->mdNotaDetail
+        ->select(['nota_detail.id_nota_detail','nota_detail.id_product','nama_product','payment_method','satuan_penjualan','harga_aktif', 'harga_nota'])
             ->join('nota', 'nota.id_nota=nota_detail.id_nota')
             ->join('product', 'product.id_product=nota_detail.id_product')
             ->join('barang_harga', 'barang_harga.id_product=nota_detail.id_product')
             ->whereIn('nota_detail.id_nota', $notaList)
+            ->groupBy('id_nota_detail')
             ->findAll();
+        // print_r($mdNotaDetail[0]);
+        // print_r([count($mdNotaDetail)]);
 
         $temp = [];
         $temp['CASH'] = [];
         $temp['KREDIT'] = [];
         foreach ($mdNotaDetail as $key => $value) {
+            // print_r($value);
             $temp2 = [];
             $temp2['nama_product'] = $value['nama_product'];
             if (isset($temp[$value['payment_method']][$value['id_product']])) {
@@ -381,7 +396,8 @@ class TagihanBaruController extends BaseController
             } else {
                 $temp2['qty'] = $value['satuan_penjualan'];
             }
-            $temp2['harga_aktif'] = $value['harga_aktif'];
+            $temp2['harga_aktif'] = $value['harga_nota'];
+            // print_r($temp2);
             $temp[$value['payment_method']][$value['id_product']] = $temp2;
         }
         $data['product_list'] = $temp;
