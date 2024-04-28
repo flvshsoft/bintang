@@ -148,7 +148,8 @@
                 $no = 1;
                 $total = 0;
                 foreach ($model as $value) {
-                    $sisa = $value['total_beli'] - $value['pay'];
+                    // $sisa = $value['total_beli'] - $value['pay'];
+                    $sisa = $value['sisa'];
                     $total += $sisa;
                 ?>
                     <tr>
