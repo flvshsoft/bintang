@@ -23,7 +23,7 @@
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped" id="dataTable" width="100%"
                                 cellspacing="0">
-                                <thead class="table table-primary">
+                                <thead class="table table-success">
                                     <tr>
                                         <th style="font-size: 11px;"> NO </th>
                                         <th style="font-size: 11px;"> NO. DO </th>
@@ -32,7 +32,6 @@
                                         <th style="font-size: 11px;"> WEEK </th>
                                         <th style="font-size: 11px;"> AREA </th>
                                         <th style="font-size: 11px;"> KETERANGAN </th>
-                                        <th style="font-size: 11px;"> CREATED DATE </th>
                                         <th style="font-size: 11px;"> CREATED BY </th>
                                         <th style="font-size: 11px;"> </th>
                                     </tr>
@@ -63,9 +62,6 @@
                                         </td>
                                         <td style="font-size: 11px;">
                                             <?= $value['created_at'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-
                                         </td>
                                         <td style="font-size: 11px;">
                                             <div class="justify-content-center text-center">

@@ -27,7 +27,7 @@
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
-                                <thead class="table table-primary">
+                                <thead class="table table-success">
                                     <tr>
                                         <th style="font-size: 11px;"> NO </th>
                                         <th style=" font-size: 11px;"> NO DO </th>
@@ -36,7 +36,6 @@
                                         <th style=" font-size: 11px;"> Week </th>
                                         <th style=" font-size: 11px;"> Keterangan </th>
                                         <th style=" font-size: 11px;"> Created By </th>
-                                        <th style=" font-size: 11px;"> Created At </th>
                                         <th style=" font-size: 11px;"> </th>
                                     </tr>
                                 </thead>
@@ -64,12 +63,8 @@
                                                 <?= $value['keterangan'] ?>
                                             </td>
                                             <td style=" font-size: 11px;">
-
+                                            <?= $value['tgl_do'] ?>
                                             </td>
-                                            <td style=" font-size: 11px;">
-                                                <?= $value['tgl_do'] ?>
-                                            </td>
-
                                             <td>
                                                 <a class="btn btn-info btn-xs p-2" href="<?= base_url('/akk/transaksi/tagihan_baru/closing-sales/' . $value['id_sales']) ?>">
                                                 <i class="mdi mdi-database-plus icon-sm"></i> 
