@@ -26,8 +26,7 @@
                             </a>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped" id="dataTable" width="100%"
-                                cellspacing="0">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>
                                         <th style="font-size: 11px;"> TRANS CODE </th>
@@ -44,45 +43,43 @@
                                 </thead>
                                 <tbody>
                                     <?php foreach ($model as $value) { ?>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['id_pengeluaran_kantor'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['keterangan_pengeluaran_kantor'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['remark_pengeluaran_kantor'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['week_pengeluaran_kantor'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= 'Rp. ' . number_format($value['biaya_pengeluaran_kantor'], 0, ',', '.') ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['nama_user'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['tgl_pengeluaran_kantor'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['nama_user'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['approved_date'] ?>
-                                        </td>
-                                        <td>
-                                            <a
-                                                href="<?= base_url('/akk/keuangan/pengeluaran_kantor/edit/' . $value['id_pengeluaran_kantor']) ?>">
-                                                <i class="mdi mdi-pencil-circle icon-md">
-                                                </i>
-                                            </a>
-                                            <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
-                                                href="<?= base_url('/akk/keuangan/pengeluaran_kantor/hapus/' . $value['id_pengeluaran_kantor']) ?>">
-                                                <i class="mdi mdi-delete-circle text-danger icon-md"></i> </a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['id_pengeluaran_kantor'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['keterangan_pengeluaran_kantor'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['remark_pengeluaran_kantor'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['week_pengeluaran_kantor'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= 'Rp. ' . number_format($value['biaya_pengeluaran_kantor'], 0, ',', '.') ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['nama_user'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['tgl_pengeluaran_kantor'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['nama_user'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['approved_date'] ?>
+                                            </td>
+                                            <td>
+                                                <a href="<?= base_url('/akk/keuangan/pengeluaran_kantor/edit/' . $value['id_pengeluaran_kantor']) ?>">
+                                                    <i class="mdi mdi-pencil-circle icon-md">
+                                                    </i>
+                                                </a>
+                                                <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')" href="<?= base_url('/akk/keuangan/pengeluaran_kantor/hapus/' . $value['id_pengeluaran_kantor']) . '/' . $value['biaya_pengeluaran_kantor'] ?>">
+                                                    <i class="mdi mdi-delete-circle text-danger icon-md"></i> </a>
+                                            </td>
+                                        </tr>
                                     <?php }; ?>
                                 </tbody>
                             </table>

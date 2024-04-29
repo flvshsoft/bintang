@@ -21,8 +21,9 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group col-6">
-                                <a class="btn btn-success btn-xs" href="<?= base_url('/akk/master_closing') ?>">
-                                    <i class="mdi mdi-book-multiple-variant icon-sm"></i> Proses</a>
+                                <a class="btn btn-success btn-xs"
+                                    href="<?= base_url('/akk/transaksi/purchase_order/tambah') ?>">
+                                    <i class="mdi mdi-database-plus icon-sm"></i> Order barang</a>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -30,50 +31,55 @@
                                 <thead class="table table-primary">
                                     <tr>
                                         <th style="font-size: 11px;"> NO </th>
-                                        <th style=" font-size: 11px;"> NO DO </th>
-                                        <th style=" font-size: 11px;"> Salesman </th>
-                                        <th style=" font-size: 11px;"> ID Area </th>
-                                        <th style=" font-size: 11px;"> Week </th>
+                                        <th style=" font-size: 11px;"> NO PO </th>
                                         <th style=" font-size: 11px;"> Keterangan </th>
-                                        <th style=" font-size: 11px;"> Created By </th>
-                                        <th style=" font-size: 11px;"> Created At </th>
+                                        <th style=" font-size: 11px;"> Status </th>
+                                        <th style=" font-size: 11px;"> Supplier </th>
+                                        <th style=" font-size: 11px;"> User </th>
+                                        <th style=" font-size: 11px;"> Tgl PO </th>
                                         <th style=" font-size: 11px;"> </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no = 1;
                                     foreach ($model as $value) {
+                                        $dateString = $value['created_at'];
+                                        $dateTime = new DateTime($dateString);
+                                        $formattedDate = $dateTime->format('d F Y H:i:s');
                                     ?>
                                     <tr>
                                         <td style="font-size: 11px;">
                                             <?= $no ?>
                                         </td>
                                         <td style=" font-size: 11px;">
-                                            <?= $value['id_sales'] ?>
+                                            <a style="text-decoration: none;"
+                                                href="<?= base_url('/akk/transaksi/purchase_order/edit/' . $value['id_purchase_order']) ?>"><b>
+                                                    PO-<?= $value['id_purchase_order'] ?></b></a>
                                         </td>
                                         <td style=" font-size: 11px;">
-                                            <?= $value['nama_lengkap'] ?>
+                                            <?= $value['keterangan_purchase_order'] ?>
                                         </td>
                                         <td style=" font-size: 11px;">
-                                            <?= $value['nama_area'] ?>
+                                            <?= $value['status_purchase_order'] ?>
                                         </td>
                                         <td style=" font-size: 11px;">
-                                            <?= $value['week'] ?>
+                                            <?= $value['nama_supplier'] ?>
                                         </td>
                                         <td style=" font-size: 11px;">
-                                            <?= $value['keterangan'] ?>
+                                            <?= $value['nama_user'] ?>
                                         </td>
                                         <td style=" font-size: 11px;">
-
+                                            <?= $formattedDate ?>
                                         </td>
                                         <td style=" font-size: 11px;">
-                                            <?= $value['tgl_do'] ?>
-                                        </td>
-
-                                        <td>
-                                            <a class="btn btn-success btn-xs"
-                                                href="<?= base_url('/akk/closing/' . $value['id_sales']) ?>"> <i
-                                                    class="mdi mdi-database-plus icon-sm"></i> </a>
+                                            <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
+                                                href="<?= base_url('/akk/transaksi/purchase_order/hapus/' . $value['id_purchase_order']) ?>">
+                                                <i class="mdi mdi-delete-circle text-default icon-md"></i>
+                                            </a>
+                                            <a
+                                                href="<?= base_url('/akk/transaksi/purchase_order/print/' . $value['id_purchase_order']) ?>">
+                                                <i class="mdi mdi-file-pdf icon-md"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                     <?php $no++;

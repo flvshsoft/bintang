@@ -68,8 +68,8 @@
                             <div class="form-group row mb-4">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Biaya</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="exampleInputMobile"
-                                        placeholder="Mobile number" name="biaya_pengeluaran_kantor">
+                                    <input type="text" class="form-control" id="koma" placeholder="Mobile number"
+                                        name="biaya_pengeluaran_kantor">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -155,5 +155,22 @@
         </div>
     </div>
 </div>
+<script>
+// Format angka saat diketikkan oleh pengguna
+document.getElementById('koma').addEventListener('input', function() {
+    // Ambil nilai input
+    let payValue = this.value;
+
+    // Hapus semua tanda titik yang ada
+    payValue = payValue.replace(/\./g, '');
+
+    // Format angka dengan titik sebagai pemisah ribuan
+    payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+    // Masukkan kembali nilai yang sudah diformat ke dalam input
+    this.value = payValue;
+});
+</script>
+
 
 <?= $this->endSection() ?>

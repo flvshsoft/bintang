@@ -4,38 +4,42 @@
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"><?= $judul1 ?></h3>
+            <h3 class="page-title">
+                <?= $judul ?>
+            </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">DATA KEUANGAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/data_kas') ?>">DATA KAS</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><?= $judul1 ?></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>"> BERANDA </a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi') ?>"> Transaski </a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi/purchase_order') ?>"> PO </a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page"> <?= $judul1 ?></li>
                 </ol>
             </nav>
         </div>
         <div class="row">
-            <div class="col-md-9 grid-margin stretch-card">
+            <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <form class="forms-sample" method="POST"
-                            action="<?= base_url('/akk/keuangan/data_kas/uang_kas_besar') ?>">
+                            action="<?= base_url('/akk/transaksi/purchase_order/tambah') ?>">
                             <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Nama Bank</label>
-                                <div class="col-sm-8">
-                                    <select name="id_bank" id="" class="form-control form-control-sm">
-                                        <option> </option>
-                                        <?php foreach ($bank as $value) { ?>
-                                        <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Cabang</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="id_supplier">
+                                        <option>Pilih Supplier</option>
+                                        <?php foreach ($supplier as $value) { ?>
+                                        <option value="<?= $value['id_supplier'] ?>"><?= $value['nama_supplier'] ?>
+                                        </option>
                                         <?php }; ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputPassword2" class="col-sm-4 col-form-label">Minggu Ke-</label>
-                                <div class="col-sm-8">
-                                    <select class="form-control form-control-sm" name="minggu">
-                                        <option></option>
+                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Minggu PO </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control form-control-sm" name="minggu_purchase_order" required>
+                                        <option>Pilih Minggu PO</option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -93,28 +97,28 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="form-group row mb-2">
-                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Jumlah
-                                </label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control form-control-sm" name="uang_kas" id="koma"
-                                        placeholder="JUMLAH UANG">
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Status PO</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Status PO"
+                                        required name="status_purchase_order">
                                 </div>
                             </div>
-                            <div class="form-group row mb-2">
-                                <label for="exampleInputEmail2" class="col-sm-4 col-form-label">Keterangan
-                                </label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control form-control-sm" name="ket"
-                                        placeholder="KETERANGAN">
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Keterangan PO</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Keterangan PO"
+                                        required name="keterangan_purchase_order">
                                 </div>
                             </div>
-                            <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/akk/keuangan/data_kas') ?>" class="btn btn-warning btn-xs"><i
-                                        class="mdi mdi-backburger icon-sm"></i></a>
-                                <button type="submit" class="btn btn-success btn-xs"><i
-                                        class="mdi mdi-content-save-all icon-sm"></i></button>
+                            <div class="form-group text-center">
+                                <a href="<?= base_url('/akk/transaksi/purchase_order/') ?>"
+                                    class="btn btn-gradient-primary btn-xs tip-top">
+                                    <i class="mdi mdi-backburger"></i>
+                                </a>
+                                <button class="btn btn-success btn-xs tip-top">
+                                    <i class="mdi mdi-content-save-all icon-sm"></i>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -123,21 +127,57 @@
         </div>
     </div>
 </div>
-<script>
-// Format angka saat diketikkan oleh pengguna
-document.getElementById('koma').addEventListener('input', function() {
-    // Ambil nilai input
-    let payValue = this.value;
 
-    // Hapus semua tanda titik yang ada
-    payValue = payValue.replace(/\./g, '');
 
-    // Format angka dengan titik sebagai pemisah ribuan
-    payValue = new Intl.NumberFormat('id-ID').format(payValue);
 
-    // Masukkan kembali nilai yang sudah diformat ke dalam input
-    this.value = payValue;
-});
-</script>
+<?php
+function tgl_indo($tanggal)
+{
+    $hari = array(
+        'Minggu',
+        'Senin',
+        'Selasa',
+        'Rabu',
+        'Kamis',
+        'Jumat',
+        'Sabtu'
+    );
 
+    $bulan = array(
+        1 => 'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    );
+
+    // $pecahkan = explode('-', $tanggal);
+    // $nama_hari = date('w', strtotime($tanggal));
+    // $nama_hari = $hari[$nama_hari];
+    // return $nama_hari . ', ' . $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
+
+    $pecahkan = explode(' ', $tanggal);
+    $tanggal = $pecahkan[0];
+    $waktu = isset($pecahkan[1]) ? $pecahkan[1] : null;
+
+    $pecahkanTanggal = explode('-', $tanggal);
+    $nama_hari = date('w', strtotime($tanggal));
+    $nama_hari = $hari[$nama_hari];
+
+    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
+
+    if ($waktu !== null) {
+        $result .= ' ' . $waktu;
+    }
+
+    return $result;
+}
+?>
 <?= $this->endSection() ?>

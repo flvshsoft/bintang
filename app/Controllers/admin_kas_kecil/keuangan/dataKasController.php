@@ -13,8 +13,8 @@ class dataKasController extends BaseController
         $data['model'] = $this->mdKas
             ->select(['*', 'kas_bank.created_at as created_at'])
             ->where('kas_bank.id_branch', Session('userData')['id_branch'])
-            ->join('user', 'user.id_user=kas_bank.id_user')
-            ->join('customer', 'customer.id_customer=kas_bank.id_konsumen')
+            ->join('user', 'user.id_user=kas_bank.id_user', 'left')
+            ->join('customer', 'customer.id_customer=kas_bank.id_konsumen', 'left')
             ->join('bank', 'bank.id_bank=kas_bank.id_bank')
             ->findAll();
         return view('admin_kas_kecil/keuangan/data_kas/index', $data);
@@ -67,6 +67,8 @@ class dataKasController extends BaseController
     }
     public function mutasi_bank_add()
     {
+        $biaya_mutasi_bank = str_replace('.', '', $this->request->getPost('biaya_mutasi_bank')); // Hapus tanda titik
+        $biaya_mutasi_bank = (int) str_replace(',', '', $biaya_mutasi_bank); // Konversi ke integer
         $data = [
             'tgl_mutasi_bank' => date('d-M-Y'),
             'type_mutasi_bank' => $this->request->getPost('type_mutasi_bank'),
@@ -78,7 +80,7 @@ class dataKasController extends BaseController
             'metode_bayar' => $this->request->getPost('metode_bayar'),
             'ket' => $this->request->getPost('ket'),
             'id_branch' => Session('userData')['id_branch'],
-            'biaya_mutasi_bank' => $this->request->getPost('biaya_mutasi_bank'),
+            'biaya_mutasi_bank' => $biaya_mutasi_bank,
         ];
         $this->mdMutasiBank->insert($data);
 
@@ -92,7 +94,7 @@ class dataKasController extends BaseController
             'id_user' => Session('userData')['id_user'],
             'metode_bayar' => $this->request->getPost('metode_bayar'),
             'ket' => $this->request->getPost('remark_mutasi_bank'),
-            'uang_kas' => $this->request->getPost('biaya_mutasi_bank'),
+            'uang_kas' => $biaya_mutasi_bank,
         ];
         $this->mdKas->insert($data2);
 
@@ -103,11 +105,16 @@ class dataKasController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'FORM UANG MASUK KAS KECIL';
-        $data['bank'] = $this->mdBank->where('id_bank', 5)->findAll();
+        $data['bank'] = $this->mdBank
+            ->where('nama_bank', 'KAS KECIL')
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/keuangan/data_kas/uang_kas_kecil', $data);
     }
     public function uang_kas_kecil_add()
     {
+        $uang_kas = str_replace('.', '', $this->request->getPost('uang_kas')); // Hapus tanda titik
+        $uang_kas = (int) str_replace(',', '', $uang_kas); // Konversi ke integer
         $data = [
             'id_sales' => $this->request->getPost('id_sales'),
             'id_konsumen' => $this->request->getPost('id_konsumen'),
@@ -118,9 +125,12 @@ class dataKasController extends BaseController
             'id_user' => Session('userData')['id_user'],
             'metode_bayar' => $this->request->getPost('metode_bayar'),
             'ket' => $this->request->getPost('ket'),
-            'uang_kas' => $this->request->getPost('uang_kas'),
+            'uang_kas' => $uang_kas,
         ];
         $this->mdKas->insert($data);
+        $this->mdBank->where('id_bank', $this->request->getPost('id_bank'))->increment('saldo', $uang_kas);
+
+
         return redirect()->to(base_url('/akk/keuangan/data_kas'));
     }
 
@@ -130,11 +140,14 @@ class dataKasController extends BaseController
         $data['judul1'] = 'FORM UANG MASUK KAS BESAR';
         $data['bank'] = $this->mdBank
             ->where('id_bank !=', 5)
+            ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/keuangan/data_kas/form_transfer', $data);
     }
     public function form_transfer_add()
     {
+        $uang_kas = str_replace('.', '', $this->request->getPost('uang_kas')); // Hapus tanda titik
+        $uang_kas = (int) str_replace(',', '', $uang_kas); // Konversi ke integer
         $data = [
             'id_sales' => $this->request->getPost('id_sales'),
             'id_konsumen' => $this->request->getPost('id_konsumen'),
@@ -145,7 +158,7 @@ class dataKasController extends BaseController
             'id_user' => Session('userData')['id_user'],
             'metode_bayar' => $this->request->getPost('metode_bayar'),
             'ket' => $this->request->getPost('ket'),
-            'uang_kas' => $this->request->getPost('uang_kas'),
+            'uang_kas' => $uang_kas,
         ];
         // print_r($data);
         // exit;

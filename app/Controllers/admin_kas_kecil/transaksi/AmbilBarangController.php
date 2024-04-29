@@ -50,14 +50,23 @@ class AmbilBarangController extends BaseController
             'id_branch' => Session('userData')['id_branch'],
             'created_date' => date('Y-m-d H:i:s'),
         ];
-
-        // print_r($data);
-        // exit;
         $this->mdSales->insert($data);
         $id_sales = $this->mdSales->insertID();
         $data = array(
             'id_sales' => $id_sales,
         );
+
+        $data = [
+            'id_partner' => $this->request->getPost('id_partner'),
+            'id_user' => Session('userData')['id_user'],
+            'id_area' => $this->request->getPost('id_area'),
+            'id_sales' => $id_sales,
+            'minggu_pengeluaran_sales' => $this->request->getPost('week'),
+            'keterangan_pengeluaran_sales' => $this->request->getPost('keterangan'),
+            'id_branch' => Session('userData')['id_branch'],
+            'created_date' => date('Y-m-d H:i:s'),
+        ];
+        $this->mdPengeluaranSales->insert($data);
         return redirect()->to(base_url('/akk/transaksi/ambil_barang/detail/' . $id_sales));
     }
     public function hapus($id_sales)
