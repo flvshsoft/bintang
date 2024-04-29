@@ -26,7 +26,7 @@
                                 <i class="mdi mdi-database-plus icon-sm"></i> Kas Besar</a>
                             <a class="btn btn-warning btn-xs" href="<?= base_url('/akk/keuangan/data_kas/uang_kas_kecil') ?>">
                                 <i class="mdi mdi-database-plus icon-sm"></i> Kas Kecil</a>
-                            <a class="btn btn-danger btn-xs" href="<?= base_url('/akk/keuangan/data_kas/mutasi_bank/tambah') ?>">
+                            <a class="btn btn-danger btn-xs" href="<?= base_url('/akk/keuangan/mutasi_bank') ?>">
                                 <i class="mdi mdi-database-minus icon-sm"></i> Mutasi</a>
                             <a class="btn btn-primary btn-xs" href="<?= base_url('/akk/keuangan/data_kas/neraca_saldo') ?>">
                                 <i class="mdi mdi-printer"></i> Neraca</a>

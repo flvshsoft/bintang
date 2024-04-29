@@ -62,6 +62,7 @@ class dataKasController extends BaseController
         $data['judul1'] = 'FORM UANG KELUAR';
         $data['bank'] = $this->mdBank
             ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('nama_bank')
             ->findAll();
         return view('admin_kas_kecil/keuangan/data_kas/mutasi_bank', $data);
     }
@@ -73,6 +74,7 @@ class dataKasController extends BaseController
             'tgl_mutasi_bank' => date('d-M-Y'),
             'type_mutasi_bank' => $this->request->getPost('type_mutasi_bank'),
             'id_bank' => $this->request->getPost('id_bank'),
+            'bank_tujuan' => $this->request->getPost('bank_tujuan'),
             'week_mutasi_bank' => $this->request->getPost('week_mutasi_bank'),
             'remark_mutasi_bank' => $this->request->getPost('remark_mutasi_bank'),
             'user' => Session('userData')['id_user'],
@@ -81,6 +83,7 @@ class dataKasController extends BaseController
             'ket' => $this->request->getPost('ket'),
             'id_branch' => Session('userData')['id_branch'],
             'biaya_mutasi_bank' => $biaya_mutasi_bank,
+            'tgl_mutasi_bank' => date('Y-m-d'),
         ];
         $this->mdMutasiBank->insert($data);
 
@@ -97,8 +100,11 @@ class dataKasController extends BaseController
             'uang_kas' => $biaya_mutasi_bank,
         ];
         $this->mdKas->insert($data2);
+        $this->mdBank->where('id_bank', $this->request->getPost('id_bank'))->decrement('saldo', $biaya_mutasi_bank);
+        $this->mdBank->where('id_bank', $this->request->getPost('bank_tujuan'))->increment('saldo', $biaya_mutasi_bank);
 
-        return redirect()->to(base_url('/akk/keuangan/data_kas'));
+
+        return redirect()->to(base_url('/akk/keuangan/mutasi_bank'));
     }
 
     public function uang_kas_kecil(): string
@@ -163,6 +169,7 @@ class dataKasController extends BaseController
         // print_r($data);
         // exit;
         $this->mdKas->insert($data);
+        $this->mdBank->where('id_bank', $this->request->getPost('id_bank'))->increment('saldo', $uang_kas);
         return redirect()->to(base_url('/akk/keuangan/data_kas'));
     }
 }

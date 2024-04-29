@@ -10,6 +10,7 @@
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">DATA KEUANGAN</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/data_kas') ?>">DATA KAS</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/mutasi_bank') ?>">MUTASI</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><?= $judul1 ?></li>
                 </ol>
             </nav>
@@ -21,9 +22,20 @@
                         <form class="forms-sample" action="<?= base_url('/akk/keuangan/data_kas/mutasi_bank')?>"
                             method="POST">
                             <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Nama Bank</label>
+                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Nama Bank Asal</label>
                                 <div class="col-sm-8">
                                     <select name="id_bank" id="" class="form-control form-control-sm">
+                                        <option> </option>
+                                        <?php foreach ($bank as $value) { ?>
+                                        <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
+                                        <?php }; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Nama Bank Tujuan</label>
+                                <div class="col-sm-8">
+                                    <select name="bank_tujuan" id="" class="form-control form-control-sm">
                                         <option> </option>
                                         <?php foreach ($bank as $value) { ?>
                                         <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>

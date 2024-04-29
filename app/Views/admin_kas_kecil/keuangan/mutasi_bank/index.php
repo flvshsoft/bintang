@@ -10,6 +10,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">DATA KEUANGAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/data_kas') ?>">KAS BANK</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><?= $judul1 ?></li>
                 </ol>
             </nav>
@@ -18,13 +19,17 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
+                    <a class="btn btn-primary btn-xs" href="<?= base_url('/akk/keuangan/data_kas/mutasi_bank/tambah') ?>">
+                                <i class="mdi mdi-database-minus icon-sm"></i> Tambah
+                            </a>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped" id="dataTable" width="100%"
                                 cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>
                                         <th style="font-size: 11px;"> Trans Code </th>
-                                        <th style="font-size: 11px;"> Keterangan </th>
+                                        <th style="font-size: 11px;"> Bank Asal </th>
+                                        <th style="font-size: 11px;"> Bank Tujuan </th>
                                         <th style="font-size: 11px;"> Biaya </th>
                                         <th style="font-size: 11px;"> TypeBiaya </th>
                                         <th style="font-size: 11px;"> Week </th>
@@ -36,13 +41,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($model as $value) { ?>
+                                    <?php foreach ($model as $key => $value) { ?>
                                     <tr>
                                         <td style="font-size: 11px;">
-                                            <?= $value['id_mutasi_bank'] ?>
+                                            <?= $key+1 ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            <?= $value['nama_bank'] ?>
+                                            <?= $value['nama_bank_asal'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['nama_bank_tujuan'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
                                             <?= 'Rp. ' . number_format($value['biaya_mutasi_bank'], 0, ',', '.') ?>
