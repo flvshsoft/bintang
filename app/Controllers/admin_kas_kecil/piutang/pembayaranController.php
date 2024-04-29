@@ -44,7 +44,7 @@ class pembayaranController extends BaseController
             ->groupBy('nota.id_nota')
             ->where('status !=', 'Lunas')
             ->where('sales.id_branch', Session('userData')['id_branch'])
-            ->where('sales.id_sales', $id_sales)
+            // ->where('sales.id_sales', $id_sales)
             ->orderBy('nota.id_nota', 'DESC')
             ->findAll();
 

@@ -27,7 +27,7 @@
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
-                                <thead class="table table-primary">
+                                <thead class="table table-success">
                                     <tr>
                                         <th style="font-size: 11px;"> NO </th>
                                         <th style=" font-size: 11px;"> NO DO </th>
@@ -35,8 +35,7 @@
                                         <th style=" font-size: 11px;"> ID Area </th>
                                         <th style=" font-size: 11px;"> Week </th>
                                         <th style=" font-size: 11px;"> Keterangan </th>
-                                        <th style=" font-size: 11px;"> Created By </th>
-                                        <th style=" font-size: 11px;"> Created At </th>
+                                        <th style=" font-size: 11px;"> Created </th>
                                         <th style=" font-size: 11px;"> </th>
                                     </tr>
                                 </thead>
@@ -61,22 +60,19 @@
                                                 <?= $value['week'] ?>
                                             </td>
                                             <td style=" font-size: 11px;">
-                                                <?= $value['keterangan'] ?>
-                                            </td>
-                                            <td style=" font-size: 11px;">
-
+                                                <?= $value['keterangan'] ?> 
+                                                <?= $value['total_jumlah_sales'] ?> barang
                                             </td>
                                             <td style=" font-size: 11px;">
                                                 <?= $value['tgl_do'] ?>
                                             </td>
-
                                             <td>
                                                 <a class="btn btn-info btn-xs p-2" href="<?= base_url('/akk/transaksi/tagihan_baru/closing-sales/' . $value['id_sales']) ?>">
-                                                <i class="mdi mdi-database-plus icon-sm"></i> 
+                                                    <i class="mdi mdi-database-plus icon-sm"></i>
                                                     Closing Sales
                                                 </a>
-                                                    <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales']) ?>">
-                                                    <i class="mdi mdi-database-plus icon-sm"></i> 
+                                                <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales']) ?>">
+                                                    <i class="mdi mdi-database-plus icon-sm"></i>
                                                 </a>
                                             </td>
                                         </tr>
