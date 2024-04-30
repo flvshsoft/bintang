@@ -124,11 +124,96 @@ class laporanController extends BaseController
         $mpdf->Output($data['judul1'], 'I'); // opens in browser
     }
 
-    public function form_closing_bulanan(): string
+    public function form_closing_bulanan()
     {
         $data['judul'] = 'Bintang Distributor';
-        $data['judul1'] = 'CLOSING';
-        return view('admin_kas_kecil/laporan/form_closing/bulanan', $data);
+        $month = $this->request->getPost('month');
+        $year = $this->request->getPost('year');
+        $data['judul1'] = "LAPORAN CLOSING BULAN $month $year";
+        $id_branch = SESSION('userData')['id_branch'];
+
+        // Nota Putih
+        // $data['nota_putih'] = $this->mdSales
+        //     ->join('partner', 'partner.id_partner=sales.id_partner')
+        //     ->where('sales.id_branch', $id_branch)
+        //     ->findAll();
+        $data['nota_putih'] = $this->mdNota
+            ->join('partner', 'partner.id_partner=nota.id_partner')
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->orderBY('id_nota', 'DESC')
+            // ->where('sales.week', $week)
+            // ->where('YEAR(nota.created_at)', $year)
+            ->where('nota.id_branch', $id_branch)
+            ->where('nota.status !=', 'Lunas')
+            ->groupBy('partner.id_partner')
+            ->findAll();
+
+        // Nota
+        $data['kontan_nota'] = $this->mdNota
+            ->join('partner', 'partner.id_partner=nota.id_partner')
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->orderBY('id_nota', 'DESC')
+            // ->where('sales.week', $week)
+            ->where('YEAR(nota.created_at)', $year)
+            ->where('nota.id_branch', $id_branch)
+            ->findAll();
+
+        $data['bank'] = $this->mdBank
+            ->orderBY('nama_bank', 'ASC')
+            ->where('id_branch', $id_branch)
+            ->findAll();
+
+        $data['piutang'] = $this->mdPiutangUsaha
+            ->orderBY('tgl_piutang', 'ASC')
+            //->groupBy('piutang_usaha.id_branch')
+            ->where('type_piutang', 'Karyawan')
+            ->where('piutang_usaha.id_branch', $id_branch)
+            ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
+            ->findAll();
+        $jumlah_piutang_ = 0;
+        foreach ($data['piutang'] as $key => $value) {
+            $value['jumlah_piutang'];
+            $jumlah_piutang_ += $value['jumlah_piutang'];
+        }
+        $data['jumlah_piutang_'] = $jumlah_piutang_;
+
+
+        $data['piutang_karyawan'] = $this->mdPiutangUsaha
+            ->orderBY('tgl_piutang', 'ASC')
+            //->groupBy('piutang_usaha.id_branch')
+            ->where('type_piutang', 'Karyawan')
+            ->where('piutang_usaha.id_branch', $id_branch)
+            ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
+            ->findAll();
+        $jumlah_piutang_karyawan = 0;
+        foreach ($data['piutang'] as $key => $value) {
+            $value['jumlah_piutang'];
+            $jumlah_piutang_karyawan += $value['jumlah_piutang'];
+        }
+        $data['jumlah_piutang_karyawan'] = $jumlah_piutang_karyawan;
+
+
+        $data['hutang_usaha'] = $this->mdPiutangUsaha
+            ->orderBY('tgl_piutang', 'ASC')
+            ->groupBy('supplier.id_supplier')
+            ->where('type_piutang', 'Usaha')
+            ->where('piutang_usaha.id_branch', $id_branch)
+            ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
+            ->findAll();
+        $jumlah_piutang_usaha = 0;
+        foreach ($data['hutang_usaha'] as $key => $value) {
+            $value['jumlah_piutang'];
+            $jumlah_piutang_usaha += $value['jumlah_piutang'];
+        }
+        $data['jumlah_piutang_usaha'] = $jumlah_piutang_usaha;
+
+
+
+        $mpdf = new \Mpdf\Mpdf();
+        $html = view('admin_kas_kecil/laporan/form_closing/bulanan', $data, []);
+        $mpdf->WriteHTML($html);
+        $this->response->setHeader('Content-Type', 'application/pdf');
+        $mpdf->Output($data['judul1'], 'I'); // opens in browser
     }
 
     public function form_closing_tahunan(): string

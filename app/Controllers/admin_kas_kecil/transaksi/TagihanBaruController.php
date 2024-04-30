@@ -287,9 +287,21 @@ class TagihanBaruController extends BaseController
 
         return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota));
     }
-    public function hapus_detail($id_nota, $id_nota_detail, $harga)
+    public function hapus_detail($id_nota, $id_nota_detail, $harga, $satuan_penjualan)
     {
+        $model = $this->mdSales
+            ->join('nota', 'nota.id_nota=nota.id_nota')
+            ->join('sales_detail', 'sales_detail.id_sales_detail=sales_detail.id_sales_detail')
+            ->join('nota_detail', 'nota_detail.id_nota=nota.id_nota')
+            // ->where('nota_detail.id_nota_detail', $id_nota_detail)
+            ->where('nota.id_nota', $id_nota)
+            ->find();
+        // $id_sales_detail = $model[0]['id_sales_detail'];
+        print_r($model);
+        exit;
+        //$this->mdSalesDetail->where('id_sales_detail', $id_sales_detail)->increment('jumlah_sales', $satuan_penjualan);
         $this->mdNota->where('id_nota', $id_nota)->decrement('total_beli', $harga);
+
         $delete = $this->mdNotaDetail->delete($id_nota_detail);
         if ($delete) {
             return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota));

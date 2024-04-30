@@ -17,8 +17,12 @@ class purchaseOrderController extends BaseController
             ->orderBy('id_purchase_order', 'DESC')
             ->findAll();
 
-            // print_r($data['model']);
-            // exit;
+        // print_r($data['model']);
+        // exit;
+        // hapus nota detail kembali kan ke stock do detail
+        // hapus do detail kembali ke stock gudang
+        // nota detail koma
+        // konsumen pay_method type_harga, foto_toko, nama_toko,  alamat_toko, no_hp_toko, nama_owner, alamat_owner no_hp_owner, id_area, kab/kota, data_lengkap
         return view('admin_kas_kecil/transaksi/purchase_order/index', $data);
     }
 

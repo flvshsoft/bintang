@@ -260,8 +260,15 @@ class AmbilBarangController extends BaseController
         $this->mdSalesDetail->save($data);
         return redirect()->to(base_url('/akk/transaksi/ambil_barang/detail/' . $id_sales));
     }
-    public function hapus_detail_sales($id_sales_detail, $id_sales)
+    public function hapus_detail_sales($id_sales_detail, $id_sales, $satuan_sales_detail)
     {
+        $product = $this->mdSalesDetail
+            ->join('product', 'product.id_product=sales_detail.id_product')
+            ->where('id_sales_detail', $id_sales_detail)
+            ->find();
+        $id_product = $product[0]['id_product'];
+
+        $this->mdProduct->where('id_product', $id_product)->increment('stock_product', $satuan_sales_detail);
         $delete = $this->mdSalesDetail->delete($id_sales_detail);
         if ($delete) {
             return redirect()->to(base_url('/akk/transaksi/ambil_barang/detail/' . $id_sales));
