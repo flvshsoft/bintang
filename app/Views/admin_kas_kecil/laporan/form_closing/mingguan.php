@@ -117,13 +117,22 @@
                 <?php
                 $no = 1;
                 $total = 0;
+                $total_kontan_per_salesman = [];
                 foreach ($nota_putih as $value) {
+                    $salesman = $value['nama_lengkap'];
+                    if (!isset($total_kontan_per_salesman[$salesman])) {
+                        $total_kontan_per_salesman[$salesman] = 0;
+                    }
+                    $total_kontan_per_salesman[$salesman] += ($value['total_beli'] - $value['pay']);
+                }
+                foreach ($total_kontan_per_salesman as $salesman => $total_kontan) {
+                    $total += $total_kontan;
                 ?>
                     <tr style=" font-size:11px ;">
 
                         <td width="20px"><?= $no ?> </td>
-                        <td><?= $value['nama_lengkap'] ?> </td>
-                        <td><?= 'Rp. ' . number_format(0, 0, ',', '.') ?></td>
+                        <td><?= $salesman ?> </td>
+                        <td><?= 'Rp. ' . number_format($total_kontan, 0, ',', '.') ?></td>
                     </tr>
                 <?php $no++;
                 } ?>
@@ -138,13 +147,13 @@
                 <tr style="font-size:11px ;">
                     <td colspan="2" align="left"><b>Deviasi 10% </b></td>
                     <td colspan="1" align="left">
-                        <?= 'Rp. ' . number_format($total, 0, ',', '.') ?>
+                        <?= 'Rp. ' . number_format($total/10, 0, ',', '.') ?>
                     </td>
                 </tr>
                 <tr style="font-size:11px ;">
                     <td colspan="2" align="left"><b>Total Bersih Nota Putih </b></td>
                     <td colspan="1" align="left">
-                        <?= 'Rp. ' . number_format($total, 0, ',', '.') ?>
+                        <?= 'Rp. ' . number_format($total + ($total/10), 0, ',', '.') ?>
                     </td>
                 </tr>
             </tfoot>

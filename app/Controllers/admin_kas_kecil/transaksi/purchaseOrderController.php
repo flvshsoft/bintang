@@ -12,8 +12,13 @@ class purchaseOrderController extends BaseController
             ->select(['*', 'purchase_order.created_at as created_at'])
             ->join('user', 'user.id_user=purchase_order.id_user')
             ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
+            ->where('supplier.id_branch', Session('userData')['id_branch'])
+            // ->groupBy('')
             ->orderBy('id_purchase_order', 'DESC')
             ->findAll();
+
+            // print_r($data['model']);
+            // exit;
         return view('admin_kas_kecil/transaksi/purchase_order/index', $data);
     }
 

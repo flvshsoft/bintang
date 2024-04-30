@@ -40,17 +40,29 @@ class laporanController extends BaseController
         $data['judul1'] = "LAPORAN CLOSING MINGGUAN KE-$week $year";
         $id_branch = SESSION('userData')['id_branch'];
 
-        $data['nota_putih'] = $this->mdSales
-            ->join('partner', 'partner.id_partner=sales.id_partner')
-            ->where('sales.id_branch', $id_branch)
-            ->findAll();
-
-        $data['kontan_nota'] = $this->mdNota
+        // Nota Putih
+        // $data['nota_putih'] = $this->mdSales
+        //     ->join('partner', 'partner.id_partner=sales.id_partner')
+        //     ->where('sales.id_branch', $id_branch)
+        //     ->findAll();
+        $data['nota_putih'] = $this->mdNota
             ->join('partner', 'partner.id_partner=nota.id_partner')
             ->join('sales', 'sales.id_sales=nota.id_sales')
             ->orderBY('id_nota', 'DESC')
             // ->where('sales.week', $week)
             // ->where('YEAR(nota.created_at)', $year)
+            ->where('nota.id_branch', $id_branch)
+            ->where('nota.status !=', 'Lunas')
+            ->groupBy('partner.id_partner')
+            ->findAll();
+
+        // Nota
+        $data['kontan_nota'] = $this->mdNota
+            ->join('partner', 'partner.id_partner=nota.id_partner')
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->orderBY('id_nota', 'DESC')
+            ->where('sales.week', $week)
+            ->where('YEAR(nota.created_at)', $year)
             ->where('nota.id_branch', $id_branch)
             ->findAll();
 
