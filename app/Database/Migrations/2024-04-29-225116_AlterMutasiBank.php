@@ -8,8 +8,8 @@ class AlterMutasiBank extends Migration
 {
     public function up()
     {
-         // ALTER TABLE `nota_detail`
-        // ADD COLUMN `mutasi_bank` INT NULL AFTER `id_bank`;
+         // ALTER TABLE `mutasi_bank`
+        // ADD COLUMN `bank_tujuan` INT NULL AFTER `id_bank`;
         $this->forge->addColumn('mutasi_bank', [
             'bank_tujuan' => [
                 'type' => 'INT', // Adjust the data type as per your requirement
