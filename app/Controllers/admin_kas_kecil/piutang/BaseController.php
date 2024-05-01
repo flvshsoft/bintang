@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Config\Services;
 
 /**
  * Class BaseController
@@ -51,6 +52,20 @@ abstract class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
+        $this->req = Services::request();
+        $this->session = Services::session();
+        $this->calendar = Services::calendar();
+
+        // Check session here
+        if (!$this->session->has('userData')) {
+            // Set the redirection header
+            $response->setHeader('Location', base_url('/'), true);
+            // Set the status code for redirection
+            $response->setStatusCode(302);
+            // Send the response
+            $response->send();
+            exit;
+        }
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
@@ -68,5 +83,10 @@ abstract class BaseController extends Controller
         $this->mdClosingSales = model('closingSalesModel', true, $this->db);
         $this->mdClosingSalesBarang = model('closingSalesBarangModel', true, $this->db);
         $this->mdPiutangUsaha = model('piutangUsahaModel', true, $this->db);
+        $this->mdKas = model('kasModel', true, $this->db);
+        $this->mdBank = model('bankModel', true, $this->db);
+        $this->mdNotaPutihSave = model('notaPutihSaveModel', true, $this->db);
+        $this->mdPengeluaranSales = model('pengeluaranSalesModel', true, $this->db);
+        $this->mdPurchaseOrder = model('purchaseOrderModel', true, $this->db);
     }
 }

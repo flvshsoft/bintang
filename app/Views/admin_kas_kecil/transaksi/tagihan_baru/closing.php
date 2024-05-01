@@ -10,7 +10,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>"> BERANDA </a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi/tagihan_baru/nota') ?>"> TAGIHAN
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi/tagihan_baru') ?>"> TAGIHAN
                             BARU
                         </a></li>
                     <li class="breadcrumb-item active" aria-current="page"> <?= $judul1 ?></li>
@@ -51,13 +51,10 @@
                                 <div class="col-md-7 justify-content-center">
                                     <div class="col-md-12">
                                         <div class="row form-group">
-                                            <label class="col-3 col-form-label">Metode Bayar</label>
+                                            <label class="col-3 col-form-label">Metode Bayar
+                                                <?= $payment_method ?></label>
                                             <div class="col-3">
-                                                <select class="form-control" name="payment_method">
-                                                    <option> Pilih Metode </option>
-                                                    <option> CASH</option>
-                                                    <option> KREDIT</option>
-                                                </select>
+                                                <input type="hidden" name="payment_method" class="form-control" value="<?= $payment_method ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -196,11 +193,14 @@
         </div>
 
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <?php foreach ($cek_nota as $value) { ?>
+            <?php foreach ($cek_nota as $value) {
+                $string_tanggal_waktu = $value['created_at'];
+                $datetime = new DateTime($string_tanggal_waktu);
+                $tanggal_waktu_php = $datetime->format('d F Y H:i:s'); ?>
                 <div class="col">
                     <div class="card h-100">
                         <div class="card-header">
-                            <small class="text-muted"><?= tgl_indo($value['created_at']) ?></small>
+                            <small class="text-muted"><?= $tanggal_waktu_php ?></small>
                         </div>
                         <div class="card-bodyx" style="padding:5%">
                             <h5 class="card-title text-center">Konsumen : <?= $value['nama_customer'] ?></h5>
@@ -221,64 +221,4 @@
     </div>
 </div>
 
-
-
-<!-- <div class="col-md-6">
-                                <a href="#" class="btn btn-gradient-warning btn-rounded btn-fw">
-                                    Save
-                                </a>
-                            </div> -->
-
-
-<?php
-function tgl_indo($tanggal)
-{
-    $hari = array(
-        'Minggu',
-        'Senin',
-        'Selasa',
-        'Rabu',
-        'Kamis',
-        'Jumat',
-        'Sabtu'
-    );
-
-    $bulan = array(
-        1 => 'Januari',
-        'Februari',
-        'Maret',
-        'April',
-        'Mei',
-        'Juni',
-        'Juli',
-        'Agustus',
-        'September',
-        'Oktober',
-        'November',
-        'Desember'
-    );
-
-    // $pecahkan = explode('-', $tanggal);
-    // $nama_hari = date('w', strtotime($tanggal));
-    // $nama_hari = $hari[$nama_hari];
-    // return $nama_hari . ', ' . $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
-
-    $pecahkan = explode(' ', $tanggal);
-    $tanggal = $pecahkan[0];
-    $waktu = isset($pecahkan[1]) ? $pecahkan[1] : null;
-
-    $pecahkanTanggal = explode('-', $tanggal);
-    $nama_hari = date('w', strtotime($tanggal));
-    $nama_hari = $hari[$nama_hari];
-
-    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . '/' . (int)$pecahkanTanggal[1] . '/' . $pecahkanTanggal[0];
-    // $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
-
-    if ($waktu !== null) {
-        $result .= ' ' . $waktu;
-    }
-
-    return $result;
-}
-?>
 <?= $this->endSection() ?>

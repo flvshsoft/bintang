@@ -98,7 +98,7 @@
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Jumlah
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control form-control-sm" name="uang_kas"
+                                    <input type="text" class="form-control form-control-sm" name="uang_kas" id="koma"
                                         placeholder="JUMLAH UANG">
                                 </div>
                             </div>
@@ -123,5 +123,21 @@
         </div>
     </div>
 </div>
+<script>
+// Format angka saat diketikkan oleh pengguna
+document.getElementById('koma').addEventListener('input', function() {
+    // Ambil nilai input
+    let payValue = this.value;
+
+    // Hapus semua tanda titik yang ada
+    payValue = payValue.replace(/\./g, '');
+
+    // Format angka dengan titik sebagai pemisah ribuan
+    payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+    // Masukkan kembali nilai yang sudah diformat ke dalam input
+    this.value = payValue;
+});
+</script>
 
 <?= $this->endSection() ?>

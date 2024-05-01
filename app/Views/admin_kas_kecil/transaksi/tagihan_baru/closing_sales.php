@@ -83,15 +83,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $sub_total = 0; ?>
-                                        <?php foreach ($cek_nota as $key => $value) { ?>
-                                            <?php
+                                        <?php 
+                                        $sub_total = 0; 
+                                        $nota_tertagih = 0;
+                                        foreach ($cek_nota as $key => $value) { 
                                             $kredit = 0;
                                             $cash = 0;
                                             if ($value['payment_method'] == 'CASH') {
-                                                $cash = $value['total_beli'] - $value['pay'];
+                                                $cash = $value['pay'];
                                             } else {
-                                                $kredit = $value['total_beli'] - $value['pay'];
+                                                $kredit = $value['total_beli'];
+                                                $nota_tertagih = $value['pay'];
                                             }
                                             $sub_total += $cash + $kredit;
                                             ?>
@@ -208,12 +210,15 @@
                                     </tfoot>
                                 </table>
                                 <?php
-                                $totalList['Total Kredit'] = $total;
+                                // $totalList['Total Kredit'] = $total;
                                 ?>
                             </div><br>
 
                             <!-- tabel -->
                             <h3>TOTAL</h3>
+                            <?php
+                                $totalList['Nota Tertagih'] = $nota_tertagih;
+                                ?>
                             <div class="table-responsive">
                                 <table class="table table-striped" width="100%" height="88%" cellspacing="0">
                                     <thead class="table table-success">

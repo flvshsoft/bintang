@@ -107,13 +107,13 @@ $routes->get('/akk/transaksi/stock_akhir/tambah', 'admin_kas_kecil\transaksi\Sto
 $routes->post('/akk/transaksi/stock_akhir/tambah', 'admin_kas_kecil\transaksi\StockAkhirController::input');
 $routes->get('/akk/transaksi/stock_akhir/edit/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::edit/$1');
 $routes->post('/akk/transaksi/stock_akhir/edit', 'admin_kas_kecil\transaksi\StockAkhirController::edit_save');
-// $routes->post('/akk/transaksi/stock_akhir/nota/detail/edit', 'admin_kas_kecil\transaksi\StockAkhirController::edit_detail_closing');
-// $routes->get('/akk/transaksi/stock_akhir/nota/detail/hapus/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::hapus_detail/$1');
-// $routes->get('/akk/transaksi/stock_akhir/nota/detail/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::closing_detail/$1');
-// $routes->get('/akk/transaksi/stock_akhir/riwayat_penjualan/print/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::print/$1');
-// $routes->get('/akk/transaksi/stock_akhir/nota/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::closing/$1');
-// $routes->post('/akk/transaksi/stock_akhir/nota', 'admin_kas_kecil\transaksi\StockAkhirController::input_closing');
-// $routes->post('/akk/transaksi/stock_akhir/nota/detail', 'admin_kas_kecil\transaksi\StockAkhirController::input_detail_closing');
+
+$routes->get('/akk/transaksi/purchase_order/', 'admin_kas_kecil\transaksi\purchaseOrderController::index');
+$routes->get('/akk/transaksi/purchase_order/tambah', 'admin_kas_kecil\transaksi\purchaseOrderController::tambah');
+$routes->post('/akk/transaksi/purchase_order/tambah', 'admin_kas_kecil\transaksi\purchaseOrderController::tambah_po');
+$routes->get('/akk/transaksi/purchase_order/edit/(:any)', 'admin_kas_kecil\transaksi\purchaseOrderController::edit/$1');
+$routes->post('/akk/transaksi/purchase_order/edit', 'admin_kas_kecil\transaksi\purchaseOrderController::edit_po');
+$routes->get('/akk/transaksi/purchase_order/hapus/(:any)', 'admin_kas_kecil\transaksi\purchaseOrderController::hapus_po/$1');
 
 $routes->get('/akk/master_branch', 'admin_kas_kecil\master\branchController::index');
 $routes->get('/akk/master_branch/tambah', 'admin_kas_kecil\master\branchController::tambah');
@@ -230,12 +230,13 @@ $routes->get('/akk/keuangan/master_giro', 'admin_kas_kecil\keuangan\masterGiroCo
 $routes->get('/akk/keuangan/data_kas', 'admin_kas_kecil\keuangan\dataKasController::index');
 $routes->get('/akk/keuangan/data_kas/voucher', 'admin_kas_kecil\keuangan\dataKasController::voucher');
 $routes->get('/akk/keuangan/data_kas/neraca_saldo', 'admin_kas_kecil\keuangan\dataKasController::neraca_saldo');
-$routes->get('/akk/keuangan/data_kas/mutasi_bank', 'admin_kas_kecil\keuangan\dataKasController::mutasi_bank');
+$routes->get('/akk/keuangan/data_kas/mutasi_bank/tambah', 'admin_kas_kecil\keuangan\dataKasController::mutasi_bank');
 $routes->post('/akk/keuangan/data_kas/mutasi_bank', 'admin_kas_kecil\keuangan\dataKasController::mutasi_bank_add');
 $routes->get('/akk/keuangan/data_kas/uang_kas_kecil', 'admin_kas_kecil\keuangan\dataKasController::uang_kas_kecil');
 $routes->post('/akk/keuangan/data_kas/uang_kas_kecil', 'admin_kas_kecil\keuangan\dataKasController::uang_kas_kecil_add');
 $routes->get('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan\dataKasController::form_transfer');
 $routes->post('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan\dataKasController::form_transfer_add');
+$routes->get('/akk/keuangan/data_kas/hapus/(:any)', 'admin_kas_kecil\keuangan\dataKasController::hapus_kas/$1');
 
 $routes->get('/akk/karyawan', 'admin_kas_kecil\sdmController::karyawan');
 $routes->get('/akk/karyawan/tambah', 'admin_kas_kecil\sdmController::karyawan_tambah');
@@ -252,7 +253,7 @@ $routes->get('/akk/akun/edit/(:any)', 'admin_kas_kecil\akunController::akun_edit
 $routes->get('/akk/akun/hapus/(:any)', 'admin_kas_kecil\akunController::hapus/$1');
 
 $routes->get('/akk/keuangan/master_pengeluaran', 'admin_kas_kecil\keuangan\masterPengeluaranController::index');
-$routes->get('/akk/keuangan/spending_operational', 'admin_kas_kecil\keuangan\masterPengeluaranController::spending_operational');
+$routes->get('/akk/keuangan/spending_operational/(:any)', 'admin_kas_kecil\keuangan\masterPengeluaranController::spending_operational/$1');
 $routes->get('/akk/keuangan/master_pengeluaran_op', 'admin_kas_kecil\keuangan\masterPengeluaranController::master_pengeluaran_op');
 $routes->get('/akk/keuangan/detail_biaya_operasional', 'admin_kas_kecil\keuangan\masterPengeluaranController::detail_biaya_operasional');
 

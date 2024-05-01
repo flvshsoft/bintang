@@ -10,6 +10,7 @@
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">DATA KEUANGAN</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/data_kas') ?>">DATA KAS</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/mutasi_bank') ?>">MUTASI</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><?= $judul1 ?></li>
                 </ol>
             </nav>
@@ -18,15 +19,25 @@
             <div class="col-md-9 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample" action="<?= base_url('/akk/keuangan/data_kas/mutasi_bank')?>"
-                            method="POST">
+                        <form class="forms-sample" action="<?= base_url('/akk/keuangan/data_kas/mutasi_bank') ?>" method="POST">
                             <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Nama Bank</label>
+                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Nama Bank Asal</label>
                                 <div class="col-sm-8">
                                     <select name="id_bank" id="" class="form-control form-control-sm">
                                         <option> </option>
                                         <?php foreach ($bank as $value) { ?>
-                                        <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
+                                            <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
+                                        <?php }; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-4 col-form-label">Nama Bank Tujuan</label>
+                                <div class="col-sm-8">
+                                    <select name="bank_tujuan" id="" class="form-control form-control-sm">
+                                        <option> </option>
+                                        <?php foreach ($bank as $value) { ?>
+                                            <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
                                         <?php }; ?>
                                     </select>
                                 </div>
@@ -35,8 +46,7 @@
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Jumlah
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control form-control-sm" name="biaya_mutasi_bank"
-                                        placeholder="UANG KANTOR">
+                                    <input type="text" class="form-control form-control-sm" name="biaya_mutasi_bank" id="koma" placeholder="UANG KANTOR">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -106,6 +116,7 @@
                                 <div class="col-sm-8">
                                     <select name="type_mutasi_bank" id="" class="form-control form-control-sm">
                                         <option> </option>
+                                        <option> PINDAH SALDO</option>
                                         <option> UANG KELUAR</option>
                                         <option> MUTASI HO BOP</option>
                                         <option> MUTASI HO DEVIDEN</option>
@@ -117,15 +128,12 @@
                                 <label for="exampleInputEmail2" class="col-sm-4 col-form-label">Keterangan
                                 </label>
                                 <div class="col-sm-8">
-                                    <textarea class="form-control form-control-sm" name="remark_mutasi_bank"
-                                        placeholder="Remark" rows="3"></textarea>
+                                    <textarea class="form-control form-control-sm" name="remark_mutasi_bank" placeholder="Remark" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/akk/keuangan/data_kas') ?>" class="btn btn-warning btn-xs"><i
-                                        class="mdi mdi-backburger icon-sm"></i></a>
-                                <button type="submit" class="btn btn-success btn-xs"><i
-                                        class="mdi mdi-content-save-all icon-sm"></i></button>
+                                <a href="<?= base_url('/akk/keuangan/data_kas') ?>" class="btn btn-warning btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-success btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i></button>
                             </div>
                         </form>
                     </div>
@@ -134,5 +142,21 @@
         </div>
     </div>
 </div>
+<script>
+    // Format angka saat diketikkan oleh pengguna
+    document.getElementById('koma').addEventListener('input', function() {
+        // Ambil nilai input
+        let payValue = this.value;
+
+        // Hapus semua tanda titik yang ada
+        payValue = payValue.replace(/\./g, '');
+
+        // Format angka dengan titik sebagai pemisah ribuan
+        payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+        // Masukkan kembali nilai yang sudah diformat ke dalam input
+        this.value = payValue;
+    });
+</script>
 
 <?= $this->endSection() ?>

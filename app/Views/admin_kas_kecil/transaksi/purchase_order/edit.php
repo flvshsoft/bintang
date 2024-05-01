@@ -4,50 +4,43 @@
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
-            <h3 class="page-title"><?= $judul1 ?></h3>
+            <h3 class="page-title">
+                <?= $judul ?>
+            </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">DATA KEUANGAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/mutasi_bank') ?>">PENGELUARAN</a>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>"> BERANDA </a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi') ?>"> Transaski </a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi/purchase_order') ?>"> PO </a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page"><?= $judul1 ?></li>
+                    <li class="breadcrumb-item active" aria-current="page"> <?= $judul1 ?></li>
                 </ol>
             </nav>
         </div>
         <div class="row">
-            <div class="col-md-8 grid-margin stretch-card">
+            <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/keuangan/mutasi_bank/tambah') ?>">
+                        <form class="forms-sample" method="POST"
+                            action="<?= base_url('/akk/transaksi/purchase_order/edit') ?>">
                             <div class="form-group row mb-0">
-                                <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Tanggal</label>
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Cabang</label>
                                 <div class="col-sm-9">
-                                    <input type="date" class="form-control form-control-sm" name="tgl_mutasi_bank">
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Bank</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" name="id_bank">
-                                        <option> Pilih Bank </option>
-                                        <?php foreach ($bank as $value) { ?>
-                                            <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
+                                    <select class="form-control" name="id_supplier">
+                                        <option value="<?= $model['id_supplier'] ?>"><?= $model['nama_supplier'] ?>
+                                        </option>
+                                        <?php foreach ($supplier as $value) { ?>
+                                        <option value="<?= $value['id_supplier'] ?>"><?= $value['nama_supplier'] ?>
+                                        </option>
                                         <?php }; ?>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row mb-4">
-                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Jumlah</label>
-                                <div class="col-sm-9">
-                                    <input type="number" class="form-control" placeholder="Uang Keluar" name="biaya_mutasi_bank">
-                                </div>
-                            </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Pekan Ke-</label>
+                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Minggu PO </label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="week_mutasi_bank">
-                                        <option></option>
+                                    <select class="form-control form-control-sm" name="minggu_purchase_order" required>
+                                        <option><?= $model['minggu_purchase_order'] ?></option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -106,28 +99,31 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Type Mutasi</label>
+                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Status PO</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="type_mutasi_bank">
-                                        <option>Pilih Mutasi</option>
-                                        <option>Pindah Saldo</option>
-                                        <option>Uang Keluar</option>
-                                        <option>Mutasi HO BOP</option>
-                                        <option>Mutasi HO Deviden</option>
-                                        <option>Mutasi Kas Pengembangan</option>
-                                    </select>
+                                    <input type="text" class="form-control form-control-sm"
+                                        value="<?= $model['status_purchase_order'] ?>" required
+                                        name="status_purchase_order">
+                                    <input type="hidden" class="form-control form-control-sm"
+                                        value="<?= $model['id_purchase_order'] ?>" required name="id_purchase_order">
                                 </div>
                             </div>
-                            <div class="form-group row mb-4">
-                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">
-                                    Keterangan</label>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Keterangan PO</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" placeholder="Keterangan" rows="3" name="remark_mutasi_bank"></textarea>
+                                    <input type="text" class="form-control form-control-sm"
+                                        value="<?= $model['keterangan_purchase_order'] ?>" required
+                                        name="keterangan_purchase_order">
                                 </div>
                             </div>
-                            <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/akk/keuangan/mutasi_bank') ?>" class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
-                                <button type="submit" class="btn btn-warning btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i></button>
+                            <div class="form-group text-center">
+                                <a href="<?= base_url('/akk/transaksi/purchase_order/') ?>"
+                                    class="btn btn-gradient-primary btn-xs tip-top">
+                                    <i class="mdi mdi-backburger"></i>
+                                </a>
+                                <button class="btn btn-success btn-xs tip-top">
+                                    <i class="mdi mdi-content-save-all icon-sm"></i>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -137,4 +133,56 @@
     </div>
 </div>
 
+
+
+<?php
+function tgl_indo($tanggal)
+{
+    $hari = array(
+        'Minggu',
+        'Senin',
+        'Selasa',
+        'Rabu',
+        'Kamis',
+        'Jumat',
+        'Sabtu'
+    );
+
+    $bulan = array(
+        1 => 'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    );
+
+    // $pecahkan = explode('-', $tanggal);
+    // $nama_hari = date('w', strtotime($tanggal));
+    // $nama_hari = $hari[$nama_hari];
+    // return $nama_hari . ', ' . $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
+
+    $pecahkan = explode(' ', $tanggal);
+    $tanggal = $pecahkan[0];
+    $waktu = isset($pecahkan[1]) ? $pecahkan[1] : null;
+
+    $pecahkanTanggal = explode('-', $tanggal);
+    $nama_hari = date('w', strtotime($tanggal));
+    $nama_hari = $hari[$nama_hari];
+
+    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
+
+    if ($waktu !== null) {
+        $result .= ' ' . $waktu;
+    }
+
+    return $result;
+}
+?>
 <?= $this->endSection() ?>

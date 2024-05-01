@@ -31,7 +31,8 @@
                                 cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>
-                                        <th style="font-size: 11px;"> No. DO</th>
+                                        <th style="font-size: 11px;"> No</th>
+                                        <th style="font-size: 11px;"> DO</th>
                                         <th style="font-size: 11px;"> Salesman </th>
                                         <th style="font-size: 11px;"> Pekan Ke- </th>
                                         <th style="font-size: 11px;"> ID Area </th>
@@ -42,32 +43,45 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $no = 1;
+                                    foreach ($model as $value) :
+                                        $dateString = $value['created_at'];
+                                        $dateTime = new DateTime($dateString);
+                                        $formattedDate = $dateTime->format('d F Y H:i:s');
+                                    ?>
                                     <tr>
                                         <td style="font-size: 11px;">
-                                            160009911
+                                            <?= $no ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            JUNAIDI
+                                            <?= $value['id_sales'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            39
+                                            <?= $value['nama_lengkap'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            PKUKVS
+                                            <?= $value['minggu_pengeluaran_sales'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            02865 </td>
-                                        <td style="font-size: 11px;">
-                                            2023-09-27 11:24:13
+                                            <?= $value['id_nama_area'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            Muhammad
+                                            <?= $value['keterangan_pengeluaran_sales'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            <a href="<?= base_url('/akk/keuangan/spending_operational') ?>"><i
+                                            <?= $formattedDate ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['nama_lengkap'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <a
+                                                href="<?= base_url('/akk/keuangan/spending_operational/' . $value['id_pengeluaran_sales']) ?>"><i
                                                     class="mdi mdi-database-plus icon-md"></i></a>
                                         </td>
                                     </tr>
+                                    <?php endforeach;
+                                    $no++ ?>
                                 </tbody>
                             </table>
                         </div>

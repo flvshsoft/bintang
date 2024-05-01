@@ -57,7 +57,7 @@
     table,
     th,
     td {
-        font-size: 11px;
+        font-size: 10px;
         /* border: 1px solid black; */
     }
 
@@ -133,13 +133,12 @@
         </table>
         <table border="1">
             <thead>
-                <tr style="font-size:11px ;">
-                    <th>No.</th>
+                <tr style="font-size:10px ;">
+                    <th>No</th>
                     <th>No Nota</th>
                     <th>Tgl Nota</th>
                     <th>Konsumen</th>
                     <th>Tagihan</th>
-                    <th>Telp/HP</th>
                     <th>Cicilan</th>
                     <th>Sisa Tagihan</th>
                 </tr>
@@ -149,28 +148,24 @@
                 $no = 1;
                 $total = 0;
                 foreach ($model as $value) {
-                    $total += $value['total_beli'];
-                    $sisa = $value['total_beli'] - $value['pay'];
+                    // $sisa = $value['total_beli'] - $value['pay'];
+                    $sisa = $value['sisa'];
+                    $total += $sisa;
                 ?>
-                <tr style="font-size:11px ;">
-                    <td><?= $no ?> </td>
-                    <td><?= $value['no_nota'] ?> </td>
+                <tr>
+                    <td style="width:20px;"><?= $no ?> </td>
+                    <td style="width:70px;"><?= $value['no_nota'] ?> </td>
                     <td><?= tgl_indo($value['tgl_bayar'], 'normal') ?> </td>
                     <td><?= $value['nama_customer'] ?> </td>
-                    <td><?= 'Rp. ' . number_format($value['total_beli'], 0, ',', '.') ?></td>
-                    <td><?= $value['no_hp_customer'] ?> </td>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
+                    <td><?= 'Rp. ' . number_format($sisa, 0, ',', '.') ?></td>
+                    <td style="width:100px;"></td>
+                    <td style="width:100px;"></td>
                 </tr>
                 <?php $no++;
                 } ?>
             </tbody>
             <tfoot>
-                <tr style="font-size:11px ;">
+                <tr style="font-size:10px ;">
                     <td colspan="4" align="left"><b>Total Tagihan Piutang Usaha </b></td>
                     <td colspan="2" align="left">
                         <?= 'Rp. ' . number_format($total, 0, ',', '.') ?>
@@ -248,9 +243,9 @@ function tgl_indo($tanggal, $mode)
     $nama_hari = date('w', strtotime($tanggal));
     $nama_hari = $hari[$nama_hari];
 
-    if($mode=='full'){
+    if ($mode == 'full') {
         $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
-    }else{
+    } else {
         $result = $pecahkanTanggal[2] . '-' . $pecahkanTanggal[1] . '-' . $pecahkanTanggal[0];
     }
 

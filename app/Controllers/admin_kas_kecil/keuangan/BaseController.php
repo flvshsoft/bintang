@@ -79,6 +79,7 @@ abstract class BaseController extends Controller
         $this->mdLokasi = model('lokasiModel', true, $this->db);
         $this->mdCuti = model('cutiModel', true, $this->db);
         $this->mdIzin = model('izinModel', true, $this->db);
+        $this->mdNota = model('notaModel', true, $this->db);
         $this->mdJenisHarga = model('jenishargaModel', true, $this->db);
         $this->mdPrice = model('priceModel', true, $this->db);
         $this->mdPriceDetail = model('pricedetailModel', true, $this->db);
@@ -89,6 +90,9 @@ abstract class BaseController extends Controller
         $this->mdClosingSales = model('closingSalesModel', true, $this->db);
         $this->mdClosingSalesBarang = model('closingSalesBarangModel', true, $this->db);
         $this->mdPiutangUsaha = model('piutangUsahaModel', true, $this->db);
+        $this->mdNotaPutihSave = model('notaPutihSaveModel', true, $this->db);
+        $this->mdPengeluaranSales = model('pengeluaranSalesModel', true, $this->db);
+        $this->mdPurchaseOrder = model('purchaseOrderModel', true, $this->db);
 
         $this->session = \Config\Services::session();
     }

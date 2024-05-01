@@ -28,47 +28,50 @@
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Salesman </label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control form-control-sm" id="exampleInputMobile"
-                                        value="JUNAIDI" disabled>
+                                        value="<?= $model['nama_lengkap'] ?>" disabled>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Area / Tujuan </label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control form-control-sm" id="exampleInputMobile"
-                                        value="PKUKVS" disabled>
+                                        value="<?= $model['id_nama_area'] ?>" disabled>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">No. DO </label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control form-control-sm" id="exampleInputMobile"
-                                        value="160009911" disabled>
+                                        value="<?= $model['id_sales'] ?>" disabled>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Minggu Ke - </label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control form-control-sm" id="exampleInputMobile"
-                                        value="39" disabled>
+                                        value="<?= $model['minggu_pengeluaran_sales'] ?>" disabled>
                                 </div>
                             </div>
                             <div class="form-group row mb-2">
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Detail
                                     Keterangan</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control form-control-sm" placeholder="Remark"
-                                        rows="3">Pengeluaran Operasional Salesman : JUNAIDI</textarea>
+                                    <textarea class="form-control form-control-sm"
+                                        rows="3"><?= $model['keterangan_pengeluaran_sales'] ?></textarea>
                                 </div>
                             </div>
-
+                            <?php $dateString = $model['created_at'];
+                            $dateTime = new DateTime($dateString);
+                            $formattedDate = $dateTime->format('d F Y H:i:s'); ?>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Tgl
                                     DO</label>
                                 <div class="col-sm-9">
-                                    <input type="date" class="form-control form-control-sm"
-                                        id="exampleInputConfirmPassword2" value="25/09/2023" disabled>
+                                    <input type="text" class="form-control form-control-sm" disabled
+                                        value="<?= $formattedDate; ?>">
                                 </div>
                             </div>
+
                             <div class="form-group text-center mb-0">
                                 <a href="<?= base_url('/akk/keuangan/master_pengeluaran') ?>"
                                     class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
