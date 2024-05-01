@@ -19,11 +19,9 @@
             <div class="col-md-8 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample" method="POST"
-                            action="<?= base_url('/akk/keuangan/mutasi_bank/tambah') ?>">
+                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/keuangan/mutasi_bank/tambah') ?>">
                             <div class="form-group row mb-0">
-                                <label for="exampleInputConfirmPassword2"
-                                    class="col-sm-3 col-form-label">Tanggal</label>
+                                <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Tanggal</label>
                                 <div class="col-sm-9">
                                     <input type="date" class="form-control form-control-sm" name="tgl_mutasi_bank">
                                 </div>
@@ -34,7 +32,7 @@
                                     <select class="form-control" name="id_bank">
                                         <option> Pilih Bank </option>
                                         <?php foreach ($bank as $value) { ?>
-                                        <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
+                                            <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
                                         <?php }; ?>
                                     </select>
                                 </div>
@@ -42,8 +40,7 @@
                             <div class="form-group row mb-4">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Jumlah</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" placeholder="Uang Keluar"
-                                        name="biaya_mutasi_bank">
+                                    <input type="number" class="form-control" placeholder="Uang Keluar" name="biaya_mutasi_bank">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -113,6 +110,7 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name="type_mutasi_bank">
                                         <option>Pilih Mutasi</option>
+                                        <option>Pindah Saldo</option>
                                         <option>Uang Keluar</option>
                                         <option>Mutasi HO BOP</option>
                                         <option>Mutasi HO Deviden</option>
@@ -124,15 +122,12 @@
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">
                                     Keterangan</label>
                                 <div class="col-sm-9">
-                                    <textarea class="form-control" placeholder="Keterangan" rows="3"
-                                        name="remark_mutasi_bank"></textarea>
+                                    <textarea class="form-control" placeholder="Keterangan" rows="3" name="remark_mutasi_bank"></textarea>
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/akk/keuangan/mutasi_bank') ?>" class="btn btn-primary btn-xs"><i
-                                        class="mdi mdi-backburger icon-sm"></i></a>
-                                <button type="submit" class="btn btn-warning btn-xs"><i
-                                        class="mdi mdi-content-save-all icon-sm"></i></button>
+                                <a href="<?= base_url('/akk/keuangan/mutasi_bank') ?>" class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-warning btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i></button>
                             </div>
                         </form>
                     </div>

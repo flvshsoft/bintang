@@ -208,14 +208,20 @@
                                                 </select>
                                             </td>
                                             <td style=" font-size: 11px;">
-                                                <select class="form-control" name="id_jenis_harga">
+                                                <?= $nota['remark_jenis_harga']?>
+
+                                                <!-- <select class="form-control" name="id_jenis_harga">
                                                     <option value=""> Pilih Jenis Harga</option>
-                                                    <?php foreach ($jenis_harga as $value) { ?>
-                                                    <option value="<?= $value['id_jenis_harga'] ?>">
-                                                        <?= $value['remark_jenis_harga'] ?>
+                                                    <?php // foreach ($jenis_harga as $value) { 
+                                                    ?>
+                                                    <option value="<? //= $value['id_jenis_harga'] 
+                                                                    ?>">
+                                                        <? //= $value['remark_jenis_harga'] 
+                                                        ?>
                                                     </option>
-                                                    <?php } ?>
-                                                </select>
+                                                    <?php // } 
+                                                    ?>
+                                                </select> -->
                                             </td>
                                             <td>
                                                 <input type="hidden" name="x" class="form-control form-control-sm"
@@ -268,11 +274,19 @@
             </a>
         </div><br>
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <?php foreach ($cek_nota as $value) { ?>
+            <?php foreach ($cek_nota as $value) {
+                $string_tanggal_waktu = $value['created_at'];
+
+                // Konversi string menjadi objek DateTime
+                $datetime = new DateTime($string_tanggal_waktu);
+
+                // Formatkan tanggal dan waktu sesuai keinginan
+                $tanggal_waktu_php = $datetime->format('d F Y H:i:s');
+            ?>
             <div class="col">
                 <div class="card h-100">
                     <div class="card-header">
-                        <small class="text-muted"><?= tgl_indo($value['created_at']) ?></small>
+                        <small class="text-muted"><?= $tanggal_waktu_php ?></small>
                     </div>
                     <div class="card-bodyx" style="padding:5%">
                         <h5 class="card-title text-center">Konsumen : <?= $value['nama_customer'] ?></h5>
@@ -391,12 +405,6 @@ function tgl_indo($tanggal)
         12 => 'Desember'
     );
 
-
-    // $pecahkan = explode('-', $tanggal);
-    // $nama_hari = date('w', strtotime($tanggal));
-    // $nama_hari = $hari[$nama_hari];
-    // return $nama_hari . ', ' . $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
-
     $pecahkan = explode(' ', $tanggal);
     $tanggal = $pecahkan[0];
     $waktu = isset($pecahkan[1]) ? $pecahkan[1] : null;
@@ -406,12 +414,7 @@ function tgl_indo($tanggal)
     $nama_hari = $hari[$nama_hari];
 
     if (is_array($pecahkanTanggal)) {
-        // echo 'te';
-        // print_r((int)$pecahkanTanggal[1]);
-        // exit;
         $result = $nama_hari . ', ' . $pecahkanTanggal[2] . '/' . (int) $pecahkanTanggal[1] . '/' . $pecahkanTanggal[0];
-        // $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[3] . ' ' . $pecahkanTanggal[0];
-        // $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[((int)$pecahkanTanggal[1])] . ' ' . $pecahkanTanggal[0];
     } else {
         $result = '';
     }
