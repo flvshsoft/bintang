@@ -66,13 +66,18 @@
                                     <input type="text" class="form-control form-control-sm" name="satuan_sales_detail">
                                 </div>
                             </div>
-                            <div class="form-group mb-0 text-center">
-                                <button type="submit" class="btn btn-gradient-success btn-xs"><i
+                            <div class="row">
+                                <div class="col-3"></div>
+                                <div class="col-9">
+                                    <div class="form-group mb-0 text-center">
+                                        <a href="<?= base_url('/akk/transaksi/ambil_barang/detail/' . $id_sales['id_sales']) ?>"
+                                        class="btn btn-light btn-xs float-start">
+                                        <i class="mdi mdi-backburger"></i> Cancel
+                                    </a>
+                                        <button type="submit" class="btn btn-gradient-success btn-xs float-end"><i
                                         class="mdi mdi-content-save-all icon-sm"></i> Transasct</button>
-                                <a href="<?= base_url('/akk/transaksi/ambil_barang/detail/' . $id_sales['id_sales']) ?>"
-                                    class="btn btn-light btn-xs">
-                                    <i class="mdi mdi-backburger"></i> Cancel
-                                </a>
+                                </div>
+                            </div>
                             </div>
                         </form>
                     </div>

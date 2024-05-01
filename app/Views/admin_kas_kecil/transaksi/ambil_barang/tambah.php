@@ -25,8 +25,8 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Salesman</label>
                                 <div class="col-sm-9">
-                                    <select name="id_partner" class="form-control select2">
-                                        <option> Pilih Salesman </option>
+                                    <select name="id_partner" class="form-control select2" required>
+                                        <option value=""> Pilih Salesman </option>
                                         <?php foreach ($salesman as $value) { ?>
                                         <option value="<?= $value['id_partner'] ?>"> <?= $value['nama_lengkap'] ?>
                                         </option>
@@ -38,8 +38,8 @@
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">No Plat Mobil
                                 </label>
                                 <div class="col-sm-9">
-                                    <select name="id_asset" class="form-control select2">
-                                        <option> Pilih No Plat - Nama Mobil </option>
+                                    <select name="id_asset" class="form-control select2" required>
+                                        <option value=""> Pilih No Plat - Nama Mobil </option>
                                         <?php foreach ($asset as $value) { ?>
                                         <option value="<?= $value['id_asset'] ?>">
                                             <?= $value['no_plat'] ? $value['no_plat'] . ' - ' : '## #### ## - ' ?>
@@ -52,17 +52,18 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Kilometer</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="km" class="form-control form-control-sm">
+                                    <input type="text" name="km" class="form-control form-control-sm" placeholder="Masukkan km" required>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Area
                                 </label>
                                 <div class="col-sm-9">
-                                    <select name="id_area" class="form-control select2">
-                                        <option> Pilih Area </option>
+                                    <select name="id_area" class="form-control select2" required>
+                                        <option value=""> Pilih Area </option>
                                         <?php foreach ($area as $value) { ?>
                                         <option value="<?= $value['id_area'] ?>">
+                                            <?= $value['id_nama_area'] ?> - 
                                             <?= $value['nama_area'] ?>
                                         </option>
                                         <?php } ?>
@@ -72,8 +73,8 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Week</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="week">
-                                        <option></option>
+                                    <select class="form-control" name="week" required>
+                                        <option value="">Pilih Week</option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>

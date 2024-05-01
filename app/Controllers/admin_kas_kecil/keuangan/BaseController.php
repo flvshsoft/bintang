@@ -54,7 +54,16 @@ abstract class BaseController extends Controller
         $this->req = Services::request();
         $this->session = Services::session();
         $this->calendar = Services::calendar();
-
+        // Check session here
+        if (!$this->session->has('userData')) {
+            // Set the redirection header
+            $response->setHeader('Location', base_url('/'), true);
+            // Set the status code for redirection
+            $response->setStatusCode(302);
+            // Send the response
+            $response->send();
+            exit;
+        }
         // Preload any models, libraries, etc, here.
         $this->db = db_connect();
         $this->mdUser = model('userModel', true, $this->db);
