@@ -54,7 +54,7 @@ class customerController extends BaseController
             'alamat_owner' => $this->request->getPost('alamat_owner'),
             'id_area' => $this->request->getPost('id_area'),
             'id_jenis_harga' => $this->request->getPost('id_jenis_harga'),
-            'kab/kota' => $this->request->getPost('kab/kota'),
+            'kab_kota' => $this->request->getPost('kab_kota'),
             'payment_metode' => $this->request->getPost('payment_metode'),
             'type_harga' => $this->request->getPost('type_harga'),
             'id_branch' => Session('userData')['id_branch']
@@ -142,7 +142,7 @@ class customerController extends BaseController
             'alamat_owner' => $this->request->getPost('alamat_owner'),
             'id_area' => $this->request->getPost('id_area'),
             'id_jenis_harga' => $this->request->getPost('id_jenis_harga'),
-            'kab/kota' => $this->request->getPost('kab/kota'),
+            'kab_kota' => $this->request->getPost('kab_kota'),
             'payment_metode' => $this->request->getPost('payment_metode'),
             'type_harga' => $this->request->getPost('type_harga'),
             'id_branch' => Session('userData')['id_branch']

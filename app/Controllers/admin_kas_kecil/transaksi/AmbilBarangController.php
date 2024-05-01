@@ -130,6 +130,7 @@ class AmbilBarangController extends BaseController
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Detail Product';
         $data['model'] = $this->mdSalesDetail
+        ->select('*, sales_detail.created_at as created_at')
             ->join('sales', 'sales.id_sales=sales_detail.id_sales',)
             //->join('price_detail', 'price_detail.id_price_detail=sales_detail.id_price_detail')
             ->join('product', 'product.id_product=sales_detail.id_product')
@@ -205,11 +206,14 @@ class AmbilBarangController extends BaseController
         // $id_price_detail = $this->request->getPost('id_price_detail');
         $id_product = $this->request->getPost('id_product');
         $satuan_sales_detail = $this->request->getPost('satuan_sales_detail');
+        $satuan_sales_detail =  str_replace('.', '', $satuan_sales_detail);
+        $satuan_sales_detail = (int) str_replace(',', '', $satuan_sales_detail);
         $data = [
             'id_sales' => $id_sales,
             'id_product' => $id_product,
             'satuan_sales_detail' => $satuan_sales_detail,
             'jumlah_sales' => $satuan_sales_detail,
+            // 'created_at'=> date('Y-m-d H:i:s'),
             // 'id_branch'=> Session('userData')['id_branch']
             // 'id_price_detail' => $id_price_detail,
         ];

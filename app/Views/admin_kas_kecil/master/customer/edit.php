@@ -100,7 +100,7 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Kabupaten/Kota</label>
                                 <div class="col-sm-9">
-                                    <textarea type="text" class="form-control form-control-sm" name="kab/kota"><?= $model['kab/kota'] ?></textarea>
+                                    <textarea type="text" class="form-control form-control-sm" name="kab_kota"><?= $model['kab_kota'] ?></textarea>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">

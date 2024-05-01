@@ -63,7 +63,7 @@
                             <div class="form-group row mb-1">
                                 <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Satuan</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="satuan_sales_detail">
+                                    <input type="text" class="form-control form-control-sm" name="satuan_sales_detail" id="satuan_sales_detail">
                                 </div>
                             </div>
                             <div class="row">
@@ -118,6 +118,23 @@ $('#id_product').change(function() {
     });
     return false;
 });
+</script>
+
+<script>
+    // Format angka saat diketikkan oleh pengguna
+    document.getElementById('satuan_sales_detail').addEventListener('input', function() {
+        // Ambil nilai input
+        let payValue = this.value;
+
+        // Hapus semua tanda titik yang ada
+        payValue = payValue.replace(/\./g, '');
+
+        // Format angka dengan titik sebagai pemisah ribuan
+        payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+        // Masukkan kembali nilai yang sudah diformat ke dalam input
+        this.value = payValue;
+    });
 </script>
 
 <?= $this->endSection() ?>

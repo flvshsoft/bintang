@@ -113,7 +113,7 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Kabupaten/Kota</label>
                                 <div class="col-sm-9">
-                                    <textarea type="text" class="form-control form-control-sm" name="kab/kota"
+                                    <textarea type="text" class="form-control form-control-sm" name="kab_kota"
                                         placeholder="Alamat"></textarea>
                                 </div>
                             </div>

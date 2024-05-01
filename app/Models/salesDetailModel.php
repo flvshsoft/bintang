@@ -12,7 +12,7 @@ class salesDetailModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['id_sales', 'id_branch', 'id_product', 'satuan_sales_detail',  'jumlah_sales', 'id_price_detail'];
 
