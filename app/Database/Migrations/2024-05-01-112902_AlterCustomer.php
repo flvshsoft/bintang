@@ -11,28 +11,16 @@ class AlterCustomer extends Migration
         // ALTER TABLE `mutasi_bank`
         // ADD COLUMN `bank_tujuan` INT NULL AFTER `id_bank`;
         $this->forge->addColumn('customer', [
-            'nama_toko' => [
+            'foto_toko' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,
                 'null' => true, // Set to true if the field can be NULL
                 'after' => 'no_hp_customer', // Specify the field to come after
             ],
-            'alamat_toko' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100,
-                'null' => true, // Set to true if the field can be NULL
-                'after' => 'nama_toko', // Specify the field to come after
-            ],
-            'no_hp_toko' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100,
-                'null' => true, // Set to true if the field can be NULL
-                'after' => 'alamat_toko', // Specify the field to come after
-            ],
             'nama_owner' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,
-                'after' => 'no_hp_toko', // Specify the field to come after
+                'after' => 'foto_toko', // Specify the field to come after
             ],
             'no_hp_owner' => [
                 'type' => 'VARCHAR',
@@ -79,14 +67,13 @@ class AlterCustomer extends Migration
 
     public function down()
     {
-        $this->forge->dropColumn('customer', 'nama_toko');
-        $this->forge->dropColumn('customer', 'alamat_toko');
-        $this->forge->dropColumn('customer', 'no_hp_toko');
+        $this->forge->dropColumn('customer', 'foto_toko');
         $this->forge->dropColumn('customer', 'nama_owner');
         $this->forge->dropColumn('customer', 'no_hp_owner');
         $this->forge->dropColumn('customer', 'alamat_owner');
         $this->forge->dropColumn('customer', 'payment_metode');
         $this->forge->dropColumn('customer', 'kab_kota');
+        $this->forge->dropColumn('customer', 'id_area');
         $this->forge->dropColumn('customer', 'data_lengkap');
         $this->forge->dropColumn('customer', 'id_jenis_harga');
     }
