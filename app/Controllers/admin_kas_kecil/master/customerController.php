@@ -9,12 +9,28 @@ class customerController extends BaseController
     public function index()
     {
         $data['judul'] = 'Bintang';
-        $data['judul1'] = 'Master Data Konsumen';
+        $data['judul1'] = 'Master Data Konsumen/Toko';
         $data['model'] = $this->mdCustomer
-            ->where('customer.id_branch', Session('userData')['id_branch'])
             ->join('area', 'area.id_area=customer.id_area', 'left')
             ->join('jenis_harga', 'jenis_harga.id_jenis_harga=customer.id_jenis_harga', 'left')
+            ->where('customer.id_branch', Session('userData')['id_branch'])
             ->findAll();
+        $count_customer_data = $this->mdCustomer
+            ->select('payment_metode, COUNT(*) as count')
+            ->where('customer.id_branch', Session('userData')['id_branch'])
+            ->groupBy('payment_metode')
+            ->findAll();
+
+        $data['count_customer'] = [];
+        $data['count_customer']['CASH'] = 0;
+        $data['count_customer']['KREDIT'] = 0;
+        $data['count_customer']['Unknown'] = 0;
+        foreach ($count_customer_data as $item) {
+            if ($item['payment_metode'] == '') {
+                $item['payment_metode'] = 'Unknown';
+            }
+            $data['count_customer'][$item['payment_metode']] = $item['count'];
+        }
         return view('admin_kas_kecil/master/customer/index', $data);
     }
     public function tambah()
@@ -134,9 +150,9 @@ class customerController extends BaseController
             'nama_customer' => $this->request->getPost('nama_customer'),
             'no_hp_customer' => $this->request->getPost('no_hp_customer'),
             'alamat_customer' => $this->request->getPost('alamat_customer'),
-            'nama_toko' => $this->request->getPost('nama_toko'),
-            'no_hp_toko' => $this->request->getPost('no_hp_toko'),
-            'alamat_toko' => $this->request->getPost('alamat_toko'),
+            // 'nama_toko' => $this->request->getPost('nama_toko'),
+            // 'no_hp_toko' => $this->request->getPost('no_hp_toko'),
+            // 'alamat_toko' => $this->request->getPost('alamat_toko'),
             'nama_owner' => $this->request->getPost('nama_owner'),
             'no_hp_owner' => $this->request->getPost('no_hp_owner'),
             'alamat_owner' => $this->request->getPost('alamat_owner'),
@@ -144,7 +160,7 @@ class customerController extends BaseController
             'id_jenis_harga' => $this->request->getPost('id_jenis_harga'),
             'kab_kota' => $this->request->getPost('kab_kota'),
             'payment_metode' => $this->request->getPost('payment_metode'),
-            'type_harga' => $this->request->getPost('type_harga'),
+            // 'type_harga' => $this->request->getPost('type_harga'),
             'id_branch' => Session('userData')['id_branch']
         ];
         if ($fileName != '') {
@@ -171,7 +187,7 @@ class customerController extends BaseController
                 session()->setFlashdata("lengkap", "Data Sudah Lengkap");
             }
         }
-        
+
         // print_r($data);
         // exit;
         $this->mdCustomer->save($data);
