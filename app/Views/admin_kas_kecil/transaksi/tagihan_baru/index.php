@@ -19,6 +19,12 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
+                        <?php if (session()->getFlashdata("tak_lengkap")) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <?= session()->getFlashdata("tak_lengkap") ?>
+                        </div>
+                        <?php } ?>
                         <div class="row">
                             <div class="form-group col-6">
                                 <a class="btn btn-success btn-xs"

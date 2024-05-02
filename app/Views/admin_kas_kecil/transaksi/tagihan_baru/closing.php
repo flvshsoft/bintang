@@ -21,6 +21,12 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
+                        <?php if (session()->getFlashdata("tak_lengkap")) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <?= session()->getFlashdata("tak_lengkap") ?>
+                            </div>
+                        <?php } ?>
                         <form action="<?= base_url('/akk/transaksi/tagihan_baru/nota') ?>" method="POST">
                             <div class="row">
                                 <div class="col-md-9">
@@ -30,12 +36,12 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-3 preview-list">
-                                    <a class="dropdown-item preview-item">
-                                        <div class="preview-thumbnail">
+                                <div class="col-3 pt-4">
+                                    <a class="text-black text-decoration-none">
+                                        <!-- <div class="preview-thumbnail">
                                             <img src="<?= base_url() ?>/public/assets/images/faces/face4.jpg" alt="image" class="profile-pic rounded">
-                                        </div>
-                                        <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                        </div> -->
+                                        <div class="d-flex align-items-start flex-column justify-content-center">
                                             <h6 class="preview-subject ellipsis mb-0 font-weight-normal">
                                                 NO DO : <?= $model['id_sales'] ?>
                                                 <input type="hidden" name="id_sales" class="form-control" value="<?= $model['id_sales'] ?>">
@@ -51,11 +57,12 @@
                                 <div class="col-md-7 justify-content-center">
                                     <div class="col-md-12">
                                         <div class="row form-group">
-                                            <label class="col-3 col-form-label">Metode Bayar
-                                                <?= $payment_method ?></label>
-                                            <div class="col-3">
-                                                <input type="hidden" name="payment_method" class="form-control" value="<?= $payment_method ?>">
-                                            </div>
+                                            <label class="col-3 col-form-label">Metode Bayar</label>
+                                            <label class="col-9 col-form-label">: <?= $payment_method ?>
+
+                                                <div class="col-3">
+                                                    <input type="hidden" name="payment_method" class="form-control" value="<?= $payment_method ?>">
+                                                </div>
                                         </div>
                                     </div>
                                     <div class="form-group d-flex mt-4">
@@ -209,6 +216,9 @@
                             <li class="list-group-item">Area : <?= $value['nama_area'] ?> </li>
                             <li class="list-group-item">Salesman : <?= $value['nama_lengkap'] ?></li>
                             <li class="list-group-item">No Invoice : <?= $value['id_nota'] ?></li>
+                            <li class="list-group-item">Metode Bayar : <?= $value['payment_method'] ?></li>
+                            <li class="list-group-item">Harga : <?= $value['remark_jenis_harga'] ?>
+                            </li>
                         </ul>
                         <div class="" style="padding:5%">
                             <a href="<?= base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $value['id_nota']) ?>" class="d-flex justify-content-center align-items-center btn btn-primary btn-sm btn-rounded">Cek
