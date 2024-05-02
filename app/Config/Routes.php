@@ -123,6 +123,14 @@ $routes->get('/akk/master_branch/hapus/(:any)', 'admin_kas_kecil\master\branchCo
 $routes->get('/akk/master_branch/edit/(:any)', 'admin_kas_kecil\master\branchController::edit/$1');
 $routes->post('/akk/master_branch/edit', 'admin_kas_kecil\master\branchController::update');
 
+$routes->get('/akk/master_week', 'admin_kas_kecil\master\weekController::index');
+$routes->get('/akk/master_week/tambah', 'admin_kas_kecil\master\weekController::tambah');
+$routes->post('/akk/master_week/tambah', 'admin_kas_kecil\master\weekController::input');
+$routes->get('/akk/master_week/hapus/(:any)', 'admin_kas_kecil\master\weekController::hapus/$1');
+$routes->get('/akk/master_week/edit/(:any)', 'admin_kas_kecil\master\weekController::edit/$1');
+$routes->post('/akk/master_week/edit', 'admin_kas_kecil\master\weekController::update');
+$routes->post('/akk/master_week/generate', 'admin_kas_kecil\master\weekController::generate');
+
 $routes->get('/akk/piutang_usaha', 'admin_kas_kecil\piutang_usahaController::index');
 $routes->get('/akk/piutang_usaha/hapus/(:any)', 'admin_kas_kecil\piutang_usahaController::hapus/$1');
 $routes->get('/akk/repayment_detail', 'admin_kas_kecil\piutang_usahaController::repayment_detail');
