@@ -21,7 +21,13 @@
                         <div class="row">
                             <div class="form-group col-12">
                                 <a class="btn btn-gradient-success btn-xs btn-icon-text my-1" href="<?= base_url('/akk/customer') ?>">
-                                    <i class="mdi mdi-database-plus icon-sm"></i> Input Konsumen</a>
+                                    <i class="mdi mdi-database-plus icon-sm"></i> Input Konsumen
+                                </a>
+                                <?php foreach ($count_customer as $key => $value) : ?>
+                                    <a class="btn btn-warning text-black btn-xs btn-icon-text my-1" href="<?= base_url('/akk/customer') ?>">
+                                        <i class="mdi mdi-database-plus icon-sm"></i> Konsumen <?= $key ?> : <?= $value ?>
+                                    </a>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                         <?php if (session()->getFlashdata("tak_lengkap")) { ?>
@@ -45,6 +51,8 @@
                                         <th style="font-size: 11px;"> Nama Konsumen </th>
                                         <th style="font-size: 11px;"> Alamat </th>
                                         <th style="font-size: 11px;"> Telp </th>
+                                        <th style="font-size: 11px;"> Metode </th>
+                                        <th style="font-size: 11px;"> Tipe Harga </th>
                                         <th style="font-size: 11px;"> </th>
                                     </tr>
                                 </thead>
@@ -70,6 +78,12 @@
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <?= $value['no_hp_customer'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['payment_metode'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['remark_jenis_harga'] ?>
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')" href="<?= base_url('/akk/del_customer/' . $value['id_customer']) ?>"> <i class="mdi mdi-delete-circle text-default icon-md"></i> </a>

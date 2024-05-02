@@ -41,24 +41,6 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Toko</label>
-                                <div class="col-sm-9">
-                                    <input required type="text" class="form-control form-control-sm" name="nama_toko" value="<?= $model['nama_toko'] ?>">
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">HP / Telp Toko</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="no_hp_toko" value="<?= $model['no_hp_toko'] ?>">
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Alamat Toko</label>
-                                <div class="col-sm-9">
-                                    <textarea type="text" class="form-control form-control-sm" name="alamat_toko"> <?= $model['alamat_toko'] ?></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Foto Toko</label>
                                 <div class="col-sm-9">
                                     <input type="file" class="form-control form-control-sm" name="foto_toko">
@@ -85,7 +67,7 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Area</label>
                                 <div class="col-sm-9">
-                                    <select name="id_area" required class="form-control">
+                                    <select name="id_area" class="form-control">
                                         <option value="<?= $model['id_area'] ?>"> <?= $model['id_nama_area'] ?> -
                                             <?= $model['nama_area'] ?></option>
                                         <?php foreach ($area as $value) { ?>
