@@ -76,7 +76,7 @@
 
                                             <td style="font-size: 11px;">#</td>
                                             <td style="font-size: 11px;">
-                                                <select class="form-control form-control-sm" name="id_product" required>
+                                                <select class="form-control form-control-sm" id="id_sales_detail" name="id_product" required>
                                                     <option value=""> Pilih Produk</option>
                                                     <?php foreach ($sales_detail as $value) { ?>
                                                         <option value="<?= $value['id_sales_detail'] ?>,<?= $value['id_product'] ?>">
@@ -92,10 +92,10 @@
                                                 </select>
                                             </td>
                                             <td style="font-size: 11px;">
-                                                <input type="text" disabled class="form-control" id="">
+                                                <input type="text" disabled class="form-control" id="nama_product">
                                             </td>
                                             <td style="font-size: 11px;">
-                                                <input type="text" disabled class="form-control" id="">
+                                                <input type="text" disabled class="form-control" id="jumlah_sales">
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <input type="text" name="jumlah_stock_kembali" class="form-control" value="0">
@@ -113,7 +113,6 @@
                                             </td>
                                         </form>
                                     </tr>
-
                                 </tbody>
                             </table>
                         </div>
@@ -124,6 +123,28 @@
     </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+<script type="text/javascript">
+    //$(document).on('change', '#id_sales_detail', function() {
+    $('#id_sales_detail').change(function() {
+        var id = $(this).val();
+        $.ajax({
+            url: "<?= base_url('/stock/tambah_nama_barang'); ?>",
+            method: "POST",
+            data: {
+                id: id
+            },
+            success: function(data) {
+                console.log(data);
+                str = data.split(',');
+                var x = document.getElementById("nama_product").value = str[0];
+                var y = document.getElementById("jumlah_sales").value = (Number(str[1]));
+                // var y = document.getElementById("jumlah_sales").value = number_format(Number(str[1]));
+            }
+        });
+        return false;
+    });
+</script>
 
 <?= $this->endSection() ?>

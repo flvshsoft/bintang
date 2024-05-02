@@ -107,6 +107,7 @@ $routes->get('/akk/transaksi/stock_akhir/tambah', 'admin_kas_kecil\transaksi\Sto
 $routes->post('/akk/transaksi/stock_akhir/tambah', 'admin_kas_kecil\transaksi\StockAkhirController::input');
 $routes->get('/akk/transaksi/stock_akhir/edit/(:any)', 'admin_kas_kecil\transaksi\StockAkhirController::edit/$1');
 $routes->post('/akk/transaksi/stock_akhir/edit', 'admin_kas_kecil\transaksi\StockAkhirController::edit_save');
+$routes->post('/stock/tambah_nama_barang', 'admin_kas_kecil\transaksi\StockAkhirController::tambah_nama_barang');
 
 $routes->get('/akk/transaksi/purchase_order/', 'admin_kas_kecil\transaksi\purchaseOrderController::index');
 $routes->get('/akk/transaksi/purchase_order/tambah', 'admin_kas_kecil\transaksi\purchaseOrderController::tambah');

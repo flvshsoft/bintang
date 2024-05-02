@@ -13,8 +13,7 @@
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi/tagihan_baru') ?>"> TAGIHAN
                             BARU
                         </a></li>
-                    <li class="breadcrumb-item"><a
-                            href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' .  $nota['id_sales']) ?>">
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' .  $nota['id_sales'] . '/' .  $nota['payment_method']) ?>">
                             NOTA
                         </a></li>
                     <li class="breadcrumb-item active" aria-current="page"> <?= $judul1 ?></li>
@@ -44,14 +43,11 @@
                                         <div class="d-flex align-items-start flex-column justify-content-center">
                                             <h6 class="preview-subject ellipsis mb-0 font-weight-normal">
                                                 NO DO : <?= $nota['id_sales'] ?>
-                                                <input type="hidden" name="id_sales" class="form-control"
-                                                    value="<?= $nota['id_sales'] ?>">
-                                                <input type="hidden" name="id_partner" class="form-control"
-                                                    value="<?= $nota['id_partner'] ?>">
+                                                <input type="hidden" name="id_sales" class="form-control" value="<?= $nota['id_sales'] ?>">
+                                                <input type="hidden" name="id_partner" class="form-control" value="<?= $nota['id_partner'] ?>">
                                             </h6>
                                             <p class="text-gray mb-0"> Area : <?= $nota['nama_area'] ?> </p>
-                                            <input type="hidden" name="id_area" class="form-control"
-                                                value="<?= $nota['id_area'] ?>">
+                                            <input type="hidden" name="id_area" class="form-control" value="<?= $nota['id_area'] ?>">
                                         </div>
                                     </a>
                                 </div>
@@ -62,12 +58,11 @@
                                     <!-- <div class="col-md-12"> -->
                                     <div class="form-group d-flex mt-0 mb-0">
                                         <label class="col-3 col-form-label">Metode Bayar</label>
-                                        <label class="col-9 col-form-label">: <?= $nota['payment_method'] ?></label>
-                                        <!-- <div class="col-3">
-                                                <input type="text" name="payment_method"
-                                                    class="form-control form-control-sm"
-                                                    value="<?= $nota['payment_method'] ?>">
-                                            </div> -->
+                                        <label class="col-9 col-form-label">: <?= $nota['payment_method'] ?> -
+                                            <?= $nota['remark_jenis_harga'] ?></label>
+
+                                        <input type="hidden" name="payment_method" class="form-control form-control-sm" name="payment_method" value="<?= $nota['payment_method'] ?> ">
+
                                     </div>
                                     <!-- </div> -->
                                     <div class="form-group d-flex mt-0 mb-0">
@@ -80,11 +75,11 @@
                                     </div>
                                     <!-- </div> -->
                                     <?php if ($nota['payment_method'] == 'CASH') : ?>
-                                    <div class="form-group d-flex mt-0">
-                                        <label class="col-3 col-form-label">Total</label>
-                                        <label class="col-9 col-form-label">:
-                                            <?= number_format($nota['total_beli']) ?></label>
-                                    </div>
+                                        <div class="form-group d-flex mt-0">
+                                            <label class="col-3 col-form-label">Total</label>
+                                            <label class="col-9 col-form-label">:
+                                                <?= number_format($nota['total_beli']) ?></label>
+                                        </div>
                                     <?php endif; ?>
                                 </div>
                                 <!-- Tgl Toko -->
@@ -97,21 +92,24 @@
                                     <!-- </div> -->
                                     <div class="col-md-12">
                                         <div class="form-group d-flex mb-0">
-                                            <label class="col-5 col-form-label">TOKO</label>
-                                            <div class="col-7">
-                                                <select class="form-control select2" name="id_customer">
-                                                    <option value="<?= $nota['id_customer'] ?>">
-                                                        <?= $nota['id_customer'] ?> - <?= $nota['nama_customer'] ?>
-                                                    </option>
-                                                    <?php foreach ($customer as $value) { ?>
-                                                    <option name="id_customer" value="<?= $value['id_customer'] ?>">
-                                                        <?= $value['id_customer'] ?>
-                                                        -
-                                                        <?= $value['nama_customer'] ?>
-                                                    </option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
+                                            <label class="col-5 col-form-label">TOKO : <?= $nota['id_customer'] ?> -
+                                                <?= $nota['nama_customer'] ?>
+                                                <div class="col-7">
+                                                    <!-- <select class="form-control select2" name="id_customer">
+                                                        <option value="<//?= $nota['id_customer'] ?>">
+                                                            <//?= $nota['id_customer'] ?> - <//?= $nota['nama_customer'] ?>
+                                                        </option>
+                                                        <? //php foreach ($customer as $value) { 
+                                                        ?>
+                                                        <option name="id_customer" value="<//?= $value['id_customer'] ?>">
+                                                            <//?= $value['id_customer'] ?>
+                                                            -
+                                                            <//?= $value['nama_customer'] ?>
+                                                        </option>
+                                                        <?php //} 
+                                                        ?>
+                                                    </select> -->
+                                                </div>
                                         </div>
                                         <!-- <div class="row justify-content-right mb-2">
                                             <div class="col-md-12">
@@ -146,11 +144,11 @@
                                         $harga =  $harga_aktif * $value['satuan_penjualan'] - $value['diskon_penjualan'];
                                         $total += $harga;
                                     ?>
-                                    <tr>
-                                        <td style=" font-size: 11px;">
-                                            <?= $no ?>
-                                        </td>
-                                        <!-- <td style=" font-size: 11px;">
+                                        <tr>
+                                            <td style=" font-size: 11px;">
+                                                <?= $no ?>
+                                            </td>
+                                            <!-- <td style=" font-size: 11px;">
                                                 <b>
                                                     <a style="text-decoration:none"
                                                         href="<?= base_url('/akk/form_customer/' . $value['id_nota_detail']) ?>"
@@ -159,32 +157,30 @@
                                                     </a>
                                                 </b>
                                             </td> -->
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['nama_product'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= 'Rp. ' . number_format($harga_aktif, 0, ',', '.') ?> -
-                                            <?= $value['remark_jenis_harga'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['satuan_penjualan'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= 'Rp. ' . number_format($value['diskon_penjualan'], 0, ',', '.') ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= 'Rp. ' . number_format($harga, 0, ',', '.') ?>
-                                        </td>
-                                        <td>
-                                            <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
-                                                href="<?= base_url('/akk/transaksi/tagihan_baru/nota/detail/hapus/' . $value['id_nota'] . '/' . $value['id_nota_detail']) . '/' . $harga . '/' .  $value['satuan_penjualan'] ?>">
-                                                <i class="mdi mdi-delete-circle text-default icon-md"></i> </a>
-                                        </td>
-                                    </tr>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['nama_product'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= 'Rp. ' . number_format($harga_aktif, 0, ',', '.') ?> -
+                                                <?= $value['remark_jenis_harga'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['satuan_penjualan'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= 'Rp. ' . number_format($value['diskon_penjualan'], 0, ',', '.') ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= 'Rp. ' . number_format($harga, 0, ',', '.') ?>
+                                            </td>
+                                            <td>
+                                                <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')" href="<?= base_url('/akk/transaksi/tagihan_baru/nota/detail/hapus/' . $value['id_nota'] . '/' . $value['id_nota_detail']) . '/' . $harga . '/' .  $value['satuan_penjualan'] ?>">
+                                                    <i class="mdi mdi-delete-circle text-default icon-md"></i> </a>
+                                            </td>
+                                        </tr>
                                     <?php $no++;
                                     } ?>
-                                    <form method="POST"
-                                        action="<?= base_url('/akk/transaksi/tagihan_baru/nota/detail') ?>">
+                                    <form method="POST" action="<?= base_url('/akk/transaksi/tagihan_baru/nota/detail') ?>">
                                         <tr>
                                             <td style=" font-size: 11px;">
                                                 <?= $no ?? 1 ?>
@@ -197,18 +193,18 @@
                                                 <select class="form-control" name="id_sales_detail">
                                                     <option value="id_sales_detail"> Pilih Produk</option>
                                                     <?php foreach ($sales_detail as $value) { ?>
-                                                    <option value="<?= $value['id_sales_detail'] ?>">
-                                                        <?= $value['id_product'] ?>
-                                                        -
-                                                        <?= $value['nama_product'] ?>
-                                                        -
-                                                        <?= number_format($value['jumlah_sales'], 0, ',', '.') ?>
-                                                    </option>
+                                                        <option value="<?= $value['id_sales_detail'] ?>">
+                                                            <?= $value['id_product'] ?>
+                                                            -
+                                                            <?= $value['nama_product'] ?>
+                                                            -
+                                                            <?= number_format($value['jumlah_sales'], 0, ',', '.') ?>
+                                                        </option>
                                                     <?php } ?>
                                                 </select>
                                             </td>
                                             <td style=" font-size: 11px;">
-                                                <?= $nota['remark_jenis_harga']?>
+                                                <?= $nota['remark_jenis_harga'] ?>
 
                                                 <!-- <select class="form-control" name="id_jenis_harga">
                                                     <option value=""> Pilih Jenis Harga</option>
@@ -224,21 +220,16 @@
                                                 </select> -->
                                             </td>
                                             <td>
-                                                <input type="hidden" name="x" class="form-control form-control-sm"
-                                                    placeholder="0">
-                                                <input type="text" name="satuan_penjualan"
-                                                    class="form-control form-control-sm" value="0">
-                                                <input type="hidden" name="id_nota" class="form-control form-control-sm"
-                                                    value="<?= $nota['id_nota'] ?>">
+                                                <input type="hidden" name="x" class="form-control form-control-sm" placeholder="0">
+                                                <input type="text" name="satuan_penjualan" class="form-control form-control-sm" value="0">
+                                                <input type="hidden" name="id_nota" class="form-control form-control-sm" value="<?= $nota['id_nota'] ?>">
                                             </td>
 
                                             <td style=" font-size: 11px;">
-                                                <input type="text" name="diskon_penjualan" class="form-control"
-                                                    value="0">
+                                                <input type="text" name="diskon_penjualan" class="form-control" value="0">
                                             </td>
                                             <td style="font-size: 11px;">
-                                                <button type="submit" class="btn btn-primary btn-xs"><i
-                                                        class="mdi mdi-content-save-all icon-xs"></i>
+                                                <button type="submit" class="btn btn-primary btn-xs"><i class="mdi mdi-content-save-all icon-xs"></i>
                                                 </button>
                                             </td>
                                             <td></td>
@@ -267,10 +258,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 row">
-            <a href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' .  $nota['id_sales']) ?>"
-                class="btn btn-gradient-danger btn-sm btn-fw float-end w-auto ms-auto">
-                Input Nota Baru
+        <div class="col-md-6 row">
+            <a href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' .  $nota['id_sales'] . '/' . 'CASH') ?>" class="btn btn-gradient-danger btn-sm btn-fw float-end w-auto ms-auto">
+                Input Nota CASH Baru
+            </a>
+            <a href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' .  $nota['id_sales'] . '/' . 'KREDIT') ?>" class="btn btn-gradient-primary btn-sm btn-fw float-end w-auto ms-auto">
+                Input Nota KREDIT Baru
             </a>
         </div><br>
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -283,26 +276,27 @@
                 // Formatkan tanggal dan waktu sesuai keinginan
                 $tanggal_waktu_php = $datetime->format('d F Y H:i:s');
             ?>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-header">
-                        <small class="text-muted"><?= $tanggal_waktu_php ?></small>
-                    </div>
-                    <div class="card-bodyx" style="padding:5%">
-                        <h5 class="card-title text-center">Konsumen : <?= $value['nama_customer'] ?></h5>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Area : <?= $value['nama_area'] ?> </li>
-                        <li class="list-group-item">Salesman : <?= $value['nama_lengkap'] ?></li>
-                        <li class="list-group-item">No Invoice : <?= $value['id_nota'] ?></li>
-                    </ul>
-                    <div class="" style="padding:5%">
-                        <a href="<?= base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $value['id_nota']) ?>"
-                            class="d-flex justify-content-center align-items-center btn btn-primary btn-sm btn-rounded">Cek
-                            Detail Nota</a>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <small class="text-muted"><?= $tanggal_waktu_php ?></small>
+                        </div>
+                        <div class="card-bodyx" style="padding:5%">
+                            <h5 class="card-title text-center">Konsumen : <?= $value['nama_customer'] ?></h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Area : <?= $value['nama_area'] ?> </li>
+                            <li class="list-group-item">Salesman : <?= $value['nama_lengkap'] ?></li>
+                            <li class="list-group-item">No Invoice : <?= $value['id_nota'] ?></li>
+                            <li class="list-group-item">Metode Bayar : <?= $value['payment_method'] ?></li>
+                            <li class="list-group-item">Jenis Harga : <?= $value['remark_jenis_harga'] ?></li>
+                        </ul>
+                        <div class="" style="padding:5%">
+                            <a href="<?= base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $value['id_nota']) ?>" class="d-flex justify-content-center align-items-center btn btn-primary btn-sm btn-rounded">Cek
+                                Detail Nota</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             <?php }; ?>
         </div>
     </div>
@@ -317,8 +311,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Edit Pembelian Barang</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form class="forms-sample" action="<?= base_url('/akk/transaksi/tagihan_baru/nota/detail/edit') ?>"
-                method="post">
+            <form class="forms-sample" action="<?= base_url('/akk/transaksi/tagihan_baru/nota/detail/edit') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group row">
                         <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Item - Barang</label>
@@ -337,13 +330,13 @@
                                     ?>
                                 </option>
                                 <?php foreach ($sales_detail as $value) { ?>
-                                <option value="<?= $value['id_sales_detail'] ?>">
-                                    <?= $value['id_product'] ?>
-                                    -
-                                    <?= $value['nama_product'] ?>
-                                    -
-                                    <?= $value['satuan_sales_detail'] ?>
-                                </option>
+                                    <option value="<?= $value['id_sales_detail'] ?>">
+                                        <?= $value['id_product'] ?>
+                                        -
+                                        <?= $value['nama_product'] ?>
+                                        -
+                                        <?= $value['satuan_sales_detail'] ?>
+                                    </option>
                                 <?php } ?>
                             </select>
                         </div>
