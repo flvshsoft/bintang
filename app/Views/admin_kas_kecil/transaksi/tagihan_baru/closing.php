@@ -29,7 +29,7 @@
                         <?php } ?>
                         <form action="<?= base_url('/akk/transaksi/tagihan_baru/nota') ?>" method="POST">
                             <div class="row">
-                                <div class="col-md-9">
+                                <div class="col-md-7">
                                     <div class="form-group">
                                         <label class="col-12 col-form-label">MINGGU KE - <?= $model['week'] ?>
                                         </label>
@@ -55,24 +55,32 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-7 justify-content-center">
-                                    <div class="col-md-12">
-                                        <div class="row form-group">
-                                            <label class="col-3 col-form-label">Metode Bayar</label>
-                                            <label class="col-9 col-form-label">: <?= $payment_method ?>
-
-                                                <div class="col-3">
-                                                    <input type="hidden" name="payment_method" class="form-control" value="<?= $payment_method ?>">
-                                                </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group d-flex mt-4">
-                                        <label class="col-sm-3 col-form-label">FAKTUR NO :
-                                            99 -
+                                    <!-- <div class="col-md-12"> -->
+                                    <div class="form-group d-flex">
+                                        <label class="col-3 col-form-label">METODE BAYAR</label>
+                                        <label class="col-4 justify-content-start">
+                                            <input type="text" class="form-control" value="<?= $payment_method ?>" disabled>
+                                            <!-- <div class="col-3"> -->
+                                            <input type="hidden" name="payment_method" class="form-control" value="<?= $payment_method ?>">
+                                            <!-- </div> -->
                                         </label>
-                                        <div class="col-sm-3 justify-content-start">
+                                        <?php 
+                                        if($payment_method == 'CASH'){
+
+                                            $payment_method2 = 'KREDIT';
+                                        }else{
+                                            $payment_method2 = 'CASH';
+                                        }
+                                        ?>
+                                        <a href="<?= base_url('akk/transaksi/tagihan_baru/nota/'. $model['id_sales'] .'/'.$payment_method2)?>" class="btn"><i class="mdi mdi-sync"></i></a>
+                                    </div>
+                                    <!-- </div> -->
+                                    <div class="form-group d-flex mt-4">
+                                        <label class="col-sm-3 col-form-label">FAKTUR NO</label>
+                                        <div class="col-4 justify-content-start">
                                             <!-- <input type="text" class="form-control" name="id_nota" value="<? //= $lastIdNota + 1 ?? 1 
                                                                                                                 ?>" disabled> -->
-                                            <input type="text" class="form-control" name="no_nota">
+                                            <input type="text" class="form-control" name="no_nota" autofocus>
                                         </div>
                                     </div>
                                 </div>

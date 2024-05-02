@@ -43,8 +43,8 @@
                                     <h6> KONTAN / KREDIT</h6>
                                 </button>
                                 <div class="form-group d-flex mt-4">
-                                    <label class="col-sm-2 col-form-label">FAKTUR NO :
-                                        99 -
+                                    <label class="col-sm-2 col-form-label">
+                                        FAKTUR NO :
                                     </label>
                                     <div class="col-sm-3 justify-content-start">
                                         <input type="text" class="form-control form-control-sm">
