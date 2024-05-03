@@ -66,7 +66,6 @@
                                         </label>
                                         <?php 
                                         if($payment_method == 'CASH'){
-
                                             $payment_method2 = 'KREDIT';
                                         }else{
                                             $payment_method2 = 'CASH';
