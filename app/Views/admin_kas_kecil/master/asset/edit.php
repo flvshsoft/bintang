@@ -24,8 +24,10 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-4 col-form-label">Nama Asset</label>
                                 <div class="col-sm-8">
-                                    <input type="hidden" class="form-control form-control-sm" name="id_asset" value="<?= $model['id_asset'] ?>">
-                                    <input type="text" class="form-control form-control-sm" name="nama_asset" value="<?= $model['nama_asset'] ?>">
+                                    <input type="hidden" class="form-control form-control-sm" name="id_asset"
+                                        value="<?= $model['id_asset'] ?>">
+                                    <input type="text" class="form-control form-control-sm" name="nama_asset"
+                                        value="<?= $model['nama_asset'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -68,19 +70,22 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">No. PLat</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control form-control-sm" name="no_plat" value="<?= $model['no_plat'] ?>">
+                                    <input type="text" class="form-control form-control-sm" name="no_plat"
+                                        value="<?= $model['no_plat'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">No. Mesin</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control form-control-sm" name="no_mesin" value="<?= $model['no_mesin'] ?>">
+                                    <input type="text" class="form-control form-control-sm" name="no_mesin"
+                                        value="<?= $model['no_mesin'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">No. Rangka</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control form-control-sm" name="no_rangka" value="<?= $model['no_rangka'] ?>">
+                                    <input type="text" class="form-control form-control-sm" name="no_rangka"
+                                        value="<?= $model['no_rangka'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -101,26 +106,41 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputConfirmPassword2" class="col-sm-4 col-form-label">Tgl Berakhir
+                                <label for="exampleInputConfirmPassword2" class="col-sm-4 col-form-label">Tanggal
+                                    Berakhir
                                     KIR</label>
                                 <div class="col-sm-8">
-                                    <input type="date" class="form-control form-control-sm" name="tgl_berakhir_kir" value="<?= $model['tgl_berakhir_kir'] ?>">
+                                    <input type="date" class="form-control form-control-sm" name="tgl_berakhir_kir"
+                                        value="<?= $model['tgl_berakhir_kir'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputConfirmPassword2" class="col-sm-4 col-form-label">Tgl Berakhir
+                                <label for="exampleInputConfirmPassword2" class="col-sm-4 col-form-label">Tanggal
+                                    Berakhir
                                     Pajak
                                     STNK</label>
                                 <div class="col-sm-8">
-                                    <input type="date" class="form-control form-control-sm" value="<?= $model['tgl_berakhir_pajak_stnk'] ?>" name="tgl_berakhir_pajak_stnk">
+                                    <input type="date" class="form-control form-control-sm"
+                                        value="<?= $model['tgl_berakhir_pajak_stnk'] ?>" name="tgl_berakhir_pajak_stnk">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputConfirmPassword2" class="col-sm-4 col-form-label">Tgl Berakhir
+                                <label for="exampleInputConfirmPassword2" class="col-sm-4 col-form-label">Tanggal
+                                    Berakhir
                                     PLAT
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="date" class="form-control form-control-sm" name="tgl_berakhir_plat" value="<?= $model['tgl_berakhir_plat'] ?>">
+                                    <input type="date" class="form-control form-control-sm" name="tgl_berakhir_plat"
+                                        value="<?= $model['tgl_berakhir_plat'] ?>">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputConfirmPassword2" class="col-sm-4 col-form-label">Tanggal
+                                    Service
+                                </label>
+                                <div class="col-sm-8">
+                                    <input type="date" class="form-control form-control-sm" name="tgl_service"
+                                        value="<?= $model['tgl_service'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -145,8 +165,10 @@
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <button type="submit" class="btn btn-success btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i></button>
-                                <a class="btn btn-light btn-xs" href="<?= base_url('/akk/master_asset') ?>"><i class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-success btn-xs"><i
+                                        class="mdi mdi-content-save-all icon-sm"></i></button>
+                                <a class="btn btn-light btn-xs" href="<?= base_url('/akk/master_asset') ?>"><i
+                                        class="mdi mdi-backburger icon-sm"></i></a>
                             </div>
                         </form>
                     </div>

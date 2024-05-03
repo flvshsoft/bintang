@@ -20,69 +20,29 @@
             <div class="col-md-9 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/update_customer') ?>" enctype="multipart/form-data">
+                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/update_customer') ?>"
+                            enctype="multipart/form-data">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Konsumen</label>
                                 <div class="col-sm-9">
-                                    <input type="hidden" class="form-control form-control-sm" name="id_customer" value="<?= $model['id_customer'] ?>">
-                                    <input type="text" class="form-control form-control-sm" name="nama_customer" value="<?= $model['nama_customer'] ?>">
+                                    <input type="hidden" class="form-control form-control-sm" name="id_customer"
+                                        value="<?= $model['id_customer'] ?>">
+                                    <input type="text" class="form-control form-control-sm" name="nama_customer"
+                                        value="<?= $model['nama_customer'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">HP / Telp</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="no_hp_customer" value="<?= $model['no_hp_customer'] ?>">
+                                    <input type="text" class="form-control form-control-sm" name="no_hp_customer"
+                                        value="<?= $model['no_hp_customer'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Alamat</label>
                                 <div class="col-sm-9">
-                                    <textarea type="text" class="form-control form-control-sm" name="alamat_customer"> <?= $model['alamat_customer'] ?></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Foto Toko</label>
-                                <div class="col-sm-9">
-                                    <input type="file" class="form-control form-control-sm" name="foto_toko">
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Owner</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="nama_owner" value="<?= $model['nama_owner'] ?>">
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">HP / Telp Owner</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="no_hp_owner" value="<?= $model['no_hp_owner'] ?>">
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Alamat Owner</label>
-                                <div class="col-sm-9">
-                                    <textarea type="text" class="form-control form-control-sm" name="alamat_owner"> <?= $model['alamat_owner'] ?></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Area</label>
-                                <div class="col-sm-9">
-                                    <select name="id_area" class="form-control">
-                                        <option value="<?= $model['id_area'] ?>"> <?= $model['id_nama_area'] ?> -
-                                            <?= $model['nama_area'] ?></option>
-                                        <?php foreach ($area as $value) { ?>
-                                            <option value=" <?= $value['id_area'] ?>">
-                                                <?= $value['id_nama_area'] ?> - <?= $value['nama_area'] ?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Kabupaten/Kota</label>
-                                <div class="col-sm-9">
-                                    <textarea type="text" class="form-control form-control-sm" name="kab_kota"><?= $model['kab_kota'] ?></textarea>
+                                    <textarea type="text" class="form-control form-control-sm"
+                                        name="alamat_customer"> <?= $model['alamat_customer'] ?></textarea>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -102,17 +62,69 @@
                                         <option value="<?= $model['id_jenis_harga'] ?>">
                                             <?= $model['remark_jenis_harga'] ?> </option>
                                         <?php foreach ($type_harga as $value) { ?>
-                                            <option value="<?= $value['id_jenis_harga'] ?>">
-                                                <?= $value['remark_jenis_harga'] ?>
-                                            </option>
+                                        <option value="<?= $value['id_jenis_harga'] ?>">
+                                            <?= $value['remark_jenis_harga'] ?>
+                                        </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Foto Toko</label>
+                                <div class="col-sm-9">
+                                    <input type="file" class="form-control form-control-sm" name="foto_toko">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Owner</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" name="nama_owner"
+                                        value="<?= $model['nama_owner'] ?>">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">HP / Telp Owner</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" name="no_hp_owner"
+                                        value="<?= $model['no_hp_owner'] ?>">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Alamat Owner</label>
+                                <div class="col-sm-9">
+                                    <textarea type="text" class="form-control form-control-sm"
+                                        name="alamat_owner"> <?= $model['alamat_owner'] ?></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Area</label>
+                                <div class="col-sm-9">
+                                    <select name="id_area" class="form-control">
+                                        <option value="<?= $model['id_area'] ?>"> <?= $model['id_nama_area'] ?> -
+                                            <?= $model['nama_area'] ?></option>
+                                        <?php foreach ($area as $value) { ?>
+                                        <option value=" <?= $value['id_area'] ?>">
+                                            <?= $value['id_nama_area'] ?> - <?= $value['nama_area'] ?>
+                                        </option>
                                         <?php } ?>
                                     </select>
                                 </div>
                             </div>
 
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Kabupaten/Kota</label>
+                                <div class="col-sm-9">
+                                    <textarea type="text" class="form-control form-control-sm"
+                                        name="kab_kota"><?= $model['kab_kota'] ?></textarea>
+                                </div>
+                            </div>
+
+
                             <div class="form-group text-center mb-0">
-                                <button type="submit" class="btn btn-success btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i></button>
-                                <a class="btn btn-light btn-xs" href="<?= base_url('/akk/master_customer') ?>"><i class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-success btn-xs"><i
+                                        class="mdi mdi-content-save-all icon-sm"></i></button>
+                                <a class="btn btn-light btn-xs" href="<?= base_url('/akk/master_customer') ?>"><i
+                                        class="mdi mdi-backburger icon-sm"></i></a>
                             </div>
                         </form>
                     </div>
