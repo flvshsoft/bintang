@@ -76,10 +76,16 @@ class customerController extends BaseController
             'id_branch' => Session('userData')['id_branch']
         ];
 
-        if (empty(array_filter($data))) {
-            $data['data_lengkap'] = 0;
-        } else {
+        // if (empty(array_filter($data))) {
+        //     $data['data_lengkap'] = 0;
+        // } else {
+        //     $data['data_lengkap'] = 1;
+        // }
+
+        if (in_array(null, $data, true)) {
             $data['data_lengkap'] = 1;
+        } else {
+            $data['data_lengkap'] = 0;
         }
 
         if ($data['payment_metode'] == 'KREDIT') {
@@ -167,10 +173,16 @@ class customerController extends BaseController
             $data['foto_toko'] = $fileName;
         }
 
-        if (empty(array_filter($data))) {
-            $data['data_lengkap'] = 0;
-        } else {
+        // if (empty(array_filter($data))) {
+        //     $data['data_lengkap'] = 0;
+        // } else {
+        //     $data['data_lengkap'] = 1;
+        // }
+
+        if (in_array(null, $data, true)) {
             $data['data_lengkap'] = 1;
+        } else {
+            $data['data_lengkap'] = 0;
         }
 
         if ($data['payment_metode'] == 'KREDIT') {
@@ -188,8 +200,8 @@ class customerController extends BaseController
             }
         }
 
-        // print_r($data);
-        // exit;
+        print_r($data);
+        exit;
         $this->mdCustomer->save($data);
         return redirect()->to(base_url('/akk/master_customer'));
     }

@@ -32,6 +32,7 @@ class assetController extends BaseController
             'tgl_berakhir_pajak_stnk' => $this->request->getPost('tgl_berakhir_pajak_stnk'),
             'satuan' => $this->request->getPost('satuan'),
             'tgl_berakhir_kir' => $this->request->getPost('tgl_berakhir_kir'),
+            'tgl_service' => $this->request->getPost('tgl_service'),
             'tgl_berakhir_plat' => $this->request->getPost('tgl_berakhir_plat'),
             'pic' => $this->request->getPost('pic'),
             'lokasi' => $this->request->getPost('lokasi'),
@@ -68,6 +69,7 @@ class assetController extends BaseController
             'satuan' => $this->request->getPost('satuan'),
             'tgl_berakhir_kir' => $this->request->getPost('tgl_berakhir_kir'),
             'tgl_berakhir_plat' => $this->request->getPost('tgl_berakhir_plat'),
+            'tgl_service' => $this->request->getPost('tgl_service'),
             'pic' => $this->request->getPost('pic'),
             'lokasi' => $this->request->getPost('lokasi'),
             'id_branch' => Session('userData')['id_branch']

@@ -24,7 +24,8 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-5 col-form-label">Nama Asset</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control form-control-sm" name="nama_asset" placeholder="Nama Asset">
+                                    <input type="text" class="form-control form-control-sm" name="nama_asset"
+                                        placeholder="Nama Asset">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -65,19 +66,22 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-5 col-form-label">No. PLat</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control form-control-sm" name="no_plat" placeholder="No Plat">
+                                    <input type="text" class="form-control form-control-sm" name="no_plat"
+                                        placeholder="No Plat">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-5 col-form-label">No. Mesin</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control form-control-sm" name="no_mesin" placeholder="No Mesin">
+                                    <input type="text" class="form-control form-control-sm" name="no_mesin"
+                                        placeholder="No Mesin">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-5 col-form-label">No. Rangka</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control form-control-sm" name="no_rangka" placeholder="No Rangka">
+                                    <input type="text" class="form-control form-control-sm" name="no_rangka"
+                                        placeholder="No Rangka">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -97,26 +101,38 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputConfirmPassword2" class="col-sm-5 col-form-label">Tgl Berakhir
+                                <label for="exampleInputConfirmPassword2" class="col-sm-5 col-form-label">Tanggal
+                                    Berakhir
                                     KIR</label>
                                 <div class="col-sm-7">
                                     <input type="date" class="form-control form-control-sm" name="tgl_berakhir_kir">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputConfirmPassword2" class="col-sm-5 col-form-label">Tgl Berakhir
+                                <label for="exampleInputConfirmPassword2" class="col-sm-5 col-form-label">Tanggal
+                                    Berakhir
                                     Pajak
                                     STNK</label>
                                 <div class="col-sm-7">
-                                    <input type="date" class="form-control form-control-sm" name="tgl_berakhir_pajak_stnk">
+                                    <input type="date" class="form-control form-control-sm"
+                                        name="tgl_berakhir_pajak_stnk">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputConfirmPassword2" class="col-sm-5 col-form-label">Tgl Berakhir
+                                <label for="exampleInputConfirmPassword2" class="col-sm-5 col-form-label">Tanggal
+                                    Berakhir
                                     PLAT
                                 </label>
                                 <div class="col-sm-7">
                                     <input type="date" class="form-control form-control-sm" name="tgl_berakhir_plat">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputConfirmPassword2" class="col-sm-5 col-form-label">Tanggal
+                                    Service
+                                </label>
+                                <div class="col-sm-7">
+                                    <input type="date" class="form-control form-control-sm" name="tgl_service">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -139,8 +155,10 @@
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <button type="submit" class="btn btn-success btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i></button>
-                                <a class="btn btn-light btn-xs" href="<?= base_url('/akk/master_asset') ?>"><i class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-success btn-xs"><i
+                                        class="mdi mdi-content-save-all icon-sm"></i></button>
+                                <a class="btn btn-light btn-xs" href="<?= base_url('/akk/master_asset') ?>"><i
+                                        class="mdi mdi-backburger icon-sm"></i></a>
                             </div>
                         </form>
                     </div>

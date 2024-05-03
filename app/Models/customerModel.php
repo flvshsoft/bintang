@@ -14,7 +14,7 @@ class customerModel extends Model
     protected $returnType = 'array';
     protected $usSoftDeletes = true;
 
-    protected $allowedFields = ['id_area', 'nama_customer',  'no_hp_customer', 'alamat_customer', 'id_branch', 'nama_toko',  'no_hp_toko', 'alamat_toko', 'nama_owner',  'no_hp_owner', 'alamat_owner', 'payment_metode', 'kab_kota','id_area', 'data_lengkap', 'id_jenis_harga'];
+    protected $allowedFields = ['id_area', 'nama_customer',  'no_hp_customer', 'alamat_customer', 'id_branch', 'nama_toko',  'no_hp_toko', 'alamat_toko', 'nama_owner',  'no_hp_owner', 'alamat_owner', 'payment_metode', 'kab_kota', 'id_area', 'data_lengkap', 'id_jenis_harga'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
