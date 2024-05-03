@@ -20,9 +20,10 @@ class CreateWeek extends Migration
                 'constraint' => 11,
                 'null' => true,
             ],
-            'id_user' => [
+            'bulan' => [
                 'type' => 'INT',
                 'constraint' => 11,
+                'null' => true,
             ],
             'bulan_week' => [
                 'type' => 'INT',
@@ -33,6 +34,20 @@ class CreateWeek extends Migration
                 'type' => 'INT',
                 'constraint' => 11,
                 'null' => true,
+            ],
+            'status_aktif' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'null' => true,
+            ],
+            'status_closing' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'null' => true,
+            ],
+            'id_user' => [
+                'type' => 'INT',
+                'constraint' => 11,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
