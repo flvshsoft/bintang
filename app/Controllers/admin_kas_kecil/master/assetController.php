@@ -11,6 +11,28 @@ class assetController extends BaseController
         $data['model'] =  $this->mdAsset
             ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
+        foreach ($data['model'] as $aset) {
+            // Ambil tanggal layanan dari setiap aset
+            $tanggal_layanan = new \DateTime($aset['tgl_service']);
+
+            // Hitung selisih waktu antara tanggal layanan dan tanggal sekarang
+            $selisih_hari = $tanggal_layanan->diff(new \DateTime())->days;
+
+            // Jika selisih waktu kurang dari 14 hari (2 minggu)
+            if ($selisih_hari <= 14) {
+                // Kirim notifikasi atau lakukan tindakan yang diinginkan
+                // Misalnya, Anda dapat menggunakan sistem notifikasi atau mengirim email ke pengguna.
+                // Contoh: 
+                // sendNotification($aset['nama_aset'], $tanggal_layanan);
+                // atau
+                // sendEmail($aset['nama_pemilik'], $aset['email_pemilik'], "Notifikasi Layanan", "Layanan untuk aset ".$aset['nama_aset']." akan jatuh tempo pada ".$aset['tgl_service'].".");
+                // Set pesan notifikasi
+                $pesan_notifikasi = "Tanggal Servis untuk " . $aset['nama_asset'] . " akan jatuh tempo pada " . $tanggal_layanan->format('Y-m-d') . ".";
+
+                // Tambahkan pesan notifikasi ke session flash
+                // session()->setFlashdata("jatuh_tempo_service", $pesan_notifikasi);
+            }
+        }
         return view('admin_kas_kecil/master/asset/index', $data);
     }
     public function tambah_asset()
