@@ -97,7 +97,24 @@ class LoginController extends BaseController
                 'level_user' => $user["level_user"],
             ]);
             return redirect()->to(base_url('/dashboard'));
+        } elseif ($user['level_user'] == 'admin') {
+            $modelBranch = $this->mdBranch
+                ->where('id_branch', $user["id_branch"])
+                ->findAll();
+
+            $this->session->set('userData', [
+                'nama_branch' => $modelBranch[0]["nama_branch"],
+                'cabang' => $modelBranch[0]["cabang"],
+                'id_user' => $user["id_user"],
+                'id_branch' => $user["id_branch"],
+                'username' => $user["username"],
+                'nama_user' => $user["nama_user"],
+                'password_hash' => $user["password_hash"],
+                'level_user' => $user["level_user"],
+            ]);
+            return redirect()->to(base_url('/akk/dashboard'));
         }
+        return redirect()->to(base_url('/'));
     }
     public function logout()
     {
