@@ -21,6 +21,7 @@ class TagihanBaruController extends BaseController
             ->findAll();
         return view('admin_kas_kecil/transaksi/tagihan_baru/index', $data);
     }
+    // Nota
     public function master_closing(): string
     {
         $data['judul'] = 'Bintang Distributor';
@@ -34,10 +35,10 @@ class TagihanBaruController extends BaseController
             ->findAll();
         return view('admin_kas_kecil/transaksi/tagihan_baru/master_closing', $data);
     }
-
+// Nota
     public function closing($id_sales, $payment_method): string
     {
-        $data['judul'] = 'Bintang Distributor';
+        $data['judul'] = 'NOTA';
         $data['payment_method'] = $payment_method;
         $data['judul1'] = 'RIWAYAT CLOSING PENJUALAN SALES';
         $data['model'] = $this->mdSales
@@ -56,7 +57,7 @@ class TagihanBaruController extends BaseController
             ->findAll();
         $data['cek_nota'] = $this->mdNota
             ->select(['*', 'nota.created_at as created_at'])
-            ->where('payment_method', $payment_method)
+            // ->where('payment_method', $payment_method)
             ->join('sales', 'sales.id_sales=nota.id_sales')
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->join('area', 'area.id_area=sales.id_area')
@@ -130,9 +131,10 @@ class TagihanBaruController extends BaseController
 
         return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota));
     }
+    // Nota Detail
     public function closing_detail($id_nota)
     {
-        $data['judul'] = 'Bintang Distributor';
+        $data['judul'] = 'Nota Detail';
         $data['judul1'] = 'DETAIL PENJUALAN SALES';
         $data['nota'] = $this->mdNota
             ->join('area', 'area.id_area=nota.id_area')
@@ -356,7 +358,6 @@ class TagihanBaruController extends BaseController
 
             $this->mdKas->save($data);
             $this->mdBank->where('id_bank', $id_bank)->increment('saldo', $total);
-
         } else {
             $this->mdNota->where('id_nota', $id_nota)->set(['total_beli' => $total])->update();
         }

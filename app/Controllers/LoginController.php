@@ -82,22 +82,87 @@ class LoginController extends BaseController
                 'level_user' => $user["level_user"],
             ]);
             return redirect()->to(base_url('/g/dashboard'));
-        } elseif ($user['level_user'] == 'SPV') {
+            // } elseif ($user['level_user'] == 'SPV') {
 
-            // $modelPencari = $this->mdUser
-            //     ->where('no_hp_pencari', $user["username"])
-            //     ->findAll();
+            //     // $modelPencari = $this->mdUser
+            //     //     ->where('no_hp_pencari', $user["username"])
+            //     //     ->findAll();
+
+            //     $this->session->set('userData', [
+            //         'id_user'            => $user["id_user"],
+            //         'username'          => $user["username"],
+            //         'nama_user'          => $user["nama_user"],
+            //         // 'id_pencari'          => $modelPencari[0]["id_pencari"],
+            //         'password_hash'          => $user["password_hash"],
+            //         'level_user' => $user["level_user"],
+            //     ]);
+            //     return redirect()->to(base_url('/dashboard'));
+        } elseif ($user['level_user'] == 'admin') {
+            $modelBranch = $this->mdBranch
+                ->where('id_branch', $user["id_branch"])
+                ->findAll();
 
             $this->session->set('userData', [
-                'id_user'            => $user["id_user"],
-                'username'          => $user["username"],
-                'nama_user'          => $user["nama_user"],
-                // 'id_pencari'          => $modelPencari[0]["id_pencari"],
-                'password_hash'          => $user["password_hash"],
+                'nama_branch' => $modelBranch[0]["nama_branch"],
+                'cabang' => $modelBranch[0]["cabang"],
+                'id_user' => $user["id_user"],
+                'id_branch' => $user["id_branch"],
+                'username' => $user["username"],
+                'nama_user' => $user["nama_user"],
+                'password_hash' => $user["password_hash"],
                 'level_user' => $user["level_user"],
             ]);
-            return redirect()->to(base_url('/dashboard'));
+            return redirect()->to(base_url('/akk/dashboard'));
+        } elseif ($user['level_user'] == 'gudang') {
+            $modelBranch = $this->mdBranch
+                ->where('id_branch', $user["id_branch"])
+                ->findAll();
+
+            $this->session->set('userData', [
+                'nama_branch' => $modelBranch[0]["nama_branch"],
+                'cabang' => $modelBranch[0]["cabang"],
+                'id_user' => $user["id_user"],
+                'id_branch' => $user["id_branch"],
+                'username' => $user["username"],
+                'nama_user' => $user["nama_user"],
+                'password_hash' => $user["password_hash"],
+                'level_user' => $user["level_user"],
+            ]);
+            return redirect()->to(base_url('/akk/dashboard'));
+        } elseif ($user['level_user'] == 'superadmin') {
+            $modelBranch = $this->mdBranch
+                ->where('id_branch', $user["id_branch"])
+                ->findAll();
+
+            $this->session->set('userData', [
+                'nama_branch' => $modelBranch[0]["nama_branch"],
+                'cabang' => $modelBranch[0]["cabang"],
+                'id_user' => $user["id_user"],
+                'id_branch' => $user["id_branch"],
+                'username' => $user["username"],
+                'nama_user' => $user["nama_user"],
+                'password_hash' => $user["password_hash"],
+                'level_user' => $user["level_user"],
+            ]);
+            return redirect()->to(base_url('/akk/dashboard'));
+        } elseif ($user['level_user'] == 'ho') {
+            $modelBranch = $this->mdBranch
+                ->where('id_branch', $user["id_branch"])
+                ->findAll();
+
+            $this->session->set('userData', [
+                'nama_branch' => $modelBranch[0]["nama_branch"],
+                'cabang' => $modelBranch[0]["cabang"],
+                'id_user' => $user["id_user"],
+                'id_branch' => $user["id_branch"],
+                'username' => $user["username"],
+                'nama_user' => $user["nama_user"],
+                'password_hash' => $user["password_hash"],
+                'level_user' => $user["level_user"],
+            ]);
+            return redirect()->to(base_url('/akk/dashboard'));
         }
+        return redirect()->to(base_url('/'));
     }
     public function logout()
     {

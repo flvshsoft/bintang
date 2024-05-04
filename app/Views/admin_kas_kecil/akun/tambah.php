@@ -11,8 +11,8 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Cabang</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="id_branch">
-                                        <option>Pilih Cabang</option>
+                                    <select class="form-control" name="id_branch" required>
+                                        <option value="">Pilih Cabang</option>
                                         <?php foreach ($branch as $value) { ?>
                                         <option value="<?= $value['id_branch'] ?>"><?= $value['nama_branch'] ?> -
                                             <?= $value['nama_branch'] ?></option>
@@ -39,6 +39,17 @@
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control form-control-sm" id="exampleInputMobile"
                                         placeholder="Password" required name="password">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Level</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="level_user" required>
+                                        <option value="">Pilih Level</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="gudang">Gudang</option>
+                                        <option value="ho">HO</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group text-center">

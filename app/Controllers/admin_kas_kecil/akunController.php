@@ -36,7 +36,8 @@ class akunController extends BaseController
             'username' => $this->request->getPost('username'),
             'nama_user' => $this->request->getPost('nama_user'),
             'password' => $this->request->getPost('password'),
-            'level_user' => 'Kas Kecil',
+            'level_user' => $this->request->getPost('level_user'),
+            // 'level_user' => 'Kas Kecil',
             // 'level_user' => 'Admin',
             'status_user' => 1,
             'id_branch' => $this->request->getPost('id_branch'),
@@ -74,18 +75,22 @@ class akunController extends BaseController
     public function akun_update()
     {
         $id_user = $this->request->getPost('id_user');
+        $password = $this->request->getPost('password');
         $data = [
             'id_user' => $id_user,
             'username' => $this->request->getPost('username'),
             'nama_user' => $this->request->getPost('nama_user'),
-            'password' => $this->request->getPost('password'),
-            'level_user' => 'Admin',
+            'level_user' => $this->request->getPost('level_user'),
             'status_user' => 1,
             'id_branch' => $this->request->getPost('id_branch'),
             'updated_at' => date('d-m-y')
         ];
+        if(strlen($password) >= 6){
+            $data['password'] = $password;
+        }
         $this->mdUser->save($data);
 
+        // print_r($data);
         return redirect()->to(base_url('/akk/akun'));
     }
 }
