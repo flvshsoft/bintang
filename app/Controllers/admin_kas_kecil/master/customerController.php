@@ -200,8 +200,8 @@ class customerController extends BaseController
             }
         }
 
-        print_r($data);
-        exit;
+        // print_r($data);
+        // exit;
         $this->mdCustomer->save($data);
         return redirect()->to(base_url('/akk/master_customer'));
     }
