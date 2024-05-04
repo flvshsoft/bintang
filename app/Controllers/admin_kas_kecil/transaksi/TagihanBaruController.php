@@ -340,6 +340,7 @@ class TagihanBaruController extends BaseController
             ->find();
         $id_bank = $bank[0]['id_bank'];
 
+
         if ($mdNota[0]['payment_method'] == 'CASH') {
             $this->mdNota->where('id_nota', $id_nota)->set(['total_beli' => $total, 'pay' => $total])->update();
             $data = [
@@ -352,11 +353,14 @@ class TagihanBaruController extends BaseController
                 'id_branch' => Session('userData')['id_branch'],
                 'uang_kas' => $total,
             ];
+
             $this->mdKas->save($data);
             $this->mdBank->where('id_bank', $id_bank)->increment('saldo', $total);
+
         } else {
             $this->mdNota->where('id_nota', $id_nota)->set(['total_beli' => $total])->update();
         }
+
 
         return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota));
     }
