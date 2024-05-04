@@ -106,9 +106,6 @@ class customerController extends BaseController
             }
         }
 
-        print_r($data);
-        exit;
-
         $this->mdCustomer->insert($data);
         return redirect()->to(base_url('/akk/master_customer'));
     }
