@@ -28,7 +28,13 @@
                                         placeholder="Nama Week">
                                 </div>
                             </div>
-
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Bulan</label>
+                                <div class="col-sm-9">
+                                    <textarea type="number" class="form-control form-control-sm" name="bulan"
+                                        placeholder="Bulan"></textarea>
+                                </div>
+                            </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Bulan Week</label>
                                 <div class="col-sm-9">
@@ -41,6 +47,20 @@
                                 <div class="col-sm-9">
                                     <textarea type="number" class="form-control form-control-sm" name="tahun_week"
                                         placeholder="Tahun Week"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Status Week</label>
+                                <div class="col-sm-9">
+                                    <textarea type="number" class="form-control form-control-sm" name="status_week"
+                                        placeholder="Status Week"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Status Closing</label>
+                                <div class="col-sm-9">
+                                    <textarea type="number" class="form-control form-control-sm" name="status_closing"
+                                        placeholder="Status Closing"></textarea>
                                 </div>
                             </div>
 

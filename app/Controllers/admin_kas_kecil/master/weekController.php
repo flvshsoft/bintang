@@ -28,6 +28,9 @@ class weekController extends BaseController
             'nama_week' => $this->request->getPost('nama_week'),
             'bulan_week' => $this->request->getPost('bulan_week'),
             'tahun_week' => $this->request->getPost('tahun_week'),
+            'status_week' => $this->request->getPost('status_week'),
+            'bulan' => $this->request->getPost('bulan'),
+            'status_closing' => $this->request->getPost('status_closing'),
         ];
         $this->mdWeek->insert($data);
         return redirect()->to(base_url('/akk/master_week'));
@@ -40,6 +43,9 @@ class weekController extends BaseController
             'nama_week' => $this->request->getPost('nama_week'),
             'bulan_week' => $this->request->getPost('bulan_week'),
             'tahun_week' => $this->request->getPost('tahun_week'),
+            'status_week' => $this->request->getPost('status_week'),
+            'bulan' => $this->request->getPost('bulan'),
+            'status_closing' => $this->request->getPost('status_closing'),
         ];
         $this->mdWeek->insert($data);
         return redirect()->to(base_url('/akk/master_week'));
@@ -64,6 +70,9 @@ class weekController extends BaseController
             'nama_week' => $this->request->getPost('nama_week'),
             'bulan_week' => $this->request->getPost('bulan_week'),
             'tahun_week' => $this->request->getPost('tahun_week'),
+            'status_week' => $this->request->getPost('status_week'),
+            'bulan' => $this->request->getPost('bulan'),
+            'status_closing' => $this->request->getPost('status_closing'),
         ];
         $this->mdWeek->save($data);
         return redirect()->to(base_url('/akk/master_week'));

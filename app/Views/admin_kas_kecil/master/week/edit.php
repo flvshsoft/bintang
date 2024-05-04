@@ -32,6 +32,13 @@
                             </div>
 
                             <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Bulan</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control form-control-sm"
+                                        name="bulan"><?= $model['bulan'] ?></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Bulan Week</label>
                                 <div class="col-sm-9">
                                     <textarea class="form-control form-control-sm"
@@ -44,6 +51,21 @@
                                 <div class="col-sm-9">
                                     <textarea class="form-control form-control-sm"
                                         name="tahun_week"><?= $model['tahun_week'] ?></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Status Week</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control form-control-sm"
+                                        name="status_week"><?= $model['status_week'] ?></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Status Closing</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control form-control-sm"
+                                        name="status_closing"><?= $model['status_closing'] ?></textarea>
                                 </div>
                             </div>
 
