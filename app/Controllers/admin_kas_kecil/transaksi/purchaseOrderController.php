@@ -32,6 +32,7 @@ class purchaseOrderController extends BaseController
         $data['judul1'] = 'TAMBAH DATA PURCHASE ORDER';
         $data['supplier'] = $this->mdSupplier
             ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('nama_supplier')
             ->findAll();
         return view('admin_kas_kecil/transaksi/purchase_order/tambah', $data);
     }
@@ -127,5 +128,21 @@ class purchaseOrderController extends BaseController
             ->findAll();
 
         return view('admin_kas_kecil/transaksi/purchase_order/print', $data);
+    }
+
+    public function detail($id_purchase_order): string
+    {
+        $data['judul'] = 'Detail PO';
+        $data['judul1'] = 'DETAIL DATA PURCHASE ORDER';
+        $data['model'] = $this->mdPurchaseOrder
+            ->where('id_purchase_order', $id_purchase_order)
+            ->select(['*', 'purchase_order.created_at as created_at'])
+            ->join('user', 'user.id_user=purchase_order.id_user')
+            ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
+            ->find()[0];
+        $data['supplier'] = $this->mdSupplier
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        return view('admin_kas_kecil/transaksi/purchase_order/detail', $data);
     }
 }

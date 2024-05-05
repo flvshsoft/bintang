@@ -112,8 +112,6 @@
 
             </div>
             <div class="col-md-6 grid-margin stretch-card d-none">
-
-
                 <div class="card">
                     <div class="card-body">
                         <div class="template-demo">
