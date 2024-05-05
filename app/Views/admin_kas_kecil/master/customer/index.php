@@ -53,6 +53,7 @@
                                         <th style="font-size: 11px;"> Telp </th>
                                         <th style="font-size: 11px;"> Metode </th>
                                         <th style="font-size: 11px;"> Tipe Harga </th>
+                                        <th style="font-size: 11px;"> Foto Toko </th>
                                         <th style="font-size: 11px;"> </th>
                                     </tr>
                                 </thead>
@@ -84,6 +85,11 @@
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <?= $value['remark_jenis_harga'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?php if ($value['foto_toko'] != "") : ?>
+                                                    <img src="<?= base_url('/public/img/foto_toko/' . $value['foto_toko']) ?>" alt="Foto">
+                                                <?php endif; ?>
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')" href="<?= base_url('/akk/del_customer/' . $value['id_customer']) ?>"> <i class="mdi mdi-delete-circle text-default icon-md"></i> </a>

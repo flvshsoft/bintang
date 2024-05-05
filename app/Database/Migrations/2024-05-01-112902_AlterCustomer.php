@@ -21,7 +21,7 @@ class AlterCustomer extends Migration
         $this->forge->addColumn('customer', [
             'foto_toko' => [
                 'type' => 'VARCHAR',
-                'constraint' => 100,
+                'constraint' => 200,
                 'null' => true, // Set to true if the field can be NULL
                 'after' => 'no_hp_customer', // Specify the field to come after
             ],
