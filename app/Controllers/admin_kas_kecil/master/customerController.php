@@ -51,12 +51,33 @@ class customerController extends BaseController
         $db1 = \Config\Database::connect();
         $file =  $this->request->getFile('foto_toko');
         $fileName = time() . $file->getClientName();
+
+        // Lokasi penyimpanan
+        $destination = ROOTPATH . 'public/img/foto_toko';
+
+        // Cek apakah ada file yang diunggah
         if ($file->isValid() && !$file->hasMoved()) {
-            $file->move(ROOTPATH . 'public/img/foto_toko', $fileName);
-            session()->setFlashData('message', 'Berhasil upload');
+            // Memindahkan file ke lokasi penyimpanan
+            $file->move($destination, $fileName);
+
+            // Membuat instance gambar sesuai tipe
+            $imageInfo = getimagesize($destination . '/' . $fileName);
+            $imageType = $imageInfo[2];
+
+            // Kompresi gambar jika formatnya JPEG atau PNG
+            if ($imageType == IMAGETYPE_JPEG) {
+                $image = imagecreatefromjpeg($destination . '/' . $fileName);
+                imagejpeg($image, $destination . '/' . $fileName, 60); // Mengatur kualitas kompresi menjadi 60
+            } elseif ($imageType == IMAGETYPE_PNG) {
+                $image = imagecreatefrompng($destination . '/' . $fileName);
+                imagepng($image, $destination . '/' . $fileName, 6); // Mengatur level kompresi menjadi 6 (0-9)
+            }
+
+            session()->setFlashData('message', 'Berhasil upload dan kompresi gambar');
         } else {
             session()->setFlashData('message', 'Gagal upload');
         }
+
         $data = [
             'nama_customer' => $this->request->getPost('nama_customer'),
             'no_hp_customer' => $this->request->getPost('no_hp_customer'),
@@ -94,15 +115,19 @@ class customerController extends BaseController
         if ($data['payment_metode'] == 'KREDIT') {
             if ($data['data_lengkap'] == 0) {
                 session()->setFlashdata("tak_lengkap", "Data Tidak Lengkap");
-            } else {
+            } else if ($data['data_lengkap'] == 1) {
                 session()->setFlashdata("lengkap", "Data Sudah Lengkap");
+            } else {
+                ';';
             }
         }
         if ($data['payment_metode'] == 'CASH') {
             if ($data['data_lengkap'] == 0) {
                 session()->setFlashdata("tak_lengkap", "Data Tidak Lengkap");
-            } else {
+            } else if ($data['data_lengkap'] == 1) {
                 session()->setFlashdata("lengkap", "Data Sudah Lengkap");
+            } else {
+                ';';
             }
         }
 
@@ -144,16 +169,37 @@ class customerController extends BaseController
         $db1 = \Config\Database::connect();
         $file =  $this->request->getFile('foto_toko');
 
+        // Lokasi penyimpanan
+        $destination = ROOTPATH . 'public/img/foto_toko';
+
         // Cek apakah ada file yang diunggah
         if ($file->isValid() && !$file->hasMoved()) {
-            $fileName = time() . $file->getClientName();
-            $file->move(ROOTPATH . 'public/img/foto_toko', $fileName);
-            session()->setFlashData('message', 'Berhasil upload');
+            // Mendapatkan nama file dan ekstensinya
+            $fileName = time() . '.' . $file->getClientExtension();
+
+            // Memindahkan file ke lokasi penyimpanan
+            $file->move($destination, $fileName);
+
+            // Membuat instance gambar sesuai tipe
+            $imageInfo = getimagesize($destination . '/' . $fileName);
+            $imageType = $imageInfo[2];
+
+            // Kompresi gambar jika formatnya JPEG atau PNG
+            if ($imageType == IMAGETYPE_JPEG) {
+                $image = imagecreatefromjpeg($destination . '/' . $fileName);
+                imagejpeg($image, $destination . '/' . $fileName, 60); // Mengatur kualitas kompresi menjadi 60
+            } elseif ($imageType == IMAGETYPE_PNG) {
+                $image = imagecreatefrompng($destination . '/' . $fileName);
+                imagepng($image, $destination . '/' . $fileName, 6); // Mengatur level kompresi menjadi 6 (0-9)
+            }
+
+            session()->setFlashData('message', 'Berhasil upload dan kompresi gambar');
         } else {
             // Jika tidak ada file yang diunggah, tetapkan nilai foto_toko ke nilai yang sudah ada
             $fileName = $this->request->getPost('foto_toko_existing'); // Ganti foto_toko_existing dengan nama yang sesuai
             session()->setFlashData('message', 'Gagal upload');
         }
+
         $id_customer = $this->request->getPost('id_customer');
         $data = [
             'id_customer' => $id_customer,
@@ -203,8 +249,10 @@ class customerController extends BaseController
         if ($data['payment_metode'] == 'CASH') {
             if ($data['data_lengkap'] == 0) {
                 session()->setFlashdata("tak_lengkap", "Data Tidak Lengkap");
-            } else {
+            } else if ($data['data_lengkap'] == 1) {
                 session()->setFlashdata("lengkap", "Data Sudah Lengkap");
+            } else {
+                ';';
             }
         }
 

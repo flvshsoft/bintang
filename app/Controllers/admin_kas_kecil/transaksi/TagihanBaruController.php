@@ -35,7 +35,7 @@ class TagihanBaruController extends BaseController
             ->findAll();
         return view('admin_kas_kecil/transaksi/tagihan_baru/master_closing', $data);
     }
-// Nota
+    // Nota
     public function closing($id_sales, $payment_method): string
     {
         $data['judul'] = 'NOTA';
@@ -275,7 +275,8 @@ class TagihanBaruController extends BaseController
     {
         $id_sales_detail = $this->request->getPost('id_sales_detail');
         $payment_method = $this->request->getPost('payment_method');
-        $satuan_penjualan = $this->request->getPost('satuan_penjualan');
+        $satuan_penjualan = str_replace('.', '', $this->request->getPost('satuan_penjualan'));
+        $satuan_penjualan = (int) str_replace(',', '', $satuan_penjualan);
         $id_nota =  $this->request->getPost('id_nota');
 
         $mdNota = $this->mdNota
@@ -288,29 +289,38 @@ class TagihanBaruController extends BaseController
             ->where('id_sales_detail', $id_sales_detail)
             ->find();
         $id_product = $mdSalesDetail[0]['id_product'];
+        $satuan_sales_detail = $mdSalesDetail[0]['satuan_sales_detail'];
 
         $mdBarangHarga = $this->mdBarangHarga
             ->where('id_product', $id_product)
             ->where('id_jenis_harga', $id_jenis_harga)
             ->find();
 
-        if (count($mdBarangHarga) > 0) {
-            $harga_nota = $mdBarangHarga[0]['harga_aktif'];
-            $data = [
-                'id_jenis_harga' => $id_jenis_harga,
-                'id_nota' => $id_nota,
-                'id_product' => $id_product,
-                'id_jenis_harga' => $id_jenis_harga,
-                'harga_nota' => $harga_nota,
-                'satuan_penjualan' => $satuan_penjualan,
-                'diskon_penjualan' => $this->request->getPost('diskon_penjualan'),
-            ];
-            $this->mdNotaDetail->insert($data);
-            $this->mdSalesDetail->where('id_sales_detail', $id_sales_detail)->decrement('jumlah_sales', $satuan_penjualan);
-            // $this->mdProduct->where('id_product', $id_product)->decrement('stock_product', $satuan_penjualan);
-        } else {
-            return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota));
+        // bikin if satuan_penjualan lebih besar dari $satuan_sales_detail
+
+        if ($satuan_penjualan < $satuan_sales_detail) {
+            if (count($mdBarangHarga) > 0) {
+                $harga_nota = $mdBarangHarga[0]['harga_aktif'];
+                $data = [
+                    'id_jenis_harga' => $id_jenis_harga,
+                    'id_nota' => $id_nota,
+                    'id_product' => $id_product,
+                    'id_jenis_harga' => $id_jenis_harga,
+                    'harga_nota' => $harga_nota,
+                    'satuan_penjualan' => $satuan_penjualan,
+                    'diskon_penjualan' => $this->request->getPost('diskon_penjualan'),
+                ];
+                $this->mdNotaDetail->insert($data);
+                $this->mdSalesDetail->where('id_sales_detail', $id_sales_detail)->decrement('jumlah_sales', $satuan_penjualan);
+                // $this->mdProduct->where('id_product', $id_product)->decrement('stock_product', $satuan_penjualan);
+            } else {
+                return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota));
+            }
+        } else if ($satuan_penjualan > $satuan_sales_detail) {
+            session()->setFlashData('lebih', 'Input Jumlah Dibawah' . $satuan_sales_detail);
+            return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota . '/' . 'lebih'));
         }
+
         //total
         $data['model'] = $this->mdNotaDetail
             ->where('nota_detail.id_nota', $id_nota)
@@ -470,7 +480,7 @@ class TagihanBaruController extends BaseController
         // print_r($data['cek_nota']);
         // exit;
 
-        $noutaList = [];
+        $notaList = [];
         foreach ($data['cek_nota'] as $key => $value) {
             $notaList[$value['id_nota']] = $value['id_nota'];
         }
@@ -483,7 +493,7 @@ class TagihanBaruController extends BaseController
             ->join('product', 'product.id_product=nota_detail.id_product')
             ->join('barang_harga', 'barang_harga.id_product=nota_detail.id_product')
             ->whereIn('nota_detail.id_nota', $notaList)
-            ->groupBy('id_nota_detail')
+            //->groupBy('id_nota_detail')
             ->findAll();
         // print_r($mdNotaDetail[0]);
         // print_r([count($mdNotaDetail)]);
