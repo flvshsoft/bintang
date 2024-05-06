@@ -115,6 +115,7 @@ $routes->post('/akk/transaksi/purchase_order/tambah', 'admin_kas_kecil\transaksi
 $routes->get('/akk/transaksi/purchase_order/edit/(:any)', 'admin_kas_kecil\transaksi\purchaseOrderController::edit/$1');
 $routes->post('/akk/transaksi/purchase_order/edit', 'admin_kas_kecil\transaksi\purchaseOrderController::edit_po');
 $routes->get('/akk/transaksi/purchase_order/hapus/(:any)', 'admin_kas_kecil\transaksi\purchaseOrderController::hapus_po/$1');
+$routes->get('/akk/transaksi/purchase_order/detail/(:any)', 'admin_kas_kecil\transaksi\purchaseOrderController::detail/$1');
 
 $routes->get('/akk/master_branch', 'admin_kas_kecil\master\branchController::index');
 $routes->get('/akk/master_branch/tambah', 'admin_kas_kecil\master\branchController::tambah');

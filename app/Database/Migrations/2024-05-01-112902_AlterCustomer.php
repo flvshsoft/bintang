@@ -8,12 +8,20 @@ class AlterCustomer extends Migration
 {
     public function up()
     {
-        // ALTER TABLE `mutasi_bank`
-        // ADD COLUMN `bank_tujuan` INT NULL AFTER `id_bank`;
+        // ALTER TABLE `customer`
+        // ADD COLUMN `foto_toko` VARCHAR(20) NULL AFTER `no_hp_customer`,
+        // ADD COLUMN `nama_owner` VARCHAR(255) NULL AFTER `foto_toko`,
+        // ADD COLUMN `no_hp_owner` VARCHAR(20) NULL AFTER `nama_owner`,
+        // ADD COLUMN `alamat_owner` VARCHAR(255) NULL AFTER `no_hp_owner`,
+        // ADD COLUMN `payment_metode` VARCHAR(50) NULL AFTER `alamat_owner`,
+        // ADD COLUMN `kab_kota` VARCHAR(100) NULL AFTER `payment_metode`,
+        // ADD COLUMN `id_area` INT NULL AFTER `kab_kota`,
+        // ADD COLUMN `data_lengkap` INT NULL AFTER `id_area`,
+        // ADD COLUMN `id_jenis_harga` INT NULL AFTER `data_lengkap`;
         $this->forge->addColumn('customer', [
             'foto_toko' => [
                 'type' => 'VARCHAR',
-                'constraint' => 100,
+                'constraint' => 200,
                 'null' => true, // Set to true if the field can be NULL
                 'after' => 'no_hp_customer', // Specify the field to come after
             ],

@@ -39,6 +39,7 @@ class customerController extends BaseController
         $data['judul1'] = 'Data Konsumen';
         $data['area'] = $this->mdArea
             ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('nama_area')
             ->findAll();
         $data['type_harga'] = $this->mdJenisHarga
             //  ->where('jenis_harga.id_branch', Session('userData')['id_branch'])
@@ -94,18 +95,17 @@ class customerController extends BaseController
         ];
 
         if (
-            empty($data['nama_customer']) ||
-            empty($data['no_hp_customer']) ||
-            empty($data['alamat_customer']) ||
-            empty($data['nama_owner']) ||
-            empty($data['alamat_owner']) ||
-            empty($data['no_hp_owner']) ||
-            empty($data['foto_toko']) ||
-            empty($data['id_area']) ||
-            empty($data['id_jenis_harga']) ||
-            empty($data['kab_kota']) ||
-            empty($data['payment_metode']) ||
-            empty($data['id_branch'])
+            ($data['nama_customer'] == "") ||
+            ($data['no_hp_customer'] == "") ||
+            ($data['alamat_customer'] == "") ||
+            ($data['nama_owner'] == "") ||
+            ($data['no_hp_owner'] == "") ||
+            ($data['alamat_owner'] == "") ||
+            ($data['id_area'] == "") ||
+            ($data['id_jenis_harga'] == "") ||
+            ($data['kab_kota'] == "") ||
+            ($data['payment_metode'] == "") ||
+            ($data['foto_toko'] == "")
         ) {
             $data['data_lengkap'] = 0;
         } else {
@@ -156,6 +156,7 @@ class customerController extends BaseController
             ->find()[0];
         $data['area'] = $this->mdArea
             ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('nama_area')
             ->findAll();
         $data['type_harga'] = $this->mdJenisHarga
             //  ->where('jenis_harga.id_branch', Session('userData')['id_branch'])
@@ -217,20 +218,22 @@ class customerController extends BaseController
         if ($fileName != '') {
             $data['foto_toko'] = $fileName;
         }
+        // echo $data['foto_toko'];
+        // exit;
 
         if (
-            empty($data['id_customer']) ||
-            empty($data['nama_customer']) ||
-            empty($data['no_hp_customer']) ||
-            empty($data['alamat_customer']) ||
-            empty($data['nama_owner']) ||
-            empty($data['no_hp_owner']) ||
-            empty($data['alamat_owner']) ||
-            empty($data['id_area']) ||
-            empty($data['id_jenis_harga']) ||
-            empty($data['kab_kota']) ||
-            empty($data['payment_metode']) ||
-            empty($data['foto_toko'])
+            ($data['id_customer'] == "") ||
+            ($data['nama_customer'] == "") ||
+            ($data['no_hp_customer'] == "") ||
+            ($data['alamat_customer'] == "") ||
+            ($data['nama_owner'] == "") ||
+            ($data['no_hp_owner'] == "") ||
+            ($data['alamat_owner'] == "") ||
+            ($data['id_area'] == "") ||
+            ($data['id_jenis_harga'] == "") ||
+            ($data['kab_kota'] == "") ||
+            ($data['payment_metode'] == "")
+            // ($data['foto_toko'] == "")
         ) {
             $data['data_lengkap'] = 0;
         } else {
@@ -246,17 +249,19 @@ class customerController extends BaseController
                 ';';
             }
         }
+
         if ($data['payment_metode'] == 'CASH') {
             if ($data['data_lengkap'] == 0) {
-                session()->setFlashdata("tak_lengkap", "Data Tidak Lengkap");
-            } else if ($data['data_lengkap'] == 1) {
-                session()->setFlashdata("lengkap", "Data Sudah Lengkap");
+                // session()->setFlashdata("tak_lengkap", "Data Tidak Lengkap");
             } else {
-                ';';
+                session()->setFlashdata("lengkap", "Data Sudah Lengkap");
+                // } else {
+                // ';';
             }
         }
 
         $this->mdCustomer->save($data);
+        // print_r($data);
         return redirect()->to(base_url('/akk/master_customer'));
     }
 }
