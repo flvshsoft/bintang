@@ -289,16 +289,14 @@ class TagihanBaruController extends BaseController
             ->where('id_sales_detail', $id_sales_detail)
             ->find();
         $id_product = $mdSalesDetail[0]['id_product'];
-        $satuan_sales_detail = $mdSalesDetail[0]['satuan_sales_detail'];
+        $jumlah_sales = $mdSalesDetail[0]['jumlah_sales'];
 
         $mdBarangHarga = $this->mdBarangHarga
             ->where('id_product', $id_product)
             ->where('id_jenis_harga', $id_jenis_harga)
             ->find();
 
-        // bikin if satuan_penjualan lebih besar dari $satuan_sales_detail
-
-        if ($satuan_penjualan < $satuan_sales_detail) {
+        if ($satuan_penjualan < $jumlah_sales) {
             if (count($mdBarangHarga) > 0) {
                 $harga_nota = $mdBarangHarga[0]['harga_aktif'];
                 $data = [
@@ -316,8 +314,8 @@ class TagihanBaruController extends BaseController
             } else {
                 return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota));
             }
-        } else if ($satuan_penjualan > $satuan_sales_detail) {
-            session()->setFlashData('lebih', 'Input Jumlah Dibawah' . $satuan_sales_detail);
+        } else if ($satuan_penjualan > $jumlah_sales) {
+            session()->setFlashData('lebih', 'Input Jumlah Dibawah ' . $jumlah_sales);
             return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota . '/' . 'lebih'));
         }
 

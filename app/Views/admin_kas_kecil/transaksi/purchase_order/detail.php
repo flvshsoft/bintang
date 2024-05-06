@@ -25,31 +25,38 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Cabang</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" value="<?= $model['nama_supplier'] ?>" required readonly>
+                                    <input type="text" class="form-control form-control-sm"
+                                        value="<?= $model['nama_supplier'] ?>" required readonly>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Minggu PO </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" value="<?= $model['minggu_purchase_order'] ?>" required readonly>
+                                    <input type="text" class="form-control form-control-sm"
+                                        value="<?= $model['minggu_purchase_order'] ?>" required readonly>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Keterangan PO</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" value="<?= $model['keterangan_purchase_order'] ?>" required name="keterangan_purchase_order" readonly>
+                                    <input type="text" class="form-control form-control-sm"
+                                        value="<?= $model['keterangan_purchase_order'] ?>" required
+                                        name="keterangan_purchase_order" readonly>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Status PO</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" value="<?= $model['status_purchase_order'] ?>" required name="status_purchase_order" readonly>
-                                    <input type="hidden" class="form-control form-control-sm" value="<?= $model['id_purchase_order'] ?>" required name="id_purchase_order">
+                                    <input type="text" class="form-control form-control-sm"
+                                        value="<?= $model['status_purchase_order'] ?>" required
+                                        name="status_purchase_order" readonly>
+                                    <input type="hidden" class="form-control form-control-sm"
+                                        value="<?= $model['id_purchase_order'] ?>" required name="id_purchase_order">
                                 </div>
                             </div>
 
                         </form>
-                        <form method="POST" action="<?= base_url('/akk/transaksi/tagihan_baru/nota/detail') ?>">
+                        <form method="POST" action="<?= base_url('/akk/transaksi/purchase_order/detail') ?>">
                             <div class="table-responsive">
                                 <table class="table table-striped" width="100%" height="78%" cellspacing="0">
                                     <thead class="table table-primary">
@@ -74,12 +81,13 @@
                                                 ?>
                                             </td> -->
                                             <td style=" font-size: 11px;">
-                                                <select class="form-control" name="id_sales_detail">
-                                                    <option value="id_sales_detail"> Pilih Produk</option>
-                                                    <?php //foreach ($sales_detail as $value) { 
+                                                <select class="form-control" name="id_product">
+                                                    <option value="id_product"> Pilih Produk</option>
+                                                    <?php foreach ($product as $value) {
                                                     ?>
-
-                                                    <?php //} 
+                                                    <option value="<?= $value['id_product'] ?>">
+                                                        <?= $value['nama_product'] ?></option>
+                                                    <?php }
                                                     ?>
                                                 </select>
                                             </td>
@@ -88,15 +96,19 @@
                                                 ?>
                                             </td>
                                             <td>
-                                                <input type="hidden" name="x" class="form-control form-control-sm" placeholder="0">
-                                                <input type="text" name="satuan_penjualan" class="form-control form-control-sm" value="0">
+                                                <input type="hidden" name="id_purchase_order"
+                                                    class="form-control form-control-sm" value="id_purchase_order">
+                                                <input type="text" name="satuan_penjualan"
+                                                    class="form-control form-control-sm" value="0">
                                             </td>
 
                                             <td style=" font-size: 11px;">
-                                                <input type="text" name="diskon_penjualan" class="form-control" value="0">
+                                                <input type="text" name="diskon_penjualan" class="form-control"
+                                                    value="0">
                                             </td>
                                             <td style="font-size: 11px;">
-                                                <button type="submit" class="btn btn-primary btn-xs"><i class="mdi mdi-content-save-all icon-xs"></i>
+                                                <button type="submit" class="btn btn-primary btn-xs"><i
+                                                        class="mdi mdi-content-save-all icon-xs"></i>
                                                 </button>
                                             </td>
                                             <td></td>
@@ -155,7 +167,7 @@ function tgl_indo($tanggal)
     $nama_hari = date('w', strtotime($tanggal));
     $nama_hari = $hari[$nama_hari];
 
-    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
+    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int) $pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
 
     if ($waktu !== null) {
         $result .= ' ' . $waktu;

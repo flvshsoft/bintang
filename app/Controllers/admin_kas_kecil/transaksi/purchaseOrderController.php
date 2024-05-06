@@ -19,8 +19,8 @@ class purchaseOrderController extends BaseController
 
         // print_r($data['model']);
         // exit;
-        // hapus nota detail kembali kan ke stock do detail
-        // hapus do detail kembali ke stock gudang
+        // hapus nota detail kembali kan ke stock do detail -> belum
+        // hapus do detail kembali ke stock gudang ->sudah 
         // nota detail koma
         // konsumen pay_method type_harga, foto_toko, nama_toko,  alamat_toko, no_hp_toko, nama_owner, alamat_owner no_hp_owner, id_area, kab/kota, data_lengkap
         return view('admin_kas_kecil/transaksi/purchase_order/index', $data);
@@ -143,6 +143,24 @@ class purchaseOrderController extends BaseController
         $data['supplier'] = $this->mdSupplier
             ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
+        $data['product'] = $this->mdProduct
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
         return view('admin_kas_kecil/transaksi/purchase_order/detail', $data);
+    }
+    public function detail_input()
+    {
+        $id_purchase_order = $this->request->getPost('id_purchase_order');
+        $id_product = $this->request->getPost('id_product');
+        $id_supplier = $this->request->getPost('id_supplier');
+        $data = [
+            'id_purchase_order' => $id_purchase_order,
+            'id_supplier' => $id_supplier,
+            'id_product' => $id_product,
+            'id_user' => SESSION('userData')['id_user'],
+            'id_branch' => SESSION('userData')['id_branch'],
+        ];
+        $this->mdPurchaseOrder->save($data);
+        return redirect()->to(base_url('/akk/transaksi/purchase_order'));
     }
 }

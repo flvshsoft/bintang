@@ -127,6 +127,12 @@
                                 </div>
                             </div>
                         </form>
+                        <?php if (session()->getFlashdata("lebih")) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <?= session()->getFlashdata("lebih") ?>
+                        </div>
+                        <?php } ?>
                         <div class="table-responsive">
                             <table class="table table-striped" width="100%" height="78%" cellspacing="0">
                                 <thead class="table table-primary">
