@@ -138,8 +138,8 @@ class purchaseOrderController extends BaseController
             ->where('id_purchase_order_detail', $id_purchase_order_detail)
             ->where('id_purchase_order', $id_purchase_order)
             ->find();
-        $id_piutang_usaha = $piutang[0]['id_piutang_usaha'];
 
+        $id_piutang_usaha = $piutang[0]['id_piutang_usaha'];
         $delete2 = $this->mdPiutangUsaha->delete($id_piutang_usaha);
         $delete = $this->mdPurchaseOrderDetail->delete($id_purchase_order_detail);
 
@@ -160,11 +160,11 @@ class purchaseOrderController extends BaseController
             ->join('user', 'user.id_user=purchase_order.id_user')
             ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
             ->find()[0];
-        $data['model'] = $this->mdPurchaseOrder
+        $data['model'] = $this->mdPurchaseOrderDetail
             ->where('purchase_order_detail.id_purchase_order', $id_purchase_order)
             ->select(['*', 'purchase_order_detail.created_at as created_at', 'purchase_order_detail.harga_beli as harga_beli'])
-            ->groupBy('id_purchase_order_detail')
-            ->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order=purchase_order.id_purchase_order')
+            // ->groupBy('id_purchase_order_detail')
+            ->join('purchase_order', 'purchase_order.id_purchase_order=purchase_order_detail.id_purchase_order')
             ->join('product', 'product.id_product=purchase_order_detail.id_product')
             ->findAll();
 

@@ -10,8 +10,8 @@ class masterHutangController extends BaseController
         $data['judul1'] = 'MASTER HUTANG';
         $data['model'] = $this->mdPiutangUsaha
             ->where('piutang_usaha.id_branch', Session('userData')['id_branch'])
-            ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier', 'left')
-            ->join('user', 'user.id_user=piutang_usaha.id_user', 'left')
+            ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
+            ->join('user', 'user.id_user=piutang_usaha.id_user')
             //->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order_detail=piutang_usaha.id_purchase_order_detail', 'left')
             ->findAll();
         // print_r($data['model']);
