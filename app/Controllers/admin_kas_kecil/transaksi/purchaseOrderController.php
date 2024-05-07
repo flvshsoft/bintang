@@ -2,6 +2,8 @@
 
 namespace App\Controllers\admin_kas_kecil\transaksi;
 
+use CodeIgniter\Session\Session;
+
 class purchaseOrderController extends BaseController
 {
     public function index(): string
@@ -130,16 +132,42 @@ class purchaseOrderController extends BaseController
         return view('admin_kas_kecil/transaksi/purchase_order/print', $data);
     }
 
+    public function hapus_detail($id_purchase_order_detail, $id_purchase_order)
+    {
+        $piutang = $this->mdPiutangUsaha
+            ->where('id_purchase_order_detail', $id_purchase_order_detail)
+            ->where('id_purchase_order', $id_purchase_order)
+            ->find();
+        $id_piutang_usaha = $piutang[0]['id_piutang_usaha'];
+
+        $delete2 = $this->mdPiutangUsaha->delete($id_piutang_usaha);
+        $delete = $this->mdPurchaseOrderDetail->delete($id_purchase_order_detail);
+
+        if ($delete && $delete2) {
+            return redirect()->to(base_url('/akk/transaksi/purchase_order/detail/' . $id_purchase_order));
+        } else {
+            echo 'Gagal menghapus data.';
+        }
+    }
+
     public function detail($id_purchase_order): string
     {
         $data['judul'] = 'Detail PO';
         $data['judul1'] = 'DETAIL DATA PURCHASE ORDER';
-        $data['model'] = $this->mdPurchaseOrder
+        $data['info'] = $this->mdPurchaseOrder
             ->where('id_purchase_order', $id_purchase_order)
             ->select(['*', 'purchase_order.created_at as created_at'])
             ->join('user', 'user.id_user=purchase_order.id_user')
             ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
             ->find()[0];
+        $data['model'] = $this->mdPurchaseOrder
+            ->where('purchase_order_detail.id_purchase_order', $id_purchase_order)
+            ->select(['*', 'purchase_order_detail.created_at as created_at', 'purchase_order_detail.harga_beli as harga_beli'])
+            ->groupBy('id_purchase_order_detail')
+            ->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order=purchase_order.id_purchase_order')
+            ->join('product', 'product.id_product=purchase_order_detail.id_product')
+            ->findAll();
+
         $data['supplier'] = $this->mdSupplier
             ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();
@@ -152,15 +180,55 @@ class purchaseOrderController extends BaseController
     {
         $id_purchase_order = $this->request->getPost('id_purchase_order');
         $id_product = $this->request->getPost('id_product');
-        $id_supplier = $this->request->getPost('id_supplier');
+        $jumlah_product = str_replace('.', '', $this->request->getPost('jumlah_product'));
+        $jumlah_product = (int) str_replace(',', '', $jumlah_product);
+        $harga_beli = str_replace(',', '', $this->request->getPost('harga_beli'));
+        $harga_beli = (int) str_replace(',', '', $harga_beli);
         $data = [
             'id_purchase_order' => $id_purchase_order,
-            'id_supplier' => $id_supplier,
+            'harga_beli' => $harga_beli,
+            'jumlah_product' => $jumlah_product,
             'id_product' => $id_product,
-            'id_user' => SESSION('userData')['id_user'],
-            'id_branch' => SESSION('userData')['id_branch'],
         ];
-        $this->mdPurchaseOrder->save($data);
-        return redirect()->to(base_url('/akk/transaksi/purchase_order'));
+        $this->mdPurchaseOrderDetail->save($data);
+        $id_purchase_order_detail = $this->mdPurchaseOrderDetail->insertID();
+        $new_data = array(
+            'id_purchase_order_detail' => $id_purchase_order_detail,
+        );
+
+        $md_suppplier = $this->mdPurchaseOrder
+            ->where('id_purchase_order', $id_purchase_order)
+            ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
+            ->find();
+        $id_supplier = $md_suppplier[0]['id_supplier'];
+        $minggu_purchase_order = $md_suppplier[0]['minggu_purchase_order'];
+        $jumlah_piutang = $harga_beli * $jumlah_product;
+
+        $data2 = [
+            'id_branch' => Session('userData')['id_branch'],
+            'id_purchase_order_detail' => $id_purchase_order_detail,
+            'id_user' => Session('userData')['id_user'],
+            'id_purchase_order' => $id_purchase_order,
+            'id_supplier' => $id_supplier,
+            'minggu-ke' => $minggu_purchase_order,
+            'harga_beli' => $harga_beli,
+            'jumlah_piutang' => $jumlah_piutang,
+            'jenis' => 'PO',
+            'type_piutang' => 'PO',
+            'jumlah_product' => $jumlah_product,
+        ];
+        $this->mdPiutangUsaha->insert($data2);
+
+        return redirect()->to(base_url('/akk/transaksi/purchase_order/detail/' . $id_purchase_order));
+    }
+    public function tambah_nama_barang()
+    {
+        $id = $this->request->getVar('id');
+        // print_r($id);
+        // exit;
+        $data['product'] = $this->mdProduct
+            ->where('product.id_product', $id)
+            ->find()[0];
+        return $data['product']['nama_product'] . ';' . $data['product']['satuan_product'] . ';' . $data['product']['harga_beli'];
     }
 }

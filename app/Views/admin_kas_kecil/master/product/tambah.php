@@ -63,7 +63,15 @@
                                     Barang</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control form-control-sm" name="stock_product"
-                                        placeholder="Stok Awal Barang">
+                                        id="pay" placeholder="Stok Awal Barang">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Harga Beli
+                                </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" name="harga_beli" id="pay2"
+                                        placeholder="Harga Beli">
                                 </div>
                             </div>
 
@@ -80,4 +88,33 @@
         </div>
     </div>
 </div>
+<script>
+// Format angka saat diketikkan oleh pengguna
+document.getElementById('pay').addEventListener('input', function() {
+    // Ambil nilai input
+    let payValue = this.value;
+
+    // Hapus semua tanda titik yang ada
+    payValue = payValue.replace(/\./g, '');
+
+    // Format angka dengan titik sebagai pemisah ribuan
+    payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+    // Masukkan kembali nilai yang sudah diformat ke dalam input
+    this.value = payValue;
+});
+document.getElementById('pay2').addEventListener('input', function() {
+    // Ambil nilai input
+    let payValue = this.value;
+
+    // Hapus semua tanda titik yang ada
+    payValue = payValue.replace(/\./g, '');
+
+    // Format angka dengan titik sebagai pemisah ribuan
+    payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+    // Masukkan kembali nilai yang sudah diformat ke dalam input
+    this.value = payValue;
+});
+</script>
 <?= $this->endSection() ?>

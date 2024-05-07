@@ -65,28 +65,35 @@
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Stok Awal
                                     Barang</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="stock_product"
-                                        value="<?= $model['stock_product'] ?>">
+                                    <input type="text" id="stock_product" class="form-control form-control-sm"
+                                        name="stock_product" value="<?= $model['stock_product'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Area</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="area"
+                                    <input type="text" id="area" class="form-control form-control-sm" name="area"
                                         value="<?= $model['area'] ?>">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Harga Beli</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="harga_beli" class="form-control form-control-sm"
+                                        name="harga_beli" value="<?= $model['harga_beli'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Defect</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="defect"
+                                    <input type="text" id="defect" class="form-control form-control-sm" name="defect"
                                         value="<?= $model['defect'] ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Sample</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="sample"
+                                    <input type="text" id="sample" class="form-control form-control-sm" name="sample"
                                         value="<?= $model['sample'] ?>">
                                 </div>
                             </div>
@@ -103,4 +110,76 @@
         </div>
     </div>
 </div>
+<script>
+// Format angka saat diketikkan oleh pengguna
+document.getElementById('harga_beli').addEventListener('input', function() {
+    // Ambil nilai input
+    let payValue = this.value;
+
+    // Hapus semua tanda titik yang ada
+    payValue = payValue.replace(/\./g, '');
+
+    // Format angka dengan titik sebagai pemisah ribuan
+    payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+    // Masukkan kembali nilai yang sudah diformat ke dalam input
+    this.value = payValue;
+});
+
+document.getElementById('area').addEventListener('input', function() {
+    // Ambil nilai input
+    let payValue = this.value;
+
+    // Hapus semua tanda titik yang ada
+    payValue = payValue.replace(/\./g, '');
+
+    // Format angka dengan titik sebagai pemisah ribuan
+    payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+    // Masukkan kembali nilai yang sudah diformat ke dalam input
+    this.value = payValue;
+});
+
+document.getElementById('defect').addEventListener('input', function() {
+    // Ambil nilai input
+    let payValue = this.value;
+
+    // Hapus semua tanda titik yang ada
+    payValue = payValue.replace(/\./g, '');
+
+    // Format angka dengan titik sebagai pemisah ribuan
+    payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+    // Masukkan kembali nilai yang sudah diformat ke dalam input
+    this.value = payValue;
+});
+
+document.getElementById('sample').addEventListener('input', function() {
+    // Ambil nilai input
+    let payValue = this.value;
+
+    // Hapus semua tanda titik yang ada
+    payValue = payValue.replace(/\./g, '');
+
+    // Format angka dengan titik sebagai pemisah ribuan
+    payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+    // Masukkan kembali nilai yang sudah diformat ke dalam input
+    this.value = payValue;
+});
+
+document.getElementById('stock_product').addEventListener('input', function() {
+    // Ambil nilai input
+    let payValue = this.value;
+
+    // Hapus semua tanda titik yang ada
+    payValue = payValue.replace(/\./g, '');
+
+    // Format angka dengan titik sebagai pemisah ribuan
+    payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+    // Masukkan kembali nilai yang sudah diformat ke dalam input
+    this.value = payValue;
+});
+</script>
 <?= $this->endSection() ?>

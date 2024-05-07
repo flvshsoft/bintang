@@ -15,7 +15,7 @@ class CreatePODetail extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'id_purchase' => [
+            'id_purchase_order' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'null' => true,
@@ -25,27 +25,21 @@ class CreatePODetail extends Migration
                 'constraint' => 11,
                 'null' => true,
             ],
-            'bulan_week' => [
+            'jumlah_product' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'null' => true,
             ],
-            'tahun_week' => [
+            'harga_beli' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'null' => true,
             ],
-            'status_aktif' => [
+            'minggu' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'null' => true,
             ],
-            'status_closing' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'null' => true,
-            ],
-
             'created_at' => [
                 'type' => 'DATETIME',
             ],

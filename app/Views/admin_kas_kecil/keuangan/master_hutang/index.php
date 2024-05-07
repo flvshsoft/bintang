@@ -40,7 +40,7 @@
                                         <th style="font-size: 11px;"> No </th>
                                         <th style="font-size: 11px;"> No Faktur </th>
                                         <th style="font-size: 11px;"> Supplier </th>
-                                        <th style="font-size: 11px;"> No Penerimaan </th>
+                                        <th style="font-size: 11px;"> No PO </th>
                                         <th style="font-size: 11px;"> Total Penerimaan </th>
                                         <th style="font-size: 11px;"> Tanggal </th>
                                         <th style="font-size: 11px;"> Minggu</th>
@@ -73,7 +73,7 @@
                                             <?= $value['nama_supplier'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-
+                                            <?= $value['id_purchase_order'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
                                             <?= 'Rp ' . number_format($value['jumlah_piutang'], 0, '.', '.') ?>
@@ -89,17 +89,17 @@
                                             <?= $value['nama_user'] ?>
                                         </td>
                                         <td class="warning" align="center" width="10px">
-                                            <b><a href="<?#= base_url('/akk/keuangan/master_hutang/') ?>"
-                                                    style="text-decoration:none" data-toggle="tooltip" class="tip-top"
-                                                    data-original-title="Discount Hutang Usaha"><i
+                                            <b><a href="<? #= base_url('/akk/keuangan/master_hutang/') 
+                                                            ?>" style="text-decoration:none" data-toggle="tooltip"
+                                                    class="tip-top" data-original-title="Discount Hutang Usaha"><i
                                                         class="mdi mdi-ticket-percent text-default icon-md"></i></a></b>
-                                            <b><a href="<?#= base_url('/akk/keuangan/master_hutang/') ?>"
-                                                    style="text-decoration:none" data-toggle="tooltip" class="tip-top"
-                                                    data-original-title="Retur Hutang"><i
+                                            <b><a href="<? #= base_url('/akk/keuangan/master_hutang/') 
+                                                            ?>" style="text-decoration:none" data-toggle="tooltip"
+                                                    class="tip-top" data-original-title="Retur Hutang"><i
                                                         class="mdi mdi-file-send text-default icon-md"></i></a></b>
-                                            <b><a href="<?#= base_url('/akk/keuangan/master_hutang/') ?>"
-                                                    style="text-decoration:none" data-toggle="tooltip" class="tip-top"
-                                                    data-original-title="Bayar Tagihan"><i
+                                            <b><a href="<? #= base_url('/akk/keuangan/master_hutang/') 
+                                                            ?>" style="text-decoration:none" data-toggle="tooltip"
+                                                    class="tip-top" data-original-title="Bayar Tagihan"><i
                                                         class="mdi mdi-check-circle text-default icon-md"></i></a></b>
                                         </td>
                                     </tr>

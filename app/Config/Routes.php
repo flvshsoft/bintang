@@ -101,6 +101,14 @@ $routes->post('/akk/transaksi/tagihan_baru/nota/detail', 'admin_kas_kecil\transa
 $routes->get('/akk/transaksi/tagihan_baru/closing-sales/(:any)', 'admin_kas_kecil\transaksi\TagihanBaruController::closing_sales/$1');
 $routes->post('/akk/transaksi/tagihan_baru/closing-sales', 'admin_kas_kecil\transaksi\TagihanBaruController::closing_sales_save');
 
+$routes->get('/akk/transaksi/nota_awal', 'admin_kas_kecil\transaksi\notaAwalController::index');
+$routes->post('/akk/transaksi/nota_awal', 'admin_kas_kecil\transaksi\notaAwalController::index_save');
+$routes->get('/akk/transaksi/nota_awal/detail/(:any)', 'admin_kas_kecil\transaksi\notaAwalController::detail/$1');
+$routes->get('/akk/transaksi/nota_awal/tambah', 'admin_kas_kecil\transaksi\notaAwalController::tambah');
+$routes->post('/akk/transaksi/nota_awal/tambah', 'admin_kas_kecil\transaksi\notaAwalController::tambah_save');
+$routes->get('/akk/transaksi/nota_awal/hapus/(:any)', 'admin_kas_kecil\transaksi\notaAwalController::hapus/$1');
+$routes->post('/akk/transaksi/nota_awal/detail', 'admin_kas_kecil\transaksi\notaAwalController::detail_input');
+
 
 $routes->get('/akk/transaksi/stock_akhir', 'admin_kas_kecil\transaksi\StockAkhirController::index');
 $routes->get('/akk/transaksi/stock_akhir/tambah', 'admin_kas_kecil\transaksi\StockAkhirController::tambah');
@@ -112,11 +120,13 @@ $routes->post('/stock/tambah_nama_barang', 'admin_kas_kecil\transaksi\StockAkhir
 $routes->get('/akk/transaksi/purchase_order/', 'admin_kas_kecil\transaksi\purchaseOrderController::index');
 $routes->get('/akk/transaksi/purchase_order/tambah', 'admin_kas_kecil\transaksi\purchaseOrderController::tambah');
 $routes->post('/akk/transaksi/purchase_order/tambah', 'admin_kas_kecil\transaksi\purchaseOrderController::tambah_po');
+$routes->get('/akk/transaksi/purchase_order/detail/hapus/(:any)', 'admin_kas_kecil\transaksi\purchaseOrderController::hapus_detail/$1');
 $routes->get('/akk/transaksi/purchase_order/edit/(:any)', 'admin_kas_kecil\transaksi\purchaseOrderController::edit/$1');
 $routes->post('/akk/transaksi/purchase_order/edit', 'admin_kas_kecil\transaksi\purchaseOrderController::edit_po');
 $routes->get('/akk/transaksi/purchase_order/hapus/(:any)', 'admin_kas_kecil\transaksi\purchaseOrderController::hapus_po/$1');
 $routes->get('/akk/transaksi/purchase_order/detail/(:any)', 'admin_kas_kecil\transaksi\purchaseOrderController::detail/$1');
 $routes->post('/akk/transaksi/purchase_order/detail', 'admin_kas_kecil\transaksi\purchaseOrderController::detail_input');
+$routes->post('/akk/transaksi/po/tambah_nama_barang', 'admin_kas_kecil\transaksi\purchaseOrderController::tambah_nama_barang');
 
 $routes->get('/akk/master_branch', 'admin_kas_kecil\master\branchController::index');
 $routes->get('/akk/master_branch/tambah', 'admin_kas_kecil\master\branchController::tambah');
