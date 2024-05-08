@@ -22,7 +22,7 @@ class partnerController extends BaseController
     public function input()
     {
         $data = [
-            'id_branch', Session('userData')['id_branch'],
+            'id_branch' => Session('userData')['id_branch'],
             'nama_lengkap' => $this->request->getPost('nama_lengkap'),
             'no_hp' => $this->request->getPost('no_hp'),
             'alamat' => $this->request->getPost('alamat'),
@@ -65,7 +65,7 @@ class partnerController extends BaseController
             'no_hp' => $this->request->getPost('no_hp'),
             'alamat' => $this->request->getPost('alamat'),
             'nik' => $this->request->getPost('nik'),
-            'id_branch', Session('userData')['id_branch'],
+            'id_branch' => Session('userData')['id_branch'],
             'set_karyawan' => $this->request->getPost('set_karyawan'),
         ];
         // print_r($data);

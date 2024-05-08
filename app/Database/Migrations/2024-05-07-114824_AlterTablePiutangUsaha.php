@@ -26,7 +26,13 @@ class AlterTablePiutangUsaha extends Migration
                 'null' => true, // Set to true if the field can be NULL
                 // 'after' => 'id_purchase_order', // Specify the field to come after
                 'constraint' => 111,
-            ]
+            ],
+            'status' => [
+                'type' => 'INT', // Adjust the data type as per your requirement
+                'null' => true, // Set to true if the field can be NULL
+                // Add other field attributes as needed
+                'after' => 'id_user', // Specify the field to come after
+            ],
         ]);
     }
 

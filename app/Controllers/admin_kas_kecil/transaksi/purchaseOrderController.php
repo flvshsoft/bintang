@@ -215,6 +215,7 @@ class purchaseOrderController extends BaseController
             'jumlah_piutang' => $jumlah_piutang,
             'jenis' => 'PO',
             'type_piutang' => 'PO',
+            'status' => 0,
             'jumlah_product' => $jumlah_product,
         ];
         $this->mdPiutangUsaha->insert($data2);

@@ -10,6 +10,7 @@ class masterHutangController extends BaseController
         $data['judul1'] = 'MASTER HUTANG';
         $data['model'] = $this->mdPiutangUsaha
             ->where('piutang_usaha.id_branch', Session('userData')['id_branch'])
+            ->where('status', 0)
             ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
             ->join('user', 'user.id_user=piutang_usaha.id_user')
             //->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order_detail=piutang_usaha.id_purchase_order_detail', 'left')
@@ -45,6 +46,7 @@ class masterHutangController extends BaseController
             'id_supplier' => $this->request->getPost('id_supplier'),
             'tgl_piutang' => $this->request->getPost('tgl_piutang'),
             'type_piutang' => 'Usaha',
+            'status' => 0,
             'minggu-ke' => $this->request->getPost('minggu-ke'),
             'jumlah_piutang' => $this->request->getPost('jumlah_piutang'),
             'id_branch' => Session('userData')['id_branch'],
@@ -88,5 +90,40 @@ class masterHutangController extends BaseController
         ];
         $this->mdPiutangUsaha->save($data);
         return redirect()->to(base_url('/akk/keuangan/master_hutang'));
+    }
+
+    public function pelunasan_hutang($id_piutang_usaha)
+    {
+        $po = $this->mdPiutangUsaha
+            ->where('id_piutang_usaha', $id_piutang_usaha)
+            ->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order_detail=piutang_usaha.id_purchase_order_detail')
+            ->join('product', 'product.id_product=purchase_order_detail.id_product')
+            ->find();
+        $id_product = $po[0]['id_product'];
+        $stock_product = $po[0]['stock_product'];
+        $jumlah_piutang = $po[0]['jumlah_piutang'];
+        //$tambah_barang = $this->mdProduct->where('id_product', $id_product)->increment('stock_product', $stock_product);
+
+        $data = [
+            'id_piutang_usaha' => $id_piutang_usaha,
+            'status' => 1,
+        ];
+        // $edit_status = $this->mdPiutangUsaha->save($data);
+
+        $bank = $this->mdBank
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->where('nama_bank', 'KAS')
+            ->find();
+        $id_bank = $bank[0]['id_bank'];
+        //$kurang_kas = $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $jumlah_piutang);
+
+
+
+
+        // if ($edit_status && $kurang_kas && tambah_barang) {
+        //     return redirect()->to(base_url('/akk/keuangan/master_hutang'));
+        // } else {
+        //     echo 'Gagal menghapus data.';
+        // }
     }
 }

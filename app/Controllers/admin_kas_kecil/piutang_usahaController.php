@@ -54,6 +54,7 @@ class piutang_usahaController extends BaseController
             'nama_penghutang' => $this->request->getPost('nama_penghutang'),
             'tgl_piutang' => $this->request->getPost('tgl_piutang'),
             'type_piutang' => $this->request->getPost('type_piutang'),
+            'status' => 0,
             'jumlah_piutang' => $this->request->getPost('jumlah_piutang'),
             'id_branch' => Session('userData')['id_branch'],
             'id_user' => Session('userData')['id_user'],

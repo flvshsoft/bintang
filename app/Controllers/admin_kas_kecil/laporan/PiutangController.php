@@ -73,7 +73,8 @@ class PiutangController extends BaseController
 
         // isi table
         $data['model'] = $this->mdNota
-        ->select('*, (total_beli - COALESCE(pay, 0)) as sisa')
+            ->select('*, (total_beli - COALESCE(pay, 0)) as sisa')
+            ->where('nota.deleted_at', null)
             // ->join('nota', 'nota.id_sales=sales.id_sales')
             ->join('customer', 'customer.id_customer=nota.id_customer')
             // ->where('nota.id_branch', Session('userData')['id_branch'])

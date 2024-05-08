@@ -23,6 +23,18 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
+                        <?php if (session()->getFlashdata("lebih")) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <?= session()->getFlashdata("lebih") ?>
+                        </div>
+                        <?php } ?>
+                        <?php if (session()->getFlashdata("kosong")) { ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <?= session()->getFlashdata("kosong") ?>
+                        </div>
+                        <?php } ?>
                         <form class="forms-sample" method="POST"
                             action="<?= base_url('/akk/transaksi/ambil_barang/detail/tambah') ?>">
                             <div class="form-group row mb-0">
@@ -63,7 +75,8 @@
                             <div class="form-group row mb-1">
                                 <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Satuan</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="satuan_sales_detail" id="satuan_sales_detail">
+                                    <input type="text" class="form-control form-control-sm" name="satuan_sales_detail"
+                                        id="satuan_sales_detail">
                                 </div>
                             </div>
                             <div class="row">
@@ -71,13 +84,13 @@
                                 <div class="col-9">
                                     <div class="form-group mb-0 text-center">
                                         <a href="<?= base_url('/akk/transaksi/ambil_barang/detail/' . $id_sales['id_sales']) ?>"
-                                        class="btn btn-light btn-xs float-start">
-                                        <i class="mdi mdi-backburger"></i> Cancel
-                                    </a>
+                                            class="btn btn-light btn-xs float-start">
+                                            <i class="mdi mdi-backburger"></i> Cancel
+                                        </a>
                                         <button type="submit" class="btn btn-gradient-success btn-xs float-end"><i
-                                        class="mdi mdi-content-save-all icon-sm"></i> Transasct</button>
+                                                class="mdi mdi-content-save-all icon-sm"></i> Transasct</button>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </form>
                     </div>
@@ -121,20 +134,20 @@ $('#id_product').change(function() {
 </script>
 
 <script>
-    // Format angka saat diketikkan oleh pengguna
-    document.getElementById('satuan_sales_detail').addEventListener('input', function() {
-        // Ambil nilai input
-        let payValue = this.value;
+// Format angka saat diketikkan oleh pengguna
+document.getElementById('satuan_sales_detail').addEventListener('input', function() {
+    // Ambil nilai input
+    let payValue = this.value;
 
-        // Hapus semua tanda titik yang ada
-        payValue = payValue.replace(/\./g, '');
+    // Hapus semua tanda titik yang ada
+    payValue = payValue.replace(/\./g, '');
 
-        // Format angka dengan titik sebagai pemisah ribuan
-        payValue = new Intl.NumberFormat('id-ID').format(payValue);
+    // Format angka dengan titik sebagai pemisah ribuan
+    payValue = new Intl.NumberFormat('id-ID').format(payValue);
 
-        // Masukkan kembali nilai yang sudah diformat ke dalam input
-        this.value = payValue;
-    });
+    // Masukkan kembali nilai yang sudah diformat ke dalam input
+    this.value = payValue;
+});
 </script>
 
 <?= $this->endSection() ?>
