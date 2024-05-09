@@ -7,7 +7,7 @@ class dashboardController extends BaseController
     public function index()
     {
         $data['judul'] = 'Dashboard';
-
+        $data['level_user'] = Session('userData')['level_user'];
         $data['ipAddress'] = $_SERVER['REMOTE_ADDR'];
         
         // Set the default time zone

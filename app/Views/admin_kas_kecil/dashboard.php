@@ -1,6 +1,8 @@
 <?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
-
+<?php $akses = (($level_user == 'ho') || ($level_user == 'superadmin')); ?>
+<?php $akses_admin = (($level_user == 'ho') || ($level_user == 'superadmin') || (strtolower($level_user) == 'admin')); ?>
+<?php $akses_gudang = (($level_user == 'ho') || ($level_user == 'superadmin') || (strtolower($level_user) == 'gudang')); ?>
 <!-- partial -->
 <div class="main-panel">
     <div class="content-wrapper" style="background-color: white;">
@@ -12,7 +14,7 @@
         <div class="row">
             <div class="col-12 col-lg-8">
                 <div class="col-12 mb-4">
-                    <h5 style="color:#85586F" class="mb-2">Provinsi Riau</h5>
+                    <h5 style="color:#85586F" class="mb-2">Area</h5>
                     <div id="map" style="width: 100%; height: 200px;border:3px solid #EDC988;" class="card shadow"></div>
                     <script>
                         const map = L.map('map').setView([0.485561, 101.3800101], 13);
@@ -55,7 +57,7 @@
                             <div class="card text-white shadow" style="background: #eebf35;">
                                 <div class="card-body d-flex p-0">
                                     <div class="col-6 p-3 text-white-90">
-                                        <h5>Transaksi</h5>
+                                        <h5>Barang</h5>
                                         <h2 class="mb-0">50</h2>
                                     </div>
                                     <div class="col-6 p-0">
@@ -68,7 +70,7 @@
                             <div class="card text-white shadow" style="background: #7cddb2;">
                                 <div class="card-body d-flex p-0">
                                     <div class="col-6 p-3 text-white-90">
-                                        <h6>Piutang Usaha</h6>
+                                        <h6>Supplier</h6>
                                         <h2 class="mb-0">50</h2>
                                     </div>
                                     <div class="col-6 p-0">
@@ -81,7 +83,7 @@
                             <div class="card text-white shadow" style="background: #fd79b3;">
                                 <div class="card-body d-flex p-0">
                                     <div class="col-6 p-3 text-white-90">
-                                        <h6>Product</h6>
+                                        <h6>Harga</h6>
                                         <h2 class="mb-0">50</h2>
                                     </div>
                                     <div class="col-6 p-0">
@@ -101,46 +103,67 @@
                     <h5 style="color:#85586F" class="mb-2">Tahapan / Flow</h5>
                     <!-- Color System -->
                     <div class="row p-2">
-
+                        <?php $no = 1; ?>
                         <div class="col-12 mb-3 px-2">
-                            <a href="<?= base_url('/akk/transaksi/ambil_barang') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #add2e9;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-2 p-0">
-                                            <img src="https://i.pinimg.com/originals/49/37/d4/4937d4d54a3d92d7eaa30fc0e3a1e8e8.gif" alt="Foto" width="100%" class="mt-0">
+                            <a href="<?= base_url('/akk/transaksi/nota_awal') ?>" class="text-decoration-none">
+                                <div class="card text-white shadow" style="background: #EEF7FF;">
+                                    <div class="card-body d-flex align-items-center p-0">
+                                        <div class="col-1 p-2 text-center">
+                                            <!-- <img src="https://i.pinimg.com/originals/49/37/d4/4937d4d54a3d92d7eaa30fc0e3a1e8e8.gif" alt="Foto" width="100%" class="mt-0"> -->
+                                            <p class="bg-white text-black p-1 shadow" style="border-radius:30px;width:30px;"><?= $no++ ?></p>
                                         </div>
-                                        <div class="col-10 p-3 text-white-90">
-                                            <h5>Pengambilan Barang - DO</h5>
+                                        <div class="col-11 p-3 text-black">
+                                            <h5>DO Nota Awal</h5>
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         </div>
-
-                        <div class="col-12 mb-3 px-2">
-                            <a href="<?= base_url('/akk/transaksi/tagihan_baru') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #888acd;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-2 p-0">
-                                            <img src="https://i.pinimg.com/originals/79/f9/7e/79f97e91f965b8a000d09244c1d9332e.gif" alt="Foto" width="100%" class="mt-0">
-                                        </div>
-                                        <div class="col-10 p-3 text-white-90">
-                                            <h5>Input Tagihan Baru - Nota</h5>
+                        <?php if ($akses_gudang) : ?>
+                            <div class="col-12 mb-3 px-2">
+                                <a href="<?= base_url('/akk/transaksi/ambil_barang') ?>" class="text-decoration-none">
+                                    <div class="card text-white shadow" style="background: #add2e9;">
+                                        <div class="card-body d-flex align-items-center p-0">
+                                            <div class="col-1 p-2 text-center">
+                                                <!-- <img src="https://i.pinimg.com/originals/49/37/d4/4937d4d54a3d92d7eaa30fc0e3a1e8e8.gif" alt="Foto" width="100%" class="mt-0"> -->
+                                                <p class="bg-white text-black p-1" style="border-radius:30px;width:30px;"><?= $no++ ?></p>
+                                            </div>
+                                            <div class="col-11 p-3 text-white-90">
+                                                <h5>Pengambilan Barang - DO</h5>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        <?php endif; ?>
 
-                        
+                        <?php if ($akses_admin) : ?>
+                            <div class="col-12 mb-3 px-2">
+                                <a href="<?= base_url('/akk/transaksi/tagihan_baru') ?>" class="text-decoration-none">
+                                    <div class="card text-white shadow" style="background: #9AC8CD;">
+                                        <div class="card-body d-flex align-items-center p-0">
+                                            <div class="col-1 p-2 text-center">
+                                                <!-- <img src="https://i.pinimg.com/originals/79/f9/7e/79f97e91f965b8a000d09244c1d9332e.gif" alt="Foto" width="100%" class="mt-0"> -->
+                                                <p class="bg-white text-black p-1" style="border-radius:30px;width:30px;"><?= $no++ ?></p>
+                                            </div>
+                                            <div class="col-11 p-3 text-white-90">
+                                                <h5>Input Tagihan Baru - Nota</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endif; ?>
+
                         <div class="col-12 mb-3 px-2">
                             <a href="<?= base_url('/akk/transaksi/tagihan_baru') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #add2e9;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-2 p-0">
-                                            <img src="https://i.pinimg.com/originals/49/37/d4/4937d4d54a3d92d7eaa30fc0e3a1e8e8.gif" alt="Foto" width="100%" class="mt-0">
+                                <div class="card text-white shadow" style="background: #49c2ff;">
+                                    <div class="card-body d-flex align-items-center p-0">
+                                        <div class="col-1 p-2 text-center">
+                                            <!-- <img src="https://i.pinimg.com/originals/49/37/d4/4937d4d54a3d92d7eaa30fc0e3a1e8e8.gif" alt="Foto" width="100%" class="mt-0"> -->
+                                            <p class="bg-white text-black p-1" style="border-radius:30px;width:30px;"><?= $no++ ?></p>
                                         </div>
-                                        <div class="col-10 p-3 text-white-90">
+                                        <div class="col-11 p-3 text-white-90">
                                             <h5>Closing Sales</h5>
                                         </div>
                                     </div>
@@ -150,12 +173,13 @@
 
                         <div class="col-12 mb-3 px-2">
                             <a href="<?= base_url('/akk/laporan/form_closing') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #add2e9;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-2 p-0">
-                                            <img src="https://i.pinimg.com/originals/49/37/d4/4937d4d54a3d92d7eaa30fc0e3a1e8e8.gif" alt="Foto" width="100%" class="mt-0">
+                                <div class="card text-white shadow" style="background: #FFCDEA;">
+                                    <div class="card-body d-flex align-items-center p-0">
+                                        <div class="col-1 p-2 text-center">
+                                            <!-- <img src="https://i.pinimg.com/originals/49/37/d4/4937d4d54a3d92d7eaa30fc0e3a1e8e8.gif" alt="Foto" width="100%" class="mt-0"> -->
+                                            <p class="bg-white text-black p-1" style="border-radius:30px;width:30px;"><?= $no++ ?></p>
                                         </div>
-                                        <div class="col-10 p-3 text-white-90">
+                                        <div class="col-11 p-3 text-white-90">
                                             <h5>Closing Mingguan</h5>
                                         </div>
                                     </div>
@@ -165,12 +189,13 @@
 
                         <div class="col-12 mb-3 px-2">
                             <a href="<?= base_url('/akk/laporan/form_sisa') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #643a9b;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-2 p-0">
-                                            <img src="https://i.pinimg.com/originals/92/5d/0f/925d0f283ce4c206f23f207a8b4ecfd7.gif" alt="Foto" width="100%" class="mt-0">
+                                <div class="card text-white shadow" style="background: #BC7FCD;">
+                                    <div class="card-body d-flex align-items-center p-0">
+                                        <div class="col-1 p-2 text-center">
+                                            <!-- <img src="https://i.pinimg.com/originals/92/5d/0f/925d0f283ce4c206f23f207a8b4ecfd7.gif" alt="Foto" width="100%" class="mt-0"> -->
+                                            <p class="bg-white text-black p-1" style="border-radius:30px;width:30px;"><?= $no++ ?></p>
                                         </div>
-                                        <div class="col-10 p-3 text-white-90">
+                                        <div class="col-11 p-3 text-white-90">
                                             <h5>Rekap Nota Putih</h5>
                                         </div>
                                     </div>
@@ -180,12 +205,13 @@
 
                         <div class="col-12 mb-3 px-2">
                             <a href="<?= base_url('/akk/piutang_usaha/input_pembayaran') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #49c2ff;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-2 p-0">
-                                            <img src="https://i.pinimg.com/originals/f4/8b/4e/f48b4e58c8dd32ccdc36c30ceebfd179.gif" alt="Foto" width="100%" class="mt-0">
+                                <div class="card text-white shadow" style="background: #888acd;">
+                                    <div class="card-body d-flex align-items-center p-0">
+                                        <div class="col-1 p-2 text-center">
+                                            <!-- <img src="https://i.pinimg.com/originals/f4/8b/4e/f48b4e58c8dd32ccdc36c30ceebfd179.gif" alt="Foto" width="100%" class="mt-0"> -->
+                                            <p class="bg-white text-black p-1" style="border-radius:30px;width:30px;"><?= $no++ ?></p>
                                         </div>
-                                        <div class="col-10 p-3 text-white-90">
+                                        <div class="col-11 p-3 text-white-90">
                                             <h5>Piutang Usaha</h5>
                                         </div>
                                     </div>
@@ -194,12 +220,13 @@
                         </div>
                         <div class="col-12 mb-3 px-2">
                             <a href="<?= base_url('/akk/transaksi/stock_akhir') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #888acd;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-2 p-0">
-                                            <img src="https://i.pinimg.com/originals/79/f9/7e/79f97e91f965b8a000d09244c1d9332e.gif" alt="Foto" width="100%" class="mt-0">
+                                <div class="card text-white shadow" style="background: #643a9b;">
+                                    <div class="card-body d-flex align-items-center p-0">
+                                        <div class="col-1 p-2 text-center">
+                                            <!-- <img src="https://i.pinimg.com/originals/79/f9/7e/79f97e91f965b8a000d09244c1d9332e.gif" alt="Foto" width="100%" class="mt-0"> -->
+                                            <p class="bg-white text-black p-1" style="border-radius:30px;width:30px;"><?= $no++ ?></p>
                                         </div>
-                                        <div class="col-10 p-3 text-white-90">
+                                        <div class="col-11 p-3 text-white-90">
                                             <h5>Stock Akhir Salesman</h5>
                                         </div>
                                     </div>
@@ -215,7 +242,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <style>
