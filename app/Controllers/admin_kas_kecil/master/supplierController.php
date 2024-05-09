@@ -30,6 +30,10 @@ class supplierController extends BaseController
         // print_r($data);
         // exit;
         $this->mdSupplier->insert($data);
+        $kode_supplier = $this->mdSupplier->db->insertID();
+        // print_r($kode_supplier);
+        // exit;
+        $this->mdSupplier->save(['kode_supplier'=> $kode_supplier, 'id_supplier' => $kode_supplier]);
         return redirect()->to(base_url('/akk/master_supplier'));
     }
 

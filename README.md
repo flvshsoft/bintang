@@ -10,7 +10,7 @@ php spark make:migration create_closing_sales
 php spark migrate:up 2024-05-07-114823_CreatePODetail
 php spark migrate or php spark migrate --only=NamaKelasMigrasi
 
-php spark migrate:rollback 2024-04-18-114823_CreateClosingSalesBarang.php
+php spark migrate:rollback 2024-05-09-011926_AlterSupplier.php
 
 ## What is CodeIgniter?
 

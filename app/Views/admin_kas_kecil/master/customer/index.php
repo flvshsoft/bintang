@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="form-group col-12">
                                 <a class="btn btn-gradient-success btn-xs btn-icon-text my-1" href="<?= base_url('/akk/customer') ?>">
-                                    <i class="mdi mdi-database-plus icon-sm"></i> Input Konsumen
+                                    <i class="mdi mdi-database-plus icon-sm"></i> Tambah Konsumen
                                 </a>
                                 <?php foreach ($count_customer as $key => $value) : ?>
                                     <a class="btn btn-warning text-black btn-xs btn-icon-text my-1" href="<?= base_url('/akk/customer') ?>">
