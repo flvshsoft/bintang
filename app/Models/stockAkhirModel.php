@@ -12,7 +12,7 @@ class stockAkhirModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['id_sales_do', 'id_product', 'jumlah_stock_kembali', 'satuan', 'created_by'];
 

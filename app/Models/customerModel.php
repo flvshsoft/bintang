@@ -12,7 +12,7 @@ class customerModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['id_area', 'nama_customer',  'no_hp_customer', 'alamat_customer', 'id_branch', 'foto_toko', 'nama_owner',  'no_hp_owner', 'alamat_owner', 'payment_metode', 'kab_kota', 'id_area', 'data_lengkap', 'id_jenis_harga'];
 

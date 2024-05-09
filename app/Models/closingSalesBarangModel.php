@@ -12,7 +12,7 @@ class closingSalesBarangModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['id_branch', 'id_product', 'id_sales', 'id_nota', 'week', 'payment_method', 'harga', 'qty'];
 

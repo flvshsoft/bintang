@@ -71,8 +71,17 @@ class AmbilBarangController extends BaseController
     }
     public function hapus($id_sales)
     {
+        $sales = $this->mdSales
+            ->join('nota', 'nota.id_sales=sales.id_sales')
+            ->where('sales.id_sales', $id_sales)->find();
+
+        foreach ($sales as $value) {
+            $id_nota = $value['id_nota'];
+            $delete_nota = $this->mdNota->delete($id_nota);
+        }
+
         $delete = $this->mdSales->delete($id_sales);
-        if ($delete) {
+        if ($delete && $delete_nota) {
             return redirect()->to(base_url('/akk/transaksi/ambil_barang'));
         } else {
             echo 'Gagal menghapus data.';

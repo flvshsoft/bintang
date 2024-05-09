@@ -12,7 +12,7 @@ class userModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['username', 'id_branch', 'nama_user', 'password', 'level_user', 'status_user', 'tanggal_akses', 'gambar'];
 

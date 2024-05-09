@@ -12,7 +12,7 @@ class closingSalesModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['id_nota',  'id_sales', 'id_branch', 'week', 'kredit', 'cash'];
 

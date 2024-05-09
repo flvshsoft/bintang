@@ -12,7 +12,7 @@ class jenishargaModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['remark_jenis_harga',  'created_by', 'id_branch'];
 

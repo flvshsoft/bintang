@@ -111,7 +111,7 @@
                                         <div class="row justify-content-right mb-1">
                                             <div class="col-md-12">
                                                 <div class="form-group d-flex">
-                                                    <label class="col-5 col-form-label">Harga</label>
+                                                    <label class="col-5 col-form-label">Tagihan</label>
                                                     <div class="col-7">
                                                         <input type="text" id="pay" name="total_beli"
                                                             class="form-control">
@@ -152,7 +152,7 @@
                         <li class="list-group-item">Metode Bayar : <?= $value['payment_method'] ?></li>
                         <li class="list-group-item">Harga : <?= $value['remark_jenis_harga'] ?>
                         </li>
-                        <li class="list-group-item">Total Beli :
+                        <li class="list-group-item">Tagihan :
                             <?= 'Rp ' . number_format($value['total_beli'], 0, '.', '.') ?>
                         </li>
                     </ul>

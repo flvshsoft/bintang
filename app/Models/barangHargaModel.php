@@ -10,7 +10,7 @@ class barangHargaModel extends Model
     protected $primaryKey = 'id_barang_harga';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
     protected $allowedFields = ['id_product', 'id_jenis_harga', 'harga_aktif', 'created_by', 'id_branch'];
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

@@ -55,17 +55,30 @@ class TagihanBaruController extends BaseController
             ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('id_sales', 'DESC')
             ->findAll();
-        $data['cek_nota'] = $this->mdNota
-            ->select(['*', 'nota.created_at as created_at'])
-            // ->where('payment_method', $payment_method)
-            ->join('sales', 'sales.id_sales=nota.id_sales')
-            ->join('partner', 'partner.id_partner=sales.id_partner')
-            ->join('area', 'area.id_area=sales.id_area')
-            ->join('customer', 'customer.id_customer=nota.id_customer')
-            ->join('jenis_harga', 'jenis_harga.id_jenis_harga=customer.id_jenis_harga')
-            ->where('sales.id_sales', $id_sales)
-            // ->where('customer.id_branch', Session('userData')['id_branch'])
-            ->findAll();
+
+        if ($payment_method == "CASH") {
+            $data['cek_nota'] = $this->mdNota
+                ->select(['*', 'nota.created_at as created_at'])
+                ->join('sales', 'sales.id_sales=nota.id_sales')
+                ->join('partner', 'partner.id_partner=sales.id_partner')
+                ->join('area', 'area.id_area=sales.id_area')
+                ->join('customer', 'customer.id_customer=nota.id_customer')
+                ->join('jenis_harga', 'jenis_harga.id_jenis_harga=customer.id_jenis_harga')
+                ->where('sales.id_sales', $id_sales)
+                ->findAll();
+        } else {
+            $data['cek_nota'] = $this->mdNota
+                ->select(['*', 'nota.created_at as created_at'])
+                ->where('payment_method', $payment_method)
+                ->join('sales', 'sales.id_sales=nota.id_sales')
+                ->join('partner', 'partner.id_partner=sales.id_partner')
+                ->join('area', 'area.id_area=sales.id_area')
+                ->join('customer', 'customer.id_customer=nota.id_customer')
+                ->join('jenis_harga', 'jenis_harga.id_jenis_harga=customer.id_jenis_harga')
+                ->where('sales.id_sales', $id_sales)
+                ->findAll();
+        }
+
         // print_r($data['cek_nota']);
         // exit;
         $data['lastIdNota'] = $this->mdNota->getLastIdNota();
@@ -92,6 +105,22 @@ class TagihanBaruController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'DETAIL TUTUP PENJUALAN BARANG';
         return view('admin_kas_kecil/transaksi/tagihan_baru/detail_closing', $data);
+    }
+
+    public function hapus($id_nota, $payment_method)
+    {
+        $nota = $this->mdSales
+            ->join('nota', 'nota.id_sales=sales.id_sales')
+            ->where('id_nota', $id_nota)->find();
+        $id_sales = $nota[0]['id_sales'];
+
+
+        $delete = $this->mdNota->delete($id_nota);
+        if ($delete) {
+            return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/' . $id_sales . '/' . $payment_method));
+        } else {
+            echo 'Gagal Menghapus Data.';
+        }
     }
 
     public function input_closing()
@@ -232,18 +261,28 @@ class TagihanBaruController extends BaseController
             $data['detail'] = null;
         }
         $id_sales = $data['nota']['id_sales'];
-        $data['cek_nota'] = $this->mdNota
-            ->select(['*', 'nota.created_at as created_at'])
-            ->where('payment_method', $payment_method)
-            ->join('sales', 'sales.id_sales=nota.id_sales')
-            ->join('partner', 'partner.id_partner=sales.id_partner')
-            ->join('area', 'area.id_area=sales.id_area')
-            ->join('customer', 'customer.id_customer=nota.id_customer')
-            ->join('jenis_harga', 'jenis_harga.id_jenis_harga=customer.id_jenis_harga')
-            ->where('nota.id_sales', $id_sales)
-            // ->where('id_branch', Session('userData')['id_branch'])
-            ->findAll();
-
+        if ($payment_method == "CASH") {
+            $data['cek_nota'] = $this->mdNota
+                ->select(['*', 'nota.created_at as created_at'])
+                ->join('sales', 'sales.id_sales=nota.id_sales')
+                ->join('partner', 'partner.id_partner=sales.id_partner')
+                ->join('area', 'area.id_area=sales.id_area')
+                ->join('customer', 'customer.id_customer=nota.id_customer')
+                ->join('jenis_harga', 'jenis_harga.id_jenis_harga=customer.id_jenis_harga')
+                ->where('sales.id_sales', $id_sales)
+                ->findAll();
+        } else {
+            $data['cek_nota'] = $this->mdNota
+                ->select(['*', 'nota.created_at as created_at'])
+                ->where('payment_method', $payment_method)
+                ->join('sales', 'sales.id_sales=nota.id_sales')
+                ->join('partner', 'partner.id_partner=sales.id_partner')
+                ->join('area', 'area.id_area=sales.id_area')
+                ->join('customer', 'customer.id_customer=nota.id_customer')
+                ->join('jenis_harga', 'jenis_harga.id_jenis_harga=customer.id_jenis_harga')
+                ->where('sales.id_sales', $id_sales)
+                ->findAll();
+        }
         return view('admin_kas_kecil/transaksi/tagihan_baru/closing1', $data);
     }
     public function edit_detail_closing()

@@ -12,7 +12,7 @@ class priceModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['keterangan_price', 'id_branch', 'tanggal_aktif', 'created_by'];
 

@@ -12,7 +12,7 @@ class partnerModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['nama_lengkap', 'id_branch', 'no_hp', 'alamat', 'set_karyawan', 'nik'];
 

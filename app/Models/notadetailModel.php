@@ -12,7 +12,7 @@ class notadetailModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['id_nota', 'id_branch', 'id_sales_detail', 'id_product', 'id_jenis_harga', 'harga_nota', 'diskon_penjualan', 'satuan_penjualan'];
 

@@ -12,7 +12,7 @@ class notaModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['id_sales', 'id_branch', 'no_nota', 'id_partner', 'id_customer', 'total_beli', 'id_area', 'weeks', 'payment_method', 'created_by', 'pay', 'id_bank', 'tgl_bayar', 'status'];
 

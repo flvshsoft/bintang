@@ -12,7 +12,7 @@ class cutiModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['remark_cuti',  'created_by', 'id_branch'];
 

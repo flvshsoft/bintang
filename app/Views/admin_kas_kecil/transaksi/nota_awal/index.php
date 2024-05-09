@@ -47,6 +47,9 @@
                                 <tbody>
                                     <?php $no = 1;
                                     foreach ($model as $value) {
+                                        $string_tanggal_waktu = $value['created_at'];
+                                        $datetime = new DateTime($string_tanggal_waktu);
+                                        $tanggal_waktu_php = $datetime->format('d F Y H:i:s');
                                     ?>
                                     <tr>
                                         <td style="font-size: 11px;">
@@ -73,7 +76,7 @@
                                             <?= $value['keterangan'] ?>
                                         </td>
                                         <td style=" font-size: 11px;">
-                                            <?= $value['created_at'] ?>
+                                            <?= $tanggal_waktu_php ?>
                                         </td>
                                         <td style=" font-size: 11px;">
                                             <?= $value['tgl_do'] ?>

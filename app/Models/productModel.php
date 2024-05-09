@@ -12,7 +12,7 @@ class productModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['nama_product', 'id_branch', 'harga_beli', 'id_supplier', 'satuan_product', 'stock_product', 'area', 'defect', 'sample'];
 

@@ -12,7 +12,7 @@ class lokasiModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['maps',  'nama_lokasi', 'created_by', 'id_branch'];
 

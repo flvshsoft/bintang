@@ -12,7 +12,7 @@ class stockModel extends Model
     protected $useAutoIncrement = true;
 
     protected $returnType = 'array';
-    protected $usSoftDeletes = true;
+    protected $useSoftDeletes = true;
 
     protected $allowedFields = ['id_product', 'id_branch', 'jumlah_stock', 'tanggal_masuk'];
 
