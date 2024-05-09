@@ -166,6 +166,7 @@ class purchaseOrderController extends BaseController
             // ->groupBy('id_purchase_order_detail')
             ->join('purchase_order', 'purchase_order.id_purchase_order=purchase_order_detail.id_purchase_order')
             ->join('product', 'product.id_product=purchase_order_detail.id_product')
+            ->join('piutang_usaha', 'piutang_usaha.id_purchase_order_detail=purchase_order_detail.id_purchase_order_detail')
             ->findAll();
 
         $data['supplier'] = $this->mdSupplier

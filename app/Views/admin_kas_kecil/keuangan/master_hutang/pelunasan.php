@@ -15,7 +15,7 @@
                 </ol>
             </nav>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
@@ -38,7 +38,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?//php foreach ($model as $value) { ?>
+                                    <? //php foreach ($model as $value) { 
+                                    ?>
                                     <tr>
                                         <td style="font-size: 11px;">
 
@@ -76,7 +77,72 @@
                                                     class="mdi mdi-close-circle text-danger icon-md"></i></a>
                                         </td>
                                     </tr>
-                                    <?php// }; ?>
+                                    <? //php }; 
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%"
+                                cellspacing="0">
+                                <thead class="table table-primary">
+                                    <tr>
+                                        <th style="font-size: 11px;"> No </th>
+                                        <th style="font-size: 11px;"> No Faktur </th>
+                                        <th style="font-size: 11px;"> Supplier </th>
+                                        <th style="font-size: 11px;"> No PO </th>
+                                        <th style="font-size: 11px;"> Total Penerimaan </th>
+                                        <th style="font-size: 11px;"> Tanggal </th>
+                                        <th style="font-size: 11px;"> Minggu</th>
+                                        <th style="font-size: 11px;"> User </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $no = 1;
+                                    foreach ($model as $value) {
+                                        $dateString = $value['created_at'];
+                                        $dateTime = new DateTime($dateString);
+                                        $formattedDate = $dateTime->format('d F Y H:i:s');
+                                    ?>
+                                    <tr>
+                                        <td style="font-size: 11px;">
+                                            <b>
+                                                <?= $no ?></b>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <b>
+                                                <?= $value['id_piutang_usaha'] ?></b>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['nama_supplier'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['id_purchase_order'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= 'Rp ' . number_format($value['jumlah_piutang'], 0, '.', '.') ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $formattedDate ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['minggu-ke'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['nama_user'] ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                        $no++;
+                                    } ?>
                                 </tbody>
                             </table>
                         </div>
