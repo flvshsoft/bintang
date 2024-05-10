@@ -117,14 +117,23 @@ class masterHutangController extends BaseController
         $saldo = $bank[0]['saldo'];
         $nama_bank = $bank[0]['nama_bank'];
 
-        $po = $this->mdPiutangUsaha
+        $podetail = $this->mdPiutangUsaha
             ->where('id_piutang_usaha', $id_piutang_usaha)
-            ->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order_detail=piutang_usaha.id_purchase_order_detail')
-            ->join('product', 'product.id_product=purchase_order_detail.id_product')
+            ->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order_detail=piutang_usaha.id_purchase_order_detail', 'left')
+            ->join('product', 'product.id_product=purchase_order_detail.id_product', 'left')
             ->find();
-        $id_product = $po[0]['id_product'];
-        $jumlah_product = $po[0]['jumlah_product'];
-        $jumlah_piutang = $po[0]['jumlah_piutang'];
+
+        if ($podetail) {
+            // Data ditemukan, ambil nilai-nilainya
+            $id_product = $podetail[0]['id_product'];
+            $jumlah_product = $podetail[0]['jumlah_product'];
+            $jumlah_piutang = $podetail[0]['jumlah_piutang'];
+        } else {
+            // Data tidak ditemukan, atur nilai-nilainya ke null atau lakukan tindakan yang sesuai
+            $id_product = 0;
+            $jumlah_product = 0;
+            $jumlah_piutang = 0;
+        }
 
         if ($jenis == "PO") {
             if ($saldo > $jumlah_piutang) {
@@ -137,9 +146,6 @@ class masterHutangController extends BaseController
                 $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $jumlah_piutang);
             } else if ($saldo < $jumlah_piutang) {
                 session()->setFlashdata("kurang_saldo", "Maaf! Saldo " . $nama_bank . " Tidak Mencukupi");
-                return redirect()->to(base_url('/akk/keuangan/master_hutang'));
-            } else if ($saldo == 0) {
-                session()->setFlashdata("saldo_kosong", "Maaf Saldo" . $nama_bank . " 0");
                 return redirect()->to(base_url('/akk/keuangan/master_hutang'));
             } else {
                 "Apa ? ";
@@ -154,9 +160,6 @@ class masterHutangController extends BaseController
                 $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $jumlah_piutang);
             } else if ($saldo < $jumlah_piutang) {
                 session()->setFlashdata("kurang_saldo", "Maaf! Saldo " . $nama_bank . " Tidak Mencukupi");
-                return redirect()->to(base_url('/akk/keuangan/master_hutang'));
-            } else if ($saldo == 0) {
-                session()->setFlashdata("saldo_kosong", "Maaf Saldo" . $nama_bank . " 0");
                 return redirect()->to(base_url('/akk/keuangan/master_hutang'));
             } else {
                 "Apa ? ";

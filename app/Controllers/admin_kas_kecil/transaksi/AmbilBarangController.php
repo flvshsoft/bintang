@@ -73,15 +73,22 @@ class AmbilBarangController extends BaseController
     {
         $sales = $this->mdSales
             ->join('nota', 'nota.id_sales=sales.id_sales')
-            ->where('sales.id_sales', $id_sales)->find();
+            ->where('sales.id_sales', $id_sales)->findAll();
+
+        $id_nota_array = array();
 
         foreach ($sales as $value) {
             $id_nota = $value['id_nota'];
-            $delete_nota = $this->mdNota->delete($id_nota);
+            $id_nota_array[] = $id_nota;
+        }
+
+        // Hapus semua nota yang terkait
+        foreach ($id_nota_array as $id_nota) {
+            $this->mdNota->delete($id_nota);
         }
 
         $delete = $this->mdSales->delete($id_sales);
-        if ($delete && $delete_nota) {
+        if ($delete) {
             return redirect()->to(base_url('/akk/transaksi/ambil_barang'));
         } else {
             echo 'Gagal menghapus data.';

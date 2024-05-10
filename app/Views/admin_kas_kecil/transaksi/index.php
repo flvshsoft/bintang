@@ -52,6 +52,21 @@
                                 </div>
                             </a>
                         </div>
+                        <div class="col-lg-4 mb-3 px-2">
+                            <a href="<?= base_url('/akk/transaksi/terima_barang') ?>" class="text-decoration-none">
+                                <div class="card text-white shadow" style="background: #eebf35;">
+                                    <div class="card-body d-flex p-0">
+                                        <div class="col-6 p-3 text-white-90">
+                                            <h5>Terima Barang Supplier</h5>
+                                            <h2 class="mb-0">PO</h2>
+                                        </div>
+                                        <div class="col-6 p-0">
+                                            <img src="https://i.pinimg.com/564x/59/26/74/592674493a167bddfdcb6972d9e19d77.jpg" alt="Foto" width="100%" class="mt-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     <?php endif; ?>
 
                     <?php if ($akses_admin) : ?>

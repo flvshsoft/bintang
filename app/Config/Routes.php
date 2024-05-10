@@ -110,6 +110,14 @@ $routes->post('/akk/transaksi/nota_awal/tambah', 'admin_kas_kecil\transaksi\nota
 $routes->get('/akk/transaksi/nota_awal/hapus/(:any)', 'admin_kas_kecil\transaksi\notaAwalController::hapus/$1');
 $routes->post('/akk/transaksi/nota_awal/detail', 'admin_kas_kecil\transaksi\notaAwalController::detail_input');
 
+$routes->get('/akk/transaksi/terima_barang', 'admin_kas_kecil\transaksi\terimaBarangController::index');
+$routes->post('/akk/transaksi/terima_barang', 'admin_kas_kecil\transaksi\terimaBarangController::index_save');
+$routes->get('/akk/transaksi/terima_barang/detail/(:any)', 'admin_kas_kecil\transaksi\terimaBarangController::detail/$1');
+$routes->get('/akk/transaksi/terima_barang/tambah', 'admin_kas_kecil\transaksi\terimaBarangController::tambah');
+$routes->post('/akk/transaksi/terima_barang/tambah', 'admin_kas_kecil\transaksi\terimaBarangController::tambah_save');
+$routes->get('/akk/transaksi/terima_barang/hapus/(:any)', 'admin_kas_kecil\transaksi\terimaBarangController::hapus/$1');
+$routes->post('/akk/transaksi/terima_barang/detail', 'admin_kas_kecil\transaksi\terimaBarangController::detail_input');
+
 
 $routes->get('/akk/transaksi/stock_akhir', 'admin_kas_kecil\transaksi\StockAkhirController::index');
 $routes->get('/akk/transaksi/stock_akhir/tambah', 'admin_kas_kecil\transaksi\StockAkhirController::tambah');
