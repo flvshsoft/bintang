@@ -17,6 +17,46 @@
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
+                        <h4 class="card-title">CLOSING PER MINGGU</h4>
+                        <form class="forms-sample" method="post" action="<?= base_url('/akk/laporan/closing/mingguan') ?>">
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Week</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control form-control-sm" name="week" required>
+                                        <?php
+                                        foreach ($model as $key => $value) :
+                                        ?>
+                                            <option value="<?= $value['nama_week'] ?>"><?= $value['nama_week'] . ' ' . konversiBulanIndonesia($value['bulan']) . '-' . $value['bulan_week'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Year</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control form-control-sm" name="year" required>
+                                        <?php
+                                        for ($i = date('Y'); $i > 2018; $i--) :
+                                        ?>
+                                            <option><?= $i ?></option>
+                                        <?php endfor; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group text-center mb-0">
+                                <a href="<?= base_url('/laporan') ?>" class="btn btn-primary btn-sm">
+                                    <i class="mdi mdi-backburger icon-sm"></i>
+                                </a>
+                                <button class="btn btn-dark btn-sm"><i class="mdi mdi-printer icon-sm"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
                         <h4 class="card-title">LAPORAN CLOSING PER MINGGU</h4>
                         <form class="forms-sample" method="post" action="<?= base_url('/akk/laporan/form_closing/mingguan') ?>" target="_blank">
                             <div class="form-group row mb-0">
@@ -189,5 +229,26 @@
     </div>
 </div>
 </style>
+<?php
+function konversiBulanIndonesia($bulan)
+{
+    $daftarBulan = [
+        1 => 'Januari',
+        2 => 'Februari',
+        3 => 'Maret',
+        4 => 'April',
+        5 => 'Mei',
+        6 => 'Juni',
+        7 => 'Juli',
+        8 => 'Agustus',
+        9 => 'September',
+        10 => 'Oktober',
+        11 => 'November',
+        12 => 'Desember'
+    ];
 
+    return $daftarBulan[$bulan];
+}
+
+?>
 <?= $this->endSection() ?>

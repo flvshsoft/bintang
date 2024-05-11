@@ -221,6 +221,8 @@ $routes->get('/akk/laporan/form_closing', 'admin_kas_kecil\laporanController::fo
 $routes->post('/akk/laporan/form_closing/mingguan', 'admin_kas_kecil\laporanController::form_closing_mingguan');
 $routes->post('/akk/laporan/form_closing/bulanan', 'admin_kas_kecil\laporanController::form_closing_bulanan');
 $routes->post('/akk/laporan/form_closing/tahunan', 'admin_kas_kecil\laporanController::form_closing_tahunan');
+$routes->post('/akk/laporan/closing/mingguan', 'admin_kas_kecil\laporanController::closing_mingguan');
+$routes->post('/akk/laporan/closing-mingguan-save', 'admin_kas_kecil\laporanController::closing_mingguan_save');
 
 $routes->get('/akk/laporan/deposit', 'admin_kas_kecil\laporanController::deposit');
 $routes->get('/akk/laporan/form_tertagih', 'admin_kas_kecil\laporanController::form_tertagih');

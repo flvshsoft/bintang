@@ -10,6 +10,7 @@ class weekController extends BaseController
         $data['judul1'] = 'Master Week';
         $data['model'] = $this->mdWeek
             ->join('user', 'user.id_user=week.id_user', 'left')
+            ->where('week.id_branch', Session('userData')['id_branch'])
             ->findAll();
         return view('admin_kas_kecil/master/week/index', $data);
     }
