@@ -23,17 +23,54 @@ class weekController extends BaseController
 
     public function generate()
     {
-        $data = [
-            'id_user' => SESSION('userData')['id_user'],
-            'nama_week' => $this->request->getPost('nama_week'),
-            'bulan_week' => $this->request->getPost('bulan_week'),
-            'tahun_week' => $this->request->getPost('tahun_week'),
-            'status_week' => $this->request->getPost('status_week'),
-            'bulan' => $this->request->getPost('bulan'),
-            'status_closing' => $this->request->getPost('status_closing'),
-        ];
-        $this->mdWeek->insert($data);
+        $year = date('Y');
+        $no = 1;
+        for ($i = 1; $i <= 12; $i++) {
+            $month = $i; // May
+            # code...
+            $weekCount = $this->getWeekCountInMonth($year, $month);
+            echo "Number of weeks in $year-$month: $weekCount <br>";
+
+            $k = 1;
+            for ($j = 1; $j <= $weekCount; $j++) {
+                $data = [
+                    'nama_week' => $no,
+                    'bulan_week' => $k,
+                    'tahun_week' => $year,
+                    'bulan' => $month,
+                    'status_week' => 0,
+                    'status_closing' => 0,
+                    'id_user' => SESSION('userData')['id_user'],
+                    'id_branch' => SESSION('userData')['id_branch'],
+                ];
+                $this->mdWeek->insert($data);
+                $k++;
+                $no++;
+            }
+        }
         return redirect()->to(base_url('/akk/master_week'));
+    }
+
+    public function getWeekCountInMonth($year, $month)
+    {
+        $numDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+        // Get the first day of the month
+        $firstDayOfMonth = new \DateTime("$year-$month-01");
+
+        // Get the last day of the month
+        $lastDayOfMonth = new \DateTime("$year-$month-" . $firstDayOfMonth->format('t'));
+
+        // Calculate the number of days in the first week
+        $firstWeekDays = 7 - ($firstDayOfMonth->format('N') - 1);
+
+        // Calculate the number of days in the last week
+        $lastWeekDays = $lastDayOfMonth->format('N');
+
+        // Calculate the total number of weeks
+        $numWeeks = ceil(($firstWeekDays + $lastDayOfMonth->format('j') - $lastWeekDays) / 7);
+
+        return $numWeeks;
     }
 
     public function input()
