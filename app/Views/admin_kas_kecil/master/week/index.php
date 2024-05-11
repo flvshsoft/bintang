@@ -54,10 +54,10 @@
                                                 </b>
                                             </td>
                                             <td style="font-size: 11px;">
-                                                <?= $value['bulan'] ?>
+                                                <?= konversiBulanIndonesia($value['bulan']) ?>
                                             </td>
                                             <td style="font-size: 11px;">
-                                                <?= $value['bulan_week'] ?>
+                                                <?= ($value['bulan_week']) ?>
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <?= $value['tahun_week'] ?>
@@ -91,4 +91,26 @@
     /* Tambahkan class ini pada tabel Anda */
 </style>
 
+<?php
+function konversiBulanIndonesia($bulan)
+{
+    $daftarBulan = [
+        1 => 'Januari',
+        2 => 'Februari',
+        3 => 'Maret',
+        4 => 'April',
+        5 => 'Mei',
+        6 => 'Juni',
+        7 => 'Juli',
+        8 => 'Agustus',
+        9 => 'September',
+        10 => 'Oktober',
+        11 => 'November',
+        12 => 'Desember'
+    ];
+
+    return $daftarBulan[$bulan];
+}
+
+?>
 <?= $this->endSection() ?>
