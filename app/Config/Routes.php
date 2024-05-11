@@ -151,7 +151,7 @@ $routes->post('/akk/master_week/tambah', 'admin_kas_kecil\master\weekController:
 $routes->get('/akk/master_week/hapus/(:any)', 'admin_kas_kecil\master\weekController::hapus/$1');
 $routes->get('/akk/master_week/edit/(:any)', 'admin_kas_kecil\master\weekController::edit/$1');
 $routes->post('/akk/master_week/edit', 'admin_kas_kecil\master\weekController::update');
-$routes->post('/akk/master_week/generate', 'admin_kas_kecil\master\weekController::generate');
+$routes->get('/akk/master_week/generate', 'admin_kas_kecil\master\weekController::generate');
 
 $routes->get('/akk/piutang_usaha', 'admin_kas_kecil\piutang_usahaController::index');
 $routes->get('/akk/piutang_usaha/hapus/(:any)', 'admin_kas_kecil\piutang_usahaController::hapus/$1');
@@ -222,6 +222,8 @@ $routes->get('/akk/laporan/form_closing', 'admin_kas_kecil\laporanController::fo
 $routes->post('/akk/laporan/form_closing/mingguan', 'admin_kas_kecil\laporanController::form_closing_mingguan');
 $routes->post('/akk/laporan/form_closing/bulanan', 'admin_kas_kecil\laporanController::form_closing_bulanan');
 $routes->post('/akk/laporan/form_closing/tahunan', 'admin_kas_kecil\laporanController::form_closing_tahunan');
+$routes->post('/akk/laporan/closing/mingguan', 'admin_kas_kecil\laporanController::closing_mingguan');
+$routes->post('/akk/laporan/closing-mingguan-save', 'admin_kas_kecil\laporanController::closing_mingguan_save');
 
 $routes->get('/akk/laporan/deposit', 'admin_kas_kecil\laporanController::deposit');
 $routes->get('/akk/laporan/form_tertagih', 'admin_kas_kecil\laporanController::form_tertagih');

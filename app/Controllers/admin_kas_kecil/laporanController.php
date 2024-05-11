@@ -29,6 +29,11 @@ class laporanController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'CLOSING';
+        $data['model'] = $this->mdWeek
+            ->join('user', 'user.id_user=week.id_user', 'left')
+            ->where('week.id_branch', Session('userData')['id_branch'])
+            ->where('week.status_closing', 0)
+            ->findAll();
         return view('admin_kas_kecil/laporan/form_closing', $data);
     }
 
@@ -45,16 +50,19 @@ class laporanController extends BaseController
         //     ->join('partner', 'partner.id_partner=sales.id_partner')
         //     ->where('sales.id_branch', $id_branch)
         //     ->findAll();
-        $data['nota_putih'] = $this->mdNota
-            ->join('partner', 'partner.id_partner=nota.id_partner')
-            ->join('sales', 'sales.id_sales=nota.id_sales')
-            ->orderBY('id_nota', 'DESC')
-            // ->where('sales.week', $week)
+        $data['nota_putih'] = $this->mdNotaPutihSalesmanSave
+            ->join('partner', 'partner.id_partner=nota_putih_salesman_save.id_partner')
+            // ->join('sales', 'sales.id_sales=nota_putih_salesman_save.id_sales')
+            ->where('nota_putih_salesman_save.minggu_nota_putih', $week)
+            ->where('nota_putih_salesman_save.id_branch', $id_branch)
             // ->where('YEAR(nota.created_at)', $year)
-            ->where('nota.id_branch', $id_branch)
-            ->where('nota.status !=', 'Lunas')
-            ->groupBy('partner.id_partner')
+            // ->where('nota.status !=', 'Lunas')
+            // ->orderBY('partner.nama_lengkap', 'ASC')
+            // ->groupBy('partner.id_partner')
             ->findAll();
+
+        // print_r($data);
+        // exit;
 
         // Nota
         $data['kontan_nota'] = $this->mdNota
@@ -277,5 +285,116 @@ class laporanController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'LAPORAN PENGELUARAN';
         return view('admin_kas_kecil/laporan/form_print_pengeluaran', $data);
+    }
+
+    public function closing_mingguan()
+    {
+        $week = $this->request->getPost('week');
+        $year = $this->request->getPost('year');
+        $data['week'] = $week;
+        $data['year'] = $year;
+        $data['judul'] = "Closing Mingguan KE-$week";
+        $data['judul1'] = "LAPORAN CLOSING MINGGUAN KE-$week $year";
+        $id_branch = SESSION('userData')['id_branch'];
+
+        // Nota Putih
+        // $data['nota_putih'] = $this->mdSales
+        //     ->join('partner', 'partner.id_partner=sales.id_partner')
+        //     ->where('sales.id_branch', $id_branch)
+        //     ->findAll();
+        $data['nota_putih'] = $this->mdNota
+            ->join('partner', 'partner.id_partner=nota.id_partner')
+            ->join('customer', 'customer.id_customer=nota.id_customer')
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->orderBY('id_nota', 'DESC')
+            // ->where('sales.week', $week)
+            // ->where('YEAR(nota.created_at)', $year)
+            ->where('nota.id_branch', $id_branch)
+            ->where('nota.status !=', 'Lunas')
+            ->groupBy('partner.id_partner')
+            ->findAll();
+
+        // Nota
+        $data['kontan_nota'] = $this->mdNota
+            ->join('partner', 'partner.id_partner=nota.id_partner')
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->where('sales.week', $week)
+            ->where('YEAR(nota.created_at)', $year)
+            ->where('nota.id_branch', $id_branch)
+            ->orderBY('id_nota', 'DESC')
+            ->findAll();
+
+
+        return view('admin_kas_kecil/laporan/closing', $data);
+    }
+
+    public function closing_mingguan_save()
+    {
+        $week = $this->request->getPost('week');
+        $year = $this->request->getPost('year');
+        $data['judul'] = "Closing Mingguan KE-$week";
+        $data['judul1'] = "LAPORAN CLOSING MINGGUAN KE-$week $year";
+        $id_branch = SESSION('userData')['id_branch'];
+
+        // Nota Putih
+        // $data['nota_putih'] = $this->mdSales
+        //     ->join('partner', 'partner.id_partner=sales.id_partner')
+        //     ->where('sales.id_branch', $id_branch)
+        //     ->findAll();
+        $data['nota_putih'] = $this->mdNota
+            ->select('*, partner.id_partner as id_partner')
+            ->join('partner', 'partner.id_partner=nota.id_partner')
+            ->join('customer', 'customer.id_customer=nota.id_customer')
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->orderBY('id_nota', 'DESC')
+            // ->where('sales.week', $week)
+            // ->where('YEAR(nota.created_at)', $year)
+            ->where('nota.id_branch', $id_branch)
+            ->where('nota.status !=', 'Lunas')
+            ->groupBy('partner.id_partner')
+            ->findAll();
+        // Nota Putih
+        $temp = [];
+        foreach ($data['nota_putih'] as $key => $value) {
+            $temp[$value['id_partner']][] = $value['total_beli'];
+            $data_save = [
+                'id_nota' => $value['id_nota'],
+                'status_closing' => 1,
+            ];
+            // print_r($data_save);
+            $this->mdNota->save($data_save);
+        }
+
+        print_r($temp);
+        foreach ($temp as $key => $value) {
+            $data_save = [
+                'id_branch' => SESSION('userData')['id_branch'],
+                'id_partner' => $key,
+                'id_user' => SESSION('userData')['id_user'],
+                'minggu_nota_putih' => $week,
+                'total_beli' => array_sum($value),
+            ];
+            // print_r($data_save);
+            $this->mdNotaPutihSalesmanSave->save($data_save);
+        }
+
+        //week
+        $where_conditions = [
+            'nama_week' => $week,
+            'tahun_week' => $year,
+        ];
+        // print_r($where_conditions);
+        $mdWeek = $this->mdWeek->where($where_conditions)->find();
+
+        if (isset($mdWeek[0])) {
+            $data_save_week = [
+                'id_week' => $mdWeek[0]['id_week'],
+                'status_closing' => '1',
+            ];
+            $this->mdWeek->save($data_save_week);
+        }
+        // print_r($mdWeek);
+
+        return redirect()->to(base_url('/akk/laporan/form_closing'));
     }
 }
