@@ -81,8 +81,6 @@ class AmbilBarangController extends BaseController
             $id_nota = $value['id_nota'];
             $id_nota_array[] = $id_nota;
         }
-
-        // Hapus semua nota yang terkait
         foreach ($id_nota_array as $id_nota) {
             $this->mdNota->delete($id_nota);
         }
@@ -225,8 +223,8 @@ class AmbilBarangController extends BaseController
         $satuan_sales_detail = (int) str_replace(',', '', $satuan_sales_detail);
         $barang = $this->mdProduct->where('id_product', $id_product)->find();
         $stock_product = $barang[0]['stock_product'];
-
-        if ($satuan_sales_detail < $stock_product) {
+        //1000                <    998 +1
+        if ($satuan_sales_detail < $stock_product + 1) {
             $data = [
                 'id_sales' => $id_sales,
                 'id_product' => $id_product,
@@ -235,7 +233,7 @@ class AmbilBarangController extends BaseController
             ];
             $this->mdSalesDetail->insert($data);
             $this->mdProduct->where('id_product', $id_product)->decrement('stock_product', $satuan_sales_detail);
-        } else if ($satuan_sales_detail > $stock_product) {
+        } else if ($satuan_sales_detail > $stock_product + 1) {
             session()->setFlashdata("lebih", "Input Satuan Dibawah " . $stock_product);
             return redirect()->to(base_url('/akk/transaksi/ambil_barang/detail/tambah/' . $id_sales));
         } else if ($stock_product == 0) {

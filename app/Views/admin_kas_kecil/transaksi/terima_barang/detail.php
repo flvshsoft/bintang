@@ -68,7 +68,10 @@
                                                         -
                                                         <?= $jumlah ?>
                                                     </option>
-                                                    <?php }} ?>
+                                                    <?php } else { ?>
+                                                    <input type="text" disabled class="form-control" value="Kosong">
+                                                    <?php }
+                                                    } ?>
                                                 </select>
                                             </td>
                                             <td style="font-size: 11px;">
@@ -91,44 +94,16 @@
                                                 </select>
                                             </td>
                                             <td style="font-size: 11px;">
+                                                <?php if ($jumlah > 0) { ?>
                                                 <button type="text" class="btn btn-primary btn-xs"
                                                     name="btn_s">Ok</button>
+                                                <?php } else { ?>
+                                                <button type="button" class="btn btn-danger btn-xs" disabled
+                                                    name="btn_s">Ok</button>
+                                                <?php } ?>
                                             </td>
                                         </form>
                                     </tr>
-                                    <? //php foreach ($model as $key => $value) : 
-                                    ?>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            <? //= ++$key 
-                                            ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <? //= $value['id_product'] 
-                                            ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <? //= $value['nama_product'] 
-                                            ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <? //= 0 //number_format($sales_detail_basic[$value['id_sales_detail']]['satuan_sales_detail']) 
-                                            ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <? //= $value['jumlah_stock_kembali'] 
-                                            ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <? //= $value['satuan'] 
-                                            ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                        </td>
-                                    </tr>
-                                    <? //php endforeach; 
-                                    ?>
-
                                 </tbody>
                             </table>
                         </div>

@@ -72,6 +72,21 @@ class notaAwalController extends BaseController
 
     public function hapus($id_sales)
     {
+        $sales = $this->mdSales
+            ->join('nota', 'nota.id_sales=sales.id_sales')
+            ->where('sales.id_sales', $id_sales)->findAll();
+
+        $id_nota_array = array();
+
+        foreach ($sales as $value) {
+            $id_nota = $value['id_nota'];
+            $id_nota_array[] = $id_nota;
+        }
+
+        foreach ($id_nota_array as $id_nota) {
+            $this->mdNota->delete($id_nota);
+        }
+
         $delete = $this->mdSales->delete($id_sales);
         if ($delete) {
             return redirect()->to(base_url('/akk/transaksi/nota_awal'));
@@ -182,5 +197,23 @@ class notaAwalController extends BaseController
         // );
 
         return redirect()->to(base_url('/akk/transaksi/nota_awal/detail/' . $id_sales . '/' . $payment_method));
+    }
+    public function hapus_nota($id_nota, $payment_method)
+    {
+        $nota = $this->mdSales
+            ->join('nota', 'nota.id_sales=sales.id_sales')
+            ->where('id_nota', $id_nota)->find();
+
+        $id_sales = $nota[0]['id_sales'];
+
+        // print_r($nota);
+        // exit;
+
+        $delete = $this->mdNota->delete($id_nota);
+        if ($delete) {
+            return redirect()->to(base_url('/akk/transaksi/nota_awal/detail/' . $id_sales . '/' . $payment_method));
+        } else {
+            echo 'Gagal Menghapus Data.';
+        }
     }
 }

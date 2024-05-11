@@ -96,13 +96,13 @@
                                         <div class="form-group d-flex">
                                             <label class="col-5 col-form-label">TOKO</label>
                                             <div class="col-7">
-                                                <select class="form-control select2" name="id_customer">
+                                                <select class="form-control select2" required name="id_customer">
                                                     <option> Pilih Customer</option>
                                                     <?php foreach ($customer as $value) { ?>
                                                     <option name="id_customer" value="<?= $value['id_customer'] ?>">
-                                                        <?= $value['id_customer'] ?>
-                                                        -
                                                         <?= $value['nama_customer'] ?>
+                                                        -
+                                                        <?= $value['alamat_customer'] ?>
                                                     </option>
                                                     <?php } ?>
                                                 </select>
@@ -114,7 +114,7 @@
                                                     <label class="col-5 col-form-label">Tagihan</label>
                                                     <div class="col-7">
                                                         <input type="text" id="pay" name="total_beli"
-                                                            class="form-control">
+                                                            class="form-control" required>
                                                     </div>
                                                 </div>
                                                 <button
@@ -156,7 +156,12 @@
                             <?= 'Rp ' . number_format($value['total_beli'], 0, '.', '.') ?>
                         </li>
                     </ul>
-
+                    <div class="" style="padding:3%">
+                        <a href="<?= base_url('/akk/transaksi/nota_awal/detail/hapus/' . $value['id_nota'] . '/' . $payment_method) ?>"
+                            onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
+                            class="d-flex justify-content-center align-items-center btn btn-danger btn-sm btn-rounded">
+                            Hapus Nota</a>
+                    </div>
                 </div>
             </div>
             <?php }; ?>

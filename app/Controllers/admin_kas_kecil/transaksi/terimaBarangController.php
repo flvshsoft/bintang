@@ -63,7 +63,7 @@ class terimaBarangController extends BaseController
         $jumlah_masuk = str_replace('.', '', $this->request->getPost('jumlah_masuk'));
         $jumlah_masuk = (int) str_replace(',', '', $jumlah_masuk);
 
-        if ($jumlah_masuk < $jumlah_product) {
+        if ($jumlah_masuk < $jumlah_product + 1) {
 
             $this->mdPurchaseOrderDetail->where('id_purchase_order_detail', $id_purchase_order_detail)->increment('jumlah_masuk', $jumlah_masuk);
 
@@ -75,7 +75,7 @@ class terimaBarangController extends BaseController
                 $this->mdProduct->where('id_product', $id_product)->increment('sample', $jumlah_masuk);
             }
             session()->setFlashdata("berhasil", "Berhasil menambahkan stok barang ke" . $satuan);
-        } else if ($jumlah_masuk < $jumlah_product) {
+        } else if ($jumlah_masuk < $jumlah_product + 1) {
             session()->setFlashdata("lebih", "Maaf! Input Jumlah dibawah "  . $jumlah_product . " Tidak Mencukupi");
             return redirect()->to(base_url('/akk/transaksi/terima_barang/detail/' . $id_purchase_order));
         }

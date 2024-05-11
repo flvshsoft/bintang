@@ -104,6 +104,7 @@ $routes->post('/akk/transaksi/tagihan_baru/closing-sales', 'admin_kas_kecil\tran
 
 $routes->get('/akk/transaksi/nota_awal', 'admin_kas_kecil\transaksi\notaAwalController::index');
 $routes->post('/akk/transaksi/nota_awal', 'admin_kas_kecil\transaksi\notaAwalController::index_save');
+$routes->get('/akk/transaksi/nota_awal/detail/hapus/(:any)', 'admin_kas_kecil\transaksi\notaAwalController::hapus_nota/$1');
 $routes->get('/akk/transaksi/nota_awal/detail/(:any)', 'admin_kas_kecil\transaksi\notaAwalController::detail/$1');
 $routes->get('/akk/transaksi/nota_awal/tambah', 'admin_kas_kecil\transaksi\notaAwalController::tambah');
 $routes->post('/akk/transaksi/nota_awal/tambah', 'admin_kas_kecil\transaksi\notaAwalController::tambah_save');
