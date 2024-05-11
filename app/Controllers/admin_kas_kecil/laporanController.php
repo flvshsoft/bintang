@@ -311,7 +311,7 @@ class laporanController extends BaseController
             // ->where('YEAR(nota.created_at)', $year)
             ->where('nota.id_branch', $id_branch)
             ->where('nota.status !=', 'Lunas')
-            ->groupBy('partner.id_partner')
+            // ->groupBy('partner.id_partner')
             ->findAll();
 
         // Nota
@@ -351,7 +351,7 @@ class laporanController extends BaseController
             // ->where('YEAR(nota.created_at)', $year)
             ->where('nota.id_branch', $id_branch)
             ->where('nota.status !=', 'Lunas')
-            ->groupBy('partner.id_partner')
+            // ->groupBy('partner.id_partner')
             ->findAll();
         // Nota Putih
         $temp = [];

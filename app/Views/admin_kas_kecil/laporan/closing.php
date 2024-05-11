@@ -33,7 +33,7 @@
                                             <th style=" font-size: 11px;"> CUSTOMER </th>
                                             <th style=" font-size: 11px;"> KREDIT </th>
                                             <th style=" font-size: 11px;"> CASH </th>
-                                            <th style=" font-size: 11px;"> SUB TOTAL</th>
+                                            <!-- <th style=" font-size: 11px;"> SUB TOTAL</th> -->
                                             <th style=" font-size: 11px;"> STATUS</th>
                                             <th style=" font-size: 11px;"> #</th>
                                         </tr>
@@ -60,7 +60,7 @@
                                                 <td style=" font-size: 11px;"><?= $value['nama_customer'] ?></td>
                                                 <td style=" font-size: 11px;"><?= number_format($kredit) ?></td>
                                                 <td style=" font-size: 11px;"><?= number_format($cash) ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
+                                                <!-- <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td> -->
                                                 <td style=" font-size: 11px;"><?= $value['status_closing'] == '1' ? 'Closing' : '-' ?></td>
                                                 <td style=" font-size: 11px;"> </a>
                                                     <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales']) ?>">
@@ -79,8 +79,8 @@
                             <input type="hidden" name="year" class="form-control" value="<?= $year ?>">
 
                             <div class="col-md-6">
-                                <button type="submit" class="btn btn-gradient-warning btn-rounded btn-fw">
-                                    Save
+                                <button type="submit" class="btn btn-gradient-warning btn-rounded btn-fw text-black">
+                                    Closing
                                 </button>
                             </div>
                         </form>
