@@ -141,7 +141,7 @@ class masterHutangController extends BaseController
                     'id_piutang_usaha' => $id_piutang_usaha,
                     'status' => 1,
                 ];
-                $this->mdProduct->where('id_product', $id_product)->increment('stock_product', $jumlah_product);
+                //$this->mdProduct->where('id_product', $id_product)->increment('stock_product', $jumlah_product);
                 $this->mdPiutangUsaha->save($data);
                 $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $jumlah_piutang);
             } else if ($saldo < $jumlah_piutang) {

@@ -189,6 +189,7 @@ class purchaseOrderController extends BaseController
             'id_purchase_order' => $id_purchase_order,
             'harga_beli' => $harga_beli,
             'jumlah_product' => $jumlah_product,
+            'jumlah_masuk' => 0,
             'id_product' => $id_product,
         ];
         $this->mdPurchaseOrderDetail->save($data);

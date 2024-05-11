@@ -117,6 +117,7 @@ $routes->get('/akk/transaksi/terima_barang/tambah', 'admin_kas_kecil\transaksi\t
 $routes->post('/akk/transaksi/terima_barang/tambah', 'admin_kas_kecil\transaksi\terimaBarangController::tambah_save');
 $routes->get('/akk/transaksi/terima_barang/hapus/(:any)', 'admin_kas_kecil\transaksi\terimaBarangController::hapus/$1');
 $routes->post('/akk/transaksi/terima_barang/detail', 'admin_kas_kecil\transaksi\terimaBarangController::detail_input');
+$routes->post('/terima_barang/tambah_nama_barang', 'admin_kas_kecil\transaksi\terimaBarangController::tambah_nama_barang');
 
 
 $routes->get('/akk/transaksi/stock_akhir', 'admin_kas_kecil\transaksi\StockAkhirController::index');
