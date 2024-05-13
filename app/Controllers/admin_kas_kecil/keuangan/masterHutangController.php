@@ -65,6 +65,7 @@ class masterHutangController extends BaseController
             'jenis' => 'Manual',
             'minggu-ke' => $this->request->getPost('minggu-ke'),
             'jumlah_piutang' => $jumlah_piutang,
+            'jumlah_cicilan' => 0,
             'id_branch' => Session('userData')['id_branch'],
             'id_user' => Session('userData')['id_user'],
         ];
@@ -139,6 +140,7 @@ class masterHutangController extends BaseController
             if ($saldo > $jumlah_piutang) {
                 $data = [
                     'id_piutang_usaha' => $id_piutang_usaha,
+                    'jumlah_cicilan' => $jumlah_piutang,
                     'status' => 1,
                 ];
                 //$this->mdProduct->where('id_product', $id_product)->increment('stock_product', $jumlah_product);
@@ -154,6 +156,7 @@ class masterHutangController extends BaseController
             if ($saldo > $jumlah_piutang) {
                 $data = [
                     'id_piutang_usaha' => $id_piutang_usaha,
+                    'jumlah_cicilan' => $jumlah_piutang,
                     'status' => 1,
                 ];
                 $this->mdPiutangUsaha->save($data);
@@ -165,6 +168,52 @@ class masterHutangController extends BaseController
                 "Apa ? ";
             }
         }
+        return redirect()->to(base_url('/akk/keuangan/master_hutang'));
+    }
+
+    public function cicilan($id_piutang_usaha)
+    {
+        $data['judul'] = 'Bintang';
+        $data['judul1'] = 'Cicilan';
+        $data['model'] = $this->mdPiutangUsaha
+            ->where('id_piutang_usaha', $id_piutang_usaha)
+            ->find()[0];
+        $data['bank'] = $this->mdBank
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        return view('admin_kas_kecil/keuangan/master_hutang/cicilan', $data);
+    }
+    public function cicilan_save()
+    {
+        $id_piutang_usaha = $this->request->getPost('id_piutang_usaha');
+        $id_bank = $this->request->getPost('id_bank');
+        $cicilan = str_replace('.', '', $this->request->getPost('cicilan'));
+        $cicilan = (int) str_replace(',', '', $cicilan);
+        $total = str_replace('.', '', $this->request->getPost('total'));
+        $total = (int) str_replace(',', '', $total);
+        $jumlah_piutang = str_replace('.', '', $this->request->getPost('jumlah_piutang'));
+        $jumlah_piutang = (int) str_replace(',', '', $jumlah_piutang);
+
+        $bank = $this->mdBank->where('id_bank', $id_bank)->find();
+        $saldo = $bank[0]['saldo'];
+        $nama_bank = $bank[0]['nama_bank'];
+
+        if ($saldo > $jumlah_piutang) {
+            $data = [
+                'id_piutang_usaha' => $id_piutang_usaha,
+                'jumlah_cicilan' => $cicilan,
+            ];
+            $this->mdPiutangUsaha->save($data);
+            $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $jumlah_piutang);
+            session()->setFlashdata("berhasil", "Cicilan Berhasil");
+        } else if ($saldo < $jumlah_piutang) {
+            session()->setFlashdata("kurang_saldo", "Maaf! Saldo " . $nama_bank . " Tidak Mencukupi");
+            return redirect()->to(base_url('/akk/keuangan/master_hutang/cicilan/' . $id_piutang_usaha));
+        } else {
+            "Apa ? ";
+        }
+
+
         return redirect()->to(base_url('/akk/keuangan/master_hutang'));
     }
 }

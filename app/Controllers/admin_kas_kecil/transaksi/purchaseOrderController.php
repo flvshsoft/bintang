@@ -215,6 +215,7 @@ class purchaseOrderController extends BaseController
             'minggu-ke' => $minggu_purchase_order,
             'harga_beli' => $harga_beli,
             'jumlah_piutang' => $jumlah_piutang,
+            'jumlah_cicilan' => 0,
             'jenis' => 'PO',
             'type_piutang' => 'PO',
             'status' => 0,

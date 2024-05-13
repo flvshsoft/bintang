@@ -24,6 +24,12 @@
                             <?= session()->getFlashdata("kurang_saldo") ?>
                         </div>
                         <?php } ?>
+                        <?php if (session()->getFlashdata("berhasil")) { ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <?= session()->getFlashdata("berhasil") ?>
+                        </div>
+                        <?php } ?>
                         <?php if (session()->getFlashdata("saldo_kosong")) { ?>
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -57,13 +63,15 @@
                                         <th style="font-size: 11px;"> Tanggal </th>
                                         <th style="font-size: 11px;"> Minggu</th>
                                         <th style="font-size: 11px;"> User </th>
-                                        <th style="font-size: 11px;"> Diskon | Retur | Bayar </th>
+                                        <!-- <th style="font-size: 11px;"> Diskon | Retur | Bayar | Cicil </th> -->
+                                        <th style="font-size: 11px;"> Bayar | Cicil </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no = 1;
                                     foreach ($model as $value) {
                                         $dateString = $value['created_at'];
+                                        $total = $value['jumlah_piutang'] - $value['jumlah_cicilan'];
                                         $dateTime = new DateTime($dateString);
                                         $formattedDate = $dateTime->format('d F Y H:i:s');
                                     ?>
@@ -88,7 +96,7 @@
                                             <?= $value['id_purchase_order'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            <?= 'Rp ' . number_format($value['jumlah_piutang'], 0, '.', '.') ?>
+                                            <?= 'Rp ' . number_format($total, 0, '.', '.') ?>
                                         </td>
                                         <td style="font-size: 11px;">
                                             <?= $formattedDate ?>
@@ -103,21 +111,26 @@
                                             <input type="hidden" value="<?= $value['jenis'] ?>" name="jenis">
                                         </td>
                                         <td class="warning" align="center" width="10px">
-                                            <b><a href="<? #= base_url('/akk/keuangan/master_hutang/') 
-                                                            ?>" style="text-decoration:none" data-toggle="tooltip"
+                                            <!-- <b><a href="<? #= base_url('/akk/keuangan/master_hutang/') 
+                                                                    ?>" style="text-decoration:none" data-toggle="tooltip"
                                                     class="tip-top" data-original-title="Discount Hutang Usaha"><i
                                                         class="mdi mdi-ticket-percent text-default icon-md"></i></a></b>
                                             <b><a href="<? #= base_url('/akk/keuangan/master_hutang/') 
-                                                            ?>" style="text-decoration:none" data-toggle="tooltip"
+                                                        ?>" style="text-decoration:none" data-toggle="tooltip"
                                                     class="tip-top" data-original-title="Retur Hutang"><i
-                                                        class="mdi mdi-file-send text-default icon-md"></i></a></b>
+                                                        class="mdi mdi-file-send text-default icon-md"></i></a></b> -->
                                             <b><a data-bs-toggle="modal"
                                                     data-bs-target="#exampleModal<?= $value['id_piutang_usaha'] ?>"
                                                     style="text-decoration:none" data-toggle="tooltip" class="tip-top"
-                                                    data-original-title="Bayar Tagihan"><i
+                                                    data-original-title="Bayar Lunas"><i
                                                         class="mdi mdi-check-circle text-default icon-md"></i></a></b>
+                                            <b> <a
+                                                    href="<?= base_url('/akk/keuangan/master_hutang/cicilan/' . $value['id_piutang_usaha']) ?>"><i
+                                                        class="mdi mdi-cash-100 icon-md"></i></a></b>
                                         </td>
                                     </tr>
+
+                                    <!-- Bayar Lunas  -->
                                     <div class="modal fade" id="exampleModal<?= $value['id_piutang_usaha'] ?>"
                                         tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -159,9 +172,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- End Bayar Lunas  -->
+
                                     <?php
                                         $no++;
                                     } ?>
+
                                 </tbody>
                             </table>
                         </div>

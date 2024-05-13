@@ -37,7 +37,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?//php foreach ($model as $value) { ?>
+                                    <? //php foreach ($model as $value) { 
+                                    ?>
                                     <tr>
                                         <td style="font-size: 11px;">
 
@@ -68,7 +69,8 @@
                                         </td>
                                         <td> </td>
                                     </tr>
-                                    <?php// }; ?>
+                                    <? //php }; 
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
