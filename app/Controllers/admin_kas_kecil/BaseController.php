@@ -93,5 +93,6 @@ abstract class BaseController extends Controller
         $this->mdPurchaseOrderDetail = model('purchaseOrderDetailModel', true, $this->db);
         $this->mdWeek = model('weekModel', true, $this->db);
         $this->mdNotaPutihSalesmanSave = model('notaPutihSalesmanSaveModel', true, $this->db);
+        $this->mdPengeluaranDetailSales = model('pengeluaranDetailSalesModel', true, $this->db);
     }
 }

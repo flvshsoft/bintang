@@ -11,8 +11,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">KEUANGAN</a></li>
-                    <li class="breadcrumb-item"><a
-                            href="<?= base_url('/akk/keuangan/master_pengeluaran') ?>">PENGELUARAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/master_pengeluaran') ?>">PENGELUARAN</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
                         <?= $judul1 ?>
                     </li>
@@ -38,34 +37,44 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            23022611
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            160009959
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            39
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Pengeluaran Operasional Salesman : HIDAYAT
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            655.000
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            ALDO
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            2023-09-30 13:35:11
-                                        </td>
-                                        <td style="font-size: 11px;" class="text-center">
-                                            <a href="<?= base_url('/akk/keuangan/detail_biaya_operasional') ?>">
-                                                <i class="mdi mdi-pencil-circle icon-md"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                    <?php foreach ($model as $value) {
+                                        $string_tanggal_waktu = $value['created_at'];
+                                        $datetime = new DateTime($string_tanggal_waktu);
+                                        $tanggal_waktu_php = $datetime->format('d F Y H:i:s');
+                                    ?>
+                                        <tr>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['id_pengeluaran_detail_sales'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['id_sales'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['minggu_pengeluaran_sales'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?php if ($value['ket_pengeluaran'] == "PENGELUARAN OPERASIONAL SALESMAN") { ?>
+                                                    <?= $value['ket_pengeluaran'] ?> : <?= $value['nama_salesman'] ?>
+                                                <?php } else { ?>
+                                                    <?= $value['ket_pengeluaran'] ?>
+                                                <?php } ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= 'Rp ' . number_format($value['nominal'], 0, '.', '.') ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['nama_user'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $tanggal_waktu_php ?>
+                                            </td>
+                                            <td style="font-size: 11px;" class="text-center">
+                                                <a href="<?= base_url('/akk/keuangan/master_pengeluaran_op/edit/' . $value['id_pengeluaran_detail_sales']) ?>">
+                                                    <i class="mdi mdi-pencil-circle icon-md"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -77,22 +86,22 @@
 </div>
 
 <style>
-.menu-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-}
+    .menu-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+    }
 
-.menu-item a {
-    display: flex;
-    align-items: start;
-    text-decoration: none;
-    color: black;
-}
+    .menu-item a {
+        display: flex;
+        align-items: start;
+        text-decoration: none;
+        color: black;
+    }
 
-.menu-item i {
-    margin-right: 10px;
-}
+    .menu-item i {
+        margin-right: 10px;
+    }
 </style>
 
 <?= $this->endSection() ?>

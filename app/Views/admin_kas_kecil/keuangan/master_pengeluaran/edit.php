@@ -78,7 +78,6 @@
                             </div>
                             <div class="form-group text-center mb-0">
                                 <a href="<?= base_url('/akk/keuangan/master_pengeluaran_op') ?>" class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
-                                <button type="submit" class="btn btn-success btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i> Update</button>
                             </div>
                         </form><br>
                         <div class="table-responsive">
