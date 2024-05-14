@@ -14,7 +14,8 @@ class masterHutangController extends BaseController
             ->join('user', 'user.id_user=piutang_usaha.id_user')
             ->where('piutang_usaha.id_branch', Session('userData')['id_branch'])
             ->where('supplier.id_branch', Session('userData')['id_branch'])
-            ->where('status', 0)
+            ->where('jumlah_piutang !=', 0)
+            //->where('status', 0)
             ->findAll();
         $data['bank'] = $this->mdBank
             ->where('id_branch', Session('userData')['id_branch'])
@@ -26,17 +27,16 @@ class masterHutangController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'PELUNASAN HUTANG PABRIK';
-        $data['model'] = $this->mdPiutangUsaha
+        $data['model'] = $this->mdPiutangUsahaRiwayat
             ->select(['*', 'piutang_usaha.created_at as created_at'])
-            ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
+            ->join('piutang_usaha', 'piutang_usaha.id_piutang_usaha=piutang_usaha_riwayat.id_piutang_usaha')
             ->join('user', 'user.id_user=piutang_usaha.id_user')
-            ->where('piutang_usaha.id_branch', Session('userData')['id_branch'])
-            ->where('supplier.id_branch', Session('userData')['id_branch'])
-            ->where('status', 1)
-            //->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order_detail=piutang_usaha.id_purchase_order_detail', 'left')
+            ->join('bank', 'bank.id_bank=piutang_usaha_riwayat.id_bank')
+            // ->where('piutang_usaha.id_branch', Session('userData')['id_branch'])
+            ->where('piutang_usaha_riwayat.id_branch', Session('userData')['id_branch'])
+            //  ->where('status', 1)
+
             ->findAll();
-        // print_r($data['model']);
-        // exit;
         return view('admin_kas_kecil/keuangan/master_hutang/pelunasan', $data);
     }
     public function pot(): string
@@ -121,11 +121,14 @@ class masterHutangController extends BaseController
         $podetail = $this->mdPiutangUsaha
             ->where('id_piutang_usaha', $id_piutang_usaha)
             ->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order_detail=piutang_usaha.id_purchase_order_detail', 'left')
-            ->join('product', 'product.id_product=purchase_order_detail.id_product', 'left')
+            //->join('product', 'product.id_product=purchase_order_detail.id_product', 'left')
+            ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier', 'left')
             ->find();
 
         if ($podetail) {
             // Data ditemukan, ambil nilai-nilainya
+            $nama_supplier = $podetail[0]['nama_supplier'];
+            $id_purchase_order = $podetail[0]['id_purchase_order'];
             $id_product = $podetail[0]['id_product'];
             $jumlah_product = $podetail[0]['jumlah_product'];
             $jumlah_piutang = $podetail[0]['jumlah_piutang'];
@@ -138,14 +141,18 @@ class masterHutangController extends BaseController
 
         if ($jenis == "PO") {
             if ($saldo > $jumlah_piutang) {
-                $data = [
-                    'id_piutang_usaha' => $id_piutang_usaha,
-                    'jumlah_cicilan' => $jumlah_piutang,
-                    'status' => 1,
-                ];
+                $this->mdPiutangUsaha->where('id_piutang_usaha', $id_piutang_usaha)->decrement('jumlah_piutang', $jumlah_piutang);
                 //$this->mdProduct->where('id_product', $id_product)->increment('stock_product', $jumlah_product);
-                $this->mdPiutangUsaha->save($data);
                 $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $jumlah_piutang);
+                $input_riwayat = [
+                    'id_piutang_usaha' => $id_piutang_usaha,
+                    'id_bank' => $id_bank,
+                    'id_user' => Session('userData')['id_user'],
+                    'id_branch' => Session('userData')['id_branch'],
+                    'total' => $jumlah_piutang,
+                    'ket_riwayat' => 'Pelunasan Piutang USAHA PO' . $id_purchase_order . '- Atas Nama :' . $nama_supplier,
+                ];
+                $this->mdPiutangUsahaRiwayat->save($input_riwayat);
             } else if ($saldo < $jumlah_piutang) {
                 session()->setFlashdata("kurang_saldo", "Maaf! Saldo " . $nama_bank . " Tidak Mencukupi");
                 return redirect()->to(base_url('/akk/keuangan/master_hutang'));
@@ -154,13 +161,17 @@ class masterHutangController extends BaseController
             }
         } else {
             if ($saldo > $jumlah_piutang) {
-                $data = [
-                    'id_piutang_usaha' => $id_piutang_usaha,
-                    'jumlah_cicilan' => $jumlah_piutang,
-                    'status' => 1,
-                ];
-                $this->mdPiutangUsaha->save($data);
+                $this->mdPiutangUsaha->where('id_piutang_usaha', $id_piutang_usaha)->decrement('jumlah_piutang', $jumlah_piutang);
                 $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $jumlah_piutang);
+                $input_riwayat = [
+                    'id_piutang_usaha' => $id_piutang_usaha,
+                    'id_bank' => $id_bank,
+                    'id_user' => Session('userData')['id_user'],
+                    'id_branch' => Session('userData')['id_branch'],
+                    'total' => $jumlah_piutang,
+                    'ket_riwayat' => 'Pelunasan Piutang Usaha' . $nama_supplier,
+                ];
+                $this->mdPiutangUsahaRiwayat->save($input_riwayat);
             } else if ($saldo < $jumlah_piutang) {
                 session()->setFlashdata("kurang_saldo", "Maaf! Saldo " . $nama_bank . " Tidak Mencukupi");
                 return redirect()->to(base_url('/akk/keuangan/master_hutang'));
@@ -186,6 +197,7 @@ class masterHutangController extends BaseController
     public function cicilan_save()
     {
         $id_piutang_usaha = $this->request->getPost('id_piutang_usaha');
+        $ket_riwayat = $this->request->getPost('ket_riwayat');
         $id_bank = $this->request->getPost('id_bank');
         $cicilan = str_replace('.', '', $this->request->getPost('cicilan'));
         $cicilan = (int) str_replace(',', '', $cicilan);
@@ -198,21 +210,29 @@ class masterHutangController extends BaseController
         $saldo = $bank[0]['saldo'];
         $nama_bank = $bank[0]['nama_bank'];
 
-        if ($saldo > $jumlah_piutang) {
-            $data = [
-                'id_piutang_usaha' => $id_piutang_usaha,
-                'jumlah_cicilan' => $cicilan,
-            ];
-            $this->mdPiutangUsaha->save($data);
-            $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $jumlah_piutang);
-            session()->setFlashdata("berhasil", "Cicilan Berhasil");
-        } else if ($saldo < $jumlah_piutang) {
-            session()->setFlashdata("kurang_saldo", "Maaf! Saldo " . $nama_bank . " Tidak Mencukupi");
-            return redirect()->to(base_url('/akk/keuangan/master_hutang/cicilan/' . $id_piutang_usaha));
-        } else {
-            "Apa ? ";
-        }
+        if ($cicilan <= $jumlah_piutang) {
+            if ($cicilan <= $saldo) {
+                $input_riwayat = [
+                    'id_piutang_usaha' => $id_piutang_usaha,
+                    'id_bank' => $id_bank,
+                    'id_user' => Session('userData')['id_user'],
+                    'id_branch' => Session('userData')['id_branch'],
+                    'total' => $cicilan,
+                    'ket_riwayat' => $ket_riwayat,
+                ];
 
+                $this->mdPiutangUsahaRiwayat->save($input_riwayat);
+                $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $cicilan);
+                $this->mdPiutangUsaha->where('id_piutang_usaha', $id_piutang_usaha)->decrement('jumlah_piutang', $cicilan);
+                session()->setFlashdata("berhasil", "Cicilan Berhasil");
+            } else {
+                session()->setFlashdata("kurang_saldo", "Maaf! Saldo " . $nama_bank . " Tidak Mencukupi");
+                return redirect()->to(base_url('/akk/keuangan/master_hutang/cicilan/' . $id_piutang_usaha));
+            }
+        } else {
+            session()->setFlashdata("Lebih_Input", "Maaf Cicilan Terlalu Banyak, Input Cicilan dibawah " . $jumlah_piutang);
+            return redirect()->to(base_url('/akk/keuangan/master_hutang/cicilan/' . $id_piutang_usaha));
+        }
 
         return redirect()->to(base_url('/akk/keuangan/master_hutang'));
     }

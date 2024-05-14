@@ -28,52 +28,55 @@
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Kode Pengeluaran
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" value="23022086" disabled>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" value="<?= $model['id_pengeluaran_detail_sales'] ?>" name="id_pengeluaran_detail_sales" readonly>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Salesman </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" value="HIDAYAT" disabled>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" value="<?= $model['nama_lengkap'] ?>" readonly>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Area / Tujuan </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" value="SIAKDRP" disabled>
+                                    <input type="text" class="form-control form-control-sm" name="id_nama_area" value="<?= $model['id_nama_area'] ?>" readonly>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">No. DO </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" value="160009662" disabled>
+                                    <input type="text" class="form-control form-control-sm" name="id_sales" value="<?= $model['id_sales'] ?>" readonly>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Minggu Ke - </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" value="37" disabled>
+                                    <input type="text" class="form-control form-control-sm" name="minggu_pengeluaran_sales" value="<?= $model['minggu_pengeluaran_sales'] ?>" readonly>
                                 </div>
                             </div>
-                            <div class="form-group row mb-0">
-                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">
+                            <div class="form-group row mb-2">
+                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Detail
                                     Keterangan</label>
                                 <div class="col-sm-9">
-                                    <textarea disabled class="form-control form-control-sm" rows="3">Pengeluaran Operasional Salesman : JUNAIDI</textarea>
+                                    <textarea class="form-control form-control-sm" readonly rows="3"><?= $model['keterangan_pengeluaran_sales'] ?></textarea>
                                 </div>
                             </div>
+                            <?php $dateString = $model['created_at'];
+                            $dateTime = new DateTime($dateString);
+                            $formattedDate = $dateTime->format('d F Y H:i:s'); ?>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Tgl
                                     DO</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputConfirmPassword2" value="16/09/2023" disabled>
+                                    <input type="text" class="form-control form-control-sm" readonly value="<?= $formattedDate; ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Total
                                     Pengeluaran</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputConfirmPassword2" value="800.000" disabled>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputConfirmPassword2" value="<?= "Rp " . number_format($total, 0, ',', '.') ?>" readonly>
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
@@ -87,122 +90,92 @@
                                         <th style="font-size: 11px;"> ID</th>
                                         <th style="font-size: 11px;"> KETERANGAN PENGELUARAN</th>
                                         <th style="font-size: 11px;"> BIAYA PENGELUARAN </th>
-                                        <th style="font-size: 11px;"> JUMLAH </th>
-                                        <th style="font-size: 11px;"> TOTAL PENGELUARAN </th>
                                         <th style="font-size: 11px;"> </th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($mod as $value) { ?>
+                                        <tr>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['id_pengeluaran_detail_sales'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['ket_pengeluaran'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= "Rp " . number_format($value['nominal'], 0, ',', '.') ?>
+                                            </td>
+                                            <td style="font-size: 11px;" class="text-center">
+                                                <button class="btn btn-warning btn-xs "> X </button>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
                                     <tr>
-                                        <td style="font-size: 11px;">
-                                            9558
+                                        <td style="font-size: 11px;" colspan="1" class="table-danger">
+                                            Total
                                         </td>
-                                        <td style="font-size: 11px;">
-                                            BBM
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Rp. 730,000
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            1
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Rp. 730,000
-                                        </td>
-                                        <td style="font-size: 11px;" class="text-center">
-                                            <button class="btn btn-warning btn-xs "> X </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            9559
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            RETRIBUSI
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Rp. 10,000
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            1
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Rp. 10,000
-                                        </td>
-                                        <td style="font-size: 11px;" class="text-center">
-                                            <button class="btn btn-warning btn-xs "> X </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            9560
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            LAIN- LAIN
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Rp. 60,000
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            1
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Rp. 60,000
-                                        </td>
-                                        <td style="font-size: 11px;" class="text-center">
-                                            <button class="btn btn-warning btn-xs "> X </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px;">
+                                        <td style="font-size: 11px;" colspan="1" class="text-center table-danger">
 
                                         </td>
-                                        <td style="font-size: 11px;">
-                                            <select class="form-control form-control-sm select2">
-                                                <option> </option>
-                                                <option> AIR LISTRIK & INTERNET</option>
-                                                <option> ATK</option>
-                                                <option> ATM</option>
-                                                <option> BBM</option>
-                                                <option> BIAYA ADMINISTRASI</option>
-                                                <option> BIAYA AKOMODASI</option>
-                                                <option> BIAYA BARANG RUSAK</option>
-                                                <option> BIAYA BARANG SAMPLE</option>
-                                                <option> BIAYA KAPAL</option>
-                                                <option> BIAYA KIRIM & PAKET</option>
-                                                <option> BIAYA RETUR BARANG</option>
-                                                <option> BPJS</option>
-                                                <option> ENTERTAINT</option>
-                                                <option> GAJI KARYAWAN</option>
-                                                <option> HAMBA ALLAH</option>
-                                                <option> INSENTIF KARYAWAN & THR</option>
-                                                <option> INVENTARIS KANTOR</option>
-                                                <option> JASA SERVIS</option>
-                                                <option> KOORDINASI</option>
-                                                <option> LAIN - LAIN</option>
-                                                <option> MBAK YULI</option>
-                                                <option> OFFICE </option>
-                                                <option> OVERPRICE</option>
-                                                <option> PAJAK SURAT SURAT & KENDARAAN</option>
-                                                <option> PENGELUARAN OPERASIONAL SALESMAN </option>
-                                                <option> PENGINAPAN</option>
-                                                <option> PERBAIKAN & PERAWATAN KENDARAAN</option>
-                                                <option> PINJAMAN KARYAWAN</option>
-                                            </select>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <input type="text" class="form-control form-control-sm">
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <input type="text" class="form-control form-control-sm">
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <input type="text" class="form-control form-control-sm">
-                                        </td>
-                                        <td style="font-size: 11px;" class="text-center">
-                                            <button class="btn btn-primary btn-xs "> S </button>
+                                        <td style="font-size: 11px;" colspan="2" class="table-danger">
+                                            <?= "Rp " . number_format($total, 0, ',', '.') ?>
                                         </td>
                                     </tr>
+                                    <!-- <tr>
+                                        <form action="<? //= base_url('/akk/keuangan/spending_operational') 
+                                                        ?>"
+                                            method="POST">
+                                            <td></td>
+                                            <td style="font-size: 11px;">
+                                                <select class="form-control form-control-sm select2"
+                                                    name="ket_pengeluaran">
+                                                    <option> </option>
+                                                    <option> AIR LISTRIK & INTERNET</option>
+                                                    <option> ATK</option>
+                                                    <option> ATM</option>
+                                                    <option> BBM</option>
+                                                    <option> BIAYA ADMINISTRASI</option>
+                                                    <option> BIAYA AKOMODASI</option>
+                                                    <option> BIAYA BARANG RUSAK</option>
+                                                    <option> BIAYA BARANG SAMPLE</option>
+                                                    <option> BIAYA KAPAL</option>
+                                                    <option> BIAYA KIRIM & PAKET</option>
+                                                    <option> BIAYA RETUR BARANG</option>
+                                                    <option> BPJS</option>
+                                                    <option> ENTERTAINT</option>
+                                                    <option> GAJI KARYAWAN</option>
+                                                    <option> HAMBA ALLAH</option>
+                                                    <option> INSENTIF KARYAWAN & THR</option>
+                                                    <option> INVENTARIS KANTOR</option>
+                                                    <option> JASA SERVIS</option>
+                                                    <option> KOORDINASI</option>
+                                                    <option> LAIN - LAIN</option>
+                                                    <option> MBAK YULI</option>
+                                                    <option> OFFICE </option>
+                                                    <option> OVERPRICE</option>
+                                                    <option> PAJAK SURAT SURAT & KENDARAAN</option>
+                                                    <option> PENGELUARAN OPERASIONAL SALESMAN </option>
+                                                    <option> PENGINAPAN</option>
+                                                    <option> PERBAIKAN & PERAWATAN KENDARAAN</option>
+                                                    <option> PINJAMAN KARYAWAN</option>
+                                                </select>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <input type="text" id="pay" name="nominal"
+                                                    class="form-control form-control-sm">
+                                                <input type="hidden" class="form-control form-control-sm"
+                                                    name="id_sales" value="<?= $model['id_sales'] ?>" readonly>
+                                                <input type="hidden" class="form-control form-control-sm"
+                                                    name="id_pengeluaran_sales"
+                                                    value="<?= $model['id_pengeluaran_sales'] ?>" readonly>
+
+                                            </td>
+                                            <td style="font-size: 11px;" class="text-center">
+                                                <button type="submit" class="btn btn-primary btn-xs "> S </button>
+                                            </td>
+                                        </form>
+                                    </tr> -->
+
                                 </tbody>
                             </table>
                         </div>

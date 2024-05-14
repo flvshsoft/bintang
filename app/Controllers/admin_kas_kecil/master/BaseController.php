@@ -96,6 +96,8 @@ abstract class BaseController extends Controller
         $this->mdWeek = model('weekModel', true, $this->db);
         $this->mdNotaPutihSalesmanSave = model('notaPutihSalesmanSaveModel', true, $this->db);
         $this->mdPengeluaranDetailSales = model('pengeluaranDetailSalesModel', true, $this->db);
+        $this->mdPiutangUsahaRiwayat = model('riwayatPiutangUsahaModel', true, $this->db);
+
         // $this->session = \Config\Services::session();
     }
 }

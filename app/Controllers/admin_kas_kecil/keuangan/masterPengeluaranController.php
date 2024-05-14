@@ -80,7 +80,28 @@ class masterPengeluaranController extends BaseController
             ->join('pengeluaran_sales', 'pengeluaran_sales.id_pengeluaran_sales=pengeluaran_detail_sales.id_pengeluaran_sales')
             ->join('user', 'user.id_user=pengeluaran_detail_sales.id_user')
             ->join('partner', 'partner.id_partner=pengeluaran_sales.id_partner')
+            ->join('area', 'area.id_area=pengeluaran_sales.id_area')
             ->find()[0];
+        $j = $this->mdPengeluaranDetailSales
+            ->where('pengeluaran_detail_sales.id_branch', Session('userData')['id_branch'])
+            ->where('id_pengeluaran_detail_sales', $id_pengeluaran_detail_sales)
+            ->join('pengeluaran_sales', 'pengeluaran_sales.id_pengeluaran_sales=pengeluaran_detail_sales.id_pengeluaran_sales')
+            ->find();
+        $id_pengeluaran_sales = $j[0]['id_pengeluaran_sales'];
+
+        $data['mod'] = $this->mdPengeluaranSales
+            ->select(['*', 'pengeluaran_sales.created_at as created_at'])
+            ->where('pengeluaran_sales.id_branch', Session('userData')['id_branch'])
+            ->where('pengeluaran_sales.id_pengeluaran_sales', $id_pengeluaran_sales)
+            ->join('pengeluaran_detail_sales', 'pengeluaran_detail_sales.id_pengeluaran_sales=pengeluaran_sales.id_pengeluaran_sales')
+            ->find();
+
+        $total = 0;
+        foreach ($data['mod'] as $value) {
+            $total += $value['nominal'];
+        }
+        $data['total'] = $total;
+
         return view('admin_kas_kecil/keuangan/master_pengeluaran/edit', $data);
     }
 

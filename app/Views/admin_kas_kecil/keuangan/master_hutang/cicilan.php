@@ -19,14 +19,43 @@
             <div class="col-md-8 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
+                        <?php if (session()->getFlashdata("berhasil")) { ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <?= session()->getFlashdata("berhasil") ?>
+                        </div>
+                        <?php } ?>
                         <?php if (session()->getFlashdata("kurang_saldo")) { ?>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             <?= session()->getFlashdata("kurang_saldo") ?>
                         </div>
                         <?php } ?>
+                        <?php if (session()->getFlashdata("Lebih_Input")) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <?= session()->getFlashdata("Lebih_Input") ?>
+                        </div>
+                        <?php } ?>
+
                         <form class="forms-sample" method="POST"
                             action="<?= base_url('/akk/keuangan/master_hutang/cicilan') ?>">
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Jumlah Piutang</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" readonly
+                                        value="<?= number_format($model['jumlah_piutang'], 0, ',', '.') ?>"
+                                        name="jumlah_piutang">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Input Cicilan</label>
+                                <div class="col-sm-9">
+                                    <input type="text" id="pay" class="form-control" value="0" name="cicilan">
+                                    <input type="hidden" class="form-control" value="<?= $model['id_piutang_usaha'] ?>"
+                                        name="id_piutang_usaha">
+                                </div>
+                            </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Bank</label>
                                 <div class="col-sm-9">
@@ -39,22 +68,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row mb-4">
-                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Input Cicilan</label>
-                                <div class="col-sm-9">
-                                    <input type="text" id="pay" class="form-control" value="0" name="cicilan">
-                                    <input type="hidden" class="form-control" value="<?= $model['id_piutang_usaha'] ?>"
-                                        name="id_piutang_usaha">
-                                </div>
-                            </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Jumlah Piutang</label>
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Keterangan</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly
-                                        value="<?php
-                                                                                            $jumlah = $model['jumlah_piutang'] - $model['jumlah_cicilan'];
-                                                                                            echo 'Rp ' . number_format($jumlah, 0, '.', '.') ?>"
-                                        name="jumlah_piutang">
+                                    <input type="text" class="form-control" name="ket_riwayat">
                                 </div>
                             </div>
 
