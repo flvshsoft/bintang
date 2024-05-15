@@ -71,7 +71,7 @@
                                     <?php $no = 1;
                                     foreach ($model as $value) {
                                         $dateString = $value['created_at'];
-                                        $total = $value['jumlah_piutang'] - $value['jumlah_cicilan'];
+                                        // $total = $value['jumlah_piutang'] - $value['jumlah_cicilan'];
                                         $dateTime = new DateTime($dateString);
                                         $formattedDate = $dateTime->format('d F Y H:i:s');
                                     ?>
@@ -96,7 +96,7 @@
                                             <?= $value['id_purchase_order'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            <?= 'Rp ' . number_format($total, 0, '.', '.') ?>
+                                            <?= 'Rp ' . number_format($value['jumlah_piutang'], 0, '.', '.') ?>
                                         </td>
                                         <td style="font-size: 11px;">
                                             <?= $formattedDate ?>

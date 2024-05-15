@@ -73,6 +73,8 @@ $routes->post('/akk/update_customer', 'admin_kas_kecil\master\customerController
 //transaksi
 $routes->get('/akk/transaksi', 'admin_kas_kecil\transaksiController::index');
 $routes->get('/akk/transaksi/ambil_barang', 'admin_kas_kecil\transaksi\AmbilBarangController::index');
+$routes->get('/akk/transaksi/ambil_barang/riwayat/detail/(:any)', 'admin_kas_kecil\transaksi\AmbilBarangController::riwayat_detail/$1');
+$routes->get('/akk/transaksi/ambil_barang/riwayat', 'admin_kas_kecil\transaksi\AmbilBarangController::riwayat');
 $routes->get('/akk/transaksi/penjualan_barang', 'admin_kas_kecil\transaksi\AmbilBarangController::tambah');
 $routes->post('/akk/transaksi/save_penjualan_barang', 'admin_kas_kecil\transaksi\AmbilBarangController::input');
 $routes->get('/akk/transaksi/hapus_penjualan_barang/(:any)', 'admin_kas_kecil\transaksi\AmbilBarangController::hapus/$1');

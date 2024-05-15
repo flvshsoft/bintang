@@ -57,21 +57,49 @@ class masterHutangController extends BaseController
     {
         $jumlah_piutang =  str_replace('.', '', $this->request->getPost('jumlah_piutang'));
         $jumlah_piutang = (int) str_replace(',', '', $jumlah_piutang);
-        $data = [
-            'id_supplier' => $this->request->getPost('id_supplier'),
-            'tgl_piutang' => $this->request->getPost('tgl_piutang'),
-            'type_piutang' => 'Usaha',
-            'status' => 0,
-            'jenis' => 'Manual',
-            'minggu-ke' => $this->request->getPost('minggu-ke'),
-            'jumlah_piutang' => $jumlah_piutang,
-            'jumlah_cicilan' => 0,
-            'id_branch' => Session('userData')['id_branch'],
-            'id_user' => Session('userData')['id_user'],
-        ];
-        $this->mdPiutangUsaha->save($data);
+
+        $id_supplier = $this->request->getPost('id_supplier');
+        $tgl_piutang = $this->request->getPost('tgl_piutang');
+        $minggu_ke = $this->request->getPost('minggu-ke');
+        $id_branch = Session('userData')['id_branch'];
+        $id_user = Session('userData')['id_user'];
+
+        // Cek apakah id_supplier sudah ada di database
+        $existingData = $this->mdPiutangUsaha->where('id_supplier', $id_supplier)->first();
+
+        if ($existingData) {
+            // Update jumlah_piutang yang sudah ada
+            $newJumlahPiutang = $existingData['jumlah_piutang'] + $jumlah_piutang;
+            $this->mdPiutangUsaha->update($existingData['id_piutang_usaha'], [
+                'jumlah_piutang' => $newJumlahPiutang,
+                'tgl_piutang' => $tgl_piutang,
+                'minggu-ke' => $minggu_ke,
+                // 'id_branch' => $id_branch,
+                'id_user' => $id_user,
+                'status' => 0,
+                // 'jenis' => 'Manual',
+                // 'type_piutang' => 'Usaha',
+            ]);
+        } else {
+            // Insert data baru jika id_supplier tidak ada
+            $data = [
+                'id_supplier' => $id_supplier,
+                'tgl_piutang' => $tgl_piutang,
+                'type_piutang' => 'Usaha',
+                'status' => 0,
+                'jenis' => 'Manual',
+                'minggu-ke' => $minggu_ke,
+                'jumlah_piutang' => $jumlah_piutang,
+                'jumlah_cicilan' => 0,
+                'id_branch' => $id_branch,
+                'id_user' => $id_user,
+            ];
+            $this->mdPiutangUsaha->save($data);
+        }
+
         return redirect()->to(base_url('/akk/keuangan/master_hutang'));
     }
+
     public function hapus($id_piutang_usaha)
     {
         $delete = $this->mdPiutangUsaha->delete($id_piutang_usaha);

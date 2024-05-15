@@ -15,9 +15,10 @@ class TagihanBaruController extends BaseController
             ->join('asset', 'asset.id_asset=sales.id_asset')
             ->join('sales_detail', 'sales_detail.id_sales=sales.id_sales', 'left')
             ->where('sales.id_branch', Session('userData')['id_branch'])
+            //->where('deleted_at', NULL)
             ->orderBy('sales.id_sales', 'DESC')
             ->groupBy('sales.id_sales')
-            // ->having('total_jumlah_sales !=', 0)
+            ->having('total_jumlah_sales !=', 0)
             ->findAll();
         return view('admin_kas_kecil/transaksi/tagihan_baru/index', $data);
     }
