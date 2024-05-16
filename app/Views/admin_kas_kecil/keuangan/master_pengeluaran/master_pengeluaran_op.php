@@ -29,6 +29,7 @@
                                     <tr>
                                         <th style="font-size: 11px;"> Kode Trans</th>
                                         <th style="font-size: 11px;"> No. DO </th>
+                                        <th style="font-size: 11px;"> Salesman </th>
                                         <th style="font-size: 11px;"> Minggu </th>
                                         <th style="font-size: 11px;"> Keterangan </th>
                                         <th style="font-size: 11px;"> Biaya</th>
@@ -49,6 +50,9 @@
                                         </td>
                                         <td style="font-size: 11px;">
                                             <?= $value['id_sales'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['nama_lengkap'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
                                             <?= $value['minggu_pengeluaran_sales'] ?>
