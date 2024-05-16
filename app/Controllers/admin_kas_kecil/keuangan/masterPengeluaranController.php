@@ -30,6 +30,18 @@ class masterPengeluaranController extends BaseController
             ->join('user', 'user.id_user=pengeluaran_sales.id_user')
             ->join('area', 'area.id_area=pengeluaran_sales.id_area')
             ->find()[0];
+        $data['pengeluaran'] = $this->mdPengeluaranDetailSales
+            //->select(['*', 'pengeluaran_sales_detail.created_at as created_at'])
+            ->where('pengeluaran_detail_sales.id_branch', Session('userData')['id_branch'])
+            ->where('pengeluaran_detail_sales.id_pengeluaran_sales', $id_pengeluaran_sales)
+            ->join('pengeluaran_sales', 'pengeluaran_sales.id_pengeluaran_sales=pengeluaran_detail_sales.id_pengeluaran_sales')
+            ->find();
+
+        $total = 0;
+        foreach ($data['pengeluaran'] as $value) {
+            $total += $value['nominal'];
+        }
+        $data['total'] = $total;
         return view('admin_kas_kecil/keuangan/master_pengeluaran/spending_operational', $data);
     }
 
@@ -38,6 +50,13 @@ class masterPengeluaranController extends BaseController
         $nominal =  str_replace('.', '', $this->request->getPost('nominal'));
         $nominal = (int) str_replace(',', '', $nominal);
         $id_pengeluaran_sales = $this->request->getPost('id_pengeluaran_sales');
+        $bank = $this->mdBank
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->where('nama_bank', 'KAS KECIL')
+            ->find();
+        $id_bank = $bank[0]['id_bank'];
+        $saldo = $bank[0]['saldo'];
+        $nama_bank = $bank[0]['nama_bank'];
 
         $data = [
             'id_pengeluaran_sales' => $id_pengeluaran_sales,
@@ -46,12 +65,12 @@ class masterPengeluaranController extends BaseController
             'ket_pengeluaran' => $this->request->getPost('ket_pengeluaran'),
             'nominal' => $nominal,
         ];
-
-        $tambah = $this->mdPengeluaranDetailSales->save($data);
-        if ($tambah) {
+        if ($nominal <= $saldo) {
+            $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $nominal);
+            $this->mdPengeluaranDetailSales->save($data);
             session()->setFlashdata("berhasil", "Berhasil Membayar");
         } else {
-            'Gagal';
+            session()->setFlashdata("gagal", "Gagal Bayar, Saldo " . $nama_bank . " tidak cukup");
         }
         return redirect()->to(base_url('/akk/keuangan/spending_operational/' . $id_pengeluaran_sales));
     }
@@ -103,6 +122,24 @@ class masterPengeluaranController extends BaseController
         $data['total'] = $total;
 
         return view('admin_kas_kecil/keuangan/master_pengeluaran/edit', $data);
+    }
+
+    public function spending_operational_hapus($id_pengeluaran_detail_sales, $id_pengeluaran_sales, $total)
+    {
+        $bank = $this->mdBank
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->where('nama_bank', 'KAS KECIL')
+            ->find();
+        $id_bank = $bank[0]['id_bank'];
+        $this->mdBank->where('id_bank', $id_bank)->increment('saldo', $total);
+
+        $delete = $this->mdPengeluaranDetailSales->delete($id_pengeluaran_detail_sales);
+        if ($delete) {
+            session()->setFlashdata("berhasil2", "Berhasil Menghapus Data");
+            return redirect()->to(base_url('/akk/keuangan/spending_operational/' . $id_pengeluaran_sales));
+        } else {
+            echo 'Gagal menghapus data.';
+        }
     }
 
     public function uang_kas_kecil(): string

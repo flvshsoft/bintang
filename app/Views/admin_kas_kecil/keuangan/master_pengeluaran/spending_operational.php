@@ -53,17 +53,19 @@
                                         value="<?= $model['minggu_pengeluaran_sales'] ?>" disabled>
                                 </div>
                             </div>
-                            <div class="form-group row mb-2">
+                            <!-- <div class="form-group row mb-2">
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Detail
                                     Keterangan</label>
                                 <div class="col-sm-9">
                                     <textarea class="form-control form-control-sm"
-                                        rows="3"><?= $model['keterangan_pengeluaran_sales'] ?></textarea>
+                                        rows="3"><? //= $model['keterangan_pengeluaran_sales'] 
+                                                    ?></textarea>
                                 </div>
-                            </div>
+                            </div> -->
                             <?php $dateString = $model['created_at'];
                             $dateTime = new DateTime($dateString);
-                            $formattedDate = $dateTime->format('d F Y H:i:s'); ?>
+                            $formattedDate = $dateTime->format('d F Y H:i:s');
+                            ?>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Tgl
                                     DO</label>
@@ -72,12 +74,18 @@
                                         value="<?= $formattedDate; ?>">
                                 </div>
                             </div>
-
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Total
+                                    Pengeluaran</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm"
+                                        id="exampleInputConfirmPassword2"
+                                        value="<?= "Rp " . number_format($total, 0, ',', '.') ?>" readonly>
+                                </div>
+                            </div>
                             <div class="form-group text-center mb-0">
                                 <a href="<?= base_url('/akk/keuangan/master_pengeluaran') ?>"
                                     class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
-                                <button type="submit" class="btn btn-warning btn-xs"><i
-                                        class="mdi mdi-content-save-all icon-sm"></i> TRANSASCT</button>
                             </div>
                         </form><br>
                         <?php if (session()->getFlashdata("berhasil")) { ?>
@@ -86,19 +94,34 @@
                             <?= session()->getFlashdata("berhasil") ?>
                         </div>
                         <?php } ?>
+                        <?php if (session()->getFlashdata("berhasil2")) { ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <?= session()->getFlashdata("berhasil2") ?>
+                        </div>
+                        <?php } ?>
+                        <?php if (session()->getFlashdata("gagal")) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <?= session()->getFlashdata("gagal") ?>
+                        </div>
+                        <?php } ?>
                         <div class="table-responsive">
-                            <table class="table" width="100%" cellspacing="0">
+                            <table class="table table-striped" width="100%" cellspacing="0" id="dataTable">
                                 <thead class="table table-primary">
                                     <tr>
+                                        <th style="font-size: 11px;"> </th>
                                         <th style="font-size: 11px;"> KETERANGAN PENGELUARAN</th>
                                         <th style="font-size: 11px;"> BIAYA PENGELUARAN </th>
-                                        <th style="font-size: 11px;"> </th>
+                                        <th style="font-size: 11px;"> AKSI</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <form action="<?= base_url('/akk/keuangan/spending_operational') ?>"
                                             method="POST">
+                                            <td>
+                                            </td>
                                             <td style="font-size: 11px;">
                                                 <select class="form-control form-control-sm select2"
                                                     name="ket_pengeluaran">
@@ -148,6 +171,26 @@
                                             </td>
                                         </form>
                                     </tr>
+                                    <?php foreach ($pengeluaran as $value) { ?>
+                                    <tr>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['id_pengeluaran_detail_sales'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['ket_pengeluaran'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= "Rp " . number_format($value['nominal'], 0, ',', '.') ?>
+                                        </td>
+
+                                        <td style="font-size: 11px;" class="text-center">
+                                            <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
+                                                href="<?= base_url('/akk/keuangan/spending_operational/hapus/' . $value['id_pengeluaran_detail_sales'] . '/' . $value['id_pengeluaran_sales'] . '/' . $value['nominal']) ?>">
+                                                <i class="mdi mdi-delete-circle icon-md text-default"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>

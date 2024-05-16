@@ -11,7 +11,8 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">KEUANGAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/master_pengeluaran') ?>">PENGELUARAN</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="<?= base_url('/akk/keuangan/master_pengeluaran') ?>">PENGELUARAN</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
                         <?= $judul1 ?>
                     </li>
@@ -33,7 +34,7 @@
                                         <th style="font-size: 11px;"> Biaya</th>
                                         <th style="font-size: 11px;"> User</th>
                                         <th style="font-size: 11px;"> Tanggal</th>
-                                        <th style="font-size: 11px;"> </th>
+                                        <!-- <th style="font-size: 11px;"> </th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,38 +43,39 @@
                                         $datetime = new DateTime($string_tanggal_waktu);
                                         $tanggal_waktu_php = $datetime->format('d F Y H:i:s');
                                     ?>
-                                        <tr>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['id_pengeluaran_detail_sales'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['id_sales'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['minggu_pengeluaran_sales'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?php if ($value['ket_pengeluaran'] == "PENGELUARAN OPERASIONAL SALESMAN") { ?>
-                                                    <?= $value['ket_pengeluaran'] ?> : <?= $value['nama_salesman'] ?>
-                                                <?php } else { ?>
-                                                    <?= $value['ket_pengeluaran'] ?>
-                                                <?php } ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= 'Rp ' . number_format($value['nominal'], 0, '.', '.') ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['nama_user'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $tanggal_waktu_php ?>
-                                            </td>
-                                            <td style="font-size: 11px;" class="text-center">
-                                                <a href="<?= base_url('/akk/keuangan/master_pengeluaran_op/edit/' . $value['id_pengeluaran_detail_sales']) ?>">
+                                    <tr>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['id_pengeluaran_detail_sales'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['id_sales'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['minggu_pengeluaran_sales'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?php if ($value['ket_pengeluaran'] == "PENGELUARAN OPERASIONAL SALESMAN") { ?>
+                                            <?= $value['ket_pengeluaran'] ?> : <?= $value['nama_salesman'] ?>
+                                            <?php } else { ?>
+                                            <?= $value['ket_pengeluaran'] ?>
+                                            <?php } ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= 'Rp ' . number_format($value['nominal'], 0, '.', '.') ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['nama_user'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $tanggal_waktu_php ?>
+                                        </td>
+                                        <!-- <td style="font-size: 11px;" class="text-center">
+                                            <a href="<? //= base_url('/akk/keuangan/master_pengeluaran_op/edit/' . $value['id_pengeluaran_detail_sales']) 
+                                                        ?>">
                                                     <i class="mdi mdi-pencil-circle icon-md"></i>
                                                 </a>
-                                            </td>
-                                        </tr>
+                                        </td> -->
+                                    </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -86,22 +88,22 @@
 </div>
 
 <style>
-    .menu-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 12px;
-    }
+.menu-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
 
-    .menu-item a {
-        display: flex;
-        align-items: start;
-        text-decoration: none;
-        color: black;
-    }
+.menu-item a {
+    display: flex;
+    align-items: start;
+    text-decoration: none;
+    color: black;
+}
 
-    .menu-item i {
-        margin-right: 10px;
-    }
+.menu-item i {
+    margin-right: 10px;
+}
 </style>
 
 <?= $this->endSection() ?>

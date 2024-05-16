@@ -289,6 +289,7 @@ $routes->get('/akk/akun/edit/(:any)', 'admin_kas_kecil\akunController::akun_edit
 $routes->get('/akk/akun/hapus/(:any)', 'admin_kas_kecil\akunController::hapus/$1');
 
 $routes->get('/akk/keuangan/master_pengeluaran', 'admin_kas_kecil\keuangan\masterPengeluaranController::index');
+$routes->get('/akk/keuangan/spending_operational/hapus/(:any)', 'admin_kas_kecil\keuangan\masterPengeluaranController::spending_operational_hapus/$1');
 $routes->get('/akk/keuangan/spending_operational/(:any)', 'admin_kas_kecil\keuangan\masterPengeluaranController::spending_operational/$1');
 $routes->post('/akk/keuangan/spending_operational', 'admin_kas_kecil\keuangan\masterPengeluaranController::spending_operational_insert');
 $routes->get('/akk/keuangan/master_pengeluaran_op', 'admin_kas_kecil\keuangan\masterPengeluaranController::master_pengeluaran_op');
