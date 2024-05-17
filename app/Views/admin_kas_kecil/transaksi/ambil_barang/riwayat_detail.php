@@ -61,29 +61,29 @@
                                 <tbody>
                                     <?php $no = 1;
                                     foreach ($model as $value) { ?>
-                                    <tr>
-                                        <td><?= $no; ?></td>
-                                        <td>
-                                            <?= $value['id_sales'] ?>
-                                        </td>
-                                        <td>
-                                            <b>
-                                                <?= $value['id_sales_detail'] ?>
-                                            </b>
-                                        </td>
-                                        <td>
-                                            <?= $value['nama_lengkap'] ?>
-                                        </td>
-                                        <td>
-                                            <?= $value['nama_product'] ?>
-                                        </td>
-                                        <td><?= number_format($value['satuan_sales_detail']) ?></td>
-                                        <td><?= $value['created_at'] ?></td>
-                                        <!-- <td> <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
+                                        <tr>
+                                            <td><?= $no; ?></td>
+                                            <td>
+                                                <?= $value['id_sales'] ?>
+                                            </td>
+                                            <td>
+                                                <b>
+                                                    <?= $value['id_sales_detail'] ?>
+                                                </b>
+                                            </td>
+                                            <td>
+                                                <?= $value['nama_lengkap'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $value['nama_product'] ?>
+                                            </td>
+                                            <td><?= number_format($value['satuan_sales_detail']) ?></td>
+                                            <td><?= $value['created_at'] ?></td>
+                                            <!-- <td> <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
                                                 href="<? //= base_url('/akk/transaksi/ambil_barang/detail/hapus/' . $value['id_sales_detail'] . '/' .  $value['id_sales'] . '/' .  $value['satuan_sales_detail']) 
                                                         ?>">
                                                 <i class="mdi mdi-delete-circle text-default icon-md"></i> </a></td> -->
-                                    </tr>
+                                        </tr>
                                     <?php $no++;
                                     } ?>
                                 </tbody>
@@ -93,6 +93,7 @@
                 </div>
             </div>
         </div>
+        <a href="<?= base_url('/akk/transaksi/ambil_barang/riwayat') ?>" class="btn btn-warning btn-xs" name="btn_s">Kembali</a>
     </div>
 </div>
 

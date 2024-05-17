@@ -34,7 +34,7 @@
                                         <th style="font-size: 11px;"> Approved By </th>
                                         <th style="font-size: 11px;"> Date </th>
                                         <th style="font-size: 11px;"> User </th>
-                                        <th style="font-size: 11px;"> </th>
+                                        <!-- <th style="font-size: 11px;"> </th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -78,9 +78,9 @@
                                         <td style="font-size: 11px;">
                                             <?= $value['nama_user'] ?>
                                         </td>
-                                        <td style="font-size: 11px;">
+                                        <!-- <td style="font-size: 11px;">
 
-                                        </td>
+                                        </td> -->
                                     </tr>
                                     <?php
                                     } ?>

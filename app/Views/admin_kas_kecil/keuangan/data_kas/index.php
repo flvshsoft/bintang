@@ -80,7 +80,9 @@
                                                 <?= $value['nama_user'] ?>
                                             </td>
                                             <td style="font-size: 11px;">
-                                                <a href="<?= base_url('/akk/keuangan/data_kas/hapus/' . $value['id_kas'] . '/' . $value['id_sales'] . '/' . $value['id_customer'] . '/' . $value['uang_kas']) ?>"><i class="mdi mdi-delete-forever icon-md"></i></a>
+                                                <!-- <a href="<? //= base_url('/akk/keuangan/data_kas/hapus/' . $value['id_kas'] . '/' . $value['id_sales'] . '/' . $value['id_customer'] . '/' . $value['uang_kas']) 
+                                                                ?>"><i class="mdi mdi-delete-forever icon-md"></i></a> -->
+                                                <a href="<?= base_url('/akk/keuangan/data_kas/hapus/' . $value['id_kas'] . '/' . ($value['id_sales'] ?? '0') . '/' . ($value['id_customer'] ?? '0') . '/' . $value['uang_kas'] . '/' . $value['id_bank']) ?>"><i class="mdi mdi-delete-forever icon-md"></i></a>
                                                 <a href="<?= base_url('/akk/keuangan/data_kas/voucher') ?>"><i class="mdi mdi-credit-card icon-md"></i></a>
                                             </td>
                                         </tr>
@@ -149,7 +151,7 @@ function tgl_indo($tanggal)
     $nama_hari = date('w', strtotime($tanggal));
     $nama_hari = $hari[$nama_hari];
 
-    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
+    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int) $pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
 
     if ($waktu !== null) {
         $result .= ' ' . $waktu;

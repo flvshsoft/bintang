@@ -11,6 +11,8 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>"> Beranda </a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi') ?>"> Transaksi</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi/ambil_barang') ?>"> Ambil
+                            Barang</a></li>
                     <li class="breadcrumb-item active" aria-current="page"> <?= $judul1 ?></li>
                 </ol>
             </nav>
@@ -80,7 +82,7 @@
                                         <td>
                                             <a href="<?= base_url('/akk/transaksi/ambil_barang/riwayat/detail/' . $value['id_sales'])
                                                             ?>">
-                                                <i class="mdi mdi-plus-circle text-default icon-md"></i>
+                                                <i class="mdi mdi-eye text-default icon-md"></i>
                                             </a>
 
                                             <!-- <a
@@ -105,6 +107,7 @@
                 </div>
             </div>
         </div>
+        <a href="<?= base_url('/akk/transaksi/ambil_barang') ?>" class="btn btn-warning btn-xs" name="btn_s">Kembali</a>
     </div>
 </div>
 

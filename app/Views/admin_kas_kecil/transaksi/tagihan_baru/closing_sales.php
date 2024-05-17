@@ -25,7 +25,8 @@
                                 <div class="col-md-8">
                                     <div class="form-group mb-0">
                                         <label class="col-12 col-form-label">MINGGU KE - <?= $model['week'] ?></label>
-                                        <input type="hidden" name="week" class="form-control" value="<?= $model['week'] ?>">
+                                        <input type="hidden" name="week" class="form-control"
+                                            value="<?= $model['week'] ?>">
                                     </div>
                                 </div>
                                 <div class="col-3 pt-4">
@@ -43,8 +44,10 @@
                                         <div class="row form-group">
                                             <h6 class="preview-subject ellipsis mb-0 font-weight-normal">
                                                 NO DO : <?= $model['id_sales'] ?>
-                                                <input type="hidden" name="id_sales" class="form-control" value="<?= $model['id_sales'] ?>">
-                                                <input type="hidden" name="id_nota" class="form-control" value="<?= $model['id_nota'] ?>">
+                                                <input type="hidden" name="id_sales" class="form-control"
+                                                    value="<?= $model['id_sales'] ?>">
+                                                <input type="hidden" name="id_nota" class="form-control"
+                                                    value="<?= $model['id_nota'] ?>">
                                             </h6>
                                         </div>
                                     </div>
@@ -60,7 +63,8 @@
                                         <div class="form-group d-flex">
                                             <label class="col-5 col-form-label">TANGGAL</label>
                                             <div class="col-7">
-                                                <input type="date" disabled name="tgl_bayar" class="form-control" value="<?= date('Y-m-d'); ?>">
+                                                <input type="date" disabled name="tgl_bayar" class="form-control"
+                                                    value="<?= date('Y-m-d'); ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -83,10 +87,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
-                                        $sub_total = 0; 
+                                        <?php
+                                        $sub_total = 0;
                                         $nota_tertagih = 0;
-                                        foreach ($cek_nota as $key => $value) { 
+                                        foreach ($cek_nota as $key => $value) {
                                             $kredit = 0;
                                             $cash = 0;
                                             if ($value['payment_method'] == 'CASH') {
@@ -96,22 +100,24 @@
                                                 $nota_tertagih = $value['pay'];
                                             }
                                             $sub_total += $cash + $kredit;
-                                            ?>
-                                            <tr>
-                                                <td style=" font-size: 11px;"><?= $key + 1 ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['no_nota'] ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['nama_customer'] ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($kredit) ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($cash) ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
-                                                <td style=" font-size: 11px;"> </a>
-                                                    <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales']) ?>">
-                                                        <i class="mdi mdi-database-plus icon-sm"></i>
-                                                    </a>
-                                                </td>
-                                                <input type="hidden" name="cash" class="form-control" value="<?= $cash ?>">
-                                                <input type="hidden" name="kredit" class="form-control" value="<?= $kredit ?>">
-                                            </tr>
+                                        ?>
+                                        <tr>
+                                            <td style=" font-size: 11px;"><?= $key + 1 ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['no_nota'] ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['nama_customer'] ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($kredit) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($cash) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
+                                            <td style=" font-size: 11px;"> </a>
+                                                <a class="btn btn-success btn-xs"
+                                                    href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'].'/'.$value['payment_method']) ?>">
+                                                    <i class="mdi mdi-database-plus icon-sm"></i>
+                                                </a>
+                                            </td>
+                                            <input type="hidden" name="cash" class="form-control" value="<?= $cash ?>">
+                                            <input type="hidden" name="kredit" class="form-control"
+                                                value="<?= $kredit ?>">
+                                        </tr>
                                         <?php }; ?>
                                     </tbody>
                                 </table>
@@ -135,21 +141,21 @@
                                         $total_qty = 0;
                                         $total = 0; ?>
                                         <?php foreach ($product_list['CASH'] as $key => $value) { ?>
-                                            <?php
+                                        <?php
                                             $qty = $value['qty'];
                                             $harga_aktif = $value['harga_aktif'];
                                             $sub_total = $qty * $harga_aktif;
                                             $total_qty += $qty;
                                             $total += $sub_total;
                                             ?>
-                                            <tr>
-                                                <td style=" font-size: 11px;"><?= $no++ ?></td>
-                                                <td style=" font-size: 11px;"><?= $key ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['nama_product'] ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($harga_aktif) ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($qty) ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
-                                            </tr>
+                                        <tr>
+                                            <td style=" font-size: 11px;"><?= $no++ ?></td>
+                                            <td style=" font-size: 11px;"><?= $key ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['nama_product'] ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($harga_aktif) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($qty) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
+                                        </tr>
                                         <?php }; ?>
                                     </tbody>
                                     <tfoot>
@@ -184,21 +190,21 @@
                                         $total_qty = 0;
                                         $total = 0; ?>
                                         <?php foreach ($product_list['KREDIT'] as $key => $value) { ?>
-                                            <?php
+                                        <?php
                                             $qty = $value['qty'];
                                             $harga_aktif = $value['harga_aktif'];
                                             $sub_total = $qty * $harga_aktif;
                                             $total_qty += $qty;
                                             $total += $sub_total;
                                             ?>
-                                            <tr>
-                                                <td style=" font-size: 11px;"><?= $no++ ?></td>
-                                                <td style=" font-size: 11px;"><?= $key ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['nama_product'] ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($harga_aktif) ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($qty) ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
-                                            </tr>
+                                        <tr>
+                                            <td style=" font-size: 11px;"><?= $no++ ?></td>
+                                            <td style=" font-size: 11px;"><?= $key ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['nama_product'] ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($harga_aktif) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($qty) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
+                                        </tr>
                                         <?php }; ?>
                                     </tbody>
                                     <tfoot>
@@ -217,8 +223,8 @@
                             <!-- tabel -->
                             <h3>TOTAL</h3>
                             <?php
-                                $totalList['Nota Tertagih'] = $nota_tertagih;
-                                ?>
+                            $totalList['Nota Tertagih'] = $nota_tertagih;
+                            ?>
                             <div class="table-responsive">
                                 <table class="table table-striped" width="100%" height="88%" cellspacing="0">
                                     <thead class="table table-success">
@@ -232,14 +238,14 @@
                                         <?php $no = 1;
                                         $total = 0; ?>
                                         <?php foreach ($totalList as $key => $value) { ?>
-                                            <?php
+                                        <?php
                                             $total += $value;
                                             ?>
-                                            <tr>
-                                                <td style=" font-size: 11px;"><?= $no++ ?></td>
-                                                <td style=" font-size: 11px;"><?= $key ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($value) ?></td>
-                                            </tr>
+                                        <tr>
+                                            <td style=" font-size: 11px;"><?= $no++ ?></td>
+                                            <td style=" font-size: 11px;"><?= $key ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($value) ?></td>
+                                        </tr>
                                         <?php }; ?>
                                     </tbody>
                                     <tfoot>
@@ -254,11 +260,14 @@
                                 <button type="submit" class="btn btn-gradient-warning btn-rounded btn-fw">
                                     Save
                                 </button>
+                                <a href="<?= base_url('/akk/transaksi/tagihan_baru') ?>"
+                                    class="btn btn-primary btn-rounded btn-fw" name="btn_s">Kembali</a>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -303,7 +312,7 @@
         $nama_hari = date('w', strtotime($tanggal));
         $nama_hari = $hari[$nama_hari];
 
-        $result = $nama_hari . ', ' . $pecahkanTanggal[2] . '/' . (int)$pecahkanTanggal[1] . '/' . $pecahkanTanggal[0];
+        $result = $nama_hari . ', ' . $pecahkanTanggal[2] . '/' . (int) $pecahkanTanggal[1] . '/' . $pecahkanTanggal[0];
         // $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
 
         if ($waktu !== null) {

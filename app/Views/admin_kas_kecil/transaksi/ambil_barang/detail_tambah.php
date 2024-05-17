@@ -84,8 +84,8 @@
                                 <div class="col-9">
                                     <div class="form-group mb-0 text-center">
                                         <a href="<?= base_url('/akk/transaksi/ambil_barang/detail/' . $id_sales['id_sales']) ?>"
-                                            class="btn btn-light btn-xs float-start">
-                                            <i class="mdi mdi-backburger"></i> Cancel
+                                            class="btn btn-warning btn-xs float-start">
+                                            <i class="mdi mdi-backburger"></i> Kembali
                                         </a>
                                         <button type="submit" class="btn btn-gradient-success btn-xs float-end"><i
                                                 class="mdi mdi-content-save-all icon-sm"></i> Transasct</button>

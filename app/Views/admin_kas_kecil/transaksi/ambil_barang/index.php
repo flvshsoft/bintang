@@ -83,7 +83,7 @@
                                         <td>
                                             <a
                                                 href="<?= base_url('/akk/transaksi/ambil_barang/detail/' . $value['id_sales']) ?>">
-                                                <i class="mdi mdi-plus-circle text-default icon-md"></i>
+                                                <i class="mdi mdi-eye text-default icon-md"></i>
                                             </a>
 
                                             <a
@@ -106,6 +106,7 @@
                 </div>
             </div>
         </div>
+        <a href="<?= base_url('/akk/transaksi') ?>" class="btn btn-warning btn-xs" name="btn_s">Kembali</a>
     </div>
 </div>
 

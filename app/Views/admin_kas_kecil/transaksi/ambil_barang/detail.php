@@ -37,10 +37,11 @@
                                     href="<?= base_url('/akk/transaksi/ambil_barang/detail/tambah/' . $info['id_sales']) ?>">
                                     <i class="mdi mdi-database-plus btn-icon-prepend"></i> Tambah
                                 </a>
-                                <a class="btn btn-success btn-xs float-end"
-                                    href="<?= base_url('/akk/transaksi/tagihan_baru') ?>">
+                                <!-- <a class="btn btn-success btn-xs float-end"
+                                    href="<? //= base_url('/akk/transaksi/tagihan_baru') 
+                                            ?>">
                                     <i class="mdi mdi-database-plus btn-icon-prepend"></i> Nota
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -94,6 +95,7 @@
                 </div>
             </div>
         </div>
+        <a href="<?= base_url('/akk/transaksi/ambil_barang') ?>" class="btn btn-warning btn-xs" name="btn_s">Kembali</a>
     </div>
 </div>
 

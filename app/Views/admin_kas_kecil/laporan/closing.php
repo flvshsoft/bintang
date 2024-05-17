@@ -53,23 +53,26 @@
                                             }
                                             $sub_total += $cash + $kredit;
                                         ?>
-                                            <tr>
-                                                <td style=" font-size: 11px;"><?= $key + 1 ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['no_nota'] ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['nama_lengkap'] ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['nama_customer'] ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($kredit) ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($cash) ?></td>
-                                                <!-- <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td> -->
-                                                <td style=" font-size: 11px;"><?= $value['status_closing'] == '1' ? 'Closing' : '-' ?></td>
-                                                <td style=" font-size: 11px;"> </a>
-                                                    <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales']) ?>">
-                                                        <i class="mdi mdi-database-plus icon-sm"></i>
-                                                    </a>
-                                                </td>
-                                                <input type="hidden" name="cash" class="form-control" value="<?= $cash ?>">
-                                                <input type="hidden" name="kredit" class="form-control" value="<?= $kredit ?>">
-                                            </tr>
+                                        <tr>
+                                            <td style=" font-size: 11px;"><?= $key + 1 ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['no_nota'] ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['nama_lengkap'] ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['nama_customer'] ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($kredit) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($cash) ?></td>
+                                            <!-- <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td> -->
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['status_closing'] == '1' ? 'Closing' : '-' ?></td>
+                                            <td style=" font-size: 11px;"> </a>
+                                                <a class="btn btn-success btn-xs"
+                                                    href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'].'/'.$value['payment_method']) ?>">
+                                                    <i class="mdi mdi-database-plus icon-sm"></i>
+                                                </a>
+                                            </td>
+                                            <input type="hidden" name="cash" class="form-control" value="<?= $cash ?>">
+                                            <input type="hidden" name="kredit" class="form-control"
+                                                value="<?= $kredit ?>">
+                                        </tr>
                                         <?php }; ?>
                                     </tbody>
                                 </table>

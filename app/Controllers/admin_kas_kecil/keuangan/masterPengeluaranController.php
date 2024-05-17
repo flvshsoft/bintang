@@ -7,17 +7,17 @@ class masterPengeluaranController extends BaseController
     public function index(): string
     {
         $data['judul'] = 'Bintang Distributor';
-        $data['judul1'] = 'MASTER DATA PENGAMBILAN BARANG';
+        $data['judul1'] = 'BIAYA OPERASIONAL';
         $data['model'] = $this->mdPengeluaranSales
-            //->select(['*', 'pengeluaran_sales.created_at as created_at'])
+            ->select(['*', 'pengeluaran_sales.created_at as created_at'])
             ->where('pengeluaran_sales.id_branch', Session('userData')['id_branch'])
-            ->select('pengeluaran_sales.id_sales, pengeluaran_sales.minggu_pengeluaran_sales, area.id_nama_area, pengeluaran_sales.created_at, pengeluaran_sales.keterangan_pengeluaran_sales, pengeluaran_sales.id_pengeluaran_sales,  partner.nama_lengkap, area.nama_area, sales.week, sales.keterangan, sales.tgl_do, SUM(sales_detail.jumlah_sales) AS total_jumlah_sales')
+            //->select('pengeluaran_sales.id_sales, pengeluaran_sales.minggu_pengeluaran_sales, area.id_nama_area, pengeluaran_sales.created_at, pengeluaran_sales.keterangan_pengeluaran_sales, pengeluaran_sales.id_pengeluaran_sales,  partner.nama_lengkap, area.nama_area, sales.week, sales.keterangan, sales.tgl_do, SUM(sales_detail.jumlah_sales) AS total_jumlah_sales')
             ->join('sales', 'sales.id_sales=pengeluaran_sales.id_sales')
             ->join('sales_detail', 'sales_detail.id_sales=sales.id_sales', 'left')
             ->join('partner', 'partner.id_partner=pengeluaran_sales.id_partner')
             ->join('user', 'user.id_user=pengeluaran_sales.id_user')
             ->join('area', 'area.id_area=pengeluaran_sales.id_area')
-            ->having('total_jumlah_sales !=', 0)
+            //->having('total_jumlah_sales !=', 0)
             ->findAll();
         return view('admin_kas_kecil/keuangan/master_pengeluaran/index', $data);
     }

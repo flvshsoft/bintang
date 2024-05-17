@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="template-demo">
-                            <td class="menu-item" style="vertical-align:middle;">
+                            <!-- <td class="menu-item" style="vertical-align:middle;">
                                 <b>
                                     <a style="text-decoration:none;color:black;"
                                         href="<?= base_url('/akk/keuangan/master_app_mutasi') ?>">
@@ -25,7 +25,7 @@
                                         Approval Pembayaran Kas & Bank
                                     </a>
                                 </b>
-                            </td>
+                            </td> -->
                             <hr>
                             <td class="menu-item" style="vertical-align:middle;">
                                 <b>
@@ -66,7 +66,7 @@
                                     </a>
                                 </b>
                             </td>
-                            <hr>
+                            <!-- <hr>
                             <td class="menu-item" style="vertical-align:middle;">
                                 <b>
                                     <a style="text-decoration:none;color:black;"
@@ -75,7 +75,7 @@
                                         Modal Kas Kecil
                                     </a>
                                 </b>
-                            </td>
+                            </td> -->
                             <hr>
                             <td class="menu-item" style="vertical-align:middle;" width="20px">
                                 <b>
@@ -86,7 +86,7 @@
                                     </a>
                                 </b>
                             </td>
-                            <hr>
+                            <!-- <hr>
                             <td class="menu-item" style="vertical-align:middle;">
                                 <b>
                                     <a style="text-decoration:none;color:black;"
@@ -95,123 +95,124 @@
                                         Pencairan Giro
                                     </a>
                                 </b>
-                                <hr>
+                            </td> -->
+                            <hr>
                         </div>
-                        <h4 class="d-flex justify-content-end mb-2">MASTER DATA PENGELUARAN</h4>
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped" id="dataTable" width="100%"
-                                cellspacing="0">
-                                <thead class="table table-primary">
-                                    <tr>
-                                        <th style="font-size: 11px;"> TRANSACT CODE </th>
-                                        <th style="font-size: 11px;"> TYPE BIAYA </th>
-                                        <th style="font-size: 11px;"> REMARK </th>
-                                        <th style="font-size: 11px;"> WEEK </th>
-                                        <th style="font-size: 11px;"> VALUE </th>
-                                        <th style="font-size: 11px;"> CREATE BY </th>
-                                        <th style="font-size: 11px;"> CREATED DATE </th>
-                                        <th style="font-size: 11px;"> APPROVE BY </th>
-                                        <th style="font-size: 11px;"> APPROVE DATE DATE </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            2706688
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Pabrik
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            KAS
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            39
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            22,220,000
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            ADE
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            2023-09-30
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            MAYA
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            2023-09-30 13:40:21
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            2706688
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Pabrik
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            KAS
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            39
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            22,220,000
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            ADE
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            2023-09-30
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            MAYA
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            2023-09-30 13:40:21
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            2706688
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            Pabrik
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            KAS
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            39
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            22,220,000
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            ADE
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            2023-09-30
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            MAYA
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            2023-09-30 13:40:21
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
                     </div>
+                    <!-- <h4 class="d-flex justify-content-end mb-2">MASTER DATA PENGELUARAN</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                            <thead class="table table-primary">
+                                <tr>
+                                    <th style="font-size: 11px;"> TRANSACT CODE </th>
+                                    <th style="font-size: 11px;"> TYPE BIAYA </th>
+                                    <th style="font-size: 11px;"> REMARK </th>
+                                    <th style="font-size: 11px;"> WEEK </th>
+                                    <th style="font-size: 11px;"> VALUE </th>
+                                    <th style="font-size: 11px;"> CREATE BY </th>
+                                    <th style="font-size: 11px;"> CREATED DATE </th>
+                                    <th style="font-size: 11px;"> APPROVE BY </th>
+                                    <th style="font-size: 11px;"> APPROVE DATE DATE </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-size: 11px;">
+                                        2706688
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        Pabrik
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        KAS
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        39
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        22,220,000
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        ADE
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        2023-09-30
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        MAYA
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        2023-09-30 13:40:21
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 11px;">
+                                        2706688
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        Pabrik
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        KAS
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        39
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        22,220,000
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        ADE
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        2023-09-30
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        MAYA
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        2023-09-30 13:40:21
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 11px;">
+                                        2706688
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        Pabrik
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        KAS
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        39
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        22,220,000
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        ADE
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        2023-09-30
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        MAYA
+                                    </td>
+                                    <td style="font-size: 11px;">
+                                        2023-09-30 13:40:21
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> -->
+
                 </div>
             </div>
-            <!--table-->
         </div>
+        <!--table-->
     </div>
+</div>
 </div>
 </div>
 <style>

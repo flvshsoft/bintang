@@ -56,6 +56,7 @@ class terimaBarangController extends BaseController
         $id_po_dan_produk = $this->request->getPost('id_po_dan_produk');
         $satuan = $this->request->getPost('satuan');
 
+        // $po= $this->
         $temp = explode(',', $id_po_dan_produk);
         $id_purchase_order_detail = $temp[0];
         $id_product = $temp[1];
@@ -75,6 +76,7 @@ class terimaBarangController extends BaseController
                 $this->mdProduct->where('id_product', $id_product)->increment('sample', $jumlah_masuk);
             }
             session()->setFlashdata("berhasil", "Berhasil menambahkan stok barang ke" . $satuan);
+            //
         } else if ($jumlah_masuk >= $jumlah_product) {
             session()->setFlashdata("lebih", "Maaf! Input Jumlah dibawah "  . $jumlah_product . " Tidak Mencukupi");
         }

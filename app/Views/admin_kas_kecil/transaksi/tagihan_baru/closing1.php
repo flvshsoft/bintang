@@ -277,7 +277,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 row">
+        <div class="col-md-9 row">
             <a href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' .  $nota['id_sales'] . '/' . 'CASH') ?>"
                 class="btn btn-gradient-danger btn-sm btn-fw float-end w-auto ms-auto">
                 Input Nota CASH Baru
@@ -286,6 +286,8 @@
                 class="btn btn-gradient-primary btn-sm btn-fw float-end w-auto ms-auto">
                 Input Nota KREDIT Baru
             </a>
+            <!-- <a href="<?//= base_url('/akk/transaksi/tagihan_baru/nota/' .  $nota['id_sales'] . '/' .  $nota['payment_method']) ?>" class="btn btn-gradient-warning btn-sm btn-fw float-end w-auto ms-auto" name="btn_s">Kembali</a> -->
+
         </div><br>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php foreach ($cek_nota as $value) {
@@ -317,12 +319,13 @@
                             class="d-flex justify-content-center align-items-center btn btn-primary btn-sm btn-rounded">Cek
                             Detail Nota</a>
                     </div>
-                    <div class="" style="padding:3%">
-                        <a href="<?= base_url('/akk/transaksi/tagihan_baru/nota/hapus/' . $value['id_nota'] . '/' . $nota['payment_method']) ?>"
+                    <!-- <div class="" style="padding:3%">
+                        <a href="<? //= base_url('/akk/transaksi/tagihan_baru/nota/hapus/' . $value['id_nota'] . '/' . $nota['payment_method']) 
+                                    ?>"
                             onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
                             class="d-flex justify-content-center align-items-center btn btn-danger btn-sm btn-rounded">
                             Hapus Nota</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <?php }; ?>

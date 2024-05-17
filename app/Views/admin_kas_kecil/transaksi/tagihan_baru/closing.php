@@ -127,94 +127,15 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="table-responsive d-none">
-                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
-                                <thead class="table table-primary">
-                                    <tr>
-                                        <th style=" font-size: 11px;"> NO </th>
-                                        <th style=" font-size: 11px;"> ITEM - NAMA BARANG </th>
-                                        <th style=" font-size: 11px;"> STOK </th>
-                                        <th style=" font-size: 11px;"> SATUAN </th>
-                                        <th style=" font-size: 11px;"> DISKON </th>
-                                        <th style=" font-size: 11px;"> JUMLAH</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td style=" font-size: 11px;">
-
-                                        </td>
-                                        <td style=" font-size: 11px;">
-
-                                        </td>
-                                        <td style=" font-size: 11px;">
-
-                                        </td>
-                                        <td style=" font-size: 11px;">
-
-                                        </td>
-                                        <td style=" font-size: 11px;">
-
-                                        </td>
-                                        <td style=" font-size: 11px;">
-
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style=" font-size: 11px;">
-
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <select class="form-control" disabled>
-                                                <option> Pilih Produk</option>
-                                                <?php foreach ($sales_detail as $value) { ?>
-                                                <option name="id_product" value="<?= $value['id_product'] ?>">
-                                                    <?= $value['id_product'] ?>
-                                                    -
-                                                    <?= $value['nama_product'] ?>
-                                                    -
-                                                    <?= $value['satuan_sales_detail'] ?>
-                                                </option>
-                                                <?php } ?>
-                                            </select>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-
-                                        </td>
-                                        <td>
-                                            <input disabled type="text" class="form-control form-control-sm">
-                                        </td>
-
-                                        <td style=" font-size: 11px;">
-                                            <input disabled type="text" class="form-control">
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <button disabled type="submit" class="btn btn-primary btn-xs"><i
-                                                    class="mdi mdi-content-save-all icon-xs"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tfoot class="table-info">
-                                    <tr>
-                                        <td style=" font-size: 11px;" colspan="4">
-                                            <b>Total Rp:</b>
-                                        </td>
-                                        <td style=" font-size: 11px;" colspan="2">
-                                            <b><?= "" ?></b>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div><br>
-                        <div class="row justify-content-right">
-
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="col-md-3 row">
+            <a href="<?= base_url('/akk/transaksi/tagihan_baru') ?>"
+                class="btn btn-gradient-warning btn-sm btn-fw float-end w-auto ms-auto" name="btn_s">Kembali</a>
+        </div>
+        <br>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php foreach ($cek_nota as $value) {
                 $string_tanggal_waktu = $value['created_at'];
@@ -241,16 +162,18 @@
                             class="d-flex justify-content-center align-items-center btn btn-primary btn-sm btn-rounded">Cek
                             Detail Nota</a>
                     </div>
-                    <div class="" style="padding:3%">
-                        <a href="<?= base_url('/akk/transaksi/tagihan_baru/nota/hapus/' . $value['id_nota'] . '/' . $payment_method) ?>"
+                    <!-- <div class="" style="padding:3%">
+                        <a href="<? //= base_url('/akk/transaksi/tagihan_baru/nota/hapus/' . $value['id_nota'] . '/' . $payment_method) 
+                                    ?>"
                             onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
                             class="d-flex justify-content-center align-items-center btn btn-danger btn-sm btn-rounded">
                             Hapus Nota</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <?php }; ?>
         </div>
+
     </div>
 </div>
 

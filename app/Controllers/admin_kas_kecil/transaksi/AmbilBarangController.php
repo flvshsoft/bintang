@@ -228,7 +228,7 @@ class AmbilBarangController extends BaseController
         $barang = $this->mdProduct->where('id_product', $id_product)->find();
         $stock_product = $barang[0]['stock_product'];
         //1000                <    998 +1
-        if ($satuan_sales_detail < $stock_product + 1) {
+        if ($satuan_sales_detail <= $stock_product) {
             $data = [
                 'id_sales' => $id_sales,
                 'id_product' => $id_product,
@@ -237,7 +237,7 @@ class AmbilBarangController extends BaseController
             ];
             $this->mdSalesDetail->insert($data);
             $this->mdProduct->where('id_product', $id_product)->decrement('stock_product', $satuan_sales_detail);
-        } else if ($satuan_sales_detail > $stock_product + 1) {
+        } else if ($satuan_sales_detail >= $stock_product) {
             session()->setFlashdata("lebih", "Input Satuan Dibawah " . $stock_product);
             return redirect()->to(base_url('/akk/transaksi/ambil_barang/detail/tambah/' . $id_sales));
         } else if ($stock_product == 0) {

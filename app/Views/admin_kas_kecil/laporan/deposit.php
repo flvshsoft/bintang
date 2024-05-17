@@ -7,8 +7,8 @@
             <h3 class="page-title"><?= $judul1 ?></h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/laporan') ?>">LAPORAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/laporan') ?>">LAPORAN</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><?= $judul1 ?></li>
                 </ol>
             </nav>
@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group col-6">
-                                <a class="btn btn-success btn-xs" href="<?= base_url('/form_kas_kecil') ?>">
+                                <a class="btn btn-success btn-xs" href="<?= base_url('/akk/laporan/form_kas_kecil') ?>">
                                     <i class="mdi mdi-file-pdf text-default icon-sm"></i></a>
                             </div>
                         </div>
