@@ -66,7 +66,7 @@
                                             <?= $value['id_nama_area'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
-                                            <?= $value['keterangan_pengeluaran_sales'] ?> barang
+                                            <?= $value['keterangan_pengeluaran_sales'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
                                             <?= $formattedDate ?>
