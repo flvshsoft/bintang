@@ -155,21 +155,18 @@ class purchaseOrderController extends BaseController
         $data['judul'] = 'Detail PO';
         $data['judul1'] = 'DETAIL DATA PURCHASE ORDER';
         $data['info'] = $this->mdPurchaseOrder
-            ->where('id_purchase_order', $id_purchase_order)
+            ->where('purchase_order.id_purchase_order', $id_purchase_order)
             ->select(['*', 'purchase_order.created_at as created_at'])
             ->join('user', 'user.id_user=purchase_order.id_user')
             ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
+            ->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order=purchase_order.id_purchase_order')
             ->find()[0];
         $data['model'] = $this->mdPurchaseOrderDetail
             ->where('purchase_order_detail.id_purchase_order', $id_purchase_order)
             ->select(['*', 'purchase_order_detail.created_at as created_at', 'purchase_order_detail.harga_beli as harga_beli'])
-            // ->groupBy('id_purchase_order_detail')
             ->join('purchase_order', 'purchase_order.id_purchase_order=purchase_order_detail.id_purchase_order')
             ->join('product', 'product.id_product=purchase_order_detail.id_product')
-            // ->join('piutang_usaha', 'piutang_usaha.id_purchase_order_detail=purchase_order_detail.id_purchase_order_detail')
             ->findAll();
-        // print_r($data['model']);
-        // exit;
 
         $data['supplier'] = $this->mdSupplier
             ->where('id_branch', Session('userData')['id_branch'])

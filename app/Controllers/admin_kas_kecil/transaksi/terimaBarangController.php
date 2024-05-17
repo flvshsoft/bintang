@@ -7,7 +7,7 @@ class terimaBarangController extends BaseController
     public function index(): string
     {
         $data['judul'] = 'Bintang Distributor';
-        $data['judul1'] = ' DATA PURCHASE ORDER';
+        $data['judul1'] = 'TERIMA BARANG PO ';
         $data['model'] = $this->mdPurchaseOrder
             ->select(['*', 'purchase_order.created_at as created_at'])
             ->join('user', 'user.id_user=purchase_order.id_user')
@@ -56,7 +56,6 @@ class terimaBarangController extends BaseController
         $id_po_dan_produk = $this->request->getPost('id_po_dan_produk');
         $satuan = $this->request->getPost('satuan');
 
-        // $po= $this->
         $temp = explode(',', $id_po_dan_produk);
         $id_purchase_order_detail = $temp[0];
         $id_product = $temp[1];
@@ -76,7 +75,21 @@ class terimaBarangController extends BaseController
                 $this->mdProduct->where('id_product', $id_product)->increment('sample', $jumlah_masuk);
             }
             session()->setFlashdata("berhasil", "Berhasil menambahkan stok barang ke" . $satuan);
-            //
+
+            # Pengecekan  
+            $po = $this->mdPurchaseOrderDetail->where('purchase_order_detail.id_purchase_order', $id_purchase_order)->findAll();
+            $total = 0;
+            foreach ($po as $value) {
+                $total += $value['jumlah_product'] - $value['jumlah_masuk'];
+            }
+            echo $total;
+            if ($total == 0) {
+                $data2 = [
+                    'id_purchase_order' => $id_purchase_order,
+                    'status_purchase_order' => "Sudah diterima",
+                ];
+                $this->mdPurchaseOrder->save($data2);
+            }
         } else if ($jumlah_masuk >= $jumlah_product) {
             session()->setFlashdata("lebih", "Maaf! Input Jumlah dibawah "  . $jumlah_product . " Tidak Mencukupi");
         }

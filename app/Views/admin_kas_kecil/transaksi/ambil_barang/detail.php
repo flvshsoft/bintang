@@ -33,8 +33,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-12">
-                                <a class="btn btn-success btn-xs"
-                                    href="<?= base_url('/akk/transaksi/ambil_barang/detail/tambah/' . $info['id_sales']) ?>">
+                                <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/ambil_barang/detail/tambah/' . $info['id_sales']) ?>">
                                     <i class="mdi mdi-database-plus btn-icon-prepend"></i> Tambah
                                 </a>
                                 <!-- <a class="btn btn-success btn-xs float-end"
@@ -61,31 +60,31 @@
                                 <tbody>
                                     <?php $no = 1;
                                     foreach ($model as $value) { ?>
-                                    <tr>
-                                        <td><?= $no; ?></td>
-                                        <td>
-                                            <?= $value['id_sales'] ?>
-                                        </td>
-                                        <td>
-                                            <b>
-                                                <a style="text-decoration:none"
-                                                    href="<?= base_url('/akk/transaksi/ambil_barang/detail/edit/' .  $value['id_sales_detail']) ?>">
+                                        <tr>
+                                            <td><?= $no; ?></td>
+                                            <td>
+                                                <?= $value['id_sales'] ?>
+                                            </td>
+                                            <td>
+                                                <b>
+                                                    <!-- <a style="text-decoration:none"
+                                                    href="<? //= base_url('/akk/transaksi/ambil_barang/detail/edit/' .  $value['id_sales_detail']) 
+                                                            ?>"> -->
                                                     <?= $value['id_sales_detail'] ?>
-                                                </a>
-                                            </b>
-                                        </td>
-                                        <td>
-                                            <?= $value['nama_lengkap'] ?>
-                                        </td>
-                                        <td>
-                                            <?= $value['nama_product'] ?>
-                                        </td>
-                                        <td><?= number_format($value['satuan_sales_detail']) ?></td>
-                                        <td><?= $value['created_at'] ?></td>
-                                        <td> <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
-                                                href="<?= base_url('/akk/transaksi/ambil_barang/detail/hapus/' . $value['id_sales_detail'] . '/' .  $value['id_sales'] . '/' .  $value['satuan_sales_detail']) ?>">
-                                                <i class="mdi mdi-delete-circle text-default icon-md"></i> </a></td>
-                                    </tr>
+                                                    <!-- </a> -->
+                                                </b>
+                                            </td>
+                                            <td>
+                                                <?= $value['nama_lengkap'] ?>
+                                            </td>
+                                            <td>
+                                                <?= $value['nama_product'] ?>
+                                            </td>
+                                            <td><?= number_format($value['satuan_sales_detail']) ?></td>
+                                            <td><?= $value['created_at'] ?></td>
+                                            <td> <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')" href="<?= base_url('/akk/transaksi/ambil_barang/detail/hapus/' . $value['id_sales_detail'] . '/' .  $value['id_sales'] . '/' .  $value['satuan_sales_detail']) ?>">
+                                                    <i class="mdi mdi-delete-circle text-default icon-md"></i> </a></td>
+                                        </tr>
                                     <?php $no++;
                                     } ?>
                                 </tbody>
