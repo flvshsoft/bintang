@@ -10,7 +10,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>"> BERANDA </a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi') ?>"> Transaski </a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi') ?>"> Transaksi </a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi/purchase_order') ?>"> PO </a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page"> <?= $judul1 ?></li>
@@ -205,6 +205,15 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- back -->
+        <div class="row">
+            <div class="col-12">
+                <div class="col-1 ms-auto me-5">
+                    <a href="<?= base_url('/akk/transaksi/purchase_order') ?>" class="btn btn-success">Simpan</a>
                 </div>
             </div>
         </div>
