@@ -21,6 +21,41 @@
             <div class="col-lg-12 mb-4">
                 <!-- Color System -->
                 <div class="row p-2">
+
+                    <?php if ($akses) : ?>
+                        <div class="col-lg-4 mb-3 px-2">
+                            <a href="<?= base_url('/akk/transaksi/purchase_order') ?>" class="text-decoration-none">
+                                <div class="card text-white shadow" style="background: #7cddb2;">
+                                    <div class="card-body d-flex p-0">
+                                        <div class="col-6 p-3 text-white-90">
+                                            <h6>Purchase Order</h6>
+                                            <h2 class="mb-0">PO</h2>
+                                        </div>
+                                        <div class="col-6 p-0">
+                                            <img src="https://i.pinimg.com/564x/c3/d6/d5/c3d6d5874c5147ae9617138d384fef32.jpg" alt="Foto" width="100%" class="mt-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-lg-4 mb-3 px-2">
+                            <a href="<?= base_url('/akk/transaksi/terima_barang') ?>" class="text-decoration-none">
+                                <div class="card text-white shadow" style="background: #eebf35;">
+                                    <div class="card-body d-flex p-0">
+                                        <div class="col-6 p-3 text-white-90">
+                                            <h5>Terima Barang</h5>
+                                            <h2 class="mb-0">PO</h2>
+                                        </div>
+                                        <div class="col-6 p-0">
+                                            <img src="https://i.pinimg.com/564x/59/26/74/592674493a167bddfdcb6972d9e19d77.jpg" alt="Foto" width="100%" class="mt-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+
                     <div class="col-lg-4 mb-3 px-2">
                         <a href="<?= base_url('/akk/transaksi/nota_awal') ?>" class="text-decoration-none">
                             <div class="card text-white shadow" style="background: #b68c74;">
@@ -52,21 +87,6 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-lg-4 mb-3 px-2">
-                            <a href="<?= base_url('/akk/transaksi/terima_barang') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #eebf35;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-6 p-3 text-white-90">
-                                            <h5>Terima Barang Supplier</h5>
-                                            <h2 class="mb-0">PO</h2>
-                                        </div>
-                                        <div class="col-6 p-0">
-                                            <img src="https://i.pinimg.com/564x/59/26/74/592674493a167bddfdcb6972d9e19d77.jpg" alt="Foto" width="100%" class="mt-2">
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
                     <?php endif; ?>
 
                     <?php if ($akses_admin) : ?>
@@ -87,23 +107,6 @@
                         </div>
                     <?php endif; ?>
 
-                    <?php if ($akses) : ?>
-                        <div class="col-lg-4 mb-3 px-2">
-                            <a href="<?= base_url('/akk/transaksi/purchase_order') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #7cddb2;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-6 p-3 text-white-90">
-                                            <h6>Purchase Order</h6>
-                                            <h2 class="mb-0">PO</h2>
-                                        </div>
-                                        <div class="col-6 p-0">
-                                            <img src="https://i.pinimg.com/564x/c3/d6/d5/c3d6d5874c5147ae9617138d384fef32.jpg" alt="Foto" width="100%" class="mt-2">
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    <?php endif; ?>
                     <!-- <div class="col-lg-4 mb-3 px-2">
                         <a href="#<?= base_url('/akk/transaksi/ambil_barang') ?>" class="text-decoration-none">
                             <div class="card text-white shadow" style="background: #fd79b3;">

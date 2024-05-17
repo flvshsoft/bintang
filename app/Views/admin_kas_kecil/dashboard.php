@@ -104,13 +104,12 @@
                     <!-- Color System -->
                     <div class="row p-2">
                         <?php $no = 1; ?>
-                        <div class="col-12 mb-3 px-2">
+                        <!-- <div class="col-12 mb-3 px-2">
                             <a href="<?= base_url('/akk/transaksi/nota_awal') ?>" class="text-decoration-none">
                                 <div class="card text-white shadow" style="background: #EEF7FF;">
                                     <div class="card-body d-flex align-items-center p-0">
                                         <div class="col-1 p-2 text-center">
-                                            <!-- <img src="https://i.pinimg.com/originals/49/37/d4/4937d4d54a3d92d7eaa30fc0e3a1e8e8.gif" alt="Foto" width="100%" class="mt-0"> -->
-                                            <p class="bg-white text-black p-1 shadow" style="border-radius:30px;width:30px;"><?= $no++ ?></p>
+                                            <p class="bg-white text-black p-1 shadow" style="border-radius:30px;width:30px;"><? //$no++ ?></p>
                                         </div>
                                         <div class="col-11 p-3 text-black">
                                             <h5>DO Nota Awal</h5>
@@ -118,7 +117,7 @@
                                     </div>
                                 </div>
                             </a>
-                        </div>
+                        </div> -->
                         <?php if ($akses_gudang) : ?>
                             <div class="col-12 mb-3 px-2">
                                 <a href="<?= base_url('/akk/transaksi/ambil_barang') ?>" class="text-decoration-none">
