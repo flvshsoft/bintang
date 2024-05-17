@@ -106,7 +106,14 @@
                 </div>
             </div>
         </div>
-        <a href="<?= base_url('/akk/transaksi') ?>" class="btn btn-warning btn-xs" name="btn_s">Kembali</a>
+        <!-- back -->
+        <div class="row">
+            <div class="col-12">
+                <div class="col-1 ms-auto me-5">
+                    <a href="<?= base_url('/akk/transaksi') ?>" class="btn btn-success">Simpan</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

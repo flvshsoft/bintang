@@ -70,7 +70,7 @@ class TagihanBaruController extends BaseController
         } else {
             $data['cek_nota'] = $this->mdNota
                 ->select(['*', 'nota.created_at as created_at'])
-                ->where('payment_method', $payment_method)
+                // ->where('payment_method', $payment_method)
                 ->join('sales', 'sales.id_sales=nota.id_sales')
                 ->join('partner', 'partner.id_partner=sales.id_partner')
                 ->join('area', 'area.id_area=sales.id_area')
@@ -275,7 +275,7 @@ class TagihanBaruController extends BaseController
         } else {
             $data['cek_nota'] = $this->mdNota
                 ->select(['*', 'nota.created_at as created_at'])
-                ->where('payment_method', $payment_method)
+                // ->where('payment_method', $payment_method)
                 ->join('sales', 'sales.id_sales=nota.id_sales')
                 ->join('partner', 'partner.id_partner=sales.id_partner')
                 ->join('area', 'area.id_area=sales.id_area')
@@ -487,7 +487,7 @@ class TagihanBaruController extends BaseController
         return view('admin_kas_kecil/transaksi/tagihan_baru/print_invoice', $data);
     }
 
-    public function closing_sales($id_sales): string
+    public function closing_sales($id_sales)
     {
         $data['judul'] = 'CLOSING SALES';
         $data['judul1'] = 'CLOSING SALES';
@@ -519,6 +519,7 @@ class TagihanBaruController extends BaseController
             ->join('area', 'area.id_area=sales.id_area')
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->where('sales.id_sales', $id_sales)
+            ->where('sales.week', $data['model']['week'])
             // ->where('customer.id_branch', Session('userData')['id_branch'])
             ->findAll();
         // print_r($data['cek_nota']);
@@ -532,15 +533,16 @@ class TagihanBaruController extends BaseController
 
         // nota detail
         $mdNotaDetail = $this->mdNotaDetail
-            ->select(['nota_detail.id_nota_detail', 'nota_detail.id_product', 'nama_product', 'payment_method', 'satuan_penjualan', 'harga_aktif', 'harga_nota'])
+            ->select(['nota_detail.id_nota', 'nota_detail.id_nota_detail', 'nota_detail.id_product', 'nama_product', 'payment_method', 'satuan_penjualan', 'harga_nota'])
             ->join('nota', 'nota.id_nota=nota_detail.id_nota')
             ->join('product', 'product.id_product=nota_detail.id_product')
-            ->join('barang_harga', 'barang_harga.id_product=nota_detail.id_product')
+            // ->join('barang_harga', 'barang_harga.id_product=nota_detail.id_product')
             ->whereIn('nota_detail.id_nota', $notaList)
             //->groupBy('id_nota_detail')
             ->findAll();
-        // print_r($mdNotaDetail[0]);
+        // print_r($mdNotaDetail);
         // print_r([count($mdNotaDetail)]);
+        // exit;
 
         $temp = [];
         $temp['CASH'] = [];

@@ -11,8 +11,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>"> BERANDA </a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi') ?>"> TRANSAKSI</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi/terima_barang') ?>"> TERIMA
-                            BARANG</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/transaksi/terima_barang') ?>"> TERIMA BARANG</a></li>
                     <li class="breadcrumb-item active" aria-current="page"> <?= $judul1 ?></li>
                 </ol>
             </nav>
@@ -82,7 +81,7 @@
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <select name="satuan" class="form-control form-control-sm" required>
-                                                    <option>Pilih Subinventory</option>
+                                                    <option value="">Pilih Subinventory</option>
                                                     <option>Defect</option>
                                                     <option>Gudang</option>
                                                     <option>Sample</option>
@@ -100,7 +99,15 @@
                 </div>
             </div>
         </div>
-        <a href="<?= base_url('/akk/transaksi/terima_barang') ?>" class="btn btn-warning btn-xs" name="btn_s">Kembali</a>
+        
+        <!-- back -->
+        <div class="row">
+            <div class="col-12">
+                <div class="col-1 ms-auto me-5">
+                    <a href="<?= base_url('/akk/transaksi/terima_barang') ?>" class="btn btn-success">Simpan</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
