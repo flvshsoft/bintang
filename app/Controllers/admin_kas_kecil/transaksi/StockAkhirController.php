@@ -81,7 +81,6 @@ class StockAkhirController extends BaseController
         // cek stok
         if ($jumlah_stock_kembali <= $modelSalesDetail->find()[0]['jumlah_sales']) {
 
-            // data
             $data = [
                 'id_sales_do' => $id_sales_do,
                 'id_product' => $id_product,
