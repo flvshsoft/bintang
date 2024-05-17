@@ -527,6 +527,7 @@ class TagihanBaruController extends BaseController
         $notaList = [];
         foreach ($data['cek_nota'] as $key => $value) {
             $notaList[$value['id_nota']] = $value['id_nota'];
+            $week = $value['week'];
         }
         // print_r($notaList);
 
@@ -534,12 +535,15 @@ class TagihanBaruController extends BaseController
         $mdNotaDetail = $this->mdNotaDetail
             ->select(['nota_detail.id_nota_detail', 'nota_detail.id_product', 'nama_product', 'payment_method', 'satuan_penjualan', 'harga_aktif', 'harga_nota'])
             ->join('nota', 'nota.id_nota=nota_detail.id_nota')
+            ->join('sales', 'sales.id_sales=nota.id_sales')
             ->join('product', 'product.id_product=nota_detail.id_product')
             ->join('barang_harga', 'barang_harga.id_product=nota_detail.id_product')
             ->whereIn('nota_detail.id_nota', $notaList)
+            ->where('sales.week', $data['model']['week'])
             //->groupBy('id_nota_detail')
             ->findAll();
         // print_r($mdNotaDetail[0]);
+        // exit;
         // print_r([count($mdNotaDetail)]);
 
         $temp = [];
@@ -551,6 +555,7 @@ class TagihanBaruController extends BaseController
             $temp2['nama_product'] = $value['nama_product'];
             if (isset($temp[$value['payment_method']][$value['id_product']])) {
                 $temp2['qty'] = $temp[$value['payment_method']][$value['id_product']]['qty'] + $value['satuan_penjualan'];
+                //$temp2['qty'] = $temp[$value['payment_method']][$value['id_product']]['qty'] + $value['satuan_penjualan'];
             } else {
                 $temp2['qty'] = $value['satuan_penjualan'];
             }
