@@ -91,10 +91,11 @@
                                                 <i class="mdi mdi-file-pdf icon-md"></i>
                                             </a>
 
-                                            <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
-                                                href="<?= base_url('/akk/transaksi/hapus_penjualan_barang/' . $value['id_sales']) ?>">
+                                            <!-- <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
+                                                href="<? //= base_url('/akk/transaksi/hapus_penjualan_barang/' . $value['id_sales']) 
+                                                        ?>">
                                                 <i class="mdi mdi-delete-circle text-default icon-md"></i>
-                                            </a>
+                                            </a> -->
                                         </td>
                                     </tr>
                                     <?php $no++;

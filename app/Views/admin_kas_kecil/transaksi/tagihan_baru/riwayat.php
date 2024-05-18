@@ -19,23 +19,6 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <?php if (session()->getFlashdata("tak_lengkap")) { ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            <?= session()->getFlashdata("tak_lengkap") ?>
-                        </div>
-                        <?php } ?>
-                        <div class="row">
-                            <div class="form-group col-6">
-                                <!-- <a class="btn btn-success btn-xs"
-                                    href="<? //= base_url('/akk/transaksi/tagihan_baru/riwayat_penjualan') 
-                                            ?>">
-                                    <i class="mdi mdi-book-multiple-variant icon-sm"></i> Proses</a> -->
-                                <a class="btn btn-primary btn-xs"
-                                    href="<?= base_url('/akk/transaksi/tagihan_baru/riwayat') ?>">
-                                    <i class="mdi mdi-book-multiple-variant icon-sm"></i> Riwayat</a>
-                            </div>
-                        </div>
                         <div class="table-responsive">
                             <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="table table-success">
@@ -59,9 +42,7 @@
                                             <?= $no ?>
                                         </td>
                                         <td style=" font-size: 11px;">
-                                            <?php if ($value['total_jumlah_sales'] != 0) : ?>
                                             <?= $value['id_sales'] ?>
-                                            <?php endif ?>
                                         </td>
                                         <td style=" font-size: 11px;">
                                             <?= $value['nama_lengkap'] ?>
@@ -80,29 +61,31 @@
                                             <?= $value['tgl_do'] ?>
                                         </td>
                                         <td>
-                                            <a class="btn btn-success btn-xs dropdown-toggle" data-bs-toggle="dropdown"
+                                            <!-- <a class="btn btn-success btn-xs dropdown-toggle" data-bs-toggle="dropdown"
                                                 aria-expanded="false"
                                                 href="<? //= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales']) 
-                                                                                                                                                        ?>">
+                                                        ?>">
                                                 <i class="mdi mdi-database-plus icon-sm"></i>
-                                            </a>
+                                            </a> -->
                                             <a class="btn btn-info btn-xs p-2"
-                                                href="<?= base_url('/akk/transaksi/tagihan_baru/closing-sales/' . $value['id_sales']) ?>">
-                                                <i class="mdi mdi-database-plus icon-sm"></i>
+                                                href="<?= base_url('/akk/transaksi/tagihan_baru/riwayat/detail/' . $value['id_sales']) ?>">
+                                                <!-- <i class="mdi mdi-database-plus icon-sm"></i> -->
                                                 Closing Sales
                                             </a>
-                                            <ul class="dropdown-menu">
+                                            <!-- <ul class="dropdown-menu">
                                                 <li>
                                                     <a class="dropdown-item"
-                                                        href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'] . '/' . 'CASH') ?>">CASH
+                                                        href="<? //= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'] . '/' . 'CASH') 
+                                                                ?>">CASH
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a class=" dropdown-item"
-                                                        href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'] . '/' . 'KREDIT') ?>">KREDIT
+                                                        href="<? //= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'] . '/' . 'KREDIT') 
+                                                                ?>">KREDIT
                                                     </a>
                                                 </li>
-                                            </ul>
+                                            </ul> -->
                                         </td>
                                     </tr>
                                     <?php $no++;
