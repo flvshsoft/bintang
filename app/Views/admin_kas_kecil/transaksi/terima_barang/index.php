@@ -40,41 +40,40 @@
                                         $dateTime = new DateTime($dateString);
                                         $formattedDate = $dateTime->format('d F Y H:i:s');
                                     ?>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            <?= $no ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <b>
-                                                PO-<?= $value['id_purchase_order'] ?></b>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['keterangan_purchase_order'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['status_purchase_order'] == 'Belum diterima' ? '<span class="text-danger">' . $value['status_purchase_order'] . '</span>' : $value['status_purchase_order'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['nama_supplier'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['nama_user'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $formattedDate ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <a href="<?= base_url('/akk/transaksi/terima_barang/detail/' . $value['id_purchase_order']) ?>"
-                                                class="btn btn-info btn-xs">
-                                                <i class="mdi mdi-view-day text-default icon-md"></i>
-                                            </a>
+                                        <tr>
+                                            <td style="font-size: 11px;">
+                                                <?= $no ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <b>
+                                                    PO-<?= $value['id_purchase_order'] ?></b>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['keterangan_purchase_order'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['status_purchase_order'] == 'Belum diterima' ? '<span class="text-danger">' . $value['status_purchase_order'] . '</span>' : '<span class="text-success">' . $value['status_purchase_order'] . '</span>' ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['nama_supplier'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['nama_user'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $formattedDate ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <a href="<?= base_url('/akk/transaksi/terima_barang/detail/' . $value['id_purchase_order']) ?>" class="btn btn-info btn-xs">
+                                                    <i class="mdi mdi-view-day text-default icon-md"></i>
+                                                </a>
 
-                                            <!-- <a
+                                                <!-- <a
                                                 href="<?= base_url('/akk/transaksi/terima_barang/print/' . $value['id_purchase_order']) ?>">
                                                 <i class="mdi mdi-file-pdf icon-md"></i>
                                             </a> -->
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
                                     <?php $no++;
                                     } ?>
                                 </tbody>
@@ -84,7 +83,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- back -->
         <div class="row">
             <div class="col-12">

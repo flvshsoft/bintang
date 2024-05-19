@@ -12,8 +12,8 @@ class mutasiBankController extends BaseController
             ->select('mutasi_bank.*, bank_asal.nama_bank as nama_bank_asal, bank_tujuan.nama_bank as nama_bank_tujuan, user.nama_user')
             ->join('user', 'user.id_user=mutasi_bank.user')
             ->join('bank as bank_asal', 'bank_asal.id_bank=mutasi_bank.id_bank')
-            ->join('bank as bank_tujuan', 'bank_tujuan.id_bank = mutasi_bank.bank_tujuan')
-            ->orderBy('mutasi_bank.id_mutasi_bank','DESC')
+            ->join('bank as bank_tujuan', 'bank_tujuan.id_bank = mutasi_bank.bank_tujuan', 'LEFT')
+            ->orderBy('mutasi_bank.id_mutasi_bank', 'DESC')
             ->findAll();
         return view('admin_kas_kecil/keuangan/mutasi_bank/index', $data);
     }

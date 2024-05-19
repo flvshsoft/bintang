@@ -37,42 +37,41 @@
                                     <?php $no = 1;
                                     foreach ($model as $value) {
                                     ?>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            <?= $no ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['id_sales'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['nama_lengkap'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['nama_area'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['week'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['keterangan'] ?>
-                                            <?= $value['total_jumlah_sales'] ?> barang
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['tgl_do'] ?>
-                                        </td>
-                                        <td>
-                                            <!-- <a class="btn btn-success btn-xs dropdown-toggle" data-bs-toggle="dropdown"
+                                        <tr>
+                                            <td style="font-size: 11px;">
+                                                <?= $no ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['id_sales'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['nama_lengkap'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['nama_area'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['week'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['keterangan'] ?>
+                                                <?= $value['total_jumlah_sales'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['tgl_do'] ?>
+                                            </td>
+                                            <td>
+                                                <!-- <a class="btn btn-success btn-xs dropdown-toggle" data-bs-toggle="dropdown"
                                                 aria-expanded="false"
                                                 href="<? //= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales']) 
                                                         ?>">
                                                 <i class="mdi mdi-database-plus icon-sm"></i>
                                             </a> -->
-                                            <a class="btn btn-info btn-xs p-2"
-                                                href="<?= base_url('/akk/transaksi/tagihan_baru/riwayat/detail/' . $value['id_sales']) ?>">
-                                                <!-- <i class="mdi mdi-database-plus icon-sm"></i> -->
-                                                Closing Sales
-                                            </a>
-                                            <!-- <ul class="dropdown-menu">
+                                                <a class="btn btn-info btn-xs p-2" href="<?= base_url('/akk/transaksi/tagihan_baru/riwayat/detail/' . $value['id_sales']) ?>">
+                                                    <!-- <i class="mdi mdi-database-plus icon-sm"></i> -->
+                                                    Closing Sales
+                                                </a>
+                                                <!-- <ul class="dropdown-menu">
                                                 <li>
                                                     <a class="dropdown-item"
                                                         href="<? //= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'] . '/' . 'CASH') 
@@ -86,8 +85,8 @@
                                                     </a>
                                                 </li>
                                             </ul> -->
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
                                     <?php $no++;
                                     } ?>
                                 </tbody>
