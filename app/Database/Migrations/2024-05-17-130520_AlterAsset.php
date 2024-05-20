@@ -14,7 +14,7 @@ class AlterAsset extends Migration
                 'tgl_service' => [
                     'type' => 'DATETIME', // Use DATETIME type
                     'null' => true,
-                    'after' => 'lokasi_unit',
+                    'after' => 'lokasi',
                 ],
             ]
         );

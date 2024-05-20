@@ -200,8 +200,6 @@ class purchaseOrderController extends BaseController
 
         $existingData = $this->mdPiutangUsaha
             ->where('id_supplier', $id_supplier)
-            // ->where('deleted_at !=', NULL)
-            // ->where('id_purchase_order', $id_purchase_order)
             ->first();
 
         if ($existingData) {

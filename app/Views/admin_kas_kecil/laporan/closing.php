@@ -55,27 +55,31 @@
                                             }
                                             $sub_total += $cash + $kredit;
                                         ?>
-                                            <tr>
-                                                <td style=" font-size: 11px;"><?= $key + 1 ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['no_nota'] ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['nama_lengkap'] ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['nama_customer'] ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($kredit) ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($cash) ?></td>
-                                                <!-- <td style=" font-size: 11px;"><? //= number_format($sub_total) 
+                                        <tr>
+                                            <td style=" font-size: 11px;"><?= $key + 1 ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['no_nota'] ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['nama_lengkap'] ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['nama_customer'] ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($kredit) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($cash) ?></td>
+                                            <!-- <td style=" font-size: 11px;"><? //= number_format($sub_total) 
                                                                                     ?></td> -->
-                                                <td style=" font-size: 11px;">
-                                                    <?= $value['status_closing'] == '1' ? 'Closing' : '-' ?></td>
-                                                <td style=" font-size: 11px;"> </a>
-                                                    <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'] . '/' . $value['payment_method']) ?>">
-                                                        <i class="mdi mdi-database-plus icon-sm"></i>
-                                                    </a>
-                                                </td>
-                                                <input type="hidden" name="cash" class="form-control" value="<?= $cash ?>">
-                                                <input type="hidden" name="kredit" class="form-control" value="<?= $kredit ?>">
-                                            </tr>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['status_closing'] == '1' ? 'Closing' : '-' ?></td>
+                                            <td style=" font-size: 11px;"> </a>
+                                                <a class="btn btn-success btn-xs"
+                                                    href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'] . '/' . $value['payment_method']) ?>">
+                                                    <i class="mdi mdi-database-plus icon-sm"></i>
+                                                </a>
+                                            </td>
+                                            <input type="hidden" name="cash" class="form-control" value="<?= $cash ?>">
+                                            <input type="hidden" name="kredit" class="form-control"
+                                                value="<?= $kredit ?>">
+                                        </tr>
                                         <?php }; ?>
                                     </tbody>
+                                    <input type="hidden" name="week" class="form-control" value="<?= $week ?>">
+                                    <input type="hidden" name="year" class="form-control" value="<?= $year ?>">
                                 </table>
                             </div><br>
                             <p class="card-description"> Nota Kontan
@@ -125,15 +129,20 @@
                                             $saldo =  $grand_total_kontan + $grand_total_tertagih;
                                             $grand_saldo += $grand_total_kontan + $grand_total_tertagih;
                                         ?>
-                                            <tr style=" font-size:11px ;">
-                                                <td width="20px"><?= $no ?> </td>
-                                                <td><?= $salesman ?> </td>
-                                                <td>0</td>
-                                                <td>5</td>
-                                                <td><?= 'Rp. ' . number_format($total_kontan, 0, ',', '.') ?></td>
-                                                <td><?= 'Rp. ' . number_format($total_tertagih, 0, ',', '.') ?></td>
-                                                <td><?= 'Rp. ' . number_format($saldo, 0, ',', '.') ?></td>
-                                            </tr>
+                                        <tr style=" font-size:11px ;">
+                                            <td width="20px"><?= $no ?> </td>
+                                            <td><?= $salesman ?> </td>
+                                            <td>0</td>
+                                            <td>5</td>
+                                            <td><?= 'Rp. ' . number_format($total_kontan, 0, ',', '.') ?></td>
+                                            <td><?= 'Rp. ' . number_format($total_tertagih, 0, ',', '.') ?></td>
+                                            <td><?= 'Rp. ' . number_format($saldo, 0, ',', '.') ?></td>
+                                            <input type="hidden" name="total_kontan" class="form-control"
+                                                value="<?= $total_kontan ?>">
+                                            <input type="hidden" name="total_tertagih" class="form-control"
+                                                value="<?= $total_tertagih ?>">
+
+                                        </tr>
                                         <?php $no++;
                                         }
                                         ?>
@@ -169,7 +178,122 @@
                         <p class="card-description"> Nota Kontan
                         </p>
                         <form action="<?= base_url('/akk/laporan/closing-mingguan-nota-kontan-save') ?>" method="POST">
+                            <!-- Start Piutang Internal -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="3" style="text-align:center;">Piutang Internal</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Cabang</th>
+                                        <th style="text-align:center;">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total = 0;
+                                    $total += $jumlah_piutang_internal;
+                                    foreach ($piutang_internal as $value) {
+                                    ?>
+                                    <tr style=" font-size:11px ;">
+                                        <td width="20px"><?= $no ?> </td>
+                                        <td> <?= $value['nama_branch'] ?> </td>
+                                        <td><?= 'Rp. ' . number_format($jumlah_piutang_internal, 0, ',', '.') ?></td>
+                                    </tr>
+                                    <?php $no++;
+                                    } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2" align="left"><b>Grand Total Piutang Internal </b></td>
+                                        <td colspan="1" align="left">
+                                            <?= 'Rp. ' . number_format($total, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!-- End Piutang Internal -->
+                            <br><br>
+                            <!-- Start Piutang Karyawan -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="3" style="text-align:center;">Piutang Karyawan</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Nama</th>
+                                        <th style="text-align:center;">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total = 0;
+                                    foreach ($piutang_karyawan as $value) {
+                                    ?>
+                                    <tr style=" font-size:11px ;">
 
+                                        <td width="20px"><?= $no ?> </td>
+                                        <td> <?= $value['nama_penghutang'] ?> </td>
+                                        <td><?= 'Rp. ' . number_format($value['jumlah_piutang'], 0, ',', '.') ?></td>
+                                    </tr>
+                                    <?php $no++;
+                                    } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2" align="left"><b>Grand Total Piutang Karyawan </b></td>
+                                        <td colspan="1" align="left">
+                                            <?= 'Rp. ' . number_format($jumlah_piutang_karyawan, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!-- End Piutang Karyawan -->
+                            <br><br>
+                            <!-- Start Hutang Usaha -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="3" style="text-align:center;">Hutang Usaha</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Supplier</th>
+                                        <th style="text-align:center;">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total = 0;
+                                    $total += $jumlah_piutang_usaha;
+                                    foreach ($hutang_usaha as $value) {
+                                    ?>
+                                    <tr style=" font-size:11px ;">
+
+                                        <td align="center" width="20px"><?= $no ?> </td>
+                                        <td align="center"><?= $value['nama_supplier'] ?> </td>
+                                        <td align="center">
+                                            <?= 'Rp. ' . number_format($value['jumlah_piutang'], 0, ',', '.') ?></td>
+                                    </tr>
+                                    <?php $no++;
+                                    } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2"><b>Grand Total Hutang Pabrik </b></td>
+                                        <td colspan=" 1" align="center">
+                                            <?= 'Rp. ' . number_format($total, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!-- End Hutang Usaha-->
+                            <br><br>
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-gradient-warning btn-rounded btn-fw text-black">
                                     Closing
