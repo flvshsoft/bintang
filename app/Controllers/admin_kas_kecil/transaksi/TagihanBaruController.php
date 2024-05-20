@@ -679,4 +679,105 @@ class TagihanBaruController extends BaseController
         $data['product_list'] = $temp;
         return redirect()->to(base_url('/akk/transaksi/tagihan_baru/closing-sales/' . $id_sales));
     }
+
+    public function riwayat(): string
+    {
+        $data['judul'] = 'Bintang Distributor';
+        $data['judul1'] = 'INPUT TAGIHAN BARU (NOTA)';
+        $data['model'] = $this->mdSales
+            // ->select(['*', 'sales.created_at as created_at'])
+            ->select('sales.id_sales, partner.nama_lengkap, area.nama_area, sales.week, sales.keterangan, sales.tgl_do, SUM(sales_detail.jumlah_sales) AS total_jumlah_sales')
+            ->join('partner', 'partner.id_partner=sales.id_partner',)
+            ->join('area', 'area.id_area=sales.id_area')
+            ->join('asset', 'asset.id_asset=sales.id_asset')
+            ->join('sales_detail', 'sales_detail.id_sales=sales.id_sales', 'left')
+            ->where('sales.id_branch', Session('userData')['id_branch'])
+            ->orderBy('sales.id_sales', 'DESC')
+            ->groupBy('sales.id_sales')
+            //->having('total_jumlah_sales !=', 0)
+            ->findAll();
+        return view('admin_kas_kecil/transaksi/tagihan_baru/riwayat', $data);
+    }
+
+    public function riwayat_detail($id_sales)
+    {
+        $data['judul'] = 'CLOSING SALES';
+        $data['judul1'] = 'CLOSING SALES';
+        // data sales
+        $data['model'] = $this->mdSales
+            ->join('partner', 'partner.id_partner=sales.id_partner')
+            ->join('area', 'area.id_area=sales.id_area')
+            ->join('asset', 'asset.id_asset=sales.id_asset')
+            ->join('nota', 'nota.id_sales=sales.id_sales')
+            ->where('sales.id_sales', $id_sales)
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('sales.id_sales', 'DESC')
+            ->find();
+
+        if (!empty($data['model'])) {
+            if (!empty($data['model'][0]['id_nota'])) {
+                $data['model'] = $data['model'][0];
+            } else {
+                session()->setFlashdata("tak_lengkap", "Data Kosong");
+                return redirect()->to(base_url('/akk/transaksi/tagihan_baru/riwayat'));
+                exit;
+            }
+        }
+
+        // tabel 1
+        $data['cek_nota'] = $this->mdNota
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->join('partner', 'partner.id_partner=sales.id_partner')
+            ->join('area', 'area.id_area=sales.id_area')
+            ->join('customer', 'customer.id_customer=nota.id_customer')
+            ->where('sales.id_sales', $id_sales)
+            // ->where('sales.week', $data['model']['week'])
+            // ->where('customer.id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        // print_r($data['model']);
+        // exit;
+
+        $notaList = [];
+        foreach ($data['cek_nota'] as $key => $value) {
+            $notaList[$value['id_nota']] = $value['id_nota'];
+            $week = $value['week'];
+        }
+        // print_r($notaList);
+        // exit;
+        // nota detail
+
+        $mdNotaDetail = $this->mdNotaDetail
+            ->select(['nota_detail.id_nota', 'nota_detail.id_nota_detail', 'nota_detail.id_product', 'nama_product', 'payment_method', 'satuan_penjualan', 'harga_nota'])
+            ->join('nota', 'nota.id_nota=nota_detail.id_nota')
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->join('product', 'product.id_product=nota_detail.id_product')
+            ->whereIn('nota_detail.id_nota', $notaList)
+            // ->where('sales.week', $data['model']['week'])
+            //->groupBy('id_nota_detail')
+            ->findAll();
+
+        // print_r([count($mdNotaDetail)]);
+        // exit;
+
+        $temp = [];
+        $temp['CASH'] = [];
+        $temp['KREDIT'] = [];
+        foreach ($mdNotaDetail as $key => $value) {
+            // print_r($value);
+            $temp2 = [];
+            $temp2['nama_product'] = $value['nama_product'];
+            if (isset($temp[$value['payment_method']][$value['id_product']])) {
+                $temp2['qty'] = $temp[$value['payment_method']][$value['id_product']]['qty'] + $value['satuan_penjualan'];
+            } else {
+                $temp2['qty'] = $value['satuan_penjualan'];
+            }
+            $temp2['harga_aktif'] = $value['harga_nota'];
+            // print_r($temp2);
+            $temp[$value['payment_method']][$value['id_product']] = $temp2;
+        }
+        $data['product_list'] = $temp;
+
+        $data['lastIdNota'] = $this->mdNota->getLastIdNota();
+        return view('admin_kas_kecil/transaksi/tagihan_baru/riwayat_detail', $data);
+    }
 }

@@ -19,15 +19,14 @@
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                    <a class="btn btn-primary btn-xs" href="<?= base_url('/akk/keuangan/data_kas/mutasi_bank/tambah') ?>">
-                                <i class="mdi mdi-database-minus icon-sm"></i> Tambah
-                            </a>
+                        <a class="btn btn-primary btn-xs" href="<?= base_url('/akk/keuangan/data_kas/mutasi_bank/tambah') ?>">
+                            <i class="mdi mdi-database-minus icon-sm"></i> Tambah
+                        </a>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped" id="dataTable" width="100%"
-                                cellspacing="0">
-                                <thead class="table table-primary">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                                <thead class="table table-success">
                                     <tr>
-                                        <th style="font-size: 11px;"> Trans Code </th>
+                                        <th style="font-size: 11px;"> No </th>
                                         <th style="font-size: 11px;"> Bank Asal </th>
                                         <th style="font-size: 11px;"> Bank Tujuan </th>
                                         <th style="font-size: 11px;"> Biaya </th>
@@ -42,45 +41,44 @@
                                 </thead>
                                 <tbody>
                                     <?php foreach ($model as $key => $value) { ?>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            <?= $key+1 ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['nama_bank_asal'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['nama_bank_tujuan'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= 'Rp. ' . number_format($value['biaya_mutasi_bank'], 0, ',', '.') ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['type_mutasi_bank'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['week_mutasi_bank'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['remark_mutasi_bank'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['nama_user'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['tgl_mutasi_bank'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['nama_user'] ?>
-                                        </td>
-                                        <td>
-                                            <a
-                                                href="<?= base_url('/akk/keuangan/mutasi_bank/edit/' . $value['id_mutasi_bank']) ?>">
-                                                <i class="mdi mdi-pencil-circle icon-md">
-                                                </i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td style="font-size: 11px;">
+                                                <?= $key + 1 ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['nama_bank_asal'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['nama_bank_tujuan'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= 'Rp. ' . number_format($value['biaya_mutasi_bank'], 0, ',', '.') ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['type_mutasi_bank'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['week_mutasi_bank'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['remark_mutasi_bank'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['nama_user'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['tgl_mutasi_bank'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['nama_user'] ?>
+                                            </td>
+                                            <td>
+                                                <a href="<?= base_url('/akk/keuangan/mutasi_bank/edit/' . $value['id_mutasi_bank']) ?>">
+                                                    <i class="mdi mdi-pencil-circle icon-md">
+                                                    </i>
+                                                </a>
+                                            </td>
+                                        </tr>
                                     <?php }; ?>
                                 </tbody>
                             </table>

@@ -16,6 +16,7 @@ class dataKasController extends BaseController
             ->join('user', 'user.id_user=kas_bank.id_user', 'left')
             ->join('customer', 'customer.id_customer=kas_bank.id_konsumen', 'left')
             ->join('bank', 'bank.id_bank=kas_bank.id_bank')
+            ->orderBy('kas_bank.id_kas', 'DESC')
             ->findAll();
         return view('admin_kas_kecil/keuangan/data_kas/index', $data);
     }
@@ -69,21 +70,40 @@ class dataKasController extends BaseController
     {
         $biaya_mutasi_bank = str_replace('.', '', $this->request->getPost('biaya_mutasi_bank')); // Hapus tanda titik
         $biaya_mutasi_bank = (int) str_replace(',', '', $biaya_mutasi_bank); // Konversi ke integer
-        $data = [
-            'tgl_mutasi_bank' => date('d-M-Y'),
-            'type_mutasi_bank' => $this->request->getPost('type_mutasi_bank'),
-            'id_bank' => $this->request->getPost('id_bank'),
-            'bank_tujuan' => $this->request->getPost('bank_tujuan'),
-            'week_mutasi_bank' => $this->request->getPost('week_mutasi_bank'),
-            'remark_mutasi_bank' => $this->request->getPost('remark_mutasi_bank'),
-            'user' => Session('userData')['id_user'],
-            'approved_by' => Session('userData')['id_user'],
-            'metode_bayar' => $this->request->getPost('metode_bayar'),
-            'ket' => $this->request->getPost('ket'),
-            'id_branch' => Session('userData')['id_branch'],
-            'biaya_mutasi_bank' => $biaya_mutasi_bank,
-            'tgl_mutasi_bank' => date('Y-m-d'),
-        ];
+        $bank_tujuan = $this->request->getPost('bank_tujuan');
+        if ($bank_tujuan == 'Uang Keluar') {
+            $data = [
+                'tgl_mutasi_bank' => date('d-M-Y'),
+                'type_mutasi_bank' => $this->request->getPost('type_mutasi_bank'),
+                'id_bank' => $this->request->getPost('id_bank'),
+                // 'bank_tujuan' => $bank_tujuan,
+                'week_mutasi_bank' => $this->request->getPost('week_mutasi_bank'),
+                'remark_mutasi_bank' => $this->request->getPost('remark_mutasi_bank'),
+                'user' => Session('userData')['id_user'],
+                'approved_by' => Session('userData')['id_user'],
+                'metode_bayar' => $this->request->getPost('metode_bayar'),
+                'ket' => $this->request->getPost('ket'),
+                'id_branch' => Session('userData')['id_branch'],
+                'biaya_mutasi_bank' => $biaya_mutasi_bank,
+                'tgl_mutasi_bank' => date('Y-m-d'),
+            ];
+        } else {
+            $data = [
+                'tgl_mutasi_bank' => date('d-M-Y'),
+                'type_mutasi_bank' => $this->request->getPost('type_mutasi_bank'),
+                'id_bank' => $this->request->getPost('id_bank'),
+                'bank_tujuan' => $bank_tujuan,
+                'week_mutasi_bank' => $this->request->getPost('week_mutasi_bank'),
+                'remark_mutasi_bank' => $this->request->getPost('remark_mutasi_bank'),
+                'user' => Session('userData')['id_user'],
+                'approved_by' => Session('userData')['id_user'],
+                'metode_bayar' => $this->request->getPost('metode_bayar'),
+                'ket' => $this->request->getPost('ket'),
+                'id_branch' => Session('userData')['id_branch'],
+                'biaya_mutasi_bank' => $biaya_mutasi_bank,
+                'tgl_mutasi_bank' => date('Y-m-d'),
+            ];
+        }
         $this->mdMutasiBank->insert($data);
 
         $data2 = [
@@ -100,8 +120,9 @@ class dataKasController extends BaseController
         ];
         $this->mdKas->insert($data2);
         $this->mdBank->where('id_bank', $this->request->getPost('id_bank'))->decrement('saldo', $biaya_mutasi_bank);
-        $this->mdBank->where('id_bank', $this->request->getPost('bank_tujuan'))->increment('saldo', $biaya_mutasi_bank);
-
+        if ($bank_tujuan != 'Uang Keluar') {
+            $this->mdBank->where('id_bank', $bank_tujuan)->increment('saldo', $biaya_mutasi_bank);
+        }
 
         return redirect()->to(base_url('/akk/keuangan/mutasi_bank'));
     }

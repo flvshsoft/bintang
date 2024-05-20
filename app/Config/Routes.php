@@ -91,6 +91,8 @@ $routes->post('/akk/transaksi/ambil_barang/detail/edit', 'admin_kas_kecil\transa
 
 $routes->get('/akk/transaksi/tagihan_baru', 'admin_kas_kecil\transaksi\TagihanBaruController::index');
 $routes->get('/akk/transaksi/tagihan_baru/riwayat_penjualan', 'admin_kas_kecil\transaksi\TagihanBaruController::master_closing');
+$routes->get('/akk/transaksi/tagihan_baru/riwayat', 'admin_kas_kecil\transaksi\TagihanBaruController::riwayat');
+$routes->get('/akk/transaksi/tagihan_baru/riwayat/detail/(:any)', 'admin_kas_kecil\transaksi\TagihanBaruController::riwayat_detail/$1');
 $routes->post('/akk/transaksi/tagihan_baru/nota/detail/edit', 'admin_kas_kecil\transaksi\TagihanBaruController::edit_detail_closing');
 $routes->get('/akk/transaksi/tagihan_baru/nota/detail/hapus/(:any)', 'admin_kas_kecil\transaksi\TagihanBaruController::hapus_detail/$1');
 $routes->get('/akk/transaksi/tagihan_baru/nota/detail/(:any)', 'admin_kas_kecil\transaksi\TagihanBaruController::closing_detail/$1');

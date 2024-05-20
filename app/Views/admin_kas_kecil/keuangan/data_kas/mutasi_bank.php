@@ -23,8 +23,8 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Nama Bank Asal</label>
                                 <div class="col-sm-8">
-                                    <select name="id_bank" id="" class="form-control form-control-sm">
-                                        <option> </option>
+                                    <select name="id_bank" id="" class="form-control form-control-sm" required>
+                                        <option value=""> </option>
                                         <?php foreach ($bank as $value) { ?>
                                             <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
                                         <?php }; ?>
@@ -34,8 +34,9 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Nama Bank Tujuan</label>
                                 <div class="col-sm-8">
-                                    <select name="bank_tujuan" id="" class="form-control form-control-sm">
-                                        <option> </option>
+                                    <select name="bank_tujuan" id="" class="form-control form-control-sm" required>
+                                        <option value=""> </option>
+                                        <option>Uang Keluar</option>
                                         <?php foreach ($bank as $value) { ?>
                                             <option value="<?= $value['id_bank'] ?>"> <?= $value['nama_bank'] ?> </option>
                                         <?php }; ?>
@@ -46,7 +47,7 @@
                                 <label for="exampleInputMobile" class="col-sm-4 col-form-label">Jumlah
                                 </label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control form-control-sm" name="biaya_mutasi_bank" id="koma" placeholder="UANG KANTOR">
+                                    <input type="text" class="form-control form-control-sm" name="biaya_mutasi_bank" id="koma" placeholder="Masukkan Jumlah">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">

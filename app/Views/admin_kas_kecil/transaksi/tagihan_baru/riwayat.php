@@ -21,57 +21,70 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
-                                <thead class="table table-primary">
+                                <thead class="table table-success">
                                     <tr>
-                                        <th style="font-size: 11px;"> No </th>
-                                        <th style=" font-size: 11px;"> No PO </th>
+                                        <th style="font-size: 11px;"> NO </th>
+                                        <th style=" font-size: 11px;"> NO DO </th>
+                                        <th style=" font-size: 11px;"> Salesman </th>
+                                        <th style=" font-size: 11px;"> ID Area </th>
+                                        <th style=" font-size: 11px;"> Week </th>
                                         <th style=" font-size: 11px;"> Keterangan </th>
-                                        <th style=" font-size: 11px;"> Status </th>
-                                        <th style=" font-size: 11px;"> Supplier </th>
-                                        <th style=" font-size: 11px;"> User </th>
-                                        <th style=" font-size: 11px;"> Tgl PO </th>
+                                        <th style=" font-size: 11px;"> Created </th>
                                         <th style=" font-size: 11px;"> </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $no = 1;
                                     foreach ($model as $value) {
-                                        $dateString = $value['created_at'];
-                                        $dateTime = new DateTime($dateString);
-                                        $formattedDate = $dateTime->format('d F Y H:i:s');
                                     ?>
                                         <tr>
                                             <td style="font-size: 11px;">
                                                 <?= $no ?>
                                             </td>
                                             <td style=" font-size: 11px;">
-                                                <b>
-                                                    PO-<?= $value['id_purchase_order'] ?></b>
+                                                <?= $value['id_sales'] ?>
                                             </td>
                                             <td style=" font-size: 11px;">
-                                                <?= $value['keterangan_purchase_order'] ?>
+                                                <?= $value['nama_lengkap'] ?>
                                             </td>
                                             <td style=" font-size: 11px;">
-                                                <?= $value['status_purchase_order'] == 'Belum diterima' ? '<span class="text-danger">' . $value['status_purchase_order'] . '</span>' : '<span class="text-success">' . $value['status_purchase_order'] . '</span>' ?>
+                                                <?= $value['nama_area'] ?>
                                             </td>
                                             <td style=" font-size: 11px;">
-                                                <?= $value['nama_supplier'] ?>
+                                                <?= $value['week'] ?>
                                             </td>
                                             <td style=" font-size: 11px;">
-                                                <?= $value['nama_user'] ?>
+                                                <?= $value['keterangan'] ?>
+                                                <?= $value['total_jumlah_sales'] ?>
                                             </td>
                                             <td style=" font-size: 11px;">
-                                                <?= $formattedDate ?>
+                                                <?= $value['tgl_do'] ?>
                                             </td>
-                                            <td style=" font-size: 11px;">
-                                                <a href="<?= base_url('/akk/transaksi/terima_barang/detail/' . $value['id_purchase_order']) ?>" class="btn btn-info btn-xs">
-                                                    <i class="mdi mdi-view-day text-default icon-md"></i>
-                                                </a>
-
-                                                <!-- <a
-                                                href="<?= base_url('/akk/transaksi/terima_barang/print/' . $value['id_purchase_order']) ?>">
-                                                <i class="mdi mdi-file-pdf icon-md"></i>
+                                            <td>
+                                                <!-- <a class="btn btn-success btn-xs dropdown-toggle" data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                                href="<? //= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales']) 
+                                                        ?>">
+                                                <i class="mdi mdi-database-plus icon-sm"></i>
                                             </a> -->
+                                                <a class="btn btn-info btn-xs p-2" href="<?= base_url('/akk/transaksi/tagihan_baru/riwayat/detail/' . $value['id_sales']) ?>">
+                                                    <!-- <i class="mdi mdi-database-plus icon-sm"></i> -->
+                                                    Closing Sales
+                                                </a>
+                                                <!-- <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="<? //= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'] . '/' . 'CASH') 
+                                                                ?>">CASH
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class=" dropdown-item"
+                                                        href="<? //= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'] . '/' . 'KREDIT') 
+                                                                ?>">KREDIT
+                                                    </a>
+                                                </li>
+                                            </ul> -->
                                             </td>
                                         </tr>
                                     <?php $no++;
