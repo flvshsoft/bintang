@@ -110,11 +110,11 @@ class laporanController extends BaseController
 
 
         $data['hutang_usaha'] = $this->mdPiutangUsaha
+            ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
+            // ->where('type_piutang', 'Usaha')
+            ->where('piutang_usaha.id_branch', $id_branch)
             ->orderBY('tgl_piutang', 'ASC')
             ->groupBy('supplier.id_supplier')
-            ->where('type_piutang', 'Usaha')
-            ->where('piutang_usaha.id_branch', $id_branch)
-            ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
             ->findAll();
         $jumlah_piutang_usaha = 0;
         foreach ($data['hutang_usaha'] as $key => $value) {

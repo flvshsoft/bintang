@@ -289,12 +289,7 @@ $akses = (($level_user == 'ho') || ($level_user == 'superadmin'));
                         <span class="menu-title">Nota Awal</span>
                     </a>
                 </li> -->
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url() ?>akk/laporan">
-                        <i class="mdi mdi-file-pdf-box menu-icon text-whitex text-shadow"></i>
-                        <span class="menu-title">Laporan</span>
-                    </a>
-                </li>
+
                 <?php if ($akses_admin) : ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url() ?>/akk/keuangan">
@@ -314,19 +309,28 @@ $akses = (($level_user == 'ho') || ($level_user == 'superadmin'));
                             <span class="menu-title">Kas</span>
                         </a>
                     </li>
+                <?php endif; ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url() ?>akk/laporan">
+                        <i class="mdi mdi-file-pdf-box menu-icon text-whitex text-shadow"></i>
+                        <span class="menu-title">Laporan</span>
+                    </a>
+                </li>
+
+                <?php if ($akses_admin) : ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url() ?>/akk/karyawan">
                             <i class="mdi mdi-comment-account-outline menu-icon text-whitex text-shadow"></i>
                             <span class="menu-title">Karyawan</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url() ?>/logout">
-                            <i class="mdi mdi-logout menu-icon text-whitex text-shadow"></i>
-                            <span class="menu-title">Keluar</span>
-                        </a>
-                    </li>
                 <?php endif; ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url() ?>/logout">
+                        <i class="mdi mdi-logout menu-icon text-whitex text-shadow"></i>
+                        <span class="menu-title">Keluar</span>
+                    </a>
+                </li>
             </ul>
             <!-- <img src="https://i.pinimg.com/originals/da/41/06/da41069961bd2c79a786abb69328c9fc.gif" alt="Foto" width="100%" class="mt-0 p-2" style="border-radius: 30px;"> -->
         </nav>
