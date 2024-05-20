@@ -9,11 +9,13 @@ class terimaBarangController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'TERIMA BARANG PO ';
         $data['model'] = $this->mdPurchaseOrder
-            ->select(['*', 'purchase_order.created_at as created_at'])
+            ->select(['*', 'purchase_order.created_at as created_at', 'supplier.id_branch'])
             ->join('user', 'user.id_user=purchase_order.id_user')
             ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
             ->where('supplier.id_branch', Session('userData')['id_branch'])
+            ->where('purchase_order.id_branch', Session('userData')['id_branch'])
             ->orderBy('id_purchase_order', 'DESC')
+            ->groupBy('id_purchase_order')
             ->findAll();
 
         return view('admin_kas_kecil/transaksi/terima_barang/index', $data);
@@ -97,7 +99,7 @@ class terimaBarangController extends BaseController
                 ];
                 print_r($data2);
                 $this->mdPurchaseOrder->save($data2);
-                session()->setFlashdata("berhasil", "Berhasil menambahkan stok barang ke " . $satuan. " dan Stok PO sudah diterima semua");
+                session()->setFlashdata("berhasil", "Berhasil menambahkan stok barang ke " . $satuan . " dan Stok PO sudah diterima semua");
                 return redirect()->to(base_url('/akk/transaksi/terima_barang'));
             }
         } else if ($jumlah_masuk >= $jumlah_product) {

@@ -241,7 +241,7 @@ $routes->post('/akk/laporan/piutang/area/print', 'admin_kas_kecil\laporan\Piutan
 // Laporan - Piutang - All Salesman - Cetak
 $routes->post('/akk/laporan/piutang/salesman/print', 'admin_kas_kecil\laporan\PiutangController::salesmanPrint');
 
-$routes->get('/akk/form_cost_ratio', 'admin_kas_kecil\laporanController::form_cost_ratio');
+$routes->get('/akk/laporan/form_cost_ratio', 'admin_kas_kecil\laporanController::form_cost_ratio');
 
 
 $routes->get('/akk/stock', 'admin_kas_kecil\master\stockController::index');

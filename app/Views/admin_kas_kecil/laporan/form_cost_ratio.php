@@ -7,8 +7,8 @@
             <h3 class="page-title"><?= $judul1 ?></h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>">BERANDA</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/laporan') ?>">LAPORAN</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/laporan') ?>">LAPORAN</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><?= $judul1 ?></li>
                 </ol>
             </nav>
@@ -97,7 +97,7 @@
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/laporan') ?>" class="btn btn-primary btn-sm">
+                                <a href="<?= base_url('/akk/laporan') ?>" class="btn btn-primary btn-sm">
                                     <i class="mdi mdi-backburger icon-sm"></i>
                                 </a>
                                 <button class="btn btn-dark btn-sm"><i class="mdi mdi-printer icon-sm"></i></button>
@@ -148,7 +148,7 @@
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/laporan') ?>" class="btn btn-primary btn-sm">
+                                <a href="<?= base_url('/akk/laporan') ?>" class="btn btn-primary btn-sm">
                                     <i class="mdi mdi-backburger icon-sm"></i>
                                 </a>
                                 <button class="btn btn-dark btn-sm"><i class="mdi mdi-printer icon-sm"></i></button>
@@ -161,22 +161,22 @@
     </div>
 </div>
 <style>
-    .menu-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 12px;
-    }
+.menu-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
 
-    .menu-item a {
-        display: flex;
-        align-items: start;
-        text-decoration: none;
-        color: black;
-    }
+.menu-item a {
+    display: flex;
+    align-items: start;
+    text-decoration: none;
+    color: black;
+}
 
-    .menu-item i {
-        margin-right: 10px;
-    }
+.menu-item i {
+    margin-right: 10px;
+}
 </style>
 
 

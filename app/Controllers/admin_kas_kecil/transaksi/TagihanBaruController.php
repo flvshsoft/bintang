@@ -418,13 +418,9 @@ class TagihanBaruController extends BaseController
 
         return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota));
     }
-    public function hapus_detail($id_nota, $id_nota_detail, $harga, $satuan_penjualan, $id_sales, $id_product)
+    public function hapus_detail($id_nota, $id_nota_detail, $harga, $satuan_penjualan, $id_sales, $id_product, $payment_method)
     {
         $model = $this->mdSalesDetail
-            // ->join('nota', 'nota.id_nota=nota.id_nota')
-            // ->join('sales_detail', 'sales_detail.id_sales_detail=sales_detail.id_sales_detail')
-            // ->join('nota_detail', 'nota_detail.id_nota=nota.id_nota')
-            // ->where('nota_detail.id_nota_detail', $id_nota_detail)
             ->where('id_sales', $id_sales)
             ->where('id_product', $id_product)
             ->find();
@@ -432,7 +428,14 @@ class TagihanBaruController extends BaseController
         // print_r($model);
         // exit;
         $this->mdSalesDetail->where('id_sales_detail', $id_sales_detail)->increment('jumlah_sales', $satuan_penjualan);
-        $this->mdNota->where('id_nota', $id_nota)->decrement('total_beli', $harga);
+
+        if ($payment_method == "KREDIT") {
+            $this->mdNota->where('id_nota', $id_nota)->decrement('total_beli', $harga);
+        } else {
+            $this->mdNota->where('id_nota', $id_nota)->decrement('pay', $harga);
+            $this->mdNota->where('id_nota', $id_nota)->decrement('total_beli', $harga);
+            // $this->mdNota->where('id_nota', $id_nota)->save('status', NULL);
+        }
 
         $delete = $this->mdNotaDetail->delete($id_nota_detail);
         if ($delete) {
@@ -501,6 +504,9 @@ class TagihanBaruController extends BaseController
             // ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('sales.id_sales', 'DESC')
             ->find();
+        $metode_bayar = $data['model'][0]['payment_method'];
+        // print_r($metode_bayar);
+        // exit;
 
         if (!empty($data['model'])) {
             if (!empty($data['model'][0]['id_nota'])) {
@@ -520,7 +526,8 @@ class TagihanBaruController extends BaseController
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->where('sales.id_sales', $id_sales)
             ->where('sales.week', $data['model']['week'])
-            // ->where('customer.id_branch', Session('userData')['id_branch'])
+            //  ->where('total_beli !=', 0)
+            // ->where('total_beli !=', '0')
             ->findAll();
         // print_r($data['cek_nota']);
         // exit;

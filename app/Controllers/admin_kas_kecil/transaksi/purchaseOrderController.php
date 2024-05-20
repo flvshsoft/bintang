@@ -15,16 +15,9 @@ class purchaseOrderController extends BaseController
             ->join('user', 'user.id_user=purchase_order.id_user')
             ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
             ->where('supplier.id_branch', Session('userData')['id_branch'])
-            // ->groupBy('')
+            ->groupBy('id_purchase_order')
             ->orderBy('id_purchase_order', 'DESC')
             ->findAll();
-
-        // print_r($data['model']);
-        // exit;
-        // hapus nota detail kembali kan ke stock do detail -> belum
-        // hapus do detail kembali ke stock gudang ->sudah 
-        // nota detail koma
-        // konsumen pay_method type_harga, foto_toko, nama_toko,  alamat_toko, no_hp_toko, nama_owner, alamat_owner no_hp_owner, id_area, kab/kota, data_lengkap
         return view('admin_kas_kecil/transaksi/purchase_order/index', $data);
     }
 

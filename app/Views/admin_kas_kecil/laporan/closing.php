@@ -20,9 +20,11 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?= base_url('/akk/laporan/closing-mingguan-save') ?>" method="POST">
 
-                            <!-- tabel -->
+                        <form action="<?= base_url('/akk/laporan/closing-mingguan-save') ?>" method="POST">
+                            <!-- tabel Nota Putih -->
+                            <p class="card-description"> Nota Putih
+                            </p>
                             <div class="table-responsive">
                                 <table class="table table-striped" width="100%" height="88%" cellspacing="0">
                                     <thead class="table table-success">
@@ -60,7 +62,8 @@
                                                 <td style=" font-size: 11px;"><?= $value['nama_customer'] ?></td>
                                                 <td style=" font-size: 11px;"><?= number_format($kredit) ?></td>
                                                 <td style=" font-size: 11px;"><?= number_format($cash) ?></td>
-                                                <!-- <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td> -->
+                                                <!-- <td style=" font-size: 11px;"><? //= number_format($sub_total) 
+                                                                                    ?></td> -->
                                                 <td style=" font-size: 11px;">
                                                     <?= $value['status_closing'] == '1' ? 'Closing' : '-' ?></td>
                                                 <td style=" font-size: 11px;"> </a>
@@ -75,9 +78,97 @@
                                     </tbody>
                                 </table>
                             </div><br>
+                            <p class="card-description"> Nota Kontan
+                            </p>
+                            <div class="table-responsive">
+                                <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                    <thead class="table table-success">
+                                        <tr>
+                                            <th style=" font-size: 11px;"> NO </th>
+                                            <th style=" font-size: 11px;"> Salesman </th>
+                                            <th style=" font-size: 11px;"> BIAYA </th>
+                                            <th style=" font-size: 11px;"> HARI KERJA </th>
+                                            <th style=" font-size: 11px;"> TOTAL KONTAN </th>
+                                            <th style=" font-size: 11px;"> NOTA TERTAGIH </th>
+                                            <th style=" font-size: 11px;"> SALDO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $grand_total_kontan = 0;
+                                        $grand_total_tertagih = 0;
+                                        $total_kontan_per_salesman = [];
+                                        $total_tertagih_per_salesman = [];
+                                        $grand_saldo = 0;
+                                        foreach ($kontan_nota as $value) {
+                                            $salesman = $value['nama_lengkap'];
+                                            if ($value['payment_method'] == 'CASH') {
+                                                if (!isset($total_kontan_per_salesman[$salesman])) {
+                                                    $total_kontan_per_salesman[$salesman] = 0;
+                                                }
+                                                $total_kontan_per_salesman[$salesman] += $value['pay'];
+                                            } else if ($value['payment_method'] == 'KREDIT') {
+                                                if (!isset($total_tertagih_per_salesman[$salesman])) {
+                                                    $total_tertagih_per_salesman[$salesman] = 0;
+                                                }
+                                                // $total_tertagih_per_salesman[$salesman] += ($value['total_beli'] - $value['pay']);
+                                                $total_tertagih_per_salesman[$salesman] +=  $value['pay'];
+                                            }
+                                        }
 
-                            <input type="hidden" name="week" class="form-control" value="<?= $week ?>">
-                            <input type="hidden" name="year" class="form-control" value="<?= $year ?>">
+                                        $no = 1;
+                                        foreach ($total_kontan_per_salesman as $salesman => $total_kontan) {
+                                            $total_tertagih = isset($total_tertagih_per_salesman[$salesman]) ? $total_tertagih_per_salesman[$salesman] : 0;
+
+                                            $grand_total_kontan += $total_kontan;
+                                            $grand_total_tertagih += $total_tertagih;
+                                            $saldo =  $grand_total_kontan + $grand_total_tertagih;
+                                            $grand_saldo += $grand_total_kontan + $grand_total_tertagih;
+                                        ?>
+                                            <tr style=" font-size:11px ;">
+                                                <td width="20px"><?= $no ?> </td>
+                                                <td><?= $salesman ?> </td>
+                                                <td>0</td>
+                                                <td>5</td>
+                                                <td><?= 'Rp. ' . number_format($total_kontan, 0, ',', '.') ?></td>
+                                                <td><?= 'Rp. ' . number_format($total_tertagih, 0, ',', '.') ?></td>
+                                                <td><?= 'Rp. ' . number_format($saldo, 0, ',', '.') ?></td>
+                                            </tr>
+                                        <?php $no++;
+                                        }
+                                        ?>
+                                    </tbody>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="4" align="left"><b>Grand Total dan Nota Tertagih </b></td>
+                                        <td colspan="1" align="left">
+                                            <?= 'Rp. ' . number_format($grand_total_kontan, 0, ',', '.') ?>
+                                        </td>
+                                        <td colspan="1" align="left">
+                                            <?= 'Rp. ' . number_format($grand_total_tertagih, 0, ',', '.') ?>
+                                        </td>
+                                        <td colspan="1" align="left">
+                                            <?= 'Rp. ' . number_format($grand_saldo, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div><br>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-gradient-warning btn-rounded btn-fw text-black">
+                                    Closing
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-description"> Nota Kontan
+                        </p>
+                        <form action="<?= base_url('/akk/laporan/closing-mingguan-nota-kontan-save') ?>" method="POST">
 
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-gradient-warning btn-rounded btn-fw text-black">
@@ -90,56 +181,6 @@
             </div>
         </div>
     </div>
+</div>
 
-    <?php
-    function tgl_indo($tanggal)
-    {
-        $hari = array(
-            'Minggu',
-            'Senin',
-            'Selasa',
-            'Rabu',
-            'Kamis',
-            'Jumat',
-            'Sabtu'
-        );
-
-        $bulan = array(
-            1 => 'Januari',
-            'Februari',
-            'Maret',
-            'April',
-            'Mei',
-            'Juni',
-            'Juli',
-            'Agustus',
-            'September',
-            'Oktober',
-            'November',
-            'Desember'
-        );
-
-        // $pecahkan = explode('-', $tanggal);
-        // $nama_hari = date('w', strtotime($tanggal));
-        // $nama_hari = $hari[$nama_hari];
-        // return $nama_hari . ', ' . $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
-
-        $pecahkan = explode(' ', $tanggal);
-        $tanggal = $pecahkan[0];
-        $waktu = isset($pecahkan[1]) ? $pecahkan[1] : null;
-
-        $pecahkanTanggal = explode('-', $tanggal);
-        $nama_hari = date('w', strtotime($tanggal));
-        $nama_hari = $hari[$nama_hari];
-
-        $result = $nama_hari . ', ' . $pecahkanTanggal[2] . '/' . (int)$pecahkanTanggal[1] . '/' . $pecahkanTanggal[0];
-        // $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
-
-        if ($waktu !== null) {
-            $result .= ' ' . $waktu;
-        }
-
-        return $result;
-    }
-    ?>
-    <?= $this->endSection() ?>
+<?= $this->endSection() ?>
