@@ -171,6 +171,7 @@
             </thead>
             <tbody>
                 <?php
+                $grand_saldo = 0;
                 $grand_total_kontan = 0;
                 $grand_total_tertagih = 0;
                 $total_kontan_per_salesman = [];
@@ -187,7 +188,8 @@
                         if (!isset($total_tertagih_per_salesman[$salesman])) {
                             $total_tertagih_per_salesman[$salesman] = 0;
                         }
-                        $total_tertagih_per_salesman[$salesman] += $value['pay'];
+                        // $total_tertagih_per_salesman[$salesman] += ($value['total_beli'] - $value['pay']);
+                        $total_tertagih_per_salesman[$salesman] +=  $value['pay'];
                     }
                 }
 
@@ -198,6 +200,7 @@
                     $grand_total_kontan += $total_kontan;
                     $grand_total_tertagih += $total_tertagih;
                     $saldo =  $grand_total_kontan + $grand_total_tertagih;
+                    $grand_saldo +=  $grand_total_kontan + $grand_total_tertagih;
                 ?>
                     <tr style=" font-size:11px ;">
                         <td width="20px"><?= $no ?> </td>
@@ -217,6 +220,9 @@
                 </td>
                 <td colspan="1" align="left">
                     <?= 'Rp. ' . number_format($grand_total_tertagih, 0, ',', '.') ?>
+                </td>
+                <td colspan="1" align="left">
+                    <?= 'Rp. ' . number_format($grand_saldo, 0, ',', '.') ?>
                 </td>
             </tr>
         </table>
@@ -307,7 +313,7 @@
                 </tr>
                 <tr style="font-size:11px;">
                     <th style="text-align:center;">No.</th>
-                    <th style="text-align:center;">Cabang</th>
+                    <th style="text-align:center;">Supplier</th>
                     <th style="text-align:center;">Value</th>
                 </tr>
             </thead>
@@ -773,7 +779,7 @@ function tgl_indo($tanggal)
     $nama_hari = date('w', strtotime($tanggal));
     $nama_hari = $hari[$nama_hari];
 
-    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
+    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int) $pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
 
     if ($waktu !== null) {
         $result .= ' ' . $waktu;
