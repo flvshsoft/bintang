@@ -148,11 +148,11 @@ class purchaseOrderController extends BaseController
         $data['judul'] = 'Detail PO';
         $data['judul1'] = 'DETAIL DATA PURCHASE ORDER';
         $data['info'] = $this->mdPurchaseOrder
-            ->where('purchase_order.id_purchase_order', $id_purchase_order)
-            ->select(['*', 'purchase_order.created_at as created_at'])
+            ->select(['*', 'purchase_order.created_at as created_at', 'purchase_order.id_purchase_order as id_purchase_order'])
             ->join('user', 'user.id_user=purchase_order.id_user')
             ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
-            ->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order=purchase_order.id_purchase_order')
+            ->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order=purchase_order.id_purchase_order', 'left')
+            ->where('purchase_order.id_purchase_order', $id_purchase_order)
             ->find()[0];
         $data['model'] = $this->mdPurchaseOrderDetail
             ->where('purchase_order_detail.id_purchase_order', $id_purchase_order)
@@ -194,35 +194,38 @@ class purchaseOrderController extends BaseController
             ->where('id_purchase_order', $id_purchase_order)
             ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
             ->find();
-        $id_supplier = $md_suppplier[0]['id_supplier'];
-        $minggu_purchase_order = $md_suppplier[0]['minggu_purchase_order'];
-        $jumlah_piutang = $harga_beli * $jumlah_product;
+        if (isset($md_suppplier[0])) {
+            $id_supplier = $md_suppplier[0]['id_supplier'];
+            $minggu_purchase_order = $md_suppplier[0]['minggu_purchase_order'];
+
+            $jumlah_piutang = $harga_beli * $jumlah_product;
 
         $existingData = $this->mdPiutangUsaha
             ->where('id_supplier', $id_supplier)
             ->first();
 
-        if ($existingData) {
-            $this->mdPiutangUsaha
-                ->where('id_supplier', $id_supplier)
-                ->increment('jumlah_piutang', $jumlah_piutang);
-        } else {
-            $data2 = [
-                'id_branch' => Session('userData')['id_branch'],
-                'id_purchase_order_detail' => $id_purchase_order_detail,
-                'id_user' => Session('userData')['id_user'],
-                'id_purchase_order' => $id_purchase_order,
-                'id_supplier' => $id_supplier,
-                'minggu-ke' => $minggu_purchase_order,
-                'harga_beli' => $harga_beli,
-                'jumlah_piutang' => $jumlah_piutang,
-                'jumlah_cicilan' => 0,
-                'jenis' => 'PO',
-                'type_piutang' => 'PO',
-                'status' => 0,
-                'jumlah_product' => $jumlah_product,
-            ];
-            $this->mdPiutangUsaha->insert($data2);
+            if ($existingData) {
+                $this->mdPiutangUsaha
+                    ->where('id_supplier', $id_supplier)
+                    ->increment('jumlah_piutang', $jumlah_piutang);
+            } else {
+                $data2 = [
+                    'id_branch' => Session('userData')['id_branch'],
+                    'id_purchase_order_detail' => $id_purchase_order_detail,
+                    'id_user' => Session('userData')['id_user'],
+                    'id_purchase_order' => $id_purchase_order,
+                    'id_supplier' => $id_supplier,
+                    'minggu-ke' => $minggu_purchase_order,
+                    'harga_beli' => $harga_beli,
+                    'jumlah_piutang' => $jumlah_piutang,
+                    'jumlah_cicilan' => 0,
+                    'jenis' => 'PO',
+                    'type_piutang' => 'PO',
+                    'status' => 0,
+                    'jumlah_product' => $jumlah_product,
+                ];
+                $this->mdPiutangUsaha->insert($data2);
+            }
         }
         return redirect()->to(base_url('/akk/transaksi/purchase_order/detail/' . $id_purchase_order));
     }
