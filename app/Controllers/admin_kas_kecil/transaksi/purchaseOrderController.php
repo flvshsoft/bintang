@@ -125,18 +125,23 @@ class purchaseOrderController extends BaseController
         return view('admin_kas_kecil/transaksi/purchase_order/print', $data);
     }
 
-    public function hapus_detail($id_purchase_order_detail, $id_purchase_order)
+    public function hapus_detail($id_purchase_order_detail, $id_purchase_order, $id_supplier, $hutang)
     {
         $piutang = $this->mdPiutangUsaha
-            ->where('id_purchase_order_detail', $id_purchase_order_detail)
-            ->where('id_purchase_order', $id_purchase_order)
+            ->where('id_supplier', $id_supplier)
+            ->where('type_piutang', "PO")
             ->find();
+        // print_r($piutang);
+        // exit;
 
         $id_piutang_usaha = $piutang[0]['id_piutang_usaha'];
-        $delete2 = $this->mdPiutangUsaha->delete($id_piutang_usaha);
+        //$delete2 = $this->mdPiutangUsaha->delete($id_piutang_usaha);
+        $this->mdPiutangUsaha
+            ->where('id_piutang_usaha', $id_piutang_usaha)
+            ->decrement('jumlah_piutang', $hutang);
         $delete = $this->mdPurchaseOrderDetail->delete($id_purchase_order_detail);
 
-        if ($delete && $delete2) {
+        if ($delete) {
             return redirect()->to(base_url('/akk/transaksi/purchase_order/detail/' . $id_purchase_order));
         } else {
             echo 'Gagal menghapus data.';
@@ -169,14 +174,83 @@ class purchaseOrderController extends BaseController
             ->findAll();
         return view('admin_kas_kecil/transaksi/purchase_order/detail', $data);
     }
+    // public function detail_input()
+    // {
+    //     $id_purchase_order = $this->request->getPost('id_purchase_order');
+    //     $id_supplier = $this->request->getPost('id_supplier');
+
+    //     $id_product = $this->request->getPost('id_product');
+    //     $jumlah_product = str_replace('.', '', $this->request->getPost('jumlah_product'));
+    //     $jumlah_product = (int) str_replace(',', '', $jumlah_product);
+    //     $harga_beli = str_replace(',', '', $this->request->getPost('harga_beli'));
+    //     $harga_beli = (int) str_replace(',', '', $harga_beli);
+    //     $data = [
+    //         'id_purchase_order' => $id_purchase_order,
+    //         'harga_beli' => $harga_beli,
+    //         'jumlah_product' => $jumlah_product,
+    //         'jumlah_masuk' => 0,
+    //         'id_product' => $id_product,
+    //     ];
+    //     $this->mdPurchaseOrderDetail->save($data);
+    //     $id_purchase_order_detail = $this->mdPurchaseOrderDetail->insertID();
+    //     $new_data = array(
+    //         'id_purchase_order_detail' => $id_purchase_order_detail,
+    //     );
+
+    //     $md_suppplier = $this->mdPiutangUsaha
+    //         ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
+    //         ->where('supplier.id_supplier', $id_supplier)
+    //         ->find();
+    //     if (isset($md_suppplier[0])) {
+    //         $id_supplier = $md_suppplier[0]['id_supplier'];
+    //         // $minggu_purchase_order = $md_suppplier[0]['minggu_purchase_order'];
+
+    //         $jumlah_piutang = $harga_beli * $jumlah_product;
+
+    //         $existingData = $this->mdPiutangUsaha
+    //             ->where('id_supplier', $id_supplier)
+    //             ->where('type_piutang', "PO")
+    //             ->first();
+
+    //         if ($existingData) {
+    //             $this->mdPiutangUsaha
+    //                 ->increment('jumlah_piutang', $jumlah_piutang);
+    //         } else {
+    //             $data2 = [
+    //                 'id_branch' => Session('userData')['id_branch'],
+    //                 // 'id_purchase_order_detail' => $id_purchase_order_detail,
+    //                 'id_user' => Session('userData')['id_user'],
+    //                 // 'id_purchase_order' => $id_purchase_order,
+    //                 'id_supplier' => $id_supplier,
+    //                 //  'minggu-ke' => $minggu_purchase_order,
+    //                 'harga_beli' => $harga_beli,
+    //                 'jumlah_piutang' => $jumlah_piutang,
+    //                 'jumlah_cicilan' => 0,
+    //                 'jenis' => 'PO',
+    //                 'type_piutang' => 'PO',
+    //                 'status' => 0,
+    //                 'jumlah_product' => $jumlah_product,
+    //             ];
+    //             $this->mdPiutangUsaha->insert($data2);
+    //         }
+    //     }
+    //     return redirect()->to(base_url('/akk/transaksi/purchase_order/detail/' . $id_purchase_order));
+    // }
     public function detail_input()
     {
         $id_purchase_order = $this->request->getPost('id_purchase_order');
+        $id_supplier = $this->request->getPost('id_supplier');
+
+
         $id_product = $this->request->getPost('id_product');
+
         $jumlah_product = str_replace('.', '', $this->request->getPost('jumlah_product'));
         $jumlah_product = (int) str_replace(',', '', $jumlah_product);
+
         $harga_beli = str_replace(',', '', $this->request->getPost('harga_beli'));
+
         $harga_beli = (int) str_replace(',', '', $harga_beli);
+        $jumlah_piutang = $harga_beli * $jumlah_product;
         $data = [
             'id_purchase_order' => $id_purchase_order,
             'harga_beli' => $harga_beli,
@@ -184,56 +258,41 @@ class purchaseOrderController extends BaseController
             'jumlah_masuk' => 0,
             'id_product' => $id_product,
         ];
+
         $this->mdPurchaseOrderDetail->save($data);
-        $id_purchase_order_detail = $this->mdPurchaseOrderDetail->insertID();
-        $new_data = array(
-            'id_purchase_order_detail' => $id_purchase_order_detail,
-        );
-
-        $md_suppplier = $this->mdPurchaseOrder
-            ->where('id_purchase_order', $id_purchase_order)
-            ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
-            ->find();
-        if (isset($md_suppplier[0])) {
-            $id_supplier = $md_suppplier[0]['id_supplier'];
-            $minggu_purchase_order = $md_suppplier[0]['minggu_purchase_order'];
-
-            $jumlah_piutang = $harga_beli * $jumlah_product;
 
         $existingData = $this->mdPiutangUsaha
             ->where('id_supplier', $id_supplier)
+            ->where('type_piutang', "PO")
             ->first();
 
-            if ($existingData) {
-                $this->mdPiutangUsaha
-                    ->where('id_supplier', $id_supplier)
-                    ->increment('jumlah_piutang', $jumlah_piutang);
-            } else {
-                $data2 = [
-                    'id_branch' => Session('userData')['id_branch'],
-                    'id_purchase_order_detail' => $id_purchase_order_detail,
-                    'id_user' => Session('userData')['id_user'],
-                    'id_purchase_order' => $id_purchase_order,
-                    'id_supplier' => $id_supplier,
-                    'minggu-ke' => $minggu_purchase_order,
-                    'harga_beli' => $harga_beli,
-                    'jumlah_piutang' => $jumlah_piutang,
-                    'jumlah_cicilan' => 0,
-                    'jenis' => 'PO',
-                    'type_piutang' => 'PO',
-                    'status' => 0,
-                    'jumlah_product' => $jumlah_product,
-                ];
-                $this->mdPiutangUsaha->insert($data2);
-            }
+        if ($existingData) {
+            $this->mdPiutangUsaha
+                ->increment('jumlah_piutang', $jumlah_piutang);
+        } else {
+            $data2 = [
+                'id_branch' => Session('userData')['id_branch'],
+                // 'id_purchase_order_detail' => $id_purchase_order_detail,
+                'id_user' => Session('userData')['id_user'],
+                // 'id_purchase_order' => $id_purchase_order,
+                'id_supplier' => $id_supplier,
+                //  'minggu-ke' => $minggu_purchase_order,
+                'harga_beli' => $harga_beli,
+                'jumlah_piutang' => $jumlah_piutang,
+                'jumlah_cicilan' => 0,
+                'jenis' => 'PO',
+                'type_piutang' => 'PO',
+                'status' => 0,
+                'jumlah_product' => $jumlah_product,
+            ];
+            $this->mdPiutangUsaha->insert($data2);
         }
+        //}
         return redirect()->to(base_url('/akk/transaksi/purchase_order/detail/' . $id_purchase_order));
     }
     public function tambah_nama_barang()
     {
         $id = $this->request->getVar('id');
-        // print_r($id);
-        // exit;
         $data['product'] = $this->mdProduct
             ->where('product.id_product', $id)
             ->find()[0];
