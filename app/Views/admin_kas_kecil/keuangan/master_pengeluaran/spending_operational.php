@@ -83,10 +83,11 @@
                                         value="<?= "Rp " . number_format($total, 0, ',', '.') ?>" readonly>
                                 </div>
                             </div>
-                            <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/akk/keuangan/master_pengeluaran') ?>"
-                                    class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
-                            </div>
+                            <!-- <div class="form-group text-center mb-0">
+                                <a href="<? //= base_url('/akk/keuangan/master_pengeluaran') 
+                                            ?>"
+                                    class="btn btn-warning btn-xs btn-lg"> SIMPAN </a>
+                            </div> -->
                         </form><br>
                         <?php if (session()->getFlashdata("berhasil")) { ?>
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -195,6 +196,13 @@
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="col-1 ms-auto me-5">
+                    <a href="<?= base_url('/akk/keuangan/master_pengeluaran') ?>" class="btn btn-success">Simpan</a>
                 </div>
             </div>
         </div>

@@ -10,6 +10,7 @@ class dataKasController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'DATA KAS & BANK';
+        $data['level_user'] = Session('userData')['level_user'];
         $data['model'] = $this->mdKas
             ->select(['*', 'kas_bank.created_at as created_at'])
             ->where('kas_bank.id_branch', Session('userData')['id_branch'])
@@ -54,6 +55,7 @@ class dataKasController extends BaseController
             ->where('bank.id_branch', Session('userData')['id_branch'])
             // ->join('user', 'user.id_user=bank.created_by', 'left')
             ->findAll();
+        $data['level_user'] = Session('userData')['level_user'];
         return view('admin_kas_kecil/keuangan/data_kas/neraca_saldo', $data);
     }
     public function mutasi_bank(): string

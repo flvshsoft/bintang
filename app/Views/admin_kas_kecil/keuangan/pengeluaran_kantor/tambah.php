@@ -20,6 +20,12 @@
             <div class="col-md-8 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
+                        <?php if (session()->getFlashdata("kurang")) { ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <?= session()->getFlashdata("kurang") ?>
+                        </div>
+                        <?php } ?>
                         <form class="forms-sample" method="POST"
                             action="<?= base_url('/akk/keuangan/pengeluaran_kantor/tambah') ?>">
                             <div class="form-group row mb-0">

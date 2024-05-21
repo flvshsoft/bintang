@@ -216,4 +216,47 @@ class notaAwalController extends BaseController
             echo 'Gagal Menghapus Data.';
         }
     }
+    public function riwayat(): string
+    {
+        $data['judul'] = 'Bintang';
+        $data['judul1'] = 'Riwayat Pengambilan Barang (DO)';
+        $data['model'] = $this->mdSales
+            ->select(['*', 'sales.created_at as created_at', 'sales.id_sales as id_sales'])
+            //->select('sales.id_sales,  sales.created_at, partner.nama_lengkap, area.nama_area, sales.week, sales.keterangan, sales.tgl_do, SUM(sales_detail.jumlah_sales) AS total_jumlah_sales')
+            ->where('sales.id_branch', Session('userData')['id_branch'])
+            ->join('partner', 'partner.id_partner=sales.id_partner',)
+            ->join('sales_detail', 'sales_detail.id_sales=sales.id_sales', 'left')
+            ->join('area', 'area.id_area=sales.id_area')
+            ->join('asset', 'asset.id_asset=sales.id_asset')
+            ->orderBy('sales.id_sales', 'DESC')
+            // ->where('deleted_at', NULL)
+
+            // ->having('total_jumlah_sales !=', 0)
+            ->findAll();
+        return view('admin_kas_kecil/transaksi/nota_awal/riwayat', $data);
+    }
+    public function riwayat_detail($id_sales)
+    {
+        $data['judul'] = 'Bintang';
+        $data['judul1'] = 'Detail Riwayat DO';
+        $data['model'] = $this->mdSalesDetail
+            ->select('*, sales_detail.created_at as created_at')
+            ->join('sales', 'sales.id_sales=sales_detail.id_sales',)
+            //->join('price_detail', 'price_detail.id_price_detail=sales_detail.id_price_detail')
+            ->join('product', 'product.id_product=sales_detail.id_product')
+            //->join('product', 'product.id_product=price_detail.id_product')
+            ->join('partner', 'partner.id_partner=sales.id_partner')
+            ->where('sales_detail.id_sales', $id_sales)
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->orderBy('id_sales_detail', 'DESC')
+            ->findAll();
+
+        $data['info'] = $this->mdSales
+            ->join('partner', 'partner.id_partner=sales.id_partner')
+            ->join('area', 'area.id_area=sales.id_area')
+            ->where('id_sales', $id_sales)
+            // ->where('id_branch', Session('userData')['id_branch'])
+            ->find()[0];
+        return view('admin_kas_kecil/transaksi/nota_awal/riwayat_detail', $data);
+    }
 }

@@ -108,6 +108,8 @@ $routes->post('/akk/transaksi/tagihan_baru/closing-sales', 'admin_kas_kecil\tran
 
 $routes->get('/akk/transaksi/nota_awal', 'admin_kas_kecil\transaksi\notaAwalController::index');
 $routes->post('/akk/transaksi/nota_awal', 'admin_kas_kecil\transaksi\notaAwalController::index_save');
+$routes->get('/akk/transaksi/nota_awal/riwayat/detail/(:any)', 'admin_kas_kecil\transaksi\notaAwalController::riwayat_detail/$1');
+$routes->get('/akk/transaksi/nota_awal/riwayat', 'admin_kas_kecil\transaksi\notaAwalController::riwayat');
 $routes->get('/akk/transaksi/nota_awal/detail/hapus/(:any)', 'admin_kas_kecil\transaksi\notaAwalController::hapus_nota/$1');
 $routes->get('/akk/transaksi/nota_awal/detail/(:any)', 'admin_kas_kecil\transaksi\notaAwalController::detail/$1');
 $routes->get('/akk/transaksi/nota_awal/tambah', 'admin_kas_kecil\transaksi\notaAwalController::tambah');
@@ -163,6 +165,8 @@ $routes->get('/akk/piutang_usaha/hapus/(:any)', 'admin_kas_kecil\piutang_usahaCo
 $routes->get('/akk/repayment_detail', 'admin_kas_kecil\piutang_usahaController::repayment_detail');
 $routes->get('/akk/piutang_usaha/form', 'admin_kas_kecil\piutang_usahaController::form_piutang');
 $routes->post('/akk/piutang_usaha/form', 'admin_kas_kecil\piutang_usahaController::form_piutang_save');
+$routes->get('/akk/piutang_internal/tambah', 'admin_kas_kecil\piutang_usahaController::tambah_piutang_internal');
+$routes->post('/akk/piutang_internal/tambah', 'admin_kas_kecil\piutang_usahaController::tambah_piutang_internal_save');
 // $routes->get('/akk/piutang_usaha/input', 'admin_kas_kecil\piutang\tunaiController::index');
 $routes->post('/akk/piutang_usaha/input/add', 'admin_kas_kecil\piutang\tunaiController::add');
 // $routes->get('/akk/piutang_usaha/input/detail/(:any)', 'admin_kas_kecil\piutang\tunaiController::detail_input_piutang/$1');
@@ -229,6 +233,7 @@ $routes->post('/akk/laporan/form_closing/bulanan', 'admin_kas_kecil\laporanContr
 $routes->post('/akk/laporan/form_closing/tahunan', 'admin_kas_kecil\laporanController::form_closing_tahunan');
 $routes->post('/akk/laporan/closing/mingguan', 'admin_kas_kecil\laporanController::closing_mingguan');
 $routes->post('/akk/laporan/closing-mingguan-save', 'admin_kas_kecil\laporanController::closing_mingguan_save');
+$routes->post('/akk/laporan/closing-mingguan-piutang-save', 'admin_kas_kecil\laporanController::closing_mingguan_piutang_save');
 
 $routes->get('/akk/laporan/deposit', 'admin_kas_kecil\laporanController::deposit');
 $routes->get('/akk/laporan/form_tertagih', 'admin_kas_kecil\laporanController::form_tertagih');

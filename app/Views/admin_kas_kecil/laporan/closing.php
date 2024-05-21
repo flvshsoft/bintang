@@ -175,9 +175,9 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <p class="card-description"> Nota Kontan
+                        <p class="card-description"> All Piutang
                         </p>
-                        <form action="<?= base_url('/akk/laporan/closing-mingguan-nota-kontan-save') ?>" method="POST">
+                        <form action="<?= base_url('/akk/laporan/closing-mingguan-piutang-save') ?>" method="POST">
                             <!-- Start Piutang Internal -->
                             <table class="table table-striped" width="100%" height="88%" cellspacing="0">
                                 <thead thead class="table table-success">

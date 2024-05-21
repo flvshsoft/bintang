@@ -1,5 +1,6 @@
 <?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
+<?php $akses_super = (($level_user == 'superadmin') || ($level_user == 'hokeuangan')) ?>
 
 <div class="main-panel">
     <div class="content-wrapper">
@@ -24,8 +25,10 @@
                         <div class="form-group">
                             <a class="btn btn-success btn-xs" href="<?= base_url('/akk/keuangan/data_kas/uang_kas_besar') ?>">
                                 <i class="mdi mdi-database-plus icon-sm"></i> Kas Besar</a>
-                            <a class="btn btn-warning btn-xs" href="<?= base_url('/akk/keuangan/data_kas/uang_kas_kecil') ?>">
-                                <i class="mdi mdi-database-plus icon-sm"></i> Kas Kecil</a>
+                            <?php if ($akses_super) { ?>
+                                <a class="btn btn-warning btn-xs" href="<?= base_url('/akk/keuangan/data_kas/uang_kas_kecil') ?>">
+                                    <i class="mdi mdi-database-plus icon-sm"></i> Kas Kecil</a>
+                            <?php } ?>
                             <a class="btn btn-danger btn-xs" href="<?= base_url('/akk/keuangan/mutasi_bank') ?>">
                                 <i class="mdi mdi-database-minus icon-sm"></i> Mutasi</a>
                             <a class="btn btn-primary btn-xs" href="<?= base_url('/akk/keuangan/data_kas/neraca_saldo') ?>">

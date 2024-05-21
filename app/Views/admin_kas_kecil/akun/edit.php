@@ -15,8 +15,8 @@
                                         <option value="<?= $model['id_branch'] ?>"><?= $model['nama_branch'] ?> -
                                             <?= $model['nama_branch'] ?></option>
                                         <?php foreach ($branch as $value) { ?>
-                                        <option value="<?= $value['id_branch'] ?>"><?= $value['nama_branch'] ?> -
-                                            <?= $value['nama_branch'] ?></option>
+                                            <option value="<?= $value['id_branch'] ?>"><?= $value['nama_branch'] ?> -
+                                                <?= $value['nama_branch'] ?></option>
                                         <?php }; ?>
                                     </select>
                                 </div>
@@ -24,24 +24,20 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Nama </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail2"
-                                        value="<?= $model['nama_user'] ?>" required name="nama_user">
-                                    <input type="hidden" class="form-control form-control-sm" id="exampleInputEmail2"
-                                        value="<?= $model['id_user'] ?>" required name="id_user">
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail2" value="<?= $model['nama_user'] ?>" required name="nama_user">
+                                    <input type="hidden" class="form-control form-control-sm" id="exampleInputEmail2" value="<?= $model['id_user'] ?>" required name="id_user">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Username </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail2"
-                                        value="<?= $model['username'] ?>" required name="username">
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail2" value="<?= $model['username'] ?>" required name="username">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Password</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile"
-                                         name="password" placeholder="Masukkan password">
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" name="password" placeholder="Masukkan password">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -52,6 +48,8 @@
                                         <option value="admin">Admin</option>
                                         <option value="gudang">Gudang</option>
                                         <option value="ho">HO</option>
+                                        <option value="hogudang">HO Gudang</option>
+                                        <option value="hokeuangan">HO Keuangan</option>
                                     </select>
                                 </div>
                             </div>
@@ -72,12 +70,12 @@
 </div>
 
 <style>
-.table-bordered-custom {
-    border: 1px solid #000;
-    /* Ganti dengan warna dan ketebalan sesuai preferensi Anda */
-}
+    .table-bordered-custom {
+        border: 1px solid #000;
+        /* Ganti dengan warna dan ketebalan sesuai preferensi Anda */
+    }
 
-/* Tambahkan class ini pada tabel Anda */
+    /* Tambahkan class ini pada tabel Anda */
 </style>
 
 <?= $this->endSection() ?>

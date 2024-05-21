@@ -1,5 +1,6 @@
 <?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
+<?php $akses_super_admin = ($level_user == 'superadmin') ?>
 
 <div class="main-panel">
     <div class="content-wrapper">
@@ -43,11 +44,14 @@
                                             <?= $value['nama_bank'] ?>
                                         </td>
                                         <td style="font-size: 11px;">
+                                            <?php if($akses_super_admin){?>
                                             <a style="text-decoration: none;"
                                                 href="<?= base_url('/akk/master_bank/update/' . $value['id_bank']) ?>">
                                                 <?= 'Rp. ' . number_format($value['saldo'], 0, ',', '.') ?>
                                             </a>
-
+                                            <?php }else{?>
+                                            <?= 'Rp. ' . number_format($value['saldo'], 0, ',', '.') ?>
+                                            <?php }?>
                                         </td>
                                     </tr>
                                     <?php }; ?>
@@ -91,8 +95,8 @@
                         <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Saldo</label>
                         <div class="col-sm-9">
                             <input type="hidden" class="form-control" value="<?= $value['id_bank'] ?>" name="id_bank"
-                                </div>
-                            <input type="text" class="form-control" value="<?= $value['saldo'] ?>" name="saldo" </div>
+                                </div> <input type="text" class="form-control" value="<?= $value['saldo'] ?>"
+                                name="saldo" </div>
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -45,7 +45,7 @@ class piutang_usahaController extends BaseController
     public function form_piutang(): string
     {
         $data['judul'] = 'Bintang Distributor';
-        $data['judul1'] = 'FORM PIUTANG INTERNAL        ';
+        $data['judul1'] = 'FORM PIUTANG KARYAWAN';
         return view('admin_kas_kecil/piutang_usaha/tambah', $data);
     }
     public function form_piutang_save()
@@ -53,13 +53,34 @@ class piutang_usahaController extends BaseController
         $data = [
             'nama_penghutang' => $this->request->getPost('nama_penghutang'),
             'tgl_piutang' => $this->request->getPost('tgl_piutang'),
-            'type_piutang' => $this->request->getPost('type_piutang'),
+            'type_piutang' => 'Karyawan',
             'status' => 0,
             'jumlah_piutang' => $this->request->getPost('jumlah_piutang'),
             'id_branch' => Session('userData')['id_branch'],
             'id_user' => Session('userData')['id_user'],
         ];
         $this->mdPiutangUsaha->save($data);
+        return redirect()->to(base_url('/akk/piutang_usaha'));
+    }
+    public function tambah_piutang_internal(): string
+    {
+        $data['judul'] = 'Bintang Distributor';
+        $data['judul1'] = 'FORM PIUTANG INTERNAL';
+        $data['cabang'] = $this->mdBranch->findAll();
+        return view('admin_kas_kecil/piutang_usaha/tambah_internal', $data);
+    }
+    public function tambah_piutang_internal_save()
+    {
+        $data = [
+            'id_cabang' => $this->request->getPost('id_cabang'),
+            'tgl_piutang' => $this->request->getPost('tgl_piutang'),
+            'type_piutang' => 'Internal',
+            'status' => 0,
+            'jumlah_piutang' => $this->request->getPost('jumlah_piutang'),
+            'id_branch' => Session('userData')['id_branch'],
+            'id_user' => Session('userData')['id_user'],
+        ];
+        // $this->mdPiutangUsaha->save($data);
         return redirect()->to(base_url('/akk/piutang_usaha'));
     }
 }

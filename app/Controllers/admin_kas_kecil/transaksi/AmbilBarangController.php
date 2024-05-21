@@ -79,14 +79,22 @@ class AmbilBarangController extends BaseController
             ->join('nota', 'nota.id_sales=sales.id_sales')
             ->where('sales.id_sales', $id_sales)->findAll();
 
-        $id_nota_array = array();
 
+        $id_nota_array = array();
         foreach ($sales as $value) {
             $id_nota = $value['id_nota'];
             $id_nota_array[] = $id_nota;
         }
         foreach ($id_nota_array as $id_nota) {
             $this->mdNota->delete($id_nota);
+        }
+
+        $pengeluaran =  $this->mdSales
+            ->join('pengeluaran_sales', 'pengeluaran_sales.id_sales=sales.id_sales')
+            ->where('sales.id_sales', $id_sales)->findAll();
+        foreach ($pengeluaran as $value) {
+            $id_pengeluaran_sales = $value['id_pengeluaran_sales'];
+            $this->mdPengeluaranSales->delete($id_pengeluaran_sales);
         }
 
         $delete = $this->mdSales->delete($id_sales);

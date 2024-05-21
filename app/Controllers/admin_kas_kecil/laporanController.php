@@ -317,8 +317,6 @@ class laporanController extends BaseController
             ->findAll();
 
         $data['piutang_internal'] = $this->mdPiutangUsaha
-            ->orderBY('tgl_piutang', 'ASC')
-            //->groupBy('piutang_usaha.id_branch')
             ->where('type_piutang', 'Karyawan')
             ->where('piutang_usaha.id_branch', $id_branch)
             ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
@@ -331,8 +329,6 @@ class laporanController extends BaseController
         $data['jumlah_piutang_internal'] = $jumlah_piutang_internal;
 
         $data['piutang_karyawan'] = $this->mdPiutangUsaha
-            ->orderBY('tgl_piutang', 'ASC')
-            //->groupBy('piutang_usaha.id_branch')
             ->where('type_piutang', 'Karyawan')
             ->where('piutang_usaha.id_branch', $id_branch)
             ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
@@ -345,12 +341,13 @@ class laporanController extends BaseController
         $data['jumlah_piutang_karyawan'] = $jumlah_piutang_karyawan;
 
         $data['hutang_usaha'] = $this->mdPiutangUsaha
-            ->orderBY('tgl_piutang', 'ASC')
             ->groupBy('supplier.id_supplier')
             ->where('type_piutang', 'Usaha')
             ->where('piutang_usaha.id_branch', $id_branch)
             ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
             ->findAll();
+        // print_r($data['hutang_usaha']);
+        // exit;
         $jumlah_piutang_usaha = 0;
         foreach ($data['hutang_usaha'] as $key => $value) {
             $value['jumlah_piutang'];
@@ -434,5 +431,52 @@ class laporanController extends BaseController
         // print_r($mdWeek);
 
         return redirect()->to(base_url('/akk/laporan/form_closing'));
+    }
+    public function closing_mingguan_piutang_save()
+    {
+        $week = $this->request->getPost('week');
+        $year = $this->request->getPost('year');
+        $id_branch = SESSION('userData')['id_branch'];
+
+        $data['piutang_karyawan'] = $this->mdPiutangUsaha
+            ->where('type_piutang', 'Karyawan')
+            ->where('piutang_usaha.id_branch', $id_branch)
+            ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
+            ->findAll();
+        foreach ($data['piutang_karyawan'] as $key => $value) {
+            $value['jumlah_piutang'][$key];
+            $value['nama_karyawan'][$key];
+            $data_save1 = [
+                'id_branch' => SESSION('userData')['id_branch'],
+                'id_partner' => $key,
+                'id_user' => SESSION('userData')['id_user'],
+                'week_piutang_karyawan' => $week,
+                //  'nama_karyawan' => $this->request->getPost('nama_karyawan'),
+                'nama_karyawan' => $value['nama_karyawan'],
+                // 'total_piutang_karyawan' => $this->request->getPost('total_piutang_karyawan'),
+                'total_piutang_karyawan' => $value['jumlah_piutang'],
+            ];
+            $this->mdClosingPiutangKaryawan->save($data_save1);
+        }
+
+
+        // //week
+        $where_conditions = [
+            'nama_week' => $week,
+            'tahun_week' => $year,
+        ];
+        // print_r($where_conditions);
+        $mdWeek = $this->mdWeek->where($where_conditions)->find();
+
+        if (isset($mdWeek[0])) {
+            $data_save_week = [
+                'id_week' => $mdWeek[0]['id_week'],
+                'status_closing' => '1',
+            ];
+            // $this->mdWeek->save($data_save_week);
+        }
+        // print_r($mdWeek);
+
+        // return redirect()->to(base_url('/akk/laporan/form_closing'));
     }
 }

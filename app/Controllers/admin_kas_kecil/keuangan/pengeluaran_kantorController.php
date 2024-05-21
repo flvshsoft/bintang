@@ -11,6 +11,7 @@ class pengeluaran_kantorController extends BaseController
         $data['model'] = $this->mdPengeluaranKantor
             ->where('pengeluaran_kantor.id_branch', SESSION('userData')['id_branch'])
             ->join('user', 'user.id_user=pengeluaran_kantor.created_by')
+            ->orderBy('id_pengeluaran_kantor', 'DESC')
             ->findAll();
         return view('admin_kas_kecil/keuangan/pengeluaran_kantor/index', $data);
     }
@@ -41,10 +42,18 @@ class pengeluaran_kantorController extends BaseController
             ->where('nama_bank', 'KAS KECIL')
             ->where('id_branch', Session('userData')['id_branch'])
             ->find();
+        $saldo = $bank[0]['saldo'];
         $id_bank = $bank[0]['id_bank'];
-        $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $biaya_pengeluaran_kantor);
+        $nama_bank = $bank[0]['nama_bank'];
 
-        $this->mdPengeluaranKantor->insert($data);
+        if ($saldo >= $biaya_pengeluaran_kantor) {
+            $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $biaya_pengeluaran_kantor);
+            session()->setFlashdata("berhasil", "Data Berhasil Ditambah");
+            $this->mdPengeluaranKantor->insert($data);
+        } else {
+            session()->setFlashdata("kurang", "Maaf Saldo " . $nama_bank . " Tidak Cukup, Silahkan Top Up Terlebih Dahulu");
+            return redirect()->to(base_url('/akk/keuangan/pengeluaran_kantor/tambah'));
+        }
         return redirect()->to(base_url('/akk/keuangan/pengeluaran_kantor'));
     }
 
@@ -82,9 +91,17 @@ class pengeluaran_kantorController extends BaseController
             ->where('nama_bank', 'KAS KECIL')
             ->where('id_branch', Session('userData')['id_branch'])
             ->find();
+        $saldo = $bank[0]['saldo'];
         $id_bank = $bank[0]['id_bank'];
-        $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $biaya_pengeluaran_kantor);
+        $nama_bank = $bank[0]['nama_bank'];
 
+        if ($saldo >= $biaya_pengeluaran_kantor) {
+            $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $biaya_pengeluaran_kantor);
+            session()->setFlashdata("berhasil", "Data Berhasil Ditambah");
+        } else {
+            session()->setFlashdata("kurang", "Maaf Saldo " . $nama_bank . " Tidak Cukup, Silahkan Top Up Terlebih Dahulu");
+            return redirect()->to(base_url('/akk/keuangan/pengeluaran_kantor/edit/' . $id_pengeluaran_kantor));
+        }
         return redirect()->to(base_url('/akk/keuangan/pengeluaran_kantor'));
     }
 
@@ -97,7 +114,7 @@ class pengeluaran_kantorController extends BaseController
         $id_bank = $bank[0]['id_bank'];
         $delete2  = $this->mdBank->where('id_bank', $id_bank)->increment('saldo', $biaya_pengeluaran_kantor);
         $delete = $this->mdPengeluaranKantor->delete($id_pengeluaran_kantor);
-        
+
         if ($delete && $delete2) {
             return redirect()->to(base_url('/akk/keuangan/pengeluaran_kantor'));
         } else {

@@ -20,8 +20,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group">
-                                <a class="btn btn-success btn-xs" href="<?= base_url('/akk/piutang_usaha/form') ?>">
-                                    <i class="mdi mdi-database-plus icon-sm"></i> Piutang Intern</a>
+                                <a class="btn btn-warning btn-xs" href="<?= base_url('/akk/piutang_usaha/form') ?>">
+                                    <i class="mdi mdi-database-plus icon-sm"></i> Piutang Karyawan</a>
+                                <a class="btn btn-success btn-xs" href="<?= base_url('/akk/piutang_internal/tambah') ?>">
+                                    <i class="mdi mdi-database-plus icon-sm"></i> Piutang Internal</a>
                                 <a class="btn btn-danger btn-xs" href="<?= base_url('/akk/piutang_usaha/input_pembayaran') ?>">
                                     <i class="mdi mdi-cash-usd icon-sm"></i> Pelunasan</a>
                             </div>
