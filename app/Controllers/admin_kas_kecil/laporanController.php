@@ -93,7 +93,6 @@ class laporanController extends BaseController
         }
         $data['jumlah_piutang_'] = $jumlah_piutang_;
 
-
         $data['piutang_karyawan'] = $this->mdPiutangUsaha
             ->orderBY('tgl_piutang', 'ASC')
             //->groupBy('piutang_usaha.id_branch')
@@ -216,11 +215,90 @@ class laporanController extends BaseController
         $mpdf->Output($data['judul1'], 'I'); // opens in browser
     }
 
-    public function form_closing_tahunan(): string
+    public function form_closing_tahunan()
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'CLOSING';
-        return view('admin_kas_kecil/laporan/form_closing/tahunan', $data);
+        $data['judul'] = 'Bintang Distributor';
+        $month = $this->request->getPost('month');
+        $year = $this->request->getPost('year');
+        $data['judul1'] = "LAPORAN CLOSING BULAN $month $year";
+        $id_branch = SESSION('userData')['id_branch'];
+
+        // Nota Putih
+        $data['nota_putih'] = $this->mdNota
+            ->join('partner', 'partner.id_partner=nota.id_partner')
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->orderBY('id_nota', 'DESC')
+            // ->where('sales.week', $week)
+            // ->where('YEAR(nota.created_at)', $year)
+            ->where('nota.id_branch', $id_branch)
+            ->where('nota.status !=', 'Lunas')
+            ->groupBy('partner.id_partner')
+            ->findAll();
+
+        // Nota
+        $data['kontan_nota'] = $this->mdNota
+            ->join('partner', 'partner.id_partner=nota.id_partner')
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->orderBY('id_nota', 'DESC')
+            // ->where('sales.week', $week)
+            ->where('YEAR(nota.created_at)', $year)
+            ->where('nota.id_branch', $id_branch)
+            ->findAll();
+
+        $data['bank'] = $this->mdBank
+            ->orderBY('nama_bank', 'ASC')
+            ->where('id_branch', $id_branch)
+            ->findAll();
+
+        $data['piutang'] = $this->mdPiutangUsaha
+            ->orderBY('tgl_piutang', 'ASC')
+            //->groupBy('piutang_usaha.id_branch')
+            ->where('type_piutang', 'Karyawan')
+            ->where('piutang_usaha.id_branch', $id_branch)
+            ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
+            ->findAll();
+        $jumlah_piutang_ = 0;
+        foreach ($data['piutang'] as $key => $value) {
+            $value['jumlah_piutang'];
+            $jumlah_piutang_ += $value['jumlah_piutang'];
+        }
+        $data['jumlah_piutang_'] = $jumlah_piutang_;
+
+        $data['piutang_karyawan'] = $this->mdPiutangUsaha
+            ->orderBY('tgl_piutang', 'ASC')
+            //->groupBy('piutang_usaha.id_branch')
+            ->where('type_piutang', 'Karyawan')
+            ->where('piutang_usaha.id_branch', $id_branch)
+            ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
+            ->findAll();
+        $jumlah_piutang_karyawan = 0;
+        foreach ($data['piutang'] as $key => $value) {
+            $value['jumlah_piutang'];
+            $jumlah_piutang_karyawan += $value['jumlah_piutang'];
+        }
+        $data['jumlah_piutang_karyawan'] = $jumlah_piutang_karyawan;
+
+        $data['hutang_usaha'] = $this->mdPiutangUsaha
+            ->orderBY('tgl_piutang', 'ASC')
+            ->groupBy('supplier.id_supplier')
+            ->where('type_piutang', 'Usaha')
+            ->where('piutang_usaha.id_branch', $id_branch)
+            ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
+            ->findAll();
+        $jumlah_piutang_usaha = 0;
+        foreach ($data['hutang_usaha'] as $key => $value) {
+            $value['jumlah_piutang'];
+            $jumlah_piutang_usaha += $value['jumlah_piutang'];
+        }
+        $data['jumlah_piutang_usaha'] = $jumlah_piutang_usaha;
+
+        $mpdf = new \Mpdf\Mpdf();
+        $html = view('admin_kas_kecil/laporan/form_closing/tahunan', $data, []);
+        $mpdf->WriteHTML($html);
+        $this->response->setHeader('Content-Type', 'application/pdf');
+        $mpdf->Output($data['judul1'], 'I'); // opens in browser
     }
 
     public function deposit(): string
@@ -317,9 +395,9 @@ class laporanController extends BaseController
             ->findAll();
 
         $data['piutang_internal'] = $this->mdPiutangUsaha
-            ->where('type_piutang', 'Karyawan')
+            ->where('type_piutang', 'Internal')
             ->where('piutang_usaha.id_branch', $id_branch)
-            ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
+            ->join('branch', 'branch.id_branch=piutang_usaha.id_cabang')
             ->findAll();
         $jumlah_piutang_internal = 0;
         foreach ($data['piutang_internal'] as $key => $value) {
@@ -346,8 +424,7 @@ class laporanController extends BaseController
             ->where('piutang_usaha.id_branch', $id_branch)
             ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
             ->findAll();
-        // print_r($data['hutang_usaha']);
-        // exit;
+
         $jumlah_piutang_usaha = 0;
         foreach ($data['hutang_usaha'] as $key => $value) {
             $value['jumlah_piutang'];
@@ -378,6 +455,7 @@ class laporanController extends BaseController
             ->where('nota.status !=', 'Lunas')
             // ->groupBy('partner.id_partner')
             ->findAll();
+
         // Nota Putih
         $temp = [];
         foreach ($data['nota_putih'] as $key => $value) {
@@ -389,8 +467,6 @@ class laporanController extends BaseController
             // print_r($data_save);
             // $this->mdNota->save($data_save);
         }
-
-        //print_r($temp);
         foreach ($temp as $key => $value) {
             $data_save = [
                 'id_branch' => SESSION('userData')['id_branch'],
@@ -400,11 +476,43 @@ class laporanController extends BaseController
                 'total_beli' => array_sum($value),
             ];
             $this->mdNotaPutihSalesmanSave->save($data_save);
-            $total_tertagih = $this->request->getPost('total_tertagih');
-            $total_kontan = $this->request->getPost('total_kontan');
+        }
+
+        $data['kontan_nota'] = $this->mdNota
+            ->join('partner', 'partner.id_partner=nota.id_partner')
+            ->join('customer', 'customer.id_customer=nota.id_customer')
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->orderBY('id_nota', 'DESC')
+            // ->where('sales.week', $week)
+            // ->where('YEAR(nota.created_at)', $year)
+            ->where('nota.id_branch', $id_branch)
+            // ->where('nota.status !=', 'Lunas')
+            // ->where('total_beli !=', 0)
+            ->findAll();
+
+        $total_kontan_per_salesman = [];
+        $total_tertagih_per_salesman = [];
+        foreach ($data['kontan_nota'] as $value) {
+            $id_partner = $value['id_partner'];
+            if ($value['payment_method'] == 'CASH') {
+                if (!isset($total_kontan_per_salesman[$id_partner])) {
+                    $total_kontan_per_salesman[$id_partner] = 0;
+                }
+                $total_kontan_per_salesman[$id_partner] += $value['pay'];
+            } else if ($value['payment_method'] == 'KREDIT') {
+                if (!isset($total_tertagih_per_salesman[$id_partner])) {
+                    $total_tertagih_per_salesman[$id_partner] = 0;
+                }
+                // $total_tertagih_per_salesman[$id_partner] += ($value['total_beli'] - $value['pay']);
+                $total_tertagih_per_salesman[$id_partner] +=  $value['pay'];
+            }
+        }
+
+        foreach ($total_kontan_per_salesman as $id_partner => $total_kontan) {
+            $total_tertagih = isset($total_tertagih_per_salesman[$id_partner]) ? $total_tertagih_per_salesman[$id_partner] : 0;
             $data_save1 = [
                 'id_branch' => SESSION('userData')['id_branch'],
-                'id_partner' => $key,
+                'id_partner' => $id_partner,
                 'id_user' => SESSION('userData')['id_user'],
                 'week_kontan' => $week,
                 'total_tertagih' => $total_tertagih,
@@ -444,19 +552,45 @@ class laporanController extends BaseController
             ->join('branch', 'branch.id_branch=piutang_usaha.id_branch')
             ->findAll();
         foreach ($data['piutang_karyawan'] as $key => $value) {
-            $value['jumlah_piutang'][$key];
-            $value['nama_karyawan'][$key];
             $data_save1 = [
                 'id_branch' => SESSION('userData')['id_branch'],
-                'id_partner' => $key,
                 'id_user' => SESSION('userData')['id_user'],
                 'week_piutang_karyawan' => $week,
-                //  'nama_karyawan' => $this->request->getPost('nama_karyawan'),
-                'nama_karyawan' => $value['nama_karyawan'],
-                // 'total_piutang_karyawan' => $this->request->getPost('total_piutang_karyawan'),
+                'nama_karyawan' => $value['nama_penghutang'],
                 'total_piutang_karyawan' => $value['jumlah_piutang'],
             ];
             $this->mdClosingPiutangKaryawan->save($data_save1);
+        }
+        $data['hutang_usaha'] = $this->mdPiutangUsaha
+            ->groupBy('supplier.id_supplier')
+            ->where('type_piutang', 'Usaha')
+            ->where('piutang_usaha.id_branch', $id_branch)
+            ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
+            ->findAll();
+        foreach ($data['hutang_usaha'] as $key => $value) {
+            $data_save2 = [
+                'id_branch' => SESSION('userData')['id_branch'],
+                'id_user' => SESSION('userData')['id_user'],
+                'week_piutang_supplier' => $week,
+                'id_supplier' => $value['id_supplier'],
+                'total_piutang_supplier' => $value['jumlah_piutang'],
+            ];
+            $this->mdClosingPiutangSupplier->save($data_save2);
+        }
+        $data['piutang_internal'] = $this->mdPiutangUsaha
+            ->where('type_piutang', 'Internal')
+            ->where('piutang_usaha.id_branch', $id_branch)
+            ->join('branch', 'branch.id_branch=piutang_usaha.id_cabang')
+            ->findAll();
+        foreach ($data['piutang_internal'] as $key => $value) {
+            $data_save3 = [
+                'id_branch' => SESSION('userData')['id_branch'],
+                'id_user' => SESSION('userData')['id_user'],
+                'week_piutang_internal' => $week,
+                'id_cabang' => $value['id_cabang'],
+                'total_piutang_internal' => $value['jumlah_piutang'],
+            ];
+            $this->mdClosingPiutangInternal->save($data_save3);
         }
 
 
@@ -477,6 +611,6 @@ class laporanController extends BaseController
         }
         // print_r($mdWeek);
 
-        // return redirect()->to(base_url('/akk/laporan/form_closing'));
+        return redirect()->to(base_url('/akk/laporan/form_closing'));
     }
 }

@@ -163,11 +163,13 @@ $routes->get('/akk/master_week/generate', 'admin_kas_kecil\master\weekController
 $routes->get('/akk/piutang_usaha', 'admin_kas_kecil\piutang_usahaController::index');
 $routes->get('/akk/piutang_usaha/hapus/(:any)', 'admin_kas_kecil\piutang_usahaController::hapus/$1');
 $routes->get('/akk/repayment_detail', 'admin_kas_kecil\piutang_usahaController::repayment_detail');
-$routes->get('/akk/piutang_usaha/form', 'admin_kas_kecil\piutang_usahaController::form_piutang');
-$routes->post('/akk/piutang_usaha/form', 'admin_kas_kecil\piutang_usahaController::form_piutang_save');
+$routes->get('/akk/piutang_usaha/karyawan/tambah', 'admin_kas_kecil\piutang_usahaController::form_piutang');
+$routes->post('/akk/piutang_usaha/karyawan/tambah', 'admin_kas_kecil\piutang_usahaController::form_piutang_save');
 $routes->get('/akk/piutang_internal/tambah', 'admin_kas_kecil\piutang_usahaController::tambah_piutang_internal');
+// $routes->post('/akk/piutang_internal/tambah', 'admin_kas_kecil\piutang_usahaController::index_internal_save');
 $routes->post('/akk/piutang_internal/tambah', 'admin_kas_kecil\piutang_usahaController::tambah_piutang_internal_save');
-// $routes->get('/akk/piutang_usaha/input', 'admin_kas_kecil\piutang\tunaiController::index');
+$routes->get('/akk/piutang_usaha/internal', 'admin_kas_kecil\piutang_usahaController::index_internal');
+$routes->get('/akk/piutang_usaha/karyawan', 'admin_kas_kecil\piutang_usahaController::index_karyawan');
 $routes->post('/akk/piutang_usaha/input/add', 'admin_kas_kecil\piutang\tunaiController::add');
 // $routes->get('/akk/piutang_usaha/input/detail/(:any)', 'admin_kas_kecil\piutang\tunaiController::detail_input_piutang/$1');
 $routes->get('/akk/piutang_usaha/input_pembayaran', 'admin_kas_kecil\piutang\pembayaranController::index');

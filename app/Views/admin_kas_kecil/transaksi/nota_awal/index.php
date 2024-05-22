@@ -81,12 +81,13 @@
                                             </td>
                                             <td>
                                                 <a href="<?= base_url('/akk/transaksi/nota_awal/detail/' . $value['id_sales']) . '/' . 'CASH' ?>">
-                                                    <i class="mdi mdi-plus-circle text-default icon-md"></i>
+                                                    <i class="mdi mdi-eye text-default icon-md"></i>
                                                 </a>
 
-                                                <a href="<?= base_url('/akk/transaksi/nota_awal/print_penjualan_barang/' . $value['id_sales']) ?>">
+                                                <!-- <a href="<? //= base_url('/akk/transaksi/nota_awal/print_penjualan_barang/' . $value['id_sales']) 
+                                                                ?>">
                                                     <i class="mdi mdi-file-pdf icon-md"></i>
-                                                </a>
+                                                </a> -->
 
                                                 <!-- <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
                                                 href="<? //= base_url('/akk/transaksi/nota_awal/hapus/' . $value['id_sales']) 

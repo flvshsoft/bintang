@@ -19,11 +19,13 @@
             <div class="col-lg-8 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/piutang_usaha/form') ?>">
+                        <form class="forms-sample" method="POST"
+                            action="<?= base_url('/akk/piutang_internal/tambah') ?>">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Tanggal</label>
                                 <div class="col-sm-9">
-                                    <input type="datetime-local" class="form-control form-control-sm" name="tgl_piutang" value="<?= date('Y-m-d H:i:s') ?>">
+                                    <input type="datetime-local" class="form-control form-control-sm" name="tgl_piutang"
+                                        value="<?= date('Y-m-d H:i:s') ?>">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -33,7 +35,7 @@
                                     <select class="form-control form-control-sm" name="id_cabang">
                                         <option value="0">Pilih Cabang</option>
                                         <?php foreach ($cabang as $value) { ?>
-                                            <option value="<?= $value['id_branch'] ?>"><?= $value['cabang'] ?></option>
+                                        <option value="<?= $value['id_branch'] ?>"><?= $value['cabang'] ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -41,11 +43,13 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Jumlah</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control form-control-sm" name="jumlah_piutang_internal" placeholder="Jumlah Masuk">
+                                    <input type="text" id="pay" class="form-control form-control-sm" value="0"
+                                        name="jumlah_piutang_internal" placeholder="Jumlah Masuk">
                                 </div>
                             </div>
                             <div class="form-group text-center">
-                                <a href="<?= base_url('/akk/piutang_usaha') ?>" class="btn btn-gradient-primary btn-xs tip-top">
+                                <a href="<?= base_url('/akk/piutang_usaha/internal') ?>"
+                                    class="btn btn-gradient-primary btn-xs tip-top">
                                     <i class="mdi mdi-backburger"></i>
                                 </a>
                                 <button class="btn btn-success btn-xs tip-top">
@@ -59,5 +63,20 @@
         </div>
     </div>
 </div>
+<script>
+// Format angka saat diketikkan oleh pengguna
+document.getElementById('pay').addEventListener('input', function() {
+    // Ambil nilai input
+    let payValue = this.value;
 
+    // Hapus semua tanda titik yang ada
+    payValue = payValue.replace(/\./g, '');
+
+    // Format angka dengan titik sebagai pemisah ribuan
+    payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+    // Masukkan kembali nilai yang sudah diformat ke dalam input
+    this.value = payValue;
+});
+</script>
 <?= $this->endSection() ?>

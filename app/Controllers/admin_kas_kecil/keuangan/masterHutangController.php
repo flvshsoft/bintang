@@ -87,7 +87,7 @@ class masterHutangController extends BaseController
                 'tgl_piutang' => $tgl_piutang,
                 'type_piutang' => 'Usaha',
                 'status' => 0,
-                'jenis' => 'Manual',
+                // 'jenis' => 'Manual',
                 'minggu-ke' => $minggu_ke,
                 'jumlah_piutang' => $jumlah_piutang,
                 'jumlah_cicilan' => 0,
@@ -167,45 +167,24 @@ class masterHutangController extends BaseController
             $jumlah_piutang = 0;
         }
 
-        if ($jenis == "PO") {
-            if ($saldo > $jumlah_piutang) {
-                $this->mdPiutangUsaha->where('id_piutang_usaha', $id_piutang_usaha)->decrement('jumlah_piutang', $jumlah_piutang);
-                //$this->mdProduct->where('id_product', $id_product)->increment('stock_product', $jumlah_product);
-                $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $jumlah_piutang);
-                $input_riwayat = [
-                    'id_piutang_usaha' => $id_piutang_usaha,
-                    'id_bank' => $id_bank,
-                    'id_user' => Session('userData')['id_user'],
-                    'id_branch' => Session('userData')['id_branch'],
-                    'total' => $jumlah_piutang,
-                    'ket_riwayat' => 'Pelunasan Piutang USAHA PO' . $id_purchase_order . '- Atas Nama :' . $nama_supplier,
-                ];
-                $this->mdPiutangUsahaRiwayat->save($input_riwayat);
-            } else if ($saldo < $jumlah_piutang) {
-                session()->setFlashdata("kurang_saldo", "Maaf! Saldo " . $nama_bank . " Tidak Mencukupi");
-                return redirect()->to(base_url('/akk/keuangan/master_hutang'));
-            } else {
-                "Apa ? ";
-            }
+        if ($saldo > $jumlah_piutang) {
+            $this->mdPiutangUsaha->where('id_piutang_usaha', $id_piutang_usaha)->decrement('jumlah_piutang', $jumlah_piutang);
+            //$this->mdProduct->where('id_product', $id_product)->increment('stock_product', $jumlah_product);
+            $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $jumlah_piutang);
+            $input_riwayat = [
+                'id_piutang_usaha' => $id_piutang_usaha,
+                'id_bank' => $id_bank,
+                'id_user' => Session('userData')['id_user'],
+                'id_branch' => Session('userData')['id_branch'],
+                'total' => $jumlah_piutang,
+                'ket_riwayat' => 'Pelunasan Piutang USAHA' . $id_purchase_order . '- Atas Nama :' . $nama_supplier,
+            ];
+            $this->mdPiutangUsahaRiwayat->save($input_riwayat);
+        } else if ($saldo < $jumlah_piutang) {
+            session()->setFlashdata("kurang_saldo", "Maaf! Saldo " . $nama_bank . " Tidak Mencukupi");
+            return redirect()->to(base_url('/akk/keuangan/master_hutang'));
         } else {
-            if ($saldo > $jumlah_piutang) {
-                $this->mdPiutangUsaha->where('id_piutang_usaha', $id_piutang_usaha)->decrement('jumlah_piutang', $jumlah_piutang);
-                $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $jumlah_piutang);
-                $input_riwayat = [
-                    'id_piutang_usaha' => $id_piutang_usaha,
-                    'id_bank' => $id_bank,
-                    'id_user' => Session('userData')['id_user'],
-                    'id_branch' => Session('userData')['id_branch'],
-                    'total' => $jumlah_piutang,
-                    'ket_riwayat' => 'Pelunasan Piutang Usaha' . $nama_supplier,
-                ];
-                $this->mdPiutangUsahaRiwayat->save($input_riwayat);
-            } else if ($saldo < $jumlah_piutang) {
-                session()->setFlashdata("kurang_saldo", "Maaf! Saldo " . $nama_bank . " Tidak Mencukupi");
-                return redirect()->to(base_url('/akk/keuangan/master_hutang'));
-            } else {
-                "Apa ? ";
-            }
+            "Apa ? ";
         }
         return redirect()->to(base_url('/akk/keuangan/master_hutang'));
     }
@@ -248,7 +227,6 @@ class masterHutangController extends BaseController
                     'total' => $cicilan,
                     'ket_riwayat' => $ket_riwayat,
                 ];
-
                 $this->mdPiutangUsahaRiwayat->save($input_riwayat);
                 $this->mdBank->where('id_bank', $id_bank)->decrement('saldo', $cicilan);
                 $this->mdPiutangUsaha->where('id_piutang_usaha', $id_piutang_usaha)->decrement('jumlah_piutang', $cicilan);

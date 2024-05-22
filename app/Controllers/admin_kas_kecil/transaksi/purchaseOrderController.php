@@ -129,13 +129,13 @@ class purchaseOrderController extends BaseController
     {
         $piutang = $this->mdPiutangUsaha
             ->where('id_supplier', $id_supplier)
-            ->where('type_piutang', "PO")
+            ->where('type_piutang', "Usaha")
             ->find();
         // print_r($piutang);
         // exit;
 
         $id_piutang_usaha = $piutang[0]['id_piutang_usaha'];
-        //$delete2 = $this->mdPiutangUsaha->delete($id_piutang_usaha);
+
         $this->mdPiutangUsaha
             ->where('id_piutang_usaha', $id_piutang_usaha)
             ->decrement('jumlah_piutang', $hutang);
@@ -263,7 +263,7 @@ class purchaseOrderController extends BaseController
 
         $existingData = $this->mdPiutangUsaha
             ->where('id_supplier', $id_supplier)
-            ->where('type_piutang', "PO")
+            ->where('type_piutang', "Usaha")
             ->first();
 
         if ($existingData) {
@@ -280,8 +280,8 @@ class purchaseOrderController extends BaseController
                 'harga_beli' => $harga_beli,
                 'jumlah_piutang' => $jumlah_piutang,
                 'jumlah_cicilan' => 0,
-                'jenis' => 'PO',
-                'type_piutang' => 'PO',
+                // 'jenis' => 'PO',
+                'type_piutang' => 'Usaha',
                 'status' => 0,
                 'jumlah_product' => $jumlah_product,
             ];

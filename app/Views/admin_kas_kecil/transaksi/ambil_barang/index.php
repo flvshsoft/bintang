@@ -21,8 +21,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group col-6">
-                                <a class="btn btn-success btn-xs"
-                                    href="<?= base_url('/akk/transaksi/penjualan_barang') ?>">
+                                <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/penjualan_barang') ?>">
                                     <i class="mdi mdi-database-plus btn-icon-prepend"></i> Tambah (DO)</a>
                                 <a class="btn btn-primary btn-xs" href="<?= base_url('/akk/transaksi/ambil_barang/riwayat')
                                                                         ?>">
@@ -48,56 +47,55 @@
                                     <?php $no = 1;
                                     foreach ($model as $value) {
                                     ?>
-                                    <tr>
+                                        <tr>
 
-                                        <td style="font-size: 11px;">
-                                            <?= $no ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <b>
-                                                <a style="text-decoration:none"
-                                                    href="<?= base_url('/akk/transaksi/edit_penjualan_barang/' .  $value['id_sales']) ?>">
-                                                    <?= $value['id_sales'] ?>
-                                                </a>
-                                            </b>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['nama_lengkap'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['nama_area'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['week'] ?>
-                                        </td>
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['keterangan'] ?>
-                                        </td>
-                                        <!-- <td style=" font-size: 11px;">
+                                            <td style="font-size: 11px;">
+                                                <?= $no ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <b>
+                                                    <a style="text-decoration:none" href="<?= base_url('/akk/transaksi/edit_penjualan_barang/' .  $value['id_sales']) ?>">
+                                                        <?= $value['id_sales'] ?>
+                                                    </a>
+                                                </b>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['nama_lengkap'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['nama_area'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['week'] ?>
+                                            </td>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['keterangan'] ?>
+                                            </td>
+                                            <!-- <td style=" font-size: 11px;">
                                             <? //= $value['created_at'] 
                                             ?>
                                         </td> -->
-                                        <td style=" font-size: 11px;">
-                                            <?= $value['tgl_do'] ?>
-                                        </td>
-                                        <td>
-                                            <a
-                                                href="<?= base_url('/akk/transaksi/ambil_barang/detail/' . $value['id_sales']) ?>">
-                                                <i class="mdi mdi-eye text-default icon-md"></i>
-                                            </a>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['tgl_do'] ?>
+                                            </td>
+                                            <td>
+                                                <a href="<?= base_url('/akk/transaksi/ambil_barang/detail/' . $value['id_sales']) ?>">
+                                                    <i class="mdi mdi-eye text-default icon-md"></i>
+                                                </a>
 
-                                            <a
-                                                href="<?= base_url('/akk/transaksi/print_penjualan_barang/' . $value['id_sales']) ?>">
+                                                <!-- <a
+                                                href="<? //= base_url('/akk/transaksi/print_penjualan_barang/' . $value['id_sales']) 
+                                                        ?>">
                                                 <i class="mdi mdi-file-pdf icon-md"></i>
-                                            </a>
+                                            </a> -->
 
-                                            <!-- <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
+                                                <!-- <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
                                                 href="<? //= base_url('/akk/transaksi/hapus_penjualan_barang/' . $value['id_sales']) 
                                                         ?>">
                                                 <i class="mdi mdi-delete-circle text-default icon-md"></i>
                                             </a> -->
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
                                     <?php $no++;
                                     } ?>
                                 </tbody>

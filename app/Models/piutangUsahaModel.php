@@ -12,7 +12,7 @@ class piutangUsahaModel extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['id_user', 'minggu-ke', 'id_purchase_order_detail', 'jenis', 'id_purchase_order', 'id_supplier', 'nama_penghutang', 'tgl_piutang', 'id_branch', 'jumlah_piutang', 'type_piutang', 'status'];
+    protected $allowedFields = ['id_user', 'id_cabang', 'minggu-ke', 'id_purchase_order_detail', 'jenis', 'id_purchase_order', 'id_supplier', 'nama_penghutang', 'tgl_piutang', 'id_branch', 'jumlah_piutang', 'type_piutang', 'status'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

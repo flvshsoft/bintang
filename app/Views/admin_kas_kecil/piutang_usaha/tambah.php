@@ -19,7 +19,8 @@
             <div class="col-lg-8 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/piutang_usaha/form') ?>">
+                        <form class="forms-sample" method="POST"
+                            action="<?= base_url('/akk/piutang_usaha/karyawan/tambah') ?>">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Tanggal</label>
                                 <div class="col-sm-9">
@@ -28,22 +29,21 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
-                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Nama Karyawan /
-                                    Cabang</label>
+                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Nama Karyawan </label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control form-control-sm" name="nama_penghutang"
-                                        placeholder="Nama Karyawan / Cabang">
+                                        placeholder="Nama Karyawan">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Jumlah</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control form-control-sm" name="jumlah_piutang"
-                                        placeholder="Jumlah Masuk">
+                                    <input type="text" class="form-control form-control-sm"
+                                        name="jumlah_piutang_karyawan" id="pay" placeholder="Jumlah Masuk">
                                 </div>
                             </div>
                             <div class="form-group text-center">
-                                <a href="<?= base_url('/akk/piutang_usaha') ?>"
+                                <a href="<?= base_url('/akk/piutang_usaha/karyawan') ?>"
                                     class="btn btn-gradient-primary btn-xs tip-top">
                                     <i class="mdi mdi-backburger"></i>
                                 </a>
@@ -58,7 +58,22 @@
         </div>
     </div>
 </div>
+<script>
+// Format angka saat diketikkan oleh pengguna
+document.getElementById('pay').addEventListener('input', function() {
+    // Ambil nilai input
+    let payValue = this.value;
 
+    // Hapus semua tanda titik yang ada
+    payValue = payValue.replace(/\./g, '');
+
+    // Format angka dengan titik sebagai pemisah ribuan
+    payValue = new Intl.NumberFormat('id-ID').format(payValue);
+
+    // Masukkan kembali nilai yang sudah diformat ke dalam input
+    this.value = payValue;
+});
+</script>
 <style>
 .table-bordered-custom {
     border: 1px solid #000;

@@ -23,7 +23,39 @@ class piutang_usahaController extends BaseController
         // exit;
         return view('admin_kas_kecil/piutang_usaha/index', $data);
     }
-
+    public function index_internal(): string
+    {
+        $data['judul'] = 'Bintang Distributor';
+        $data['judul1'] = 'INTERNAL';
+        $data['model'] = $this->mdPiutangUsaha
+            ->select(['*', 'piutang_usaha.created_at as created_at'])
+            ->join('branch', 'branch.id_branch=piutang_usaha.id_cabang')
+            ->join('user', 'user.id_user=piutang_usaha.id_user')
+            ->where('piutang_usaha.id_branch', Session('userData')['id_branch'])
+            ->where('jumlah_piutang !=', 0)
+            ->where('type_piutang', 'Internal')
+            ->findAll();
+        $data['bank'] = $this->mdBank
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        return view('admin_kas_kecil/piutang_usaha/index_internal', $data);
+    }
+    public function index_karyawan(): string
+    {
+        $data['judul'] = 'Bintang Distributor';
+        $data['judul1'] = 'KARYAWAN';
+        $data['model'] = $this->mdPiutangUsaha
+            ->select(['*', 'piutang_usaha.created_at as created_at'])
+            ->join('user', 'user.id_user=piutang_usaha.id_user')
+            ->where('piutang_usaha.id_branch', Session('userData')['id_branch'])
+            ->where('jumlah_piutang !=', 0)
+            ->where('type_piutang', 'Karyawan')
+            ->findAll();
+        $data['bank'] = $this->mdBank
+            ->where('id_branch', Session('userData')['id_branch'])
+            ->findAll();
+        return view('admin_kas_kecil/piutang_usaha/index_karyawan', $data);
+    }
     public function hapus($id_nota)
     {
         $data = [
@@ -50,17 +82,32 @@ class piutang_usahaController extends BaseController
     }
     public function form_piutang_save()
     {
+        $jumlah_piutang_karyawan = str_replace('.', '', $this->request->getPost('jumlah_piutang_karyawan'));
+        $jumlah_piutang_karyawan = (int) str_replace(',', '', $jumlah_piutang_karyawan);
         $data = [
             'nama_penghutang' => $this->request->getPost('nama_penghutang'),
             'tgl_piutang' => $this->request->getPost('tgl_piutang'),
             'type_piutang' => 'Karyawan',
             'status' => 0,
-            'jumlah_piutang' => $this->request->getPost('jumlah_piutang'),
+            'jumlah_piutang' => $jumlah_piutang_karyawan,
             'id_branch' => Session('userData')['id_branch'],
             'id_user' => Session('userData')['id_user'],
         ];
-        $this->mdPiutangUsaha->save($data);
-        return redirect()->to(base_url('/akk/piutang_usaha'));
+        $existingRecord = $this->mdPiutangUsaha->where('nama_penghutang', $data['nama_penghutang'])->first();
+
+        if ($existingRecord) {
+            $new_jumlah_piutang = $existingRecord['jumlah_piutang'] + $jumlah_piutang_karyawan;
+
+            // Update entri yang ada dengan jumlah piutang baru
+            $this->mdPiutangUsaha->update($existingRecord['id_piutang_usaha'], [
+                'jumlah_piutang' => $new_jumlah_piutang,
+                'created_at' => $this->request->getPost('tgl_piutang')
+            ]);
+        } else {
+            // Jika tidak ada, simpan entri baru
+            $this->mdPiutangUsaha->save($data);
+        }
+        return redirect()->to(base_url('/akk/piutang_usaha/karyawan'));
     }
     public function tambah_piutang_internal(): string
     {
@@ -71,16 +118,32 @@ class piutang_usahaController extends BaseController
     }
     public function tambah_piutang_internal_save()
     {
+        $jumlah_piutang_internal = str_replace('.', '', $this->request->getPost('jumlah_piutang_internal'));
+        $jumlah_piutang_internal = (int) str_replace(',', '', $jumlah_piutang_internal);
         $data = [
             'id_cabang' => $this->request->getPost('id_cabang'),
             'tgl_piutang' => $this->request->getPost('tgl_piutang'),
             'type_piutang' => 'Internal',
             'status' => 0,
-            'jumlah_piutang' => $this->request->getPost('jumlah_piutang'),
+            'jumlah_piutang' => $jumlah_piutang_internal,
             'id_branch' => Session('userData')['id_branch'],
             'id_user' => Session('userData')['id_user'],
         ];
-        // $this->mdPiutangUsaha->save($data);
-        return redirect()->to(base_url('/akk/piutang_usaha'));
+        $existingRecord = $this->mdPiutangUsaha->where('id_cabang', $data['id_cabang'])->first();
+
+        if ($existingRecord) {
+            // Jika ada, tambahkan 'jumlah_piutang_internal' ke jumlah piutang yang ada
+            $new_jumlah_piutang = $existingRecord['jumlah_piutang'] + $jumlah_piutang_internal;
+
+            // Update entri yang ada dengan jumlah piutang baru
+            $this->mdPiutangUsaha->update($existingRecord['id_piutang_usaha'], [
+                'jumlah_piutang' => $new_jumlah_piutang,
+                'created_at' => $this->request->getPost('tgl_piutang')
+            ]);
+        } else {
+            // Jika tidak ada, simpan entri baru
+            $this->mdPiutangUsaha->save($data);
+        }
+        return redirect()->to(base_url('/akk/piutang_usaha/internal'));
     }
 }

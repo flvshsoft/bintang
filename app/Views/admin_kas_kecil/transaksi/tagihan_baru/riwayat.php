@@ -19,6 +19,12 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
+                        <?php if (session()->getFlashdata("tak_lengkap")) { ?>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <?= session()->getFlashdata("tak_lengkap") ?>
+                            </div>
+                        <?php } ?>
                         <div class="table-responsive">
                             <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="table table-success">
@@ -101,7 +107,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="col-1 ms-auto me-5">
-                    <a href="<?= base_url('/akk/transaksi') ?>" class="btn btn-success">Simpan</a>
+                    <a href="<?= base_url('/akk/transaksi/tagihan_baru') ?>" class="btn btn-success">Simpan</a>
                 </div>
             </div>
         </div>

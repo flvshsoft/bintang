@@ -358,10 +358,13 @@ class AmbilBarangController extends BaseController
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
             ->orderBy('sales.id_sales', 'DESC')
+            ->groupBy('sales.id_sales')
             // ->where('deleted_at', NULL)
 
             // ->having('total_jumlah_sales !=', 0)
             ->findAll();
+        // print_r($data['model']);
+        // exit;
         return view('admin_kas_kecil/transaksi/ambil_barang/riwayat', $data);
     }
     public function riwayat_detail($id_sales)

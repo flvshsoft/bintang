@@ -26,8 +26,8 @@ class CreateClosingPiutangKaryawan extends Migration
                 'null' => true,
             ],
             'nama_karyawan' => [
-                'type' => 'INT',
-                'constraint' => 11,
+                'type' => 'VARCHAR',
+                'constraint' => 111,
                 'null' => true,
             ],
             'id_user' => [

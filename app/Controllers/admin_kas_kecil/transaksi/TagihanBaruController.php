@@ -496,25 +496,24 @@ class TagihanBaruController extends BaseController
         $data['judul1'] = 'CLOSING SALES';
         // data sales
         $data['model'] = $this->mdSales
+            //->select(['sales.week'])
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
-            ->join('nota', 'nota.id_sales=sales.id_sales')
+            ->join('nota', 'nota.id_sales=sales.id_sales', 'left')
             ->where('sales.id_sales', $id_sales)
             // ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('sales.id_sales', 'DESC')
             ->find();
-        $metode_bayar = $data['model'][0]['payment_method'];
-        // print_r($metode_bayar);
-        // exit;
+
+        //  $week = $data['model'][0]['week'];
 
         if (!empty($data['model'])) {
             if (!empty($data['model'][0]['id_nota'])) {
                 $data['model'] = $data['model'][0];
             } else {
-                session()->setFlashdata("tak_lengkap", "Data Kosong");
+                session()->setFlashdata("tak_lengkap", "Nota Masih Kosong");
                 return redirect()->to(base_url('/akk/transaksi/tagihan_baru'));
-                exit;
             }
         }
 
@@ -525,8 +524,8 @@ class TagihanBaruController extends BaseController
             ->join('area', 'area.id_area=sales.id_area')
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->where('sales.id_sales', $id_sales)
-            ->where('sales.week', $data['model']['week'])
-            //  ->where('total_beli !=', 0)
+            // ->where('sales.week', $week)
+            //->where('total_beli !=', 0)
             // ->where('total_beli !=', '0')
             ->findAll();
         // print_r($data['cek_nota']);
@@ -535,9 +534,7 @@ class TagihanBaruController extends BaseController
         $notaList = [];
         foreach ($data['cek_nota'] as $key => $value) {
             $notaList[$value['id_nota']] = $value['id_nota'];
-            $week = $value['week'];
         }
-        // print_r($notaList);
 
         // nota detail
         $mdNotaDetail = $this->mdNotaDetail
@@ -545,9 +542,9 @@ class TagihanBaruController extends BaseController
             ->join('nota', 'nota.id_nota=nota_detail.id_nota')
             ->join('sales', 'sales.id_sales=nota.id_sales')
             ->join('product', 'product.id_product=nota_detail.id_product')
-            // ->join('barang_harga', 'barang_harga.id_product=nota_detail.id_product')
             ->whereIn('nota_detail.id_nota', $notaList)
-            ->where('sales.week', $data['model']['week'])
+            // ->join('barang_harga', 'barang_harga.id_product=nota_detail.id_product')
+            // ->where('sales.week', $week)
             //->groupBy('id_nota_detail')
             ->findAll();
         // print_r($mdNotaDetail[0]);
@@ -715,7 +712,7 @@ class TagihanBaruController extends BaseController
             ->join('partner', 'partner.id_partner=sales.id_partner')
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
-            ->join('nota', 'nota.id_sales=sales.id_sales')
+            ->join('nota', 'nota.id_sales=sales.id_sales', 'left')
             ->where('sales.id_sales', $id_sales)
             // ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('sales.id_sales', 'DESC')
@@ -725,7 +722,7 @@ class TagihanBaruController extends BaseController
             if (!empty($data['model'][0]['id_nota'])) {
                 $data['model'] = $data['model'][0];
             } else {
-                session()->setFlashdata("tak_lengkap", "Data Kosong");
+                session()->setFlashdata("tak_lengkap", "Maaf, Nota Masi Kosong");
                 return redirect()->to(base_url('/akk/transaksi/tagihan_baru/riwayat'));
                 exit;
             }
@@ -747,7 +744,6 @@ class TagihanBaruController extends BaseController
         $notaList = [];
         foreach ($data['cek_nota'] as $key => $value) {
             $notaList[$value['id_nota']] = $value['id_nota'];
-            $week = $value['week'];
         }
         // print_r($notaList);
         // exit;

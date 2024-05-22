@@ -18,6 +18,7 @@ class productController extends BaseController
             ->findAll();
         // print_r($data);
         // exit;
+        $data['level_user'] = Session('userData')['level_user'];
 
         return view('admin_kas_kecil/master/product/index', $data);
     }
@@ -76,6 +77,8 @@ class productController extends BaseController
             ->where('id_branch', Session('userData')['id_branch'])
             ->orderBy('nama_supplier', 'ASC')
             ->findAll();
+        $data['level_user'] = Session('userData')['level_user'];
+
         return view('admin_kas_kecil/master/product/edit', $data);
     }
 
