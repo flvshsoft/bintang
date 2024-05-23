@@ -16,6 +16,7 @@ class masterHutangController extends BaseController
             ->where('supplier.id_branch', Session('userData')['id_branch'])
             ->where('jumlah_piutang !=', 0)
             //->where('status', 0)
+            ->orderBy('id_piutang_usaha', 'DESC')
             ->findAll();
         $data['bank'] = $this->mdBank
             ->where('id_branch', Session('userData')['id_branch'])
@@ -232,7 +233,7 @@ class masterHutangController extends BaseController
                 $this->mdPiutangUsaha->where('id_piutang_usaha', $id_piutang_usaha)->decrement('jumlah_piutang', $cicilan);
                 session()->setFlashdata("berhasil", "Cicilan Berhasil");
             } else {
-                session()->setFlashdata("kurang_saldo", "Maaf! Saldo " . $nama_bank . " Tidak Mencukupi");
+                session()->setFlashdata("kurang_saldo", "Maaf! Saldo " . $nama_bank . " Tidak Mencukupi, Jumlah Saldo " . $saldo);
                 return redirect()->to(base_url('/akk/keuangan/master_hutang/cicilan/' . $id_piutang_usaha));
             }
         } else {

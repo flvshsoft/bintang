@@ -9,6 +9,7 @@ class pengeluaran_kantorController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'DATA PENGELUARAN KANTOR';
         $data['model'] = $this->mdPengeluaranKantor
+            ->select(['*', 'pengeluaran_kantor.created_at as created_at'])
             ->where('pengeluaran_kantor.id_branch', SESSION('userData')['id_branch'])
             ->join('user', 'user.id_user=pengeluaran_kantor.created_by')
             ->orderBy('id_pengeluaran_kantor', 'DESC')

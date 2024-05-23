@@ -21,16 +21,20 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group col-12">
-                                <a class="tip-top" data-original-title="Create Employee" data-togle="tooltip" href="<?= base_url('/akk/karyawan/tambah') ?>">
+                                <a class="tip-top" data-original-title="Create Employee" data-togle="tooltip"
+                                    href="<?= base_url('/akk/sdm/karyawan/tambah') ?>">
                                     <i class="mdi mdi-database-plus icon-md"></i> </a>
-                                <a class="tip-top" data-original-title="Export Employee" data-togle="tooltip" href="<?= base_url('/akk/export_data_karyawan') ?>">
+                                <a class="tip-top" data-original-title="Export Employee" data-togle="tooltip"
+                                    href="<?= base_url('/akk/export_data_karyawan') ?>">
                                     <i class="mdi mdi-file-excel icon-md text-success"></i> </a>
-                                <a class="tip-top" data-original-title="PDF Employee" data-togle="tooltip" href="<?= base_url('/akk/report_data_karyawan') ?>">
+                                <a class="tip-top" data-original-title="PDF Employee" data-togle="tooltip"
+                                    href="<?= base_url('/akk/report_data_karyawan') ?>">
                                     <i class="mdi mdi-file-pdf icon-md text-danger"></i> </a>
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%"
+                                cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>
                                         <th style="font-size: 11px;"> NO INDUK KARYAWAN </th>
@@ -48,46 +52,48 @@
                                 </thead>
                                 <tbody>
                                     <?php foreach ($model as $value) { ?>
-                                        <tr>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['nik'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['nama_karyawan'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['no_hp'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['posisi'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['jabatan'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['status'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['saldo_cuti'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['tgl_kerja'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['nama_user'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <?= $value['created_at'] ?>
-                                            </td>
-                                            <td style="font-size: 11px;">
-                                                <a href="<?= base_url('/akk/karyawan/edit/' . $value['id_karyawan']) ?>">
-                                                    <i class="mdi mdi-pencil-circle icon-md"></i>
-                                                </a>
-                                                <a href="<?= base_url('/akk/karyawan/hapus/' . $value['id_karyawan']) ?>" onclick="return confirm('Apakah Karyawan Anda yakin Menghapus Data Karyawan ?')">
-                                                    <i class="mdi mdi-close-circle icon-md text-danger"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['nik'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['nama_karyawan'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['no_hp'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['posisi'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['jabatan'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['status'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['saldo_cuti'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['tgl_kerja'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['nama_user'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <?= $value['created_at'] ?>
+                                        </td>
+                                        <td style="font-size: 11px;">
+                                            <a
+                                                href="<?= base_url('/akk/sdm/karyawan/edit/' . $value['id_karyawan']) ?>">
+                                                <i class="mdi mdi-pencil-circle icon-md"></i>
+                                            </a>
+                                            <a href="<?= base_url('/akk/sdm/karyawan/hapus/' . $value['id_karyawan']) ?>"
+                                                onclick="return confirm('Apakah Karyawan Anda yakin Menghapus Data Karyawan ?')">
+                                                <i class="mdi mdi-close-circle icon-md text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                     <?php }; ?>
                                 </tbody>
                             </table>
@@ -100,12 +106,12 @@
 </div>
 
 <style>
-    .table-bordered-custom {
-        border: 1px solid #000;
-        /* Ganti dengan warna dan ketebalan sesuai preferensi Anda */
-    }
+.table-bordered-custom {
+    border: 1px solid #000;
+    /* Ganti dengan warna dan ketebalan sesuai preferensi Anda */
+}
 
-    /* Tambahkan class ini pada tabel Anda */
+/* Tambahkan class ini pada tabel Anda */
 </style>
 
 <?= $this->endSection() ?>

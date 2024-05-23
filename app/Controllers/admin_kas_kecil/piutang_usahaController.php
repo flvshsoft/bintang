@@ -146,4 +146,22 @@ class piutang_usahaController extends BaseController
         }
         return redirect()->to(base_url('/akk/piutang_usaha/internal'));
     }
+    public function hapus_internal($id_piutang_usaha)
+    {
+        $delete = $this->mdPiutangUsaha->delete($id_piutang_usaha);
+        if ($delete) {
+            return redirect()->to(base_url('/akk/piutang_usaha/internal'));
+        } else {
+            echo 'Gagal menghapus data.';
+        }
+    }
+    public function hapus_karyawan($id_piutang_usaha)
+    {
+        $delete = $this->mdPiutangUsaha->delete($id_piutang_usaha);
+        if ($delete) {
+            return redirect()->to(base_url('/akk/piutang_usaha/karyawan'));
+        } else {
+            echo 'Gagal menghapus data.';
+        }
+    }
 }

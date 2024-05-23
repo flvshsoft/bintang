@@ -164,8 +164,10 @@ $routes->get('/akk/piutang_usaha', 'admin_kas_kecil\piutang_usahaController::ind
 $routes->get('/akk/piutang_usaha/hapus/(:any)', 'admin_kas_kecil\piutang_usahaController::hapus/$1');
 $routes->get('/akk/repayment_detail', 'admin_kas_kecil\piutang_usahaController::repayment_detail');
 $routes->get('/akk/piutang_usaha/karyawan/tambah', 'admin_kas_kecil\piutang_usahaController::form_piutang');
+$routes->get('/akk/piutang_usaha/karyawan/hapus/(:any)', 'admin_kas_kecil\piutang_usahaController::hapus_karyawan/$1');
 $routes->post('/akk/piutang_usaha/karyawan/tambah', 'admin_kas_kecil\piutang_usahaController::form_piutang_save');
 $routes->get('/akk/piutang_internal/tambah', 'admin_kas_kecil\piutang_usahaController::tambah_piutang_internal');
+$routes->get('/akk/piutang_usaha/internal/hapus/(:any)', 'admin_kas_kecil\piutang_usahaController::hapus_internal/$1');
 // $routes->post('/akk/piutang_internal/tambah', 'admin_kas_kecil\piutang_usahaController::index_internal_save');
 $routes->post('/akk/piutang_internal/tambah', 'admin_kas_kecil\piutang_usahaController::tambah_piutang_internal_save');
 $routes->get('/akk/piutang_usaha/internal', 'admin_kas_kecil\piutang_usahaController::index_internal');
@@ -283,12 +285,13 @@ $routes->get('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan\
 $routes->post('/akk/keuangan/data_kas/uang_kas_besar', 'admin_kas_kecil\keuangan\dataKasController::form_transfer_add');
 $routes->get('/akk/keuangan/data_kas/hapus/(:any)', 'admin_kas_kecil\keuangan\dataKasController::hapus_kas/$1');
 
-$routes->get('/akk/karyawan', 'admin_kas_kecil\sdmController::karyawan');
-$routes->get('/akk/karyawan/tambah', 'admin_kas_kecil\sdmController::karyawan_tambah');
-$routes->post('/akk/karyawan/tambah', 'admin_kas_kecil\sdmController::karyawan_input');
-$routes->post('/akk/karyawan/edit', 'admin_kas_kecil\sdmController::karyawan_update');
-$routes->get('/akk/karyawan/edit/(:any)', 'admin_kas_kecil\sdmController::karyawan_edit/$1');
-$routes->get('/akk/karyawan/hapus/(:any)', 'admin_kas_kecil\sdmController::hapus/$1');
+$routes->get('/akk/sdm', 'admin_kas_kecil\sdmController::index');
+$routes->get('/akk/sdm/karyawan', 'admin_kas_kecil\sdmController::karyawan');
+$routes->get('/akk/sdm/karyawan/tambah', 'admin_kas_kecil\sdmController::karyawan_tambah');
+$routes->post('/akk/sdm/karyawan/tambah', 'admin_kas_kecil\sdmController::karyawan_input');
+$routes->post('/akk/sdm/karyawan/edit', 'admin_kas_kecil\sdmController::karyawan_update');
+$routes->get('/akk/sdm/karyawan/edit/(:any)', 'admin_kas_kecil\sdmController::karyawan_edit/$1');
+$routes->get('/akk/sdm/karyawan/hapus/(:any)', 'admin_kas_kecil\sdmController::hapus/$1');
 
 $routes->get('/akk/akun', 'admin_kas_kecil\akunController::akun');
 $routes->get('/akk/akun/tambah', 'admin_kas_kecil\akunController::akun_tambah');

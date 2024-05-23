@@ -1,4 +1,4 @@
-<?= $this->extend('layout/admin'); ?>
+<?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
 
 <div class="main-panel">
@@ -7,7 +7,7 @@
             <h3 class="page-title">DATA SDM</h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard') ?>">BERANDA</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
                     <li class="breadcrumb-item active" aria-current="page">DATA SDM</li>
                 </ol>
             </nav>
@@ -18,42 +18,42 @@
                     <div class="card-body">
                         <div class="template-demo">
                             <div class="menu-item">
-                                <a href="<?= base_url('/master_cuti') ?>"> <i
+                                <a href="<?= base_url('/akk/master_cuti') ?>"> <i
                                         class="mdi mdi-message-text menu-icons"></i>
                                     <h6>Approve Leace Request</h6>
                                 </a>
                             </div>
                             <hr>
                             <div class="menu-item">
-                                <a href="<?= base_url('/master_izin') ?>">
+                                <a href="<?= base_url('/akk/master_izin') ?>">
                                     <i class="mdi mdi-transit-transfer menu-icons"></i>
                                     <h6>Approve Work Off Permission</h6>
                                 </a>
                             </div>
                             <hr>
                             <div class="menu-item">
-                                <a href="<?= base_url('/master_') ?>">
+                                <a href="<?= base_url('/akk/master_') ?>">
                                     <i class="mdi mdi-google-play menu-icons"></i>
                                     <h6>Apps Absen Play Store</h6>
                                 </a>
                             </div>
                             <hr>
                             <div class="menu-item">
-                                <a href="<?= base_url('/master_employee') ?>">
+                                <a href="<?= base_url('/akk/sdm/karyawan') ?>">
                                     <i class="mdi mdi-account-box menu-icons"></i>
                                     <h6>General</h6>
                                 </a>
                             </div>
                             <hr>
                             <div class="menu-item">
-                                <a href="<?= base_url('/master_absen_gaji') ?>">
+                                <a href="<?= base_url('/akk/master_absen_gaji') ?>">
                                     <i class="mdi mdi-wallet menu-icons"></i>
                                     <h6>Payroll</h6>
                                 </a>
                             </div>
                             <hr>
                             <div class="menu-item">
-                                <a href="<?= base_url('/master_absen') ?>">
+                                <a href="<?= base_url('/akk/master_absen') ?>">
                                     <i class="mdi mdi-timer menu-icons"></i>
                                     <h6>Time Management</h6>
                                 </a>

@@ -19,7 +19,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">GENERAL PERSONAL</h4>
-                    <form class="forms-sample" method="POST" action="<?= base_url('/akk/karyawan/edit') ?>">
+                    <form class="forms-sample" method="POST" action="<?= base_url('/akk/sdm/karyawan/edit') ?>">
                         <div class="form-group row">
                             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">
                                 No. Induk Karyawan
@@ -298,7 +298,7 @@
                                 </select>
                             </div>
                         </div>
-                        <a href="<?= base_url('/akk/karyawan') ?>" class="btn btn-light"><i
+                        <a href="<?= base_url('/akk/sdm/karyawan') ?>" class="btn btn-light"><i
                                 class="mdi mdi mdi-backburger icon-sm"></i></a>
                         <button type="submit" class="btn btn-gradient-primary me-2"><i
                                 class="mdi mdi-content-save-all icon-sm"></i></button>

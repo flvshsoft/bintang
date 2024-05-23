@@ -20,40 +20,36 @@
                 <div class="card">
                     <div class="card-body">
                         <?php if (session()->getFlashdata("berhasil")) { ?>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            <?= session()->getFlashdata("berhasil") ?>
-                        </div>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <?= session()->getFlashdata("berhasil") ?>
+                            </div>
                         <?php } ?>
                         <?php if (session()->getFlashdata("kurang_saldo")) { ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            <?= session()->getFlashdata("kurang_saldo") ?>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <?= session()->getFlashdata("kurang_saldo") ?>
+                            </div>
                         <?php } ?>
                         <?php if (session()->getFlashdata("Lebih_Input")) { ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            <?= session()->getFlashdata("Lebih_Input") ?>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <?= session()->getFlashdata("Lebih_Input") ?>
+                            </div>
                         <?php } ?>
 
-                        <form class="forms-sample" method="POST"
-                            action="<?= base_url('/akk/keuangan/master_hutang/cicilan') ?>">
+                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/keuangan/master_hutang/cicilan') ?>">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Jumlah Piutang</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly
-                                        value="<?= number_format($model['jumlah_piutang'], 0, ',', '.') ?>"
-                                        name="jumlah_piutang">
+                                    <input type="text" class="form-control" readonly value="<?= number_format($model['jumlah_piutang'], 0, ',', '.') ?>" name="jumlah_piutang">
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Input Cicilan</label>
                                 <div class="col-sm-9">
                                     <input type="text" id="pay" class="form-control" value="0" name="cicilan">
-                                    <input type="hidden" class="form-control" value="<?= $model['id_piutang_usaha'] ?>"
-                                        name="id_piutang_usaha">
+                                    <input type="hidden" class="form-control" value="<?= $model['id_piutang_usaha'] ?>" name="id_piutang_usaha">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -62,8 +58,9 @@
                                     <select class="form-control select2" name="id_bank">
                                         <option>Pilih Bank</option>
                                         <?php foreach ($bank as $value) { ?>
-                                        <option value="<?= $value['id_bank'] ?>"><?= $value['nama_bank'] ?>
-                                        </option>
+                                            <option value="<?= $value['id_bank'] ?>"><?= $value['nama_bank'] ?> -
+                                                <?= "Rp " . number_format($value['saldo'], 0, ',', '.') ?>
+                                            </option>
                                         <?php }; ?>
                                     </select>
                                 </div>
@@ -76,10 +73,8 @@
                             </div>
 
                             <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/akk/keuangan/master_hutang') ?>"
-                                    class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
-                                <button type="submit" class="btn btn-success btn-xs"><i
-                                        class="mdi mdi-content-save-all icon-sm"></i></button>
+                                <a href="<?= base_url('/akk/keuangan/master_hutang') ?>" class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-success btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i></button>
                             </div>
                         </form>
                     </div>
@@ -89,20 +84,20 @@
     </div>
 </div>
 <script>
-// Format angka saat diketikkan oleh pengguna
-document.getElementById('pay').addEventListener('input', function() {
-    // Ambil nilai input
-    let payValue = this.value;
+    // Format angka saat diketikkan oleh pengguna
+    document.getElementById('pay').addEventListener('input', function() {
+        // Ambil nilai input
+        let payValue = this.value;
 
-    // Hapus semua tanda titik yang ada
-    payValue = payValue.replace(/\./g, '');
+        // Hapus semua tanda titik yang ada
+        payValue = payValue.replace(/\./g, '');
 
-    // Format angka dengan titik sebagai pemisah ribuan
-    payValue = new Intl.NumberFormat('id-ID').format(payValue);
+        // Format angka dengan titik sebagai pemisah ribuan
+        payValue = new Intl.NumberFormat('id-ID').format(payValue);
 
-    // Masukkan kembali nilai yang sudah diformat ke dalam input
-    this.value = payValue;
-});
+        // Masukkan kembali nilai yang sudah diformat ke dalam input
+        this.value = payValue;
+    });
 </script>
 
 <?= $this->endSection() ?>

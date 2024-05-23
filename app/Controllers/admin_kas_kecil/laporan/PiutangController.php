@@ -77,7 +77,7 @@ class PiutangController extends BaseController
             ->where('nota.deleted_at', null)
             // ->join('nota', 'nota.id_sales=sales.id_sales')
             ->join('customer', 'customer.id_customer=nota.id_customer')
-            // ->where('nota.id_branch', Session('userData')['id_branch'])
+            ->where('nota.id_branch', Session('userData')['id_branch'])
             // ->where('nota.created_at >=', $dt1)
             // ->where('nota.created_at <=', $dt2 . ' 23:59:59')
             // ->where('nota.created_at <=', $dt2 . ' 23:59:59')
@@ -116,7 +116,7 @@ class PiutangController extends BaseController
         $data['model'] = $this->mdNota
             // ->join('nota', 'nota.id_sales=sales.id_sales')
             ->join('customer', 'customer.id_customer=nota.id_customer')
-            // ->where('nota.id_branch', Session('userData')['id_branch'])
+            ->where('nota.id_branch', Session('userData')['id_branch'])
             // ->where('nota.created_at >=', $dt1)
             // ->where('nota.created_at <=', $dt2 . ' 23:59:59')
             // ->where('nota.id_area', $id_area)

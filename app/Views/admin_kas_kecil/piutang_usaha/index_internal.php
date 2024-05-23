@@ -19,32 +19,30 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group">
-                                <a class="btn btn-success btn-xs"
-                                    href="<?= base_url('/akk/piutang_internal/tambah') ?>">
+                                <a class="btn btn-success btn-xs" href="<?= base_url('/akk/piutang_internal/tambah') ?>">
                                     <i class="mdi mdi-database-plus icon-sm"></i> Tambah</a>
                             </div>
                         </div>
                         <?php if (session()->getFlashdata("kurang_saldo")) { ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            <?= session()->getFlashdata("kurang_saldo") ?>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <?= session()->getFlashdata("kurang_saldo") ?>
+                            </div>
                         <?php } ?>
                         <?php if (session()->getFlashdata("berhasil")) { ?>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            <?= session()->getFlashdata("berhasil") ?>
-                        </div>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <?= session()->getFlashdata("berhasil") ?>
+                            </div>
                         <?php } ?>
                         <?php if (session()->getFlashdata("saldo_kosong")) { ?>
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            <?= session()->getFlashdata("saldo_kosong") ?>
-                        </div>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <?= session()->getFlashdata("saldo_kosong") ?>
+                            </div>
                         <?php } ?>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped" id="dataTable" width="100%"
-                                cellspacing="0">
+                            <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="table table-primary">
                                     <tr>
                                         <th style="font-size: 11px;"> No </th>
@@ -66,39 +64,33 @@
                                         $dateTime = new DateTime($dateString);
                                         $formattedDate = $dateTime->format('d F Y H:i:s');
                                     ?>
-                                    <tr>
-                                        <td style="font-size: 11px;">
-                                            <a href="<?= base_url('/akk/piutang_usaha/internal/hapus/' . $value['id_piutang_usaha']) ?>"
-                                                onclick="return confirm('Apakah Anda yakin Menghapus Data Piutang Usaha ?')"
-                                                style="text-decoration: none;"><b>
-                                                    <?= $no ?></b>
-                                            </a>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <a href="<?= base_url('/akk/piutang_usaha/internal/edit/' . $value['id_piutang_usaha']) ?>"
-                                                style="text-decoration: none;"><b>
-                                                    <?= $value['id_piutang_usaha'] ?></b>
-                                            </a>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['cabang'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= 'Rp ' . number_format($value['jumlah_piutang'], 0, '.', '.') ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $formattedDate ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['minggu-ke'] ?>
-                                        </td>
-                                        <td style="font-size: 11px;">
-                                            <?= $value['nama_user'] ?>
-                                            <input type="hidden" value="<?= $value['id_piutang_usaha'] ?>"
-                                                name="id_piutang_usaha">
-                                            <input type="hidden" value="<?= $value['jenis'] ?>" name="jenis">
-                                        </td>
-                                        <!-- <td class="warning" align="center" width="10px">
+                                        <tr>
+                                            <td style="font-size: 11px;">
+                                                <a href="<?= base_url('/akk/piutang_usaha/internal/hapus/' . $value['id_piutang_usaha']) ?>" onclick="return confirm('Apakah Anda yakin Menghapus Data Piutang Usaha ?')" style="text-decoration: none;"><b>
+                                                        <?= $no ?></b>
+                                                </a>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['id_piutang_usaha'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['cabang'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= 'Rp ' . number_format($value['jumlah_piutang'], 0, '.', '.') ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $formattedDate ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['minggu-ke'] ?>
+                                            </td>
+                                            <td style="font-size: 11px;">
+                                                <?= $value['nama_user'] ?>
+                                                <input type="hidden" value="<?= $value['id_piutang_usaha'] ?>" name="id_piutang_usaha">
+                                                <input type="hidden" value="<?= $value['jenis'] ?>" name="jenis">
+                                            </td>
+                                            <!-- <td class="warning" align="center" width="10px">
                                                  <b><a href="<? #= base_url('/akk/keuangan/master_hutang/') 
                                                                 ?>" style="text-decoration:none" data-toggle="tooltip"
                                                     class="tip-top" data-original-title="Discount Hutang Usaha"><i
@@ -112,51 +104,46 @@
                                                 <b> <a href="<? //= base_url('/akk/keuangan/master_hutang/cicilan/' . $value['id_piutang_usaha']) 
                                                                 ?>"><i class="mdi mdi-cash-100 icon-md"></i></a></b>
                                             </td> -->
-                                    </tr>
+                                        </tr>
 
-                                    <!-- Bayar Lunas  -->
-                                    <div class="modal fade" id="exampleModal<?= $value['id_piutang_usaha'] ?>"
-                                        tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" name="id_piutang_usaha">Bayar Disini
-                                                        <?= $value['id_piutang_usaha'] ?></h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <form class="forms-sample" action="<?= base_url('/akk/keuangan/master_hutang/pelunasan')
+                                        <!-- Bayar Lunas  -->
+                                        <div class="modal fade" id="exampleModal<?= $value['id_piutang_usaha'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" name="id_piutang_usaha">Bayar Disini
+                                                            <?= $value['id_piutang_usaha'] ?></h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form class="forms-sample" action="<?= base_url('/akk/keuangan/master_hutang/pelunasan')
                                                                                         ?>" method="POST">
-                                                    <input type="hidden" value="<?= $value['id_piutang_usaha'] ?>"
-                                                        name="id_piutang_usaha">
-                                                    <input type="hidden" value="<?= $value['jenis'] ?>" name="jenis">
-                                                    <div class="modal-body">
-                                                        <div class="form-group row">
-                                                            <label for="exampleInputEmail2"
-                                                                class="col-sm-3 col-form-label">Bank</label>
-                                                            <div class="col-sm-9">
-                                                                <select class="form-control" name="id_bank">
-                                                                    <option>Pilih Bank</option>
-                                                                    <?php foreach ($bank as $value) { ?>
-                                                                    <option value="<?= $value['id_bank'] ?>">
-                                                                        <?= $value['nama_bank'] ?>
-                                                                    </option>
-                                                                    <?php }; ?>
-                                                                </select>
+                                                        <input type="hidden" value="<?= $value['id_piutang_usaha'] ?>" name="id_piutang_usaha">
+                                                        <input type="hidden" value="<?= $value['jenis'] ?>" name="jenis">
+                                                        <div class="modal-body">
+                                                            <div class="form-group row">
+                                                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Bank</label>
+                                                                <div class="col-sm-9">
+                                                                    <select class="form-control" name="id_bank">
+                                                                        <option>Pilih Bank</option>
+                                                                        <?php foreach ($bank as $value) { ?>
+                                                                            <option value="<?= $value['id_bank'] ?>">
+                                                                                <?= $value['nama_bank'] ?>
+                                                                            </option>
+                                                                        <?php }; ?>
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Save
-                                                            changes</button>
-                                                    </div>
-                                                </form>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save
+                                                                changes</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- End Bayar Lunas  -->
+                                        <!-- End Bayar Lunas  -->
 
                                     <?php
                                         $no++;

@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="form-group">
-                                <a class="btn btn-success btn-xs" href="<?= base_url('/akk/piutang_usaha/form') ?>">
+                                <a class="btn btn-success btn-xs" href="<?= base_url('/akk/piutang_usaha/internal') ?>">
                                     <i class="mdi mdi-database-plus icon-sm"></i> Piutang Intern</a>
                                 <a class="btn btn-danger btn-xs" href="<?= base_url('/akk/piutang_usaha/input_pembayaran') ?>">
                                     <i class="mdi mdi-cash-usd icon-sm"></i> Pelunasan</a>
@@ -46,7 +46,7 @@
                                     <?php foreach ($model as $key => $value) { ?>
                                         <tr>
                                             <td style="font-size: 11px;">
-                                                <?= $key+1 ?>
+                                                <?= $key + 1 ?>
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <b>

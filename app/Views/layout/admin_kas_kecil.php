@@ -329,9 +329,9 @@ $level_user = Session('userData')['level_user'];
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url() ?>/akk/karyawan">
+                    <a class="nav-link" href="<?= base_url() ?>/akk/sdm">
                         <i class="mdi mdi-comment-account-outline menu-icon text-whitex text-shadow"></i>
-                        <span class="menu-title">Karyawan</span>
+                        <span class="menu-title">SDM</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -426,9 +426,9 @@ $level_user = Session('userData')['level_user'];
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url() ?>/akk/karyawan">
+                    <a class="nav-link" href="<?= base_url() ?>/akk/sdm">
                         <i class="mdi mdi-comment-account-outline menu-icon text-whitex text-shadow"></i>
-                        <span class="menu-title">Karyawan</span>
+                        <span class="menu-title">SDM</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -523,9 +523,9 @@ $level_user = Session('userData')['level_user'];
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url() ?>/akk/karyawan">
+                    <a class="nav-link" href="<?= base_url() ?>/akk/sdm">
                         <i class="mdi mdi-comment-account-outline menu-icon text-whitex text-shadow"></i>
-                        <span class="menu-title">Karyawan</span>
+                        <span class="menu-title">SDM</span>
                     </a>
                 </li>
                 <li class="nav-item">

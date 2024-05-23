@@ -24,25 +24,29 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Nama Lengkap</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="nama_lengkap" placeholder="Nama Lengkap">
+                                    <input type="text" class="form-control form-control-sm" name="nama_lengkap"
+                                        placeholder="Nama Lengkap">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">HP / Telp</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="no_hp" placeholder="No HP">
+                                    <input type="text" class="form-control form-control-sm" name="no_hp"
+                                        placeholder="No HP">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">NIK</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" name="nik" placeholder="No HP">
+                                    <input type="text" class="form-control form-control-sm" name="nik"
+                                        placeholder="NIK">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">ALamat</label>
                                 <div class="col-sm-9">
-                                    <textarea type="text" class="form-control form-control-sm" name="alamat" placeholder="Alamat"></textarea>
+                                    <textarea type="text" class="form-control form-control-sm" name="alamat"
+                                        placeholder="Alamat"></textarea>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
@@ -55,8 +59,10 @@
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <button type="submit" class="btn btn-success btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i></button>
-                                <a class="btn btn-light btn-xs" href="<?= base_url('/akk/master_partner') ?>"><i class="mdi mdi-backburger icon-sm"></i></a>
+                                <a class="btn btn-light btn-xs" href="<?= base_url('/akk/master_partner') ?>"><i
+                                        class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-success btn-xs"><i
+                                        class="mdi mdi-content-save-all icon-sm"></i></button>
                             </div>
                         </form>
                     </div>
