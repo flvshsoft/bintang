@@ -21,8 +21,8 @@
                                 <thead class="table table-success">
                                     <tr>
                                         <th style="font-size: 11px;"> No </th>
-                                        <th style="font-size: 11px;"> Nama </th>
                                         <th style="font-size: 11px;"> Username </th>
+                                        <th style="font-size: 11px;"> Nama </th>
                                         <th style="font-size: 11px;"> Cabang </th>
                                         <th style="font-size: 11px;"> Level </th>
                                         <th style="font-size: 11px;"> </th>

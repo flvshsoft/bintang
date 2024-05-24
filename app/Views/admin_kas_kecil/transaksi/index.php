@@ -215,66 +215,6 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-lg-4 mb-3 px-2">
-                            <a href="<?= base_url('/akk/transaksi/nota_awal') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #b68c74;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-6 p-3 text-white-90">
-                                            <h5>DO & Nota</h5>
-                                            <h3 class="mb-0">Nota Awal</h3>
-                                        </div>
-                                        <div class="col-6 p-0">
-                                            <img src="https://i.pinimg.com/236x/f1/fa/ce/f1face2336d2a781b93c81cf368647d2.jpg" alt="Foto" width="100%" class="mt-0">
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-4 mb-3 px-2">
-                            <a href="<?= base_url('/akk/transaksi/ambil_barang') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #eebf35;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-6 p-3 text-white-90">
-                                            <h5>Pengambilan Barang</h5>
-                                            <h2 class="mb-0">DO</h2>
-                                        </div>
-                                        <div class="col-6 p-0">
-                                            <img src="https://i.pinimg.com/564x/59/26/74/592674493a167bddfdcb6972d9e19d77.jpg" alt="Foto" width="100%" class="mt-2">
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-4 mb-3 px-2">
-                            <a href="<?= base_url('/akk/transaksi/tagihan_baru') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #b7e5fc;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-6 p-3 text-white-90">
-                                            <h5>Input Tagihan Baru</h5>
-                                            <h2 class="mb-0">Nota</h2>
-                                        </div>
-                                        <div class="col-6 p-0">
-                                            <img src="https://i.pinimg.com/564x/c0/c1/2d/c0c12d0054ac3fa10430f561bf26bcc0.jpg" alt="Foto" width="100%" class="mt-2">
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-4 mb-3 px-2">
-                            <a href="<?= base_url('/akk/transaksi/stock_akhir') ?>" class="text-decoration-none">
-                                <div class="card text-white shadow" style="background: #fd79b3;">
-                                    <div class="card-body d-flex p-0">
-                                        <div class="col-6 p-3 text-white-90">
-                                            <h6>Stock Akhir Salesman</h6>
-                                            <h2 class="mb-0">-</h2>
-                                        </div>
-                                        <div class="col-6 p-0">
-                                            <img src="https://i.pinimg.com/564x/a0/ec/b0/a0ecb07bb90c12dcf046e476db0fe7c4.jpg" alt="Foto" width="100%" class="mt-2">
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
                     </div>
                 <?php endif ?>
             </div>

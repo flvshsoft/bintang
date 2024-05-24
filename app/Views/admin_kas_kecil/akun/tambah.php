@@ -29,7 +29,7 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Username </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail2" placeholder="Nama Lengkap" required name="username">
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail2" placeholder="Username" required name="username">
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
