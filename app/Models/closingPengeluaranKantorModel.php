@@ -14,7 +14,7 @@ class closingPengeluaranKantorModel extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['id_branch',  'week_pengeluaran_kantor', 'keterangan', 'id_user', 'total_pengeluaran_kantor'];
+    protected $allowedFields = ['id_branch',  'week_pengeluaran_kantor', 'remark', 'id_user', 'total_pengeluaran_kantor'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

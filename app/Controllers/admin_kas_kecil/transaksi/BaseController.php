@@ -99,7 +99,7 @@ abstract class BaseController extends Controller
         $this->mdClosingPiutangKaryawan = model('closingPiutangKaryawanModel', true, $this->db);
         $this->mdClosingPiutangSupplier = model('closingPiutangSupplierModel', true, $this->db);
         $this->mdClosingStockProduct = model('closingStockProductModel', true, $this->db);
-        $this->mdClosingPengeluaranSales = model('closingPengeluaranSalesModel', true, $this->db);
+        $this->mdClosingSalesmanProduct = model('closingSalesmanProductModel', true, $this->db);
         $this->mdClosingPengeluaranKantor = model('closingPengeluaranKantorModel', true, $this->db);
         // $this->session = \Config\Services::session();
 

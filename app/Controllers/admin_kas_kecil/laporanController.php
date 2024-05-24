@@ -437,17 +437,28 @@ class laporanController extends BaseController
 
         //stock barang
         $data['product'] = $this->mdProduct
-            //->select(['*', 'barang_harga.harga_aktif as harga_jual', 'sales.id_sales as id_sales'])
-            ->where('nota.id_branch', $id_branch)
+            ->select('product.*, barang_harga.harga_aktif, SUM(satuan_penjualan) AS qty, nota_detail.harga_nota, nota_detail.satuan_penjualan')
             ->join('nota_detail', 'nota_detail.id_product= product.id_product')
-            ->join('nota', 'nota.id_nota= nota_detail.id_nota')
-            // ->join('sales', 'sales.id_sales= nota.id_sales')
-            // ->join('barang_harga', 'barang_harga.id_product= product.id_product')
-            // ->join('jenis_harga', 'jenis_harga.id_jenis_harga= barang_harga.id_jenis_harga')
-            // ->groupBy('product.id_product')
+            ->join('nota', 'nota.id_nota = nota_detail.id_nota')
+            ->join('barang_harga', 'barang_harga.id_product= product.id_product')
+            ->where('product.id_branch', $id_branch)
+            ->where('barang_harga.id_jenis_harga', 2)
+            ->groupBy('product.id_product')
             ->findAll();
-        print_r($data['product']);
-        exit;
+
+        //stock salesman
+        $data['salesman_'] = $this->mdProduct
+            // ->select('product.*, barang_harga.harga_aktif, nota.payment_method, SUM(satuan_penjualan) AS qty')
+            ->select('product.*, barang_harga.harga_aktif, 
+              SUM(CASE WHEN nota.payment_method = "CASH" THEN nota_detail.satuan_penjualan ELSE 0 END) AS qty_cash,
+              SUM(CASE WHEN nota.payment_method = "KREDIT" THEN nota_detail.satuan_penjualan ELSE 0 END) AS qty_kredit')
+            ->join('nota_detail', 'nota_detail.id_product = product.id_product')
+            ->join('nota', 'nota.id_nota = nota_detail.id_nota')
+            ->join('barang_harga', 'barang_harga.id_product = product.id_product')
+            ->where('product.id_branch', $id_branch)
+            ->where('barang_harga.id_jenis_harga', 2)
+            ->groupBy('product.id_product, barang_harga.harga_aktif')
+            ->findAll();
 
         //pengeluaran kantor
         $data['pengeluaran_kantor'] = $this->mdPengeluaranKantor
@@ -470,6 +481,9 @@ class laporanController extends BaseController
             $nominal += $value['nominal'];
         }
         $data['nominal'] = $nominal;
+
+        $total_bop = $nominal + $biaya_pengeluaran_kantor;
+        $data['total_bop'] = $total_bop;
         return view('admin_kas_kecil/laporan/closing', $data);
     }
 
@@ -608,76 +622,114 @@ class laporanController extends BaseController
 
         //stock barang
         $data['product'] = $this->mdProduct
-            //->select(['*', 'barang_harga.harga_aktif as harga_jual', 'sales.id_sales as id_sales'])
-            ->where('nota.id_branch', $id_branch)
+            ->select('product.*, barang_harga.harga_aktif, SUM(satuan_penjualan) AS qty, nota_detail.harga_nota, nota_detail.satuan_penjualan')
             ->join('nota_detail', 'nota_detail.id_product= product.id_product')
-            ->join('nota', 'nota.id_nota= nota_detail.id_nota')
-            // ->join('sales', 'sales.id_sales= nota.id_sales')
-            // ->join('barang_harga', 'barang_harga.id_product= product.id_product')
-            // ->join('jenis_harga', 'jenis_harga.id_jenis_harga= barang_harga.id_jenis_harga')
+            ->join('nota', 'nota.id_nota = nota_detail.id_nota')
+            ->join('barang_harga', 'barang_harga.id_product= product.id_product')
+            ->where('product.id_branch', $id_branch)
+            ->where('barang_harga.id_jenis_harga', 2)
             ->groupBy('product.id_product')
             ->findAll();
         $total_jumlah = 0;
         $all_total_jual = 0;
         $total_modal = 0;
-        $jumlah = 0;
         foreach ($data['product'] as $key => $value) {
-            $id_product = $value['id_product'];
-            $harga_nota = $value['harga_nota'];
+            $harga_aktif = $value['harga_aktif'];
             $harga_beli = $value['harga_beli'];
-
-            $jumlah += $value['satuan_penjualan'];
-            $modal = $jumlah * $harga_beli;
-            $total_jumlah += $jumlah;
+            $qty = $value['qty'];
+            $modal = $qty * $harga_beli;
+            $total_jumlah += $qty;
             $total_modal += $modal;
-            $total_jual = $jumlah * $harga_nota;
+            $total_jual = $qty * $harga_aktif;
             $all_total_jual += $total_jual;
             $data_save4 = [
                 'id_product' => $value['id_product'],
                 'satuan_product' => $value['satuan_product'],
                 'jumlah_stock_product' => $value['stock_product'],
-                'jumlah_penjualan_product' => $jumlah,
+                'jumlah_penjualan_product' => $qty,
                 'modal' => $modal,
-                'harga_jual' => $harga_nota,
+                'harga_jual' => $harga_aktif,
                 'total_jual' => $total_jual,
                 'id_branch' => SESSION('userData')['id_branch'],
                 'week_stock_product' => $week,
                 'id_user' => SESSION('userData')['id_user'],
             ];
-            //$this->mdClosingStockProduct->save($data_save4);
+            //  $this->mdClosingStockProduct->save($data_save4);
         }
 
+        //stock salesman
+        $data['salesman_'] = $this->mdProduct
+            ->select('product.*, barang_harga.harga_aktif, 
+             SUM(CASE WHEN nota.payment_method = "CASH" THEN nota_detail.satuan_penjualan ELSE 0 END) AS qty_cash,
+             SUM(CASE WHEN nota.payment_method = "KREDIT" THEN nota_detail.satuan_penjualan ELSE 0 END) AS qty_kredit')
+            ->join('nota_detail', 'nota_detail.id_product = product.id_product')
+            ->join('nota', 'nota.id_nota = nota_detail.id_nota')
+            ->join('barang_harga', 'barang_harga.id_product = product.id_product')
+            ->where('product.id_branch', $id_branch)
+            ->where('barang_harga.id_jenis_harga', 2)
+            ->groupBy('product.id_product, barang_harga.harga_aktif')
+            ->findAll();
+        $total_qty_kredit = 0;
+        $total_qty_cash = 0;
+        $total_kredit = 0;
+        $total_cash = 0;
+        $all_subtotal = 0;
+        foreach ($data['salesman_'] as $key => $value) {
+            $total_qty_kredit += $value['qty_kredit'];
+            $total_qty_cash += $value['qty_cash'];
+            $harga_kredit = $value['qty_kredit'] * $value['harga_aktif'];
+            $harga_cash =  $value['qty_cash'] * $value['harga_aktif'];
+            $subtotal_cash_kredit = $harga_cash + $harga_kredit;
+            $total_kredit += $harga_kredit;
+            $total_cash += $harga_cash;
+            $all_subtotal += $subtotal_cash_kredit;
+            $data_save7 = [
+                'id_branch' => SESSION('userData')['id_branch'],
+                'week_salesman_product' => $week,
+                'id_product' => $value['id_product'],
+                'satuan_product' => $value['satuan_product'],
+                'jumlah_kredit' => $value['qty_kredit'],
+                'total_kredit' => $harga_kredit,
+                'jumlah_cash' => $value['qty_cash'],
+                'total_cash' => $harga_cash,
+                'total_cash_kredit' => $subtotal_cash_kredit,
+                'id_user' => SESSION('userData')['id_user'],
+            ];
+            //$this->mdClosingSalesmanProduct->save($data_save7);
+        }
         //pengeluaran kantor
         $data['pengeluaran_kantor'] = $this->mdPengeluaranKantor
             ->where('pengeluaran_kantor.id_branch', $id_branch)
             ->findAll();
 
+        $biaya_pengeluaran_kantor = 0;
         foreach ($data['pengeluaran_kantor'] as $key => $value) {
-            $data_save5 = [
-                'id_branch' => SESSION('userData')['id_branch'],
-                'week_pengeluaran_kantor' => $week,
-                'keterangan' => $value['keterangan_pengeluaran_kantor'],
-                'id_user' => SESSION('userData')['id_user'],
-                'total_pengeluaran_kantor' => $value['biaya_pengeluaran_kantor'],
-            ];
-            // $this->mdClosingPengeluaranKantor->save($data_save5);
+            $biaya_pengeluaran_kantor += $value['biaya_pengeluaran_kantor'];
         }
+        $data['biaya_pengeluaran_kantor'] = $biaya_pengeluaran_kantor;
 
         //pengeluaran sales
         $data['pengeluaran_sales'] = $this->mdPengeluaranDetailSales
             ->where('pengeluaran_detail_sales.id_branch', $id_branch)
             ->findAll();
 
+        $nominal = 0;
         foreach ($data['pengeluaran_sales'] as $key => $value) {
-            $data_save6 = [
-                'id_branch' => SESSION('userData')['id_branch'],
-                'week_pengeluaran_sales' => $week,
-                'keterangan' => $value['ket_pengeluaran'],
-                'id_user' => SESSION('userData')['id_user'],
-                'total_pengeluaran_sales' => $value['nominal'],
-            ];
-            //$this->mdClosingPengeluaranSales->save($data_save6);
+            $nominal += $value['nominal'];
         }
+        $data['nominal'] = $nominal;
+
+        $total_bop = $nominal + $biaya_pengeluaran_kantor;
+        $data['total_bop'] = $total_bop;
+
+        $data_save8 = [
+            'id_branch' => SESSION('userData')['id_branch'],
+            'week_pengeluaran_kantor' => $week,
+            'remark' => $value['id_product'],
+            'id_user' => SESSION('userData')['id_user'],
+            'total_pengeluaran_kantor' => $total_bop,
+        ];
+        //$this->mdClosingPengeluaranKantor->save($data_save8);
 
         // //week
         $where_conditions = [

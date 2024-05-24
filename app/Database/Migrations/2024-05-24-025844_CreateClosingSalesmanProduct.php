@@ -4,12 +4,12 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateClosingStockProduct extends Migration
+class CreateClosingSalesmanProduct extends Migration
 {
     public function up()
     {
         $this->forge->addField([
-            'id_closing_stock_product' => [
+            'id_closing_salesman_product' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
@@ -18,6 +18,11 @@ class CreateClosingStockProduct extends Migration
             'id_branch' => [
                 'type' => 'INT',
                 'constraint' => 11,
+                'null' => true,
+            ],
+            'week_salesman_product' => [
+                'type' => 'INT',
+                'constraint' => 50,
                 'null' => true,
             ],
             'id_product' => [
@@ -30,34 +35,29 @@ class CreateClosingStockProduct extends Migration
                 'constraint' => 111,
                 'null' => true,
             ],
-            'jumlah_stock_product' => [
+            'jumlah_kredit' => [
                 'type' => 'INT',
-                'constraint' => 255,
+                'constraint' => 11,
                 'null' => true,
             ],
-            'jumlah_penjualan_product' => [
+            'total_kredit' => [
                 'type' => 'INT',
-                'constraint' => 255,
+                'constraint' => 11,
                 'null' => true,
             ],
-            'modal' => [
+            'jumlah_cash' => [
                 'type' => 'INT',
-                'constraint' => 255,
+                'constraint' => 11,
                 'null' => true,
             ],
-            'harga_jual' => [
+            'total_cash' => [
                 'type' => 'INT',
-                'constraint' => 255,
+                'constraint' => 11,
                 'null' => true,
             ],
-            'total_jual' => [
+            'total_cash_kredit' => [
                 'type' => 'INT',
                 'constraint' => 255,
-                'null' => true,
-            ],
-            'week_stock_product' => [
-                'type' => 'INT',
-                'constraint' => 50,
                 'null' => true,
             ],
             'id_user' => [
@@ -75,12 +75,12 @@ class CreateClosingStockProduct extends Migration
             ],
         ]);
 
-        $this->forge->addPrimaryKey('id_closing_stock_product');
-        $this->forge->createTable('closing_stock_product');
+        $this->forge->addPrimaryKey('id_closing_salesman_product');
+        $this->forge->createTable('closing_salesman_product');
     }
 
     public function down()
     {
-       $this->forge->dropTable('closing_stock_product');
+        $this->forge->dropTable('closing_salesman_product');
     }
 }

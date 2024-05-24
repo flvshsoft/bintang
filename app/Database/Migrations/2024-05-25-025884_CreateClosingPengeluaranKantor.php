@@ -25,9 +25,9 @@ class CreateClosingPengeluaranKantor extends Migration
                 'constraint' => 50,
                 'null' => true,
             ],
-            'keterangan' => [
+            'remark' => [
                 'type' => 'VARCHAR',
-                'constraint' => 250,
+                'constraint' => 111,
                 'null' => true,
             ],
             'id_user' => [
