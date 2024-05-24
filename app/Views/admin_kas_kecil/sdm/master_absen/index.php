@@ -1,18 +1,18 @@
-<?= $this->extend('layout/admin'); ?>
+<?= $this->extend('layout/admin_kas_kecil'); ?>
 <?= $this->section('content'); ?>
 
 <div class="main-panel">
     <div class="content-wrapper">
         <div class="page-header">
             <h6 class="page-title">
-                <?=$judul1?>
+                <?= $judul1 ?>
             </h6>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb" style="font-size: 11px;">
-                    <li class="breadcrumb-item"><a href="<?= base_url('/dashboard')?>"> BERANDA </a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/sdm')?>"> SDM</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>"> BERANDA </a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/sdm') ?>"> SDM</a></li>
                     <li class="breadcrumb-item active">
-                        <?= $judul1?></li>
+                        <?= $judul1 ?></li>
                 </ol>
             </nav>
         </div>
@@ -143,7 +143,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <img src="<?= base_url('/public/assets/images/faces/face1.jpg')?>"
+                <img src="<?= base_url('/public/assets/images/faces/face1.jpg') ?>"
                     class="img-fluid rounded mx-auto d-block" alt="...">
             </div>
             <div class="modal-footer text-right">
@@ -161,7 +161,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <img src="<?= base_url('/public/assets/images/faces/face3.jpg')?>"
+                <img src="<?= base_url('/public/assets/images/faces/face3.jpg') ?>"
                     class="img-fluid rounded mx-auto d-block" alt="...">
             </div>
             <div class="modal-footer text-right">
@@ -179,7 +179,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <img src="<?= base_url('/public/assets/images/faces/face4.jpg')?>"
+                <img src="<?= base_url('/public/assets/images/faces/face4.jpg') ?>"
                     class="img-fluid rounded mx-auto d-block" alt="...">
             </div>
             <div class="modal-footer text-right">

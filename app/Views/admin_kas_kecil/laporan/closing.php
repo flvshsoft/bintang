@@ -54,25 +54,27 @@
                                             }
                                             $sub_total += $cash + $kredit;
                                         ?>
-                                            <tr>
-                                                <td style=" font-size: 11px;"><?= $key + 1 ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['no_nota'] ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['nama_lengkap'] ?></td>
-                                                <td style=" font-size: 11px;"><?= $value['nama_customer'] ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($kredit) ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($cash) ?></td>
-                                                <!-- <td style=" font-size: 11px;"><? //= number_format($sub_total) 
+                                        <tr>
+                                            <td style=" font-size: 11px;"><?= $key + 1 ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['no_nota'] ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['nama_lengkap'] ?></td>
+                                            <td style=" font-size: 11px;"><?= $value['nama_customer'] ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($kredit) ?></td>
+                                            <td style=" font-size: 11px;"><?= number_format($cash) ?></td>
+                                            <!-- <td style=" font-size: 11px;"><? //= number_format($sub_total) 
                                                                                     ?></td> -->
-                                                <td style=" font-size: 11px;">
-                                                    <?= $value['status_closing'] == '1' ? 'Closing' : '-' ?></td>
-                                                <td style=" font-size: 11px;"> </a>
-                                                    <a class="btn btn-success btn-xs" href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'] . '/' . $value['payment_method']) ?>">
-                                                        <i class="mdi mdi-database-plus icon-sm"></i>
-                                                    </a>
-                                                </td>
-                                                <input type="hidden" name="cash" class="form-control" value="<?= $cash ?>">
-                                                <input type="hidden" name="kredit" class="form-control" value="<?= $kredit ?>">
-                                            </tr>
+                                            <td style=" font-size: 11px;">
+                                                <?= $value['status_closing'] == '1' ? 'Closing' : '-' ?></td>
+                                            <td style=" font-size: 11px;"> </a>
+                                                <a class="btn btn-success btn-xs"
+                                                    href="<?= base_url('/akk/transaksi/tagihan_baru/nota/' . $value['id_sales'] . '/' . $value['payment_method']) ?>">
+                                                    <i class="mdi mdi-database-plus icon-sm"></i>
+                                                </a>
+                                            </td>
+                                            <input type="hidden" name="cash" class="form-control" value="<?= $cash ?>">
+                                            <input type="hidden" name="kredit" class="form-control"
+                                                value="<?= $kredit ?>">
+                                        </tr>
                                         <?php }; ?>
                                     </tbody>
                                     <input type="hidden" name="week" class="form-control" value="<?= $week ?>">
@@ -126,15 +128,15 @@
                                             $saldo =  $grand_total_kontan + $grand_total_tertagih;
                                             $grand_saldo += $grand_total_kontan + $grand_total_tertagih;
                                         ?>
-                                            <tr style=" font-size:11px ;">
-                                                <td width="20px"><?= $no ?> </td>
-                                                <td><?= $salesman ?> </td>
-                                                <td>0</td>
-                                                <td>5</td>
-                                                <td><?= 'Rp. ' . number_format($total_kontan, 0, ',', '.') ?></td>
-                                                <td><?= 'Rp. ' . number_format($total_tertagih, 0, ',', '.') ?></td>
-                                                <td><?= 'Rp. ' . number_format($saldo, 0, ',', '.') ?></td>
-                                            </tr>
+                                        <tr style=" font-size:11px ;">
+                                            <td width="20px"><?= $no ?> </td>
+                                            <td><?= $salesman ?> </td>
+                                            <td>0</td>
+                                            <td>5</td>
+                                            <td><?= 'Rp. ' . number_format($total_kontan, 0, ',', '.') ?></td>
+                                            <td><?= 'Rp. ' . number_format($total_tertagih, 0, ',', '.') ?></td>
+                                            <td><?= 'Rp. ' . number_format($saldo, 0, ',', '.') ?></td>
+                                        </tr>
                                         <?php $no++;
                                         }
                                         ?>
@@ -183,12 +185,12 @@
                                     $total += $jumlah_piutang_internal;
                                     foreach ($piutang_internal as $value) {
                                     ?>
-                                        <tr style=" font-size:11px ;">
-                                            <td width="20px"><?= $no ?> </td>
-                                            <td align="center"> <?= $value['cabang'] ?> </td>
-                                            <td align="center">
-                                                <?= 'Rp. ' . number_format($jumlah_piutang_internal, 0, ',', '.') ?></td>
-                                        </tr>
+                                    <tr style=" font-size:11px ;">
+                                        <td width="20px"><?= $no ?> </td>
+                                        <td align="center"> <?= $value['cabang'] ?> </td>
+                                        <td align="center">
+                                            <?= 'Rp. ' . number_format($jumlah_piutang_internal, 0, ',', '.') ?></td>
+                                    </tr>
                                     <?php $no++;
                                     } ?>
                                 </tbody>
@@ -221,12 +223,12 @@
                                     $total = 0;
                                     foreach ($piutang_karyawan as $value) {
                                     ?>
-                                        <tr style=" font-size:11px ;">
+                                    <tr style=" font-size:11px ;">
 
-                                            <td width="20px"><?= $no ?> </td>
-                                            <td> <?= $value['nama_penghutang'] ?> </td>
-                                            <td><?= 'Rp. ' . number_format($value['jumlah_piutang'], 0, ',', '.') ?></td>
-                                        </tr>
+                                        <td width="20px"><?= $no ?> </td>
+                                        <td> <?= $value['nama_penghutang'] ?> </td>
+                                        <td><?= 'Rp. ' . number_format($value['jumlah_piutang'], 0, ',', '.') ?></td>
+                                    </tr>
                                     <?php $no++;
                                     } ?>
                                 </tbody>
@@ -260,13 +262,13 @@
                                     $total += $jumlah_piutang_usaha;
                                     foreach ($hutang_usaha as $value) {
                                     ?>
-                                        <tr style=" font-size:11px ;">
+                                    <tr style=" font-size:11px ;">
 
-                                            <td align="center" width="20px"><?= $no ?> </td>
-                                            <td align="center"><?= $value['nama_supplier'] ?> </td>
-                                            <td align="center">
-                                                <?= 'Rp. ' . number_format($value['jumlah_piutang'], 0, ',', '.') ?></td>
-                                        </tr>
+                                        <td align="center" width="20px"><?= $no ?> </td>
+                                        <td align="center"><?= $value['nama_supplier'] ?> </td>
+                                        <td align="center">
+                                            <?= 'Rp. ' . number_format($value['jumlah_piutang'], 0, ',', '.') ?></td>
+                                    </tr>
                                     <?php $no++;
                                     } ?>
                                 </tbody>
@@ -293,149 +295,294 @@
                         <div class="card-body">
                             <p class="card-description"> Stock Barang
                             </p>
-                            <form action="<?= base_url('/akk/laporan/closing-mingguan-stock-save') ?>" method="POST">
-                                <!-- Start Stok Gudang -->
-                                <table class="table table-striped" width="100%" height="88%" cellspacing="0">
-                                    <thead class="table table-success">
-                                        <tr style="font-size:11px;">
-                                            <th colspan="7" style="text-align:center;">Stok Gudang</th>
-                                        </tr>
-                                        <tr style="font-size:11px;">
-                                            <th style="text-align:center;">No.</th>
-                                            <th style="text-align:center;">Nama Barang</th>
-                                            <th style="text-align:center;">Gudang</th>
-                                            <th style="text-align:center;">Jumlah</th>
-                                            <th style="text-align:center;">Total Modal</th>
-                                            <th style="text-align:center;">Harga Jual</th>
-                                            <th style="text-align:center;">Total Jual</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $no = 1;
-                                        $total = 0;
-                                        $total_jumlah = 0;
-                                        $all_total_jual = 0;
-                                        $total_modal = 0;
-                                        $jumlah = 0;
-                                        foreach ($product as $key => $value) {
-                                            $id_product = $value['id_product'];
-                                            $harga_nota = $value['harga_nota'];
-                                            $harga_beli = $value['harga_beli'];
+                            <!-- Start Stok Gudang -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="7" style="text-align:center;">Stok Gudang</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Nama Barang</th>
+                                        <th style="text-align:center;">Gudang</th>
+                                        <th style="text-align:center;">Jumlah</th>
+                                        <th style="text-align:center;">Total Modal</th>
+                                        <th style="text-align:center;">Harga Jual</th>
+                                        <th style="text-align:center;">Total Jual</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total = 0;
+                                    $total_jumlah = 0;
+                                    $all_total_jual = 0;
+                                    $total_modal = 0;
+                                    $jumlah = 0;
+                                    foreach ($product as $key => $value) {
+                                        $id_product = $value['id_product'];
+                                        $harga_nota = $value['harga_nota'];
+                                        $harga_beli = $value['harga_beli'];
 
-                                            $jumlah += $value['satuan_penjualan'];
-                                            $modal = $jumlah * $harga_beli;
-                                            $total_jumlah += $jumlah;
-                                            $total_modal += $modal;
-                                            $total_jual = $jumlah * $harga_nota;
-                                            $all_total_jual += $total_jual;
-                                        ?>
-                                            <tr style=" font-size:11px ;">
-                                                <td align="center" width="20px"><?= $no ?> </td>
-                                                <td align="center"> <?= $value['nama_product'] ?> </td>
-                                                <td align="center">
-                                                    <?= number_format($value['stock_product'], 0, ',', '.') ?>
-                                                </td>
-                                                <td align="center"><?= number_format($jumlah, 0, ',', '.') ?> </td>
-                                                <td align="center"><?= 'Rp ' . number_format($modal, 0, ',', '.') ?></td>
-                                                <td align="center"><?= 'Rp ' . number_format($harga_nota, 0, ',', '.') ?>
-                                                </td>
-                                                <td align="center"><?= 'Rp ' . number_format($total_jual, 0, ',', '.') ?>
-                                                </td>
-                                            </tr>
-                                        <?php $no++;
-                                        } ?>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr style="font-size:11px ;">
-                                            <td colspan="2" align="left"><b>Grand Total Persediaan Barang </b></td>
-                                            <td colspan="1" align="center">
+                                        $jumlah += $value['satuan_penjualan'];
+                                        $modal = $jumlah * $harga_beli;
+                                        $total_jumlah += $jumlah;
+                                        $total_modal += $modal;
+                                        $total_jual = $jumlah * $harga_nota;
+                                        $all_total_jual += $total_jual;
+                                    ?>
+                                    <tr style=" font-size:11px ;">
+                                        <td align="center" width="20px"><?= $no ?> </td>
+                                        <td align="center"> <?= $value['nama_product'] ?> </td>
+                                        <td align="center">
+                                            <?= number_format($value['stock_product'], 0, ',', '.') ?>
+                                        </td>
+                                        <td align="center"><?= number_format($jumlah, 0, ',', '.') ?> </td>
+                                        <td align="center"><?= 'Rp ' . number_format($modal, 0, ',', '.') ?></td>
+                                        <td align="center"><?= 'Rp ' . number_format($harga_nota, 0, ',', '.') ?>
+                                        </td>
+                                        <td align="center"><?= 'Rp ' . number_format($total_jual, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                    <?php $no++;
+                                    } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2" align="left"><b>Grand Total Persediaan Barang </b></td>
+                                        <td colspan="1" align="center">
 
-                                            </td>
-                                            <td colspan="1" align="center">
-                                                <?= number_format($total_jumlah, 0, ',', '.') ?>
-                                            </td>
-                                            <td colspan="1" align="center">
-                                                <?= 'Rp. ' . number_format($total_modal, 0, ',', '.') ?>
-                                            </td>
-                                            <td colspan="1" align="">
+                                        </td>
+                                        <td colspan="1" align="center">
+                                            <?= number_format($total_jumlah, 0, ',', '.') ?>
+                                        </td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format($total_modal, 0, ',', '.') ?>
+                                        </td>
+                                        <td colspan="1" align="">
 
-                                            </td>
-                                            <td colspan="1" align="center">
-                                                <?= 'Rp. ' . number_format($all_total_jual, 0, ',', '.') ?>
-                                            </td>
-                                        </tr>
-                                    </tfoot>
-                                </table><br>
-                                <!-- End Stok Gudang-->
-                                <!-- Start Penjualan Stock -->
-                                <table class="table table-striped" width="100%" height="88%" cellspacing="0">
-                                    <thead class="table table-success">
-                                        <tr style="font-size:11px;">
-                                            <th colspan="7" style="text-align:center;">Penjualan</th>
-                                        </tr>
-                                        <tr style="font-size:11px;">
-                                            <th style="text-align:center;">No.</th>
-                                            <th style="text-align:center;">Nama Barang</th>
-                                            <th style="text-align:center;">Satuan</th>
-                                            <th style="text-align:center;">Jumlah</th>
-                                            <th style="text-align:center;">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $no = 1;
-                                        $total = 0;
-                                        $total_jumlah = 0;
-                                        $all_total_jual = 0;
-                                        $total_modal = 0;
-                                        $jumlah = 0;
-                                        foreach ($product as $key => $value) {
-                                            $id_product = $value['id_product'];
-                                            $harga_nota = $value['harga_nota'];
-                                            $harga_beli = $value['harga_beli'];
-                                            $jumlah += $value['satuan_penjualan'];
-                                            $modal = $jumlah * $harga_beli;
-                                            $total_jumlah += $jumlah;
-                                            $total_modal += $modal;
-                                            $total_jual = $jumlah * $harga_nota;
-                                            $all_total_jual += $total_jual;
-                                        ?>
-                                            <tr style=" font-size:11px ;">
-                                                <td align="center" width="20px"><?= $no ?> </td>
-                                                <td align="center"> <?= $value['nama_product'] ?> </td>
-                                                <td align="center"> <?= $value['satuan_product'] ?>
-                                                </td>
-                                                <td align="center"><?= number_format($jumlah, 0, ',', '.') ?> </td>
-                                                <td align="center"><?= 'Rp ' . number_format($total_jual, 0, ',', '.') ?>
-                                                </td>
+                                        </td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format($all_total_jual, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table><br>
+                            <!-- End Stok Gudang-->
+                            <!-- Start Penjualan Stock -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="7" style="text-align:center;">Penjualan</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Nama Barang</th>
+                                        <th style="text-align:center;">Satuan</th>
+                                        <th style="text-align:center;">Jumlah</th>
+                                        <th style="text-align:center;">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total = 0;
+                                    $total_jumlah = 0;
+                                    $all_total_jual = 0;
+                                    $total_modal = 0;
+                                    $jumlah = 0;
+                                    foreach ($product as $key => $value) {
+                                        $id_product = $value['id_product'];
+                                        $harga_nota = $value['harga_nota'];
+                                        $harga_beli = $value['harga_beli'];
+                                        $jumlah += $value['satuan_penjualan'];
+                                        $modal = $jumlah * $harga_beli;
+                                        $total_jumlah += $jumlah;
+                                        $total_modal += $modal;
+                                        $total_jual = $jumlah * $harga_nota;
+                                        $all_total_jual += $total_jual;
+                                    ?>
+                                    <tr style=" font-size:11px ;">
+                                        <td align="center" width="20px"><?= $no ?> </td>
+                                        <td align="center"> <?= $value['nama_product'] ?> </td>
+                                        <td align="center"> <?= $value['satuan_product'] ?>
+                                        </td>
+                                        <td align="center"><?= number_format($jumlah, 0, ',', '.') ?> </td>
+                                        <td align="center"><?= 'Rp ' . number_format($total_jual, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                    <?php $no++;
+                                    } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2" align="left"><b>Grand Total Omset </b></td>
+                                        <td colspan="1" align="center">
 
-                                            </tr>
-                                        <?php $no++;
-                                        } ?>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr style="font-size:11px ;">
-                                            <td colspan="2" align="left"><b>Grand Total Omset </b></td>
-                                            <td colspan="1" align="center">
+                                        </td>
+                                        <td colspan="1" align="center">
+                                            <?= number_format($total_jumlah, 0, ',', '.') ?>
+                                        </td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format($all_total_jual, 0, ',', '.') ?>
+                                        </td>
 
-                                            </td>
-                                            <td colspan="1" align="center">
-                                                <?= number_format($total_jumlah, 0, ',', '.') ?>
-                                            </td>
-                                            <td colspan="1" align="center">
-                                                <?= 'Rp. ' . number_format($all_total_jual, 0, ',', '.') ?>
-                                            </td>
-
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                                <!-- Enc Penjualan Stock -->
-                                <br><br>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!-- Enc Penjualan Stock -->
+                            <!-- Start Penjualan Stock By Salesman -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="8" style="text-align:center;">Penjualan Salesman</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Nama Barang</th>
+                                        <th style="text-align:center;">Satuan</th>
+                                        <th style="text-align:center;">Jumlah</th>
+                                        <th style="text-align:center;">Kredit</th>
+                                        <th style="text-align:center;">Jumlah</th>
+                                        <th style="text-align:center;">Kontan</th>
+                                        <th style="text-align:center;">Subtotal Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total = 0;
+                                    $total_jumlah = 0;
+                                    $all_total_jual = 0;
+                                    $total_modal = 0;
+                                    $jumlah = 0;
+                                    foreach ($product as $key => $value) {
+                                    ?>
+                                    <tr style=" font-size:11px ;">
+                                        <td align="center" width="20px"><?= $no ?> </td>
+                                        <td align="center"> <?= $value['nama_product'] ?> </td>
+                                        <td align="center"> <?= $value['satuan_product'] ?>
+                                        </td>
+                                        <td align="center"><?= number_format(0, 0, ',', '.') ?> </td>
+                                        <td align="center"><?= 'Rp ' . number_format(0, 0, ',', '.') ?>
+                                        <td align="center"><?= 'Rp ' . number_format(0, 0, ',', '.') ?>
+                                        <td align="center"><?= 'Rp ' . number_format(0, 0, ',', '.') ?>
+                                        <td align="center"><?= 'Rp ' . number_format(0, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                    <?php $no++;
+                                    } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="3" align="left"><b>Grand Total Omset </b></td>
+                                        <td colspan="1" align="center">
+                                            <?= number_format(0, 0, ',', '.') ?>
+                                        </td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp ' . number_format(0, 0, ',', '.') ?>
+                                        </td>
+                                        <td colspan="1" align="center">
+                                            <?= number_format(0, 0, ',', '.') ?>
+                                        </td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format(0, 0, ',', '.') ?>
+                                        </td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format(0, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!-- Enc Penjualan Stock By Salesman -->
+                            <br><br>
                         </div>
                     </div>
                 </div>
             </div><br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-description"> Pengeluaran Kantor dan Operasional
+                            </p>
+                            <!-- Start Pengeluaran Kantor -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="3" style="text-align:center;">Pengeluaran Kantor</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Keterangan</th>
+                                        <th style="text-align:center;">Jumlah</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($pengeluaran_kantor as $key => $value) {
+                                    ?>
+                                    <tr style=" font-size:11px ;">
+                                        <td align="center" width="20px"><?= $no ?> </td>
+                                        <td align="center"><?= $value['keterangan_pengeluaran_kantor'] ?></td>
+                                        <td align="center">
+                                            <?= 'Rp ' . number_format($value['biaya_pengeluaran_kantor'], 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                    <?php $no++;
+                                    } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2" align="left"><b>Grand Pengeluaran </b></td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format($biaya_pengeluaran_kantor, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table><br>
+                            <!-- End Pengeluaran Kantor -->
+                            <!-- Start Pengeluaran Kantor -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="3" style="text-align:center;">Pengeluaran Operasional</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Keterangan</th>
+                                        <th style="text-align:center;">Jumlah</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    foreach ($pengeluaran_sales as $key => $value) {
+                                    ?>
+                                    <tr style=" font-size:11px ;">
+                                        <td align="center" width="20px"><?= $no ?> </td>
+                                        <td align="center"> <?= $value['ket_pengeluaran'] ?> </td>
+                                        <td align="center"><?= 'Rp ' . number_format($value['nominal'], 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                    <?php $no++;
+                                    } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2" align="left"><b>Grand Pengeluaran </b></td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format($nominal, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table><br>
+                            <!-- End Pengeluaran Kantor -->
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-6">
                 <button type="submit" class="btn btn-gradient-warning btn-rounded btn-fw text-black">
                     Closing

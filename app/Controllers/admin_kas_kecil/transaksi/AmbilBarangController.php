@@ -8,17 +8,29 @@ class AmbilBarangController extends BaseController
     {
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Pengambilan Barang (DO)';
+        // $data['model'] = $this->mdSales
+        //     // ->select(['*', 'sales.created_at as created_at'])
+        //     ->select('sales.id_sales, sales.created_at, partner.nama_lengkap, area.nama_area, sales.week, sales.keterangan, sales.tgl_do, SUM(sales_detail.jumlah_sales) AS total_jumlah_sales')
+        //     ->join('partner', 'partner.id_partner=sales.id_partner',)
+        //     ->join('area', 'area.id_area=sales.id_area')
+        //     ->join('asset', 'asset.id_asset=sales.id_asset')
+        //     ->join('sales_detail', 'sales_detail.id_sales=sales.id_sales', 'left')
+        //     ->where('sales.id_branch', Session('userData')['id_branch'])
+        //     ->orderBy('sales.id_sales', 'DESC')
+        //     ->having('total_jumlah_sales !=', 0)
+        //     //->where('deleted_at', NULL)
+        //     ->findAll();
         $data['model'] = $this->mdSales
-            // ->select(['*', 'sales.created_at as created_at'])
-            ->select('sales.id_sales, sales.created_at, partner.nama_lengkap, area.nama_area, sales.week, sales.keterangan, sales.tgl_do, SUM(sales_detail.jumlah_sales) AS total_jumlah_sales')
-            ->where('sales.id_branch', Session('userData')['id_branch'])
+            ->select('sales.id_sales, partner.nama_lengkap, area.nama_area, sales.week, sales.keterangan, sales.tgl_do, SUM(sales_detail.jumlah_sales) AS total_jumlah_sales')
             ->join('partner', 'partner.id_partner=sales.id_partner',)
-            ->join('sales_detail', 'sales_detail.id_sales=sales.id_sales', 'left')
             ->join('area', 'area.id_area=sales.id_area')
             ->join('asset', 'asset.id_asset=sales.id_asset')
-            ->orderBy('sales.id_sales', 'DESC')
-            ->having('total_jumlah_sales !=', 0)
+            ->join('sales_detail', 'sales_detail.id_sales=sales.id_sales', 'left')
+            ->where('sales.id_branch', Session('userData')['id_branch'])
             //->where('deleted_at', NULL)
+            ->orderBy('sales.id_sales', 'DESC')
+            ->groupBy('sales.id_sales')
+            ->having('total_jumlah_sales !=', 0)
             ->findAll();
         return view('admin_kas_kecil/transaksi/ambil_barang/index', $data);
     }

@@ -93,6 +93,8 @@ abstract class BaseController extends Controller
         $this->mdPurchaseOrder = model('purchaseOrderModel', true, $this->db);
         $this->mdPurchaseOrderDetail = model('purchaseOrderDetailModel', true, $this->db);
         $this->mdWeek = model('weekModel', true, $this->db);
+        $this->mdPengeluaranDetailSales = model('pengeluaranDetailSalesModel', true, $this->db);
+        $this->mdPengeluaranKantor = model('pengeluaran_kantorModel', true, $this->db);
         $this->mdNotaPutihSalesmanSave = model('notaPutihSalesmanSaveModel', true, $this->db);
         $this->mdPengeluaranDetailSales = model('pengeluaranDetailSalesModel', true, $this->db);
         $this->mdPiutangUsahaRiwayat = model('riwayatPiutangUsahaModel', true, $this->db);
@@ -101,5 +103,7 @@ abstract class BaseController extends Controller
         $this->mdClosingPiutangKaryawan = model('closingPiutangKaryawanModel', true, $this->db);
         $this->mdClosingPiutangSupplier = model('closingPiutangSupplierModel', true, $this->db);
         $this->mdClosingStockProduct = model('closingStockProductModel', true, $this->db);
+        $this->mdClosingPengeluaranSales = model('closingPengeluaranSalesModel', true, $this->db);
+        $this->mdClosingPengeluaranKantor = model('closingPengeluaranKantorModel', true, $this->db);
     }
 }

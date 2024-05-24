@@ -444,10 +444,32 @@ class laporanController extends BaseController
             // ->join('sales', 'sales.id_sales= nota.id_sales')
             // ->join('barang_harga', 'barang_harga.id_product= product.id_product')
             // ->join('jenis_harga', 'jenis_harga.id_jenis_harga= barang_harga.id_jenis_harga')
-            ->groupBy('product.id_product')
+            // ->groupBy('product.id_product')
             ->findAll();
-        // print_r($data['product']);
-        // exit;
+        print_r($data['product']);
+        exit;
+
+        //pengeluaran kantor
+        $data['pengeluaran_kantor'] = $this->mdPengeluaranKantor
+            ->where('pengeluaran_kantor.id_branch', $id_branch)
+            ->findAll();
+
+        $biaya_pengeluaran_kantor = 0;
+        foreach ($data['pengeluaran_kantor'] as $key => $value) {
+            $biaya_pengeluaran_kantor += $value['biaya_pengeluaran_kantor'];
+        }
+        $data['biaya_pengeluaran_kantor'] = $biaya_pengeluaran_kantor;
+
+        //pengeluaran sales
+        $data['pengeluaran_sales'] = $this->mdPengeluaranDetailSales
+            ->where('pengeluaran_detail_sales.id_branch', $id_branch)
+            ->findAll();
+
+        $nominal = 0;
+        foreach ($data['pengeluaran_sales'] as $key => $value) {
+            $nominal += $value['nominal'];
+        }
+        $data['nominal'] = $nominal;
         return view('admin_kas_kecil/laporan/closing', $data);
     }
 
@@ -595,7 +617,6 @@ class laporanController extends BaseController
             // ->join('jenis_harga', 'jenis_harga.id_jenis_harga= barang_harga.id_jenis_harga')
             ->groupBy('product.id_product')
             ->findAll();
-        $total = 0;
         $total_jumlah = 0;
         $all_total_jual = 0;
         $total_modal = 0;
@@ -625,30 +646,38 @@ class laporanController extends BaseController
             ];
             //$this->mdClosingStockProduct->save($data_save4);
         }
-        // //week
-        $where_conditions = [
-            'nama_week' => $week,
-            'tahun_week' => $year,
-        ];
-        // print_r($where_conditions);
-        $mdWeek = $this->mdWeek->where($where_conditions)->find();
 
-        if (isset($mdWeek[0])) {
-            $data_save_week = [
-                'id_week' => $mdWeek[0]['id_week'],
-                'status_closing' => '1',
+        //pengeluaran kantor
+        $data['pengeluaran_kantor'] = $this->mdPengeluaranKantor
+            ->where('pengeluaran_kantor.id_branch', $id_branch)
+            ->findAll();
+
+        foreach ($data['pengeluaran_kantor'] as $key => $value) {
+            $data_save5 = [
+                'id_branch' => SESSION('userData')['id_branch'],
+                'week_pengeluaran_kantor' => $week,
+                'keterangan' => $value['keterangan_pengeluaran_kantor'],
+                'id_user' => SESSION('userData')['id_user'],
+                'total_pengeluaran_kantor' => $value['biaya_pengeluaran_kantor'],
             ];
-            // $this->mdWeek->save($data_save_week);
+            // $this->mdClosingPengeluaranKantor->save($data_save5);
         }
-        // print_r($mdWeek);
 
-        return redirect()->to(base_url('/akk/laporan/form_closing'));
-    }
-    public function closing_mingguan_piutang_save()
-    {
-        $week = $this->request->getPost('week');
-        $year = $this->request->getPost('year');
-        $id_branch = SESSION('userData')['id_branch'];
+        //pengeluaran sales
+        $data['pengeluaran_sales'] = $this->mdPengeluaranDetailSales
+            ->where('pengeluaran_detail_sales.id_branch', $id_branch)
+            ->findAll();
+
+        foreach ($data['pengeluaran_sales'] as $key => $value) {
+            $data_save6 = [
+                'id_branch' => SESSION('userData')['id_branch'],
+                'week_pengeluaran_sales' => $week,
+                'keterangan' => $value['ket_pengeluaran'],
+                'id_user' => SESSION('userData')['id_user'],
+                'total_pengeluaran_sales' => $value['nominal'],
+            ];
+            //$this->mdClosingPengeluaranSales->save($data_save6);
+        }
 
         // //week
         $where_conditions = [

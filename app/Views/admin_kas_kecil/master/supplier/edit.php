@@ -26,6 +26,8 @@
                                 <div class="col-sm-9">
                                     <input type="hidden" class="form-control form-control-sm" name="id_supplier"
                                         value="<?= $model['id_supplier'] ?>">
+                                    <input type="hidden" class="form-control form-control-sm" name="kode_supplier"
+                                        value="<?= $model['kode_supplier'] ?>">
                                     <input type="text" class="form-control form-control-sm" name="nama_supplier"
                                         value="<?= $model['nama_supplier'] ?>">
                                 </div>

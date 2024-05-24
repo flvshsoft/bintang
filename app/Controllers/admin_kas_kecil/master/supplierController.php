@@ -37,9 +37,9 @@ class supplierController extends BaseController
         return redirect()->to(base_url('/akk/master_supplier'));
     }
 
-    public function hapus($id_supplier)
+    public function hapus($kode_supplier)
     {
-        $delete = $this->mdSupplier->delete($id_supplier);
+        $delete = $this->mdSupplier->delete($kode_supplier);
         if ($delete) {
             return redirect()->to(base_url('/akk/master_supplier'));
         } else {
@@ -47,12 +47,12 @@ class supplierController extends BaseController
         }
     }
 
-    public function edit($id_supplier)
+    public function edit($kode_supplier)
     {
         $data['judul'] = 'Bintang';
         $data['judul1'] = 'Data Supplier';
         $data['model'] = $this->mdSupplier
-            ->where('id_supplier', $id_supplier)
+            ->where('kode_supplier', $kode_supplier)
             ->find()[0];
 
         return view('admin_kas_kecil/master/supplier/edit', $data);
@@ -60,8 +60,10 @@ class supplierController extends BaseController
 
     public function update()
     {
+        $kode_supplier = $this->request->getPost('kode_supplier');
         $id_supplier = $this->request->getPost('id_supplier');
         $data = [
+            'kode_supplier' => $kode_supplier,
             'id_supplier' => $id_supplier,
             'nama_supplier' => $this->request->getPost('nama_supplier'),
             'no_hp_supplier' => $this->request->getPost('no_hp_supplier'),

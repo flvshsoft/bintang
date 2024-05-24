@@ -45,7 +45,7 @@
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <b>
-                                                    <a style="text-decoration:none" href="<?= base_url('/akk/form_supplier/' . $value['id_supplier']) ?>">
+                                                    <a style="text-decoration:none" href="<?= base_url('/akk/form_supplier/' . $value['kode_supplier']) ?>">
                                                         <?= $value['id_supplier'] ?>
                                                     </a>
                                                 </b>
@@ -60,7 +60,8 @@
                                                 <?= $value['no_hp_supplier'] ?>
                                             </td>
                                             <td style="font-size: 11px;">
-                                                <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')" href="<?= base_url('/akk/del_supplier/' . $value['id_supplier']) ?>"> <i class="mdi mdi-delete-circle text-default icon-md"></i> </a>
+                                                <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')" href="<?= base_url('/akk/del_supplier/' . $value['kode_supplier']) ?>">
+                                                    <i class="mdi mdi-delete-circle text-default icon-md"></i> </a>
                                             </td>
                                         </tr>
                                     <?php $no++;
