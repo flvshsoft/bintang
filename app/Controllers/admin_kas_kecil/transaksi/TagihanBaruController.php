@@ -87,7 +87,7 @@ class TagihanBaruController extends BaseController
         if ($payment_method == "CASH") {
             $data['customer'] = $this->mdCustomer
                 ->where('id_branch', Session('userData')['id_branch'])
-                ->where('payment_metode', $payment_method)
+                // ->where('payment_metode', $payment_method)
                 ->orderBy('customer.nama_customer', 'ASC')
                 ->findAll();
         } else {
