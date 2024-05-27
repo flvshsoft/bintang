@@ -268,6 +268,8 @@ class purchaseOrderController extends BaseController
 
         if ($existingData) {
             $this->mdPiutangUsaha
+                ->where('id_supplier', $id_supplier)
+                ->where('type_piutang', "Usaha")
                 ->increment('jumlah_piutang', $jumlah_piutang);
         } else {
             $data2 = [

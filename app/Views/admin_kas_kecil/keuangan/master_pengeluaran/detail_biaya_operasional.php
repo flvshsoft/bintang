@@ -11,8 +11,10 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/dashboard') ?>">BERANDA</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan') ?>">KEUANGAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/master_pengeluaran') ?>">PENGELUARAN</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('/akk/keuangan/master_pengeluaran_op') ?>">PENGELUARAN OP</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="<?= base_url('/akk/keuangan/master_pengeluaran') ?>">PENGELUARAN</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="<?= base_url('/akk/keuangan/master_pengeluaran_op') ?>">PENGELUARAN OP</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
                         <?= $judul1 ?>
                     </li>
@@ -28,57 +30,67 @@
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Kode Pengeluaran
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" value="23022086" disabled>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile"
+                                        value="23022086" disabled>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Salesman </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" value="HIDAYAT" disabled>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile"
+                                        value="HIDAYAT" disabled>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Area / Tujuan </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" value="SIAKDRP" disabled>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile"
+                                        value="SIAKDRP" disabled>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">No. DO </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" value="160009662" disabled>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile"
+                                        value="160009662" disabled>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Minggu Ke - </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile" value="37" disabled>
+                                    <input type="text" class="form-control form-control-sm" id="exampleInputMobile"
+                                        value="37" disabled>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">
                                     Keterangan</label>
                                 <div class="col-sm-9">
-                                    <textarea disabled class="form-control form-control-sm" rows="3">Pengeluaran Operasional Salesman : JUNAIDI</textarea>
+                                    <textarea disabled class="form-control form-control-sm"
+                                        rows="3">Pengeluaran Operasional Salesman : JUNAIDI</textarea>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Tgl
                                     DO</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputConfirmPassword2" value="16/09/2023" disabled>
+                                    <input type="text" class="form-control form-control-sm"
+                                        id="exampleInputConfirmPassword2" value="16/09/2023" disabled>
                                 </div>
                             </div>
                             <div class="form-group row mb-0">
                                 <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Total
                                     Pengeluaran</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="exampleInputConfirmPassword2" value="800.000" disabled>
+                                    <input type="text" class="form-control form-control-sm"
+                                        id="exampleInputConfirmPassword2" value="800.000" disabled>
                                 </div>
                             </div>
                             <div class="form-group text-center mb-0">
-                                <a href="<?= base_url('/akk/keuangan/master_pengeluaran_op') ?>" class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
-                                <button type="submit" class="btn btn-success btn-xs"><i class="mdi mdi-content-save-all icon-sm"></i> Update</button>
+                                <a href="<?= base_url('/akk/keuangan/master_pengeluaran_op') ?>"
+                                    class="btn btn-primary btn-xs"><i class="mdi mdi-backburger icon-sm"></i></a>
+                                <button type="submit" class="btn btn-success btn-xs"><i
+                                        class="mdi mdi-content-save-all icon-sm"></i> Update</button>
                             </div>
                         </form><br>
                         <div class="table-responsive">
@@ -189,6 +201,8 @@
                                                 <option> PENGINAPAN</option>
                                                 <option> PERBAIKAN & PERAWATAN KENDARAAN</option>
                                                 <option> PINJAMAN KARYAWAN</option>
+                                                <option> UTH</option>
+                                                <option> UPAH BONGKAR</option>
                                             </select>
                                         </td>
                                         <td style="font-size: 11px;">
@@ -215,22 +229,22 @@
 </div>
 
 <style>
-    .menu-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 12px;
-    }
+.menu-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
 
-    .menu-item a {
-        display: flex;
-        align-items: start;
-        text-decoration: none;
-        color: black;
-    }
+.menu-item a {
+    display: flex;
+    align-items: start;
+    text-decoration: none;
+    color: black;
+}
 
-    .menu-item i {
-        margin-right: 10px;
-    }
+.menu-item i {
+    margin-right: 10px;
+}
 </style>
 
 <?= $this->endSection() ?>

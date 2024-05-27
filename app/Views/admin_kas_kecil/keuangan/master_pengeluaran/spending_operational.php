@@ -155,6 +155,8 @@
                                                     <option> PENGINAPAN</option>
                                                     <option> PERBAIKAN & PERAWATAN KENDARAAN</option>
                                                     <option> PINJAMAN KARYAWAN</option>
+                                                    <option> UTH</option>
+                                                    <option> UPAH BONGKAR</option>
                                                 </select>
                                             </td>
                                             <td style="font-size: 11px;">

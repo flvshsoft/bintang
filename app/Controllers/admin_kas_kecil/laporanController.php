@@ -58,7 +58,7 @@ class laporanController extends BaseController
             // ->where('YEAR(nota.created_at)', $year)
             // ->where('nota.status !=', 'Lunas')
             // ->orderBY('partner.nama_lengkap', 'ASC')
-            // ->groupBy('partner.id_partner')
+            ->groupBy('partner.id_partner')
             ->findAll();
 
         // print_r($data);
@@ -428,12 +428,14 @@ class laporanController extends BaseController
             ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
             ->findAll();
 
+        $total_piutang_usaha = 0;
         $jumlah_piutang_usaha = 0;
         foreach ($data['hutang_usaha'] as $key => $value) {
             $value['jumlah_piutang'];
             $jumlah_piutang_usaha += $value['jumlah_piutang'];
         }
         $data['jumlah_piutang_usaha'] = $jumlah_piutang_usaha;
+        $total_piutang_usaha += $jumlah_piutang_usaha;
 
         //stock barang
         $data['product'] = $this->mdProduct
@@ -484,6 +486,54 @@ class laporanController extends BaseController
 
         $total_bop = $nominal + $biaya_pengeluaran_kantor;
         $data['total_bop'] = $total_bop;
+
+        $data['bank'] = $this->mdBank
+            ->orderBY('nama_bank', 'ASC')
+            ->where('id_branch', $id_branch)
+            ->findAll();
+
+        $total_saldo_bank = 0;
+        $saldo_bank = 0;
+        foreach ($data['bank'] as $key => $value) {
+            $saldo_bank += $value['saldo'];
+        }
+        $data['saldo_bank'] = $saldo_bank;
+        $total_saldo_bank += $saldo_bank;
+
+        $data['ho_bop'] = $this->mdMutasiBank
+            ->orderBY('id_mutasi_bank', 'DESC')
+            ->where('mutasi_bank.id_branch', $id_branch)
+            ->where('type_mutasi_bank', 'MUTASI HO BOP')
+            ->findAll();
+        $biaya_ho_bop = 0;
+        foreach ($data['ho_bop'] as $key => $value) {
+            $biaya_ho_bop += $value['biaya_mutasi_bank'];
+        }
+        $data['biaya_ho_bop'] = $biaya_ho_bop;
+
+        $data['ho_deviden'] = $this->mdMutasiBank
+            ->orderBY('id_mutasi_bank', 'DESC')
+            ->where('id_branch', $id_branch)
+            ->where('type_mutasi_bank', 'MUTASI HO DEVIDEN')
+            ->findAll();
+        $biaya_ho_deviden = 0;
+        foreach ($data['ho_deviden'] as $key => $value) {
+            $biaya_ho_deviden += $value['biaya_mutasi_bank'];
+        }
+        $data['biaya_ho_deviden'] = $biaya_ho_deviden;
+
+        $data['kas_pengembangan'] = $this->mdMutasiBank
+            ->orderBY('id_mutasi_bank', 'DESC')
+            ->where('id_branch', $id_branch)
+            ->where('type_mutasi_bank', 'MUTASI KAS PENGEMBANGAN')
+            ->findAll();
+        $biaya_kas_pengembangan = 0;
+        foreach ($data['kas_pengembangan'] as $key => $value) {
+            $biaya_kas_pengembangan += $value['biaya_mutasi_bank'];
+        }
+        $data['biaya_kas_pengembangan'] = $biaya_kas_pengembangan;
+
+
         return view('admin_kas_kecil/laporan/closing', $data);
     }
 
@@ -527,7 +577,7 @@ class laporanController extends BaseController
                 'minggu_nota_putih' => $week,
                 'total_beli' => array_sum($value),
             ];
-            //  $this->mdNotaPutihSalesmanSave->save($data_save);
+            $this->mdNotaPutihSalesmanSave->save($data_save);
         }
 
         $data['kontan_nota'] = $this->mdNota
@@ -541,9 +591,11 @@ class laporanController extends BaseController
             // ->where('nota.status !=', 'Lunas')
             // ->where('total_beli !=', 0)
             ->findAll();
-
+        $grand_total_kontan = 0;
+        $grand_total_tertagih = 0;
         $total_kontan_per_salesman = [];
         $total_tertagih_per_salesman = [];
+        $grand_saldo = 0;
         foreach ($data['kontan_nota'] as $value) {
             $id_partner = $value['id_partner'];
             if ($value['payment_method'] == 'CASH') {
@@ -562,6 +614,10 @@ class laporanController extends BaseController
 
         foreach ($total_kontan_per_salesman as $id_partner => $total_kontan) {
             $total_tertagih = isset($total_tertagih_per_salesman[$id_partner]) ? $total_tertagih_per_salesman[$id_partner] : 0;
+            $grand_total_kontan += $total_kontan;
+            $grand_total_tertagih += $total_tertagih;
+            $saldo =  $grand_total_kontan + $grand_total_tertagih;
+            $grand_saldo += $grand_total_kontan + $grand_total_tertagih;
             $data_save1 = [
                 'id_branch' => SESSION('userData')['id_branch'],
                 'id_partner' => $id_partner,
@@ -570,8 +626,9 @@ class laporanController extends BaseController
                 'total_tertagih' => $total_tertagih,
                 'total_kontan' => $total_kontan,
             ];
-            //   $this->mdClosingNotaKontan->save($data_save1);
+            $this->mdClosingNotaKontan->save($data_save1);
         }
+        $data['grand_saldo'] = $grand_saldo;
 
         $data['piutang_karyawan'] = $this->mdPiutangUsaha
             ->where('type_piutang', 'Karyawan')
@@ -586,7 +643,7 @@ class laporanController extends BaseController
                 'nama_karyawan' => $value['nama_penghutang'],
                 'total_piutang_karyawan' => $value['jumlah_piutang'],
             ];
-            // $this->mdClosingPiutangKaryawan->save($data_save1);
+            $this->mdClosingPiutangKaryawan->save($data_save1);
         }
         $data['hutang_usaha'] = $this->mdPiutangUsaha
             ->groupBy('supplier.id_supplier')
@@ -594,7 +651,11 @@ class laporanController extends BaseController
             ->where('piutang_usaha.id_branch', $id_branch)
             ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
             ->findAll();
+
+        $total_piutang_usaha = 0;
+        $jumlah_piutang_usaha = 0;
         foreach ($data['hutang_usaha'] as $key => $value) {
+            $jumlah_piutang_usaha += $value['jumlah_piutang'];
             $data_save2 = [
                 'id_branch' => SESSION('userData')['id_branch'],
                 'id_user' => SESSION('userData')['id_user'],
@@ -602,14 +663,18 @@ class laporanController extends BaseController
                 'id_supplier' => $value['id_supplier'],
                 'total_piutang_supplier' => $value['jumlah_piutang'],
             ];
-            // $this->mdClosingPiutangSupplier->save($data_save2);
+            $this->mdClosingPiutangSupplier->save($data_save2);
         }
+        $data['jumlah_piutang_usaha'] = $jumlah_piutang_usaha;
+        $total_piutang_usaha += $jumlah_piutang_usaha;
         $data['piutang_internal'] = $this->mdPiutangUsaha
             ->where('type_piutang', 'Internal')
             ->where('piutang_usaha.id_branch', $id_branch)
             ->join('branch', 'branch.id_branch=piutang_usaha.id_cabang')
             ->findAll();
+        $total_piutang_internal = 0;
         foreach ($data['piutang_internal'] as $key => $value) {
+            $total_piutang_internal += $value['jumlah_piutang'];
             $data_save3 = [
                 'id_branch' => SESSION('userData')['id_branch'],
                 'id_user' => SESSION('userData')['id_user'],
@@ -617,7 +682,7 @@ class laporanController extends BaseController
                 'id_cabang' => $value['id_cabang'],
                 'total_piutang_internal' => $value['jumlah_piutang'],
             ];
-            //   $this->mdClosingPiutangInternal->save($data_save3);
+            $this->mdClosingPiutangInternal->save($data_save3);
         }
 
         //stock barang
@@ -654,7 +719,7 @@ class laporanController extends BaseController
                 'week_stock_product' => $week,
                 'id_user' => SESSION('userData')['id_user'],
             ];
-            //  $this->mdClosingStockProduct->save($data_save4);
+            $this->mdClosingStockProduct->save($data_save4);
         }
 
         //stock salesman
@@ -695,7 +760,7 @@ class laporanController extends BaseController
                 'total_cash_kredit' => $subtotal_cash_kredit,
                 'id_user' => SESSION('userData')['id_user'],
             ];
-            //$this->mdClosingSalesmanProduct->save($data_save7);
+            $this->mdClosingSalesmanProduct->save($data_save7);
         }
         //pengeluaran kantor
         $data['pengeluaran_kantor'] = $this->mdPengeluaranKantor
@@ -725,11 +790,164 @@ class laporanController extends BaseController
         $data_save8 = [
             'id_branch' => SESSION('userData')['id_branch'],
             'week_pengeluaran_kantor' => $week,
-            'remark' => $value['id_product'],
+            'remark' => 'Biaya Operasional',
             'id_user' => SESSION('userData')['id_user'],
-            'total_pengeluaran_kantor' => $total_bop,
+            'total_pengeluaran_kantor' => $nominal,
         ];
-        //$this->mdClosingPengeluaranKantor->save($data_save8);
+        $this->mdClosingPengeluaranKantor->save($data_save8);
+
+        $data_save9 = [
+            'id_branch' => SESSION('userData')['id_branch'],
+            'week_pengeluaran_kantor' => $week,
+            'remark' => 'Biaya Kantor',
+            'id_user' => SESSION('userData')['id_user'],
+            'total_pengeluaran_kantor' => $biaya_pengeluaran_kantor,
+        ];
+        $this->mdClosingPengeluaranKantor->save($data_save9);
+
+        $data_save10 = [
+            'id_branch' => SESSION('userData')['id_branch'],
+            'week_summary_deviasi' => $week,
+            'keterangan' => 'Nota Putih',
+            'id_user' => SESSION('userData')['id_user'],
+            'before_deviasi_modal' => $grand_saldo,
+            'before_deviasi_jual' => $grand_saldo,
+            'after_deviasi_modal' => $grand_saldo - ($grand_saldo / 10),
+            'after_deviasi_jual' => $grand_saldo -  ($grand_saldo / 10),
+        ];
+        $this->mdClosingSummaryDeviasi->save($data_save10);
+
+        $data_save11 = [
+            'id_branch' => SESSION('userData')['id_branch'],
+            'week_summary_deviasi' => $week,
+            'keterangan' => 'Piutang Internal',
+            'id_user' => SESSION('userData')['id_user'],
+            'before_deviasi_modal' => $total_piutang_internal,
+            'before_deviasi_jual' => $total_piutang_internal,
+            'after_deviasi_modal' => $total_piutang_internal,
+            'after_deviasi_jual' => $total_piutang_internal,
+        ];
+        $this->mdClosingSummaryDeviasi->save($data_save11);
+
+        $data['bank'] = $this->mdBank
+            ->orderBY('nama_bank', 'ASC')
+            ->where('id_branch', $id_branch)
+            ->findAll();
+
+        $total_saldo_bank = 0;
+        $saldo_bank = 0;
+        foreach ($data['bank'] as $key => $value) {
+            $saldo_bank += $value['saldo'];
+            $data_saveBank =
+                [
+                    'id_branch' => SESSION('userData')['id_branch'],
+                    'week_neraca' => $week,
+                    'keterangan' => 'Neraca',
+                    'id_user' => SESSION('userData')['id_user'],
+                    'id_bank' => $value['id_bank'],
+                    'saldo' => $value['saldo'],
+                ];
+            $this->mdClosingNeraca->save($data_saveBank);
+        }
+        $data['saldo_bank'] = $saldo_bank;
+        $total_saldo_bank += $saldo_bank;
+
+        $data_save12 = [
+            'id_branch' => SESSION('userData')['id_branch'],
+            'week_summary_deviasi' => $week,
+            'keterangan' => 'Neraca',
+            'id_user' => SESSION('userData')['id_user'],
+            'before_deviasi_modal' => $total_saldo_bank,
+            'before_deviasi_jual' => $total_saldo_bank,
+            'after_deviasi_modal' => $total_saldo_bank,
+            'after_deviasi_jual' => $total_saldo_bank,
+        ];
+        $this->mdClosingSummaryDeviasi->save($data_save12);
+
+        $data_save13 = [
+            'id_branch' => SESSION('userData')['id_branch'],
+            'week_summary_deviasi' => $week,
+            'keterangan' => 'Modal | Jual',
+            'id_user' => SESSION('userData')['id_user'],
+            'before_deviasi_modal' => $total_modal,
+            'before_deviasi_jual' => $all_total_jual,
+            'after_deviasi_modal' => $total_modal,
+            'after_deviasi_jual' => $all_total_jual,
+        ];
+        $this->mdClosingSummaryDeviasi->save($data_save13);
+
+        $data_save14 = [
+            'id_branch' => SESSION('userData')['id_branch'],
+            'week_summary_deviasi' => $week,
+            'keterangan' => 'Hutang Usaha',
+            'id_user' => SESSION('userData')['id_user'],
+            'before_deviasi_modal' => $total_piutang_usaha,
+            'before_deviasi_jual' => $total_piutang_usaha,
+            'after_deviasi_modal' => $total_piutang_usaha,
+            'after_deviasi_jual' => $total_piutang_usaha,
+        ];
+        $this->mdClosingSummaryDeviasi->save($data_save14);
+
+        $data['ho_bop'] = $this->mdMutasiBank
+            ->orderBY('id_mutasi_bank', 'DESC')
+            ->where('mutasi_bank.id_branch', $id_branch)
+            ->where('type_mutasi_bank', 'MUTASI HO BOP')
+            ->findAll();
+        foreach ($data['ho_bop'] as $key => $value) {
+            $data_save15 =
+                [
+                    'id_branch' => SESSION('userData')['id_branch'],
+                    'week_mutasi_ho' => $week,
+                    'keterangan' => $value['remark_mutasi_bank'],
+                    'type_mutasi' => $value['type_mutasi_bank'],
+                    'id_user' => SESSION('userData')['id_user'],
+                    'id_bank' => $value['id_bank'],
+                    'bank_tujuan' => $value['bank_tujuan'],
+                    'saldo' => $value['biaya_mutasi_bank'],
+                ];
+            $this->mdClosingMutasiHO->save($data_save15);
+        }
+
+        $data['ho_deviden'] = $this->mdMutasiBank
+            ->orderBY('id_mutasi_bank', 'DESC')
+            ->where('id_branch', $id_branch)
+            ->where('type_mutasi_bank', 'MUTASI HO DEVIDEN')
+            ->findAll();
+        foreach ($data['ho_deviden'] as $key => $value) {
+            $data_save15 =
+                [
+                    'id_branch' => SESSION('userData')['id_branch'],
+                    'week_mutasi_ho' => $week,
+                    'keterangan' => $value['remark_mutasi_bank'],
+                    'type_mutasi' => $value['type_mutasi_bank'],
+                    'id_user' => SESSION('userData')['id_user'],
+                    'id_bank' => $value['id_bank'],
+                    'bank_tujuan' => $value['bank_tujuan'],
+                    'saldo' => $value['biaya_mutasi_bank'],
+                ];
+            $this->mdClosingMutasiHO->save($data_save15);
+        }
+
+        $data['kas_pengembangan'] = $this->mdMutasiBank
+            ->orderBY('id_mutasi_bank', 'DESC')
+            ->where('id_branch', $id_branch)
+            ->where('type_mutasi_bank', 'MUTASI KAS PENGEMBANGAN')
+            ->findAll();
+        foreach ($data['kas_pengembangan'] as $key => $value) {
+            $data_save15 =
+                [
+                    'id_branch' => SESSION('userData')['id_branch'],
+                    'week_mutasi_ho' => $week,
+                    'keterangan' => $value['remark_mutasi_bank'],
+                    'type_mutasi' => $value['type_mutasi_bank'],
+                    'id_user' => SESSION('userData')['id_user'],
+                    'id_bank' => $value['id_bank'],
+                    'bank_tujuan' => $value['bank_tujuan'],
+                    'saldo' => $value['biaya_mutasi_bank'],
+                ];
+            $this->mdClosingMutasiHO->save($data_save15);
+        }
+
 
         // //week
         $where_conditions = [
@@ -744,7 +962,7 @@ class laporanController extends BaseController
                 'id_week' => $mdWeek[0]['id_week'],
                 'status_closing' => '1',
             ];
-            // $this->mdWeek->save($data_save_week);
+            $this->mdWeek->save($data_save_week);
         }
         // print_r($mdWeek);
 
