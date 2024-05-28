@@ -55,9 +55,7 @@ class laporanController extends BaseController
             // ->join('sales', 'sales.id_sales=nota_putih_salesman_save.id_sales')
             ->where('nota_putih_salesman_save.minggu_nota_putih', $week)
             ->where('nota_putih_salesman_save.id_branch', $id_branch)
-            // ->where('YEAR(nota.created_at)', $year)
-            // ->where('nota.status !=', 'Lunas')
-            // ->orderBY('partner.nama_lengkap', 'ASC')
+
             ->groupBy('partner.id_partner')
             ->findAll();
 
