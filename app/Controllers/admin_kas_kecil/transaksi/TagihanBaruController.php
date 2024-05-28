@@ -341,7 +341,7 @@ class TagihanBaruController extends BaseController
             ->where('id_jenis_harga', $id_jenis_harga)
             ->find();
 
-        if ($satuan_penjualan < $jumlah_sales) {
+        if ($satuan_penjualan <= $jumlah_sales) {
             if (count($mdBarangHarga) > 0) {
                 $harga_nota = $mdBarangHarga[0]['harga_aktif'];
                 $data = [
