@@ -21,15 +21,16 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form class="forms-sample" method="POST" action="<?= base_url('/akk/transaksi/purchase_order/tambah') ?>">
+                        <form class="forms-sample" method="POST"
+                            action="<?= base_url('/akk/transaksi/purchase_order/tambah') ?>">
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Cabang</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="id_supplier" required>
+                                    <select class="form-control" name="kode_supplier" required>
                                         <option value="">Pilih Supplier</option>
                                         <?php foreach ($supplier as $value) { ?>
-                                            <option value="<?= $value['id_supplier'] ?>"><?= $value['nama_supplier'] ?>
-                                            </option>
+                                        <option value="<?= $value['kode_supplier'] ?>"><?= $value['nama_supplier'] ?>
+                                        </option>
                                         <?php }; ?>
                                     </select>
                                 </div>
@@ -99,17 +100,20 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Keterangan PO</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" placeholder="Keterangan PO" required name="keterangan_purchase_order">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Keterangan PO"
+                                        required name="keterangan_purchase_order">
                                 </div>
                             </div>
                             <div class="form-group row mb-0 d-none">
                                 <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Status PO</label>
                                 <div class="col-sm-9">
-                                    <input type="hidden" class="form-control form-control-sm" placeholder="Status PO" required name="status_purchase_order" value="Belum diterima">
+                                    <input type="hidden" class="form-control form-control-sm" placeholder="Status PO"
+                                        required name="status_purchase_order" value="Belum diterima">
                                 </div>
                             </div>
                             <div class="form-group text-center">
-                                <a href="<?= base_url('/akk/transaksi/purchase_order/') ?>" class="btn btn-gradient-primary btn-xs tip-top">
+                                <a href="<?= base_url('/akk/transaksi/purchase_order/') ?>"
+                                    class="btn btn-gradient-primary btn-xs tip-top">
                                     <i class="mdi mdi-backburger"></i>
                                 </a>
                                 <button class="btn btn-success btn-xs tip-top">
@@ -167,7 +171,7 @@ function tgl_indo($tanggal)
     $nama_hari = date('w', strtotime($tanggal));
     $nama_hari = $hari[$nama_hari];
 
-    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int)$pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
+    $result = $nama_hari . ', ' . $pecahkanTanggal[2] . ' ' . $bulan[(int) $pecahkanTanggal[1]] . ' ' . $pecahkanTanggal[0];
 
     if ($waktu !== null) {
         $result .= ' ' . $waktu;

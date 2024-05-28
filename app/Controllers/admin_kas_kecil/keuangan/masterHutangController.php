@@ -10,7 +10,7 @@ class masterHutangController extends BaseController
         $data['judul1'] = 'MASTER HUTANG';
         $data['model'] = $this->mdPiutangUsaha
             ->select(['*', 'piutang_usaha.created_at as created_at'])
-            ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier')
+            ->join('supplier', 'supplier.kode_supplier=piutang_usaha.kode_supplier')
             ->join('user', 'user.id_user=piutang_usaha.id_user')
             ->where('piutang_usaha.id_branch', Session('userData')['id_branch'])
             ->where('supplier.id_branch', Session('userData')['id_branch'])
@@ -59,6 +59,7 @@ class masterHutangController extends BaseController
         $jumlah_piutang =  str_replace('.', '', $this->request->getPost('jumlah_piutang'));
         $jumlah_piutang = (int) str_replace(',', '', $jumlah_piutang);
 
+        $kode_supplier = $this->request->getPost('kode_supplier');
         $id_supplier = $this->request->getPost('id_supplier');
         $tgl_piutang = $this->request->getPost('tgl_piutang');
         $minggu_ke = $this->request->getPost('minggu-ke');
@@ -66,7 +67,10 @@ class masterHutangController extends BaseController
         $id_user = Session('userData')['id_user'];
 
         // Cek apakah id_supplier sudah ada di database
-        $existingData = $this->mdPiutangUsaha->where('id_supplier', $id_supplier)->first();
+        $existingData = $this->mdPiutangUsaha
+            ->where('id_supplier', $id_supplier)
+            ->where('kode_supplier', $kode_supplier)
+            ->first();
 
         if ($existingData) {
             // Update jumlah_piutang yang sudah ada
@@ -84,6 +88,7 @@ class masterHutangController extends BaseController
         } else {
             // Insert data baru jika id_supplier tidak ada
             $data = [
+                'kode_supplier' => $kode_supplier,
                 'id_supplier' => $id_supplier,
                 'tgl_piutang' => $tgl_piutang,
                 'type_piutang' => 'Usaha',
@@ -129,6 +134,7 @@ class masterHutangController extends BaseController
         $id_piutang_usaha = $this->request->getPost('id_piutang_usaha');
         $data = [
             'id_piutang_usaha' => $id_piutang_usaha,
+            'kode_supplier' => $this->request->getPost('kode_supplier'),
             'id_supplier' => $this->request->getPost('id_supplier'),
             'tgl_piutang' => $this->request->getPost('tgl_piutang'),
             'minggu-ke' => $this->request->getPost('minggu-ke'),
@@ -151,7 +157,7 @@ class masterHutangController extends BaseController
             ->where('id_piutang_usaha', $id_piutang_usaha)
             ->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order_detail=piutang_usaha.id_purchase_order_detail', 'left')
             //->join('product', 'product.id_product=purchase_order_detail.id_product', 'left')
-            ->join('supplier', 'supplier.id_supplier=piutang_usaha.id_supplier', 'left')
+            ->join('supplier', 'supplier.kode_supplier=piutang_usaha.kode_supplier', 'left')
             ->find();
 
         if ($podetail) {

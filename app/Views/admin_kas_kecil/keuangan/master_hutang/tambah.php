@@ -33,10 +33,10 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Supplier</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control select2" name="id_supplier">
+                                    <select class="form-control select2" name="kode_supplier">
                                         <option>Pilih Supplier</option>
                                         <?php foreach ($supplier as $value) { ?>
-                                        <option value="<?= $value['id_supplier'] ?>"><?= $value['nama_supplier'] ?>
+                                        <option value="<?= $value['kode_supplier'] ?>"><?= $value['nama_supplier'] ?>
                                         </option>
                                         <?php }; ?>
                                     </select>

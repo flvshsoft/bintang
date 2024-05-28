@@ -377,7 +377,7 @@ class TagihanBaruController extends BaseController
                 ->where('id_jenis_harga', $value['id_jenis_harga'])
                 ->find()[0];
 
-            $total += ($mdBarangHarga2['harga_aktif'] * $value['satuan_penjualan']) - $value['diskon_penjualan'];
+            $total += ($value['harga_nota'] * $value['satuan_penjualan']) - $value['diskon_penjualan'];
         }
         $data['total'] = $total;
 

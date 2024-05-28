@@ -30,7 +30,7 @@ class AmbilBarangController extends BaseController
             //->where('deleted_at', NULL)
             ->orderBy('sales.id_sales', 'DESC')
             ->groupBy('sales.id_sales')
-            ->having('total_jumlah_sales !=', 0)
+            // ->having('total_jumlah_sales !=', 1)
             ->findAll();
         return view('admin_kas_kecil/transaksi/ambil_barang/index', $data);
     }
