@@ -14,7 +14,7 @@ class closingPiutangSupplierModel extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['week_piutang_supplier', 'id_branch', 'id_supplier', 'kode_supplier', 'id_user', 'total_piutang_supplier'];
+    protected $allowedFields = ['week_piutang_supplier', 'id_branch', 'id_supplier', 'kode_supplier', 'kode_supplier', 'id_user', 'total_piutang_supplier'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
