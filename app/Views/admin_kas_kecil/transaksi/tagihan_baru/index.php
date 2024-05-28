@@ -42,7 +42,7 @@
                                         <th style="font-size: 11px;"> NO </th>
                                         <th style=" font-size: 11px;"> NO DO </th>
                                         <th style=" font-size: 11px;"> Salesman </th>
-                                        <th style=" font-size: 11px;"> ID Area </th>
+                                        <th style=" font-size: 11px;"> Area </th>
                                         <th style=" font-size: 11px;"> Week </th>
                                         <th style=" font-size: 11px;"> Keterangan </th>
                                         <th style=" font-size: 11px;"> Created </th>

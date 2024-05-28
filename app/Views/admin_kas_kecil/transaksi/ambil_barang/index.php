@@ -30,7 +30,7 @@
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
-                                <thead class="table table-primary">
+                                <thead class="table table-success">
                                     <tr>
                                         <th style="font-size: 11px;"> NO </th>
                                         <th style="font-size: 11px;"> No DO </th>
@@ -39,7 +39,7 @@
                                         <th style="font-size: 11px;"> WEEKS </th>
                                         <th style="font-size: 11px;"> REMARK </th>
                                         <!-- <th style="font-size: 11px;"> CREATED DATE </th> -->
-                                        <th style="font-size: 11px;"> CREATED DO </th>
+                                        <th style="font-size: 11px;"> CREATED </th>
                                         <th style="font-size: 11px;">#</th>
                                     </tr>
                                 </thead>
@@ -70,6 +70,7 @@
                                             </td>
                                             <td style=" font-size: 11px;">
                                                 <?= $value['keterangan'] ?>
+                                                <span class="text-secondary small fst-italic bg-white px-1 rounded-pill"><?= number_format($value['total_jumlah_sales']) ?> barang</span>
                                             </td>
                                             <!-- <td style=" font-size: 11px;">
                                             <? //= $value['created_at'] 
