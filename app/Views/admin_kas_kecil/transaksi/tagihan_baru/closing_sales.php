@@ -211,14 +211,14 @@
                                     </tfoot>
                                 </table>
                                 <?php
-                                // $totalList['Total Kredit'] = $total;
+                                $totalList['Total Kredit'] = $total;
                                 ?>
                             </div><br>
 
                             <!-- tabel -->
                             <h3>TOTAL</h3>
                             <?php
-                            $totalList['Nota Tertagih'] = $nota_tertagih;
+                            //$totalList['Nota Tertagih'] = $nota_tertagih;
                             ?>
                             <div class="table-responsive">
                                 <table class="table table-striped" width="100%" height="88%" cellspacing="0">
