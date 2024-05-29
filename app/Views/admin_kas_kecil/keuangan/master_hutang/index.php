@@ -40,7 +40,7 @@
                                 <button type="button" class="btn btn-dark btn-xs"><i class="mdi mdi-history icon-sm"></i>Riwayat Pelunasan Hutang</button>
                             </a>
                             <a href="<?= base_url('/akk/keuangan/master_hutang/pot') ?>">
-                                <button type="button" class="btn btn-warning btn-xs"><i class="mdi mdi-history icon-sm"></i>Riwatat Pot Hutang</button>
+                                <button type="button" class="btn btn-warning btn-xs"><i class="mdi mdi-history icon-sm"></i>Riwayat Pot Hutang</button>
                             </a>
                             <a href="<?= base_url('/akk/keuangan/master_hutang/tambah') ?>">
                                 <button type="button" class="btn btn-success btn-xs"><i class="mdi mdi-database-plus icon-sm"></i>Input Hutang</button>
