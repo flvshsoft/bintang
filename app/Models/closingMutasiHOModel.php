@@ -14,7 +14,7 @@ class closingMutasiHOModel extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['id_branch',  'week_mutasi_ho', 'keterangan', 'id_user', 'type_mutasi', 'value', 'id_bank', 'id_tujuan', 'saldo'];
+    protected $allowedFields = ['id_branch',  'week_mutasi_ho', 'keterangan', 'id_user', 'type_mutasi', 'value', 'id_bank', 'bank_tujuan', 'saldo'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

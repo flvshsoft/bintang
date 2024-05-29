@@ -385,6 +385,74 @@
         <table border="1">
             <thead>
                 <tr style="font-size:11px;">
+                    <th colspan="8" style="text-align:center;">Penjualan Salesman</th>
+                </tr>
+                <tr style="font-size:11px;">
+                    <th style="text-align:center;">No.</th>
+                    <th style="text-align:center;">Nama Barang</th>
+                    <th style="text-align:center;">Satuan</th>
+                    <th style="text-align:center;">Jumlah</th>
+                    <th style="text-align:center;">Kredit</th>
+                    <th style="text-align:center;">Jumlah</th>
+                    <th style="text-align:center;">Kontan</th>
+                    <th style="text-align:center;">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $no = 1;
+                $value_kredit = 0;
+                $value_kontan = 0;
+                $all_kredit = 0;
+                $all_kontan = 0;
+                $all_in = 0;
+                foreach ($penjualan_salesman as $value) {
+                    $value_kredit += $value['jumlah_kredit'];
+                    $value_kontan += $value['jumlah_cash'];
+                    $all_kredit += $value['total_kredit'];
+                    $all_kontan += $value['total_cash'];
+                    $all_in += $value['total_cash_kredit'];
+                ?>
+                    <tr style=" font-size:11px ;">
+                        <td align="center" width="20px"><?= $no ?> </td>
+                        <td align="center"><?= $value['nama_product'] ?> </td>
+                        <td align="center"><?= $value['satuan_product'] ?></td>
+                        <td align="center"><?= $value['jumlah_kredit'] ?></td>
+                        <td align="center"><?= 'Rp. ' . number_format($value['total_kredit'], 0, ',', '.') ?></td>
+                        <td align="center"><?= $value['jumlah_cash'] ?></td>
+                        <td align="center"><?= 'Rp. ' . number_format($value['total_cash'], 0, ',', '.') ?></td>
+                        <td align="center"><?= 'Rp. ' . number_format($value['total_cash_kredit'], 0, ',', '.') ?></td>
+                    </tr>
+                <?php $no++;
+                } ?>
+            </tbody>
+            <tfoot>
+                <tr style="font-size:11px ;">
+                    <td colspan="3" align="center"><b>Grand Total Omset </b></td>
+                    <td colspan="1" align="center">
+                        <?= number_format($value_kredit, 0, ',', '.') ?>
+                    </td>
+                    <td colspan="1" align="center">
+                        <?= 'Rp. ' . number_format($all_kredit, 0, ',', '.') ?>
+                    </td>
+                    <td colspan="1" align="center">
+                        <?= number_format($value_kontan, 0, ',', '.') ?>
+                    </td>
+                    <td colspan="1" align="center">
+                        <?= 'Rp. ' . number_format($all_kontan, 0, ',', '.') ?>
+                    </td>
+                    <td colspan="1" align="center">
+                        <?= 'Rp. ' . number_format($all_in, 0, ',', '.') ?>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <!-- End Penjualan-->
+        <br><br>
+        <!-- Start Penjualan Salesman -->
+        <table border="1">
+            <thead>
+                <tr style="font-size:11px;">
                     <th colspan="5" style="text-align:center;">Penjualan</th>
                 </tr>
                 <tr style="font-size:11px;">
@@ -430,7 +498,7 @@
                 </tr>
             </tfoot>
         </table>
-        <!-- End Penjualan-->
+        <!-- End Penjualan Salesman-->
         <br><br>
         <!-- Start Pengeluaran Kantor & BOP -->
         <table border="1">
@@ -471,6 +539,45 @@
         </table>
         <!-- End Pengeluaran Kantor & BOP-->
         <br><br>
+        <!-- Start Mutaso HO BOP -->
+        <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+            <thead thead class="table table-success">
+                <tr style="font-size:11px;">
+                    <th colspan="3" style="text-align:center;">Mutasi HO BOP</th>
+                </tr>
+                <tr style="font-size:11px;">
+                    <th style="text-align:center;">No.</th>
+                    <th style="text-align:center;">Remark</th>
+                    <th style="text-align:center;">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $no = 1;
+                $total_bop = 0;
+                $total_bop += $biaya_ho_bop;
+                foreach ($ho_bop as $value) {
+                ?>
+                    <tr style=" font-size:11px ;">
+                        <td width="20px"><?= $no ?> </td>
+                        <td align="center"> <?= $value['remark_mutasi_bank'] ?> </td>
+                        <td align="center">
+                            <?= 'Rp. ' . number_format($biaya_ho_bop, 0, ',', '.') ?></td>
+                    </tr>
+                <?php $no++;
+                } ?>
+            </tbody>
+            <tfoot>
+                <tr style="font-size:11px ;">
+                    <td colspan="2" align="left"><b>Grand Total </b></td>
+                    <td colspan="1" align="center">
+                        <?= 'Rp. ' . number_format($total_bop, 0, ',', '.') ?>
+                    </td>
+                </tr>
+            </tfoot>
+        </table><br><br>
+        <!-- End Mutasi HO BOP -->
+
         <!-- Start Penjualan Bruto & Cost Ratio -->
         <table border="1">
             <thead>

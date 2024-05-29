@@ -122,6 +122,15 @@ class laporanController extends BaseController
             ->join('product', 'product.id_product=closing_stock_product.id_product')
             ->findAll();
 
+        // Stock Produk
+        $data['penjualan_salesman'] = $this->mdClosingSalesmanProduct
+            ->orderBY('id_closing_salesman_product', 'DESC')
+            ->where('closing_salesman_product.id_branch', $id_branch)
+            ->where('week_salesman_product', $week)
+            ->where('YEAR(closing_salesman_product.created_at)', $year)
+            ->join('product', 'product.id_product=closing_salesman_product.id_product')
+            ->findAll();
+
         //Pengeluaran Kantor & BOP
         $data['pengeluaran_bop'] = $this->mdClosingPengeluaranKantor
             ->orderBY('id_closing_pengeluaran_kantor', 'DESC')
@@ -130,20 +139,39 @@ class laporanController extends BaseController
             ->where('YEAR(closing_pengeluaran_kantor.created_at)', $year)
             ->findAll();
 
-         //Report Deviai
-         $data['summary_deviasi'] = $this->mdClosingSummaryDeviasi
-         ->orderBY('id_closing_summary_deviasi', 'DESC')
-         ->where('closing_summary_deviasi.id_branch', $id_branch)
-         ->where('week_summary_deviasi', $week)
-         ->where('YEAR(closing_summary_deviasi.created_at)', $year)
-         ->findAll();
-
-        $data['bank'] = $this->mdBank
-            ->orderBY('nama_bank', 'ASC')
-            ->where('id_branch', $id_branch)
+        //Report Deviai
+        $data['summary_deviasi'] = $this->mdClosingSummaryDeviasi
+            ->orderBY('id_closing_summary_deviasi', 'DESC')
+            ->where('closing_summary_deviasi.id_branch', $id_branch)
+            ->where('week_summary_deviasi', $week)
+            ->where('YEAR(closing_summary_deviasi.created_at)', $year)
             ->findAll();
 
+        //Neraca Saldo
+        $data['bank'] = $this->mdClosingNeraca
+            ->orderBY('id_closing_neraca', 'DESC')
+            ->where('closing_neraca.id_branch', $id_branch)
+            ->where('week_neraca', $week)
+            ->where('YEAR(closing_neraca.created_at)', $year)
+            ->join('bank', 'bank.id_bank=closing_neraca.id_bank')
+            ->findAll();
 
+        //Mutasi HO BOP    
+        $data['ho_bop'] = $this->mdClosingMutasiHO
+        ->orderBY('id_closing_mutasi_ho', 'DESC')
+        ->where('closing_mutasi_ho.id_branch', $id_branch)
+        ->where('week_mutasi_ho', $week)
+        ->where('YEAR(closing_mutasi_ho.created_at)', $year)
+        ->join('bank', 'bank.id_bank=closing_mutasi_ho.id_bank')
+        ->findAll();
+    $jumlah_piutang_usaha = 0;
+    foreach ($data['hutang_usaha'] as $key => $value) {
+        $jumlah_piutang_usaha += $value['total_piutang_supplier'];
+    }
+    $data['jumlah_piutang_usaha'] = $jumlah_piutang_usaha;
+        //Mutasi HO Deviden
+
+        //Mutasi Kas Pengembangan
 
 
 
