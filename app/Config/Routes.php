@@ -144,6 +144,7 @@ $routes->get('/akk/transaksi/purchase_order/hapus/(:any)', 'admin_kas_kecil\tran
 $routes->get('/akk/transaksi/purchase_order/detail/(:any)', 'admin_kas_kecil\transaksi\purchaseOrderController::detail/$1');
 $routes->post('/akk/transaksi/purchase_order/detail', 'admin_kas_kecil\transaksi\purchaseOrderController::detail_input');
 $routes->post('/akk/transaksi/po/tambah_nama_barang', 'admin_kas_kecil\transaksi\purchaseOrderController::tambah_nama_barang');
+$routes->get('/akk/transaksi/purchase_order/hitung-hutang', 'admin_kas_kecil\transaksi\purchaseOrderController::hitung_hutang');
 
 $routes->get('/akk/master_branch', 'admin_kas_kecil\master\branchController::index');
 $routes->get('/akk/master_branch/tambah', 'admin_kas_kecil\master\branchController::tambah');

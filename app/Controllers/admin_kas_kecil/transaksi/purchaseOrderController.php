@@ -13,10 +13,10 @@ class purchaseOrderController extends BaseController
         $data['model'] = $this->mdPurchaseOrder
             ->select(['*', 'purchase_order.created_at as created_at'])
             ->join('user', 'user.id_user=purchase_order.id_user')
-            ->join('supplier', 'supplier.kode_supplier=purchase_order.kode_supplier')
+            ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
             ->where('purchase_order.id_branch', Session('userData')['id_branch'])
-            ->groupBy('id_purchase_order')
-            ->orderBy('id_purchase_order', 'DESC')
+            ->groupBy('purchase_order.id_purchase_order')
+            ->orderBy('purchase_order.id_purchase_order', 'DESC')
             ->findAll();
         return view('admin_kas_kecil/transaksi/purchase_order/index', $data);
     }
@@ -305,5 +305,22 @@ class purchaseOrderController extends BaseController
             ->where('product.id_product', $id)
             ->find()[0];
         return $data['product']['nama_product'] . ';' . $data['product']['satuan_product'] . ';' . $data['product']['harga_beli'];
+    }
+
+    public function hitung_hutang()
+    {
+        $data['judul'] = 'Bintang Distributor';
+        $data['judul1'] = 'MASTER DATA PURCHASE ORDER';
+        $data['model'] = $this->mdPurchaseOrderDetail
+            ->select(['*', 'purchase_order.created_at as created_at'])
+            ->join('purchase_order', 'purchase_order.id_purchase_order=purchase_order_detail.id_purchase_order')
+            // ->join('user', 'user.id_user=purchase_order.id_user')
+            // ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
+            ->where('purchase_order.id_branch', Session('userData')['id_branch'])
+            // ->groupBy('purchase_order.id_purchase_order')
+            // ->orderBy('purchase_order.id_purchase_order', 'DESC')
+            ->findAll();
+            print_r($data['model']);
+        // return view('admin_kas_kecil/transaksi/purchase_order/index', $data);
     }
 }
