@@ -559,15 +559,15 @@ class TagihanBaruController extends BaseController
             // print_r($value);
             $temp2 = [];
             $temp2['nama_product'] = $value['nama_product'];
-            if (isset($temp[$value['payment_method']][$value['id_product']])) {
-                $temp2['qty'] = $temp[$value['payment_method']][$value['id_product']]['qty'] + $value['satuan_penjualan'];
+            if (isset($temp[$value['payment_method']][$value['id_product']][$value['harga_nota']])) {
+                $temp2['qty'] = $temp[$value['payment_method']][$value['id_product']][$value['harga_nota']]['qty'] + $value['satuan_penjualan'];
                 //$temp2['qty'] = $temp[$value['payment_method']][$value['id_product']]['qty'] + $value['satuan_penjualan'];
             } else {
                 $temp2['qty'] = $value['satuan_penjualan'];
             }
             $temp2['harga_aktif'] = $value['harga_nota'];
             // print_r($temp2);
-            $temp[$value['payment_method']][$value['id_product']] = $temp2;
+            $temp[$value['payment_method']][$value['id_product']][$value['harga_nota']] = $temp2;
         }
         $data['product_list'] = $temp;
         // print_r($temp);
