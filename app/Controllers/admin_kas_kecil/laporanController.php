@@ -158,21 +158,48 @@ class laporanController extends BaseController
 
         //Mutasi HO BOP    
         $data['ho_bop'] = $this->mdClosingMutasiHO
-        ->orderBY('id_closing_mutasi_ho', 'DESC')
-        ->where('closing_mutasi_ho.id_branch', $id_branch)
-        ->where('week_mutasi_ho', $week)
-        ->where('YEAR(closing_mutasi_ho.created_at)', $year)
-        ->join('bank', 'bank.id_bank=closing_mutasi_ho.id_bank')
-        ->findAll();
-    $jumlah_piutang_usaha = 0;
-    foreach ($data['hutang_usaha'] as $key => $value) {
-        $jumlah_piutang_usaha += $value['total_piutang_supplier'];
-    }
-    $data['jumlah_piutang_usaha'] = $jumlah_piutang_usaha;
+            ->orderBY('id_closing_mutasi_ho', 'DESC')
+            ->where('closing_mutasi_ho.id_branch', $id_branch)
+            ->where('type_mutasi', 'MUTASI HO BOP')
+            ->where('week_mutasi_ho', $week)
+            ->where('YEAR(closing_mutasi_ho.created_at)', $year)
+            //->join('bank', 'bank.id_bank=closing_mutasi_ho.id_bank')
+            ->findAll();
+        $saldo = 0;
+        foreach ($data['ho_bop'] as $key => $value) {
+            $saldo += $value['saldo'];
+        }
+        $data['total_ho_bop'] = $saldo;
+
         //Mutasi HO Deviden
+        $data['ho_deviden'] = $this->mdClosingMutasiHO
+            ->orderBY('id_closing_mutasi_ho', 'DESC')
+            ->where('closing_mutasi_ho.id_branch', $id_branch)
+            ->where('type_mutasi', 'MUTASI HO DEVIDEN')
+            ->where('week_mutasi_ho', $week)
+            ->where('YEAR(closing_mutasi_ho.created_at)', $year)
+            //->join('bank', 'bank.id_bank=closing_mutasi_ho.id_bank')
+            ->findAll();
+        $saldo = 0;
+        foreach ($data['ho_deviden'] as $key => $value) {
+            $saldo += $value['saldo'];
+        }
+        $data['total_ho_deviden'] = $saldo;
 
         //Mutasi Kas Pengembangan
-
+        $data['kas_pengembangan'] = $this->mdClosingMutasiHO
+            ->orderBY('id_closing_mutasi_ho', 'DESC')
+            ->where('closing_mutasi_ho.id_branch', $id_branch)
+            ->where('type_mutasi', 'MUTASI KAS PENGEMBANGAN')
+            ->where('week_mutasi_ho', $week)
+            ->where('YEAR(closing_mutasi_ho.created_at)', $year)
+            //->join('bank', 'bank.id_bank=closing_mutasi_ho.id_bank')
+            ->findAll();
+        $saldo = 0;
+        foreach ($data['kas_pengembangan'] as $key => $value) {
+            $saldo += $value['saldo'];
+        }
+        $data['total_kas_pengembangan'] = $saldo;
 
 
 

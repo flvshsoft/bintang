@@ -13,7 +13,7 @@ class purchaseOrderController extends BaseController
         $data['model'] = $this->mdPurchaseOrder
             ->select(['*', 'purchase_order.created_at as created_at'])
             ->join('user', 'user.id_user=purchase_order.id_user')
-            ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
+            ->join('supplier', 'supplier.kode_supplier=purchase_order.kode_supplier')
             ->where('purchase_order.id_branch', Session('userData')['id_branch'])
             ->groupBy('purchase_order.id_purchase_order')
             ->orderBy('purchase_order.id_purchase_order', 'DESC')
@@ -320,7 +320,7 @@ class purchaseOrderController extends BaseController
             // ->groupBy('purchase_order.id_purchase_order')
             // ->orderBy('purchase_order.id_purchase_order', 'DESC')
             ->findAll();
-            print_r($data['model']);
+        print_r($data['model']);
         // return view('admin_kas_kecil/transaksi/purchase_order/index', $data);
     }
 }
