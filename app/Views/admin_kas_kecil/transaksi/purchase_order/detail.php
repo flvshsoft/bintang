@@ -93,6 +93,9 @@
                                                 <input type="hidden" name="id_supplier"
                                                     value="<?= $info['id_supplier'] ?>"
                                                     class="form-control form-control-sm">
+                                                <input type="hidden" name="kode_supplier"
+                                                    value="<?= $info['kode_supplier'] ?>"
+                                                    class="form-control form-control-sm">
 
                                             </td>
                                             <td style=" font-size: 11px;">
@@ -194,7 +197,7 @@
                                                 <?php if ($value['status_purchase_order'] == "Belum diterima") {
                                                     ?>
                                                 <a onclick="return confirm('Anda Yakin Ingin Menghapusnya?')"
-                                                    href="<?= base_url('/akk/transaksi/purchase_order/detail/hapus/' . $value['id_purchase_order_detail'] . '/' . $value['id_purchase_order'] . '/' . $info['id_supplier'] . '/' . $hutang) ?>"
+                                                    href="<?= base_url('/akk/transaksi/purchase_order/detail/hapus/' . $value['id_purchase_order_detail'] . '/' . $value['id_purchase_order'] . '/' . $info['kode_supplier'] . '/' . $hutang) ?>"
                                                     class="btn btn-danger btn-xs">
                                                     <i class="mdi mdi-delete icon-md"></i>
                                                 </a>

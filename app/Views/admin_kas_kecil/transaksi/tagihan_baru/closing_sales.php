@@ -146,7 +146,8 @@
                                                 <td style=" font-size: 11px;"><?= $no++ ?></td>
                                                 <td style=" font-size: 11px;"><?= $key ?></td>
                                                 <td style=" font-size: 11px;"><?= $value['nama_product'] ?></td>
-                                                <td style=" font-size: 11px;"><?= number_format($harga_aktif) ?></td>
+                                                <td style=" font-size: 11px;"><?= number_format($harga_aktif) ?>
+                                                </td>
                                                 <td style=" font-size: 11px;"><?= number_format($qty) ?></td>
                                                 <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
                                             </tr>

@@ -341,7 +341,7 @@ class TagihanBaruController extends BaseController
             ->where('id_jenis_harga', $id_jenis_harga)
             ->find();
 
-        if ($satuan_penjualan < $jumlah_sales) {
+        if ($satuan_penjualan <= $jumlah_sales) {
             if (count($mdBarangHarga) > 0) {
                 $harga_nota = $mdBarangHarga[0]['harga_aktif'];
                 $data = [
@@ -359,7 +359,7 @@ class TagihanBaruController extends BaseController
             } else {
                 return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota));
             }
-        } else if ($satuan_penjualan > $jumlah_sales) {
+        } else if ($satuan_penjualan >= $jumlah_sales) {
             session()->setFlashData('lebih', 'Input Jumlah Dibawah ' . $jumlah_sales);
             return redirect()->to(base_url('/akk/transaksi/tagihan_baru/nota/detail/' . $id_nota . '/' . 'lebih'));
         }
@@ -377,7 +377,7 @@ class TagihanBaruController extends BaseController
                 ->where('id_jenis_harga', $value['id_jenis_harga'])
                 ->find()[0];
 
-            $total += ($mdBarangHarga2['harga_aktif'] * $value['satuan_penjualan']) - $value['diskon_penjualan'];
+            $total += ($value['harga_nota'] * $value['satuan_penjualan']) - $value['diskon_penjualan'];
         }
         $data['total'] = $total;
 
@@ -545,7 +545,7 @@ class TagihanBaruController extends BaseController
             ->whereIn('nota_detail.id_nota', $notaList)
             // ->join('barang_harga', 'barang_harga.id_product=nota_detail.id_product')
             // ->where('sales.week', $week)
-            //->groupBy('id_nota_detail')
+            // ->groupBy('id_product')
             ->findAll();
         // print_r($mdNotaDetail[0]);
         // exit;

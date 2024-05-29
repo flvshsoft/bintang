@@ -35,8 +35,10 @@ class purchaseOrderController extends BaseController
     public function tambah_po()
     {
         $id_supplier = $this->request->getPost('id_supplier');
+        $kode_supplier = $this->request->getPost('kode_supplier');
         $data = [
             'id_supplier' => $id_supplier,
+            'kode_supplier' => $kode_supplier,
             'minggu_purchase_order' => $this->request->getPost('minggu_purchase_order'),
             'status_purchase_order' => $this->request->getPost('status_purchase_order'),
             'keterangan_purchase_order' =>  $this->request->getPost('keterangan_purchase_order'),
@@ -55,7 +57,7 @@ class purchaseOrderController extends BaseController
             ->where('id_purchase_order', $id_purchase_order)
             ->select(['*', 'purchase_order.created_at as created_at'])
             ->join('user', 'user.id_user=purchase_order.id_user')
-            ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
+            ->join('supplier', 'supplier.kode_supplier=purchase_order.kode_supplier')
             ->find()[0];
         $data['supplier'] = $this->mdSupplier
             ->where('id_branch', Session('userData')['id_branch'])
@@ -66,9 +68,11 @@ class purchaseOrderController extends BaseController
     {
         $id_purchase_order = $this->request->getPost('id_purchase_order');
         $id_supplier = $this->request->getPost('id_supplier');
+        $kode_supplier = $this->request->getPost('kode_supplier');
         $data = [
             'id_purchase_order' => $id_purchase_order,
             'id_supplier' => $id_supplier,
+            'kode_supplier' => $kode_supplier,
             'minggu_purchase_order' => $this->request->getPost('minggu_purchase_order'),
             'status_purchase_order' => $this->request->getPost('status_purchase_order'),
             'keterangan_purchase_order' =>  $this->request->getPost('keterangan_purchase_order'),
@@ -125,10 +129,11 @@ class purchaseOrderController extends BaseController
         return view('admin_kas_kecil/transaksi/purchase_order/print', $data);
     }
 
-    public function hapus_detail($id_purchase_order_detail, $id_purchase_order, $id_supplier, $hutang)
+    public function hapus_detail($id_purchase_order_detail, $id_purchase_order, $kode_supplier, $hutang)
     {
         $piutang = $this->mdPiutangUsaha
-            ->where('id_supplier', $id_supplier)
+            ->where('kode_supplier', $kode_supplier)
+            //->where('id_supplier', $id_supplier)
             ->where('type_piutang', "Usaha")
             ->find();
         // print_r($piutang);
@@ -155,7 +160,7 @@ class purchaseOrderController extends BaseController
         $data['info'] = $this->mdPurchaseOrder
             ->select(['*', 'purchase_order.created_at as created_at', 'purchase_order.id_purchase_order as id_purchase_order'])
             ->join('user', 'user.id_user=purchase_order.id_user')
-            ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
+            ->join('supplier', 'supplier.kode_supplier=purchase_order.kode_supplier')
             ->join('purchase_order_detail', 'purchase_order_detail.id_purchase_order=purchase_order.id_purchase_order', 'left')
             ->where('purchase_order.id_purchase_order', $id_purchase_order)
             ->find()[0];
@@ -240,16 +245,14 @@ class purchaseOrderController extends BaseController
     {
         $id_purchase_order = $this->request->getPost('id_purchase_order');
         $id_supplier = $this->request->getPost('id_supplier');
-
-
+        $kode_supplier = $this->request->getPost('kode_supplier');
         $id_product = $this->request->getPost('id_product');
 
         $jumlah_product = str_replace('.', '', $this->request->getPost('jumlah_product'));
         $jumlah_product = (int) str_replace(',', '', $jumlah_product);
-
         $harga_beli = str_replace(',', '', $this->request->getPost('harga_beli'));
-
         $harga_beli = (int) str_replace(',', '', $harga_beli);
+
         $jumlah_piutang = $harga_beli * $jumlah_product;
         $data = [
             'id_purchase_order' => $id_purchase_order,
@@ -262,12 +265,16 @@ class purchaseOrderController extends BaseController
         $this->mdPurchaseOrderDetail->save($data);
 
         $existingData = $this->mdPiutangUsaha
-            ->where('id_supplier', $id_supplier)
+            ->where('kode_supplier', $kode_supplier)
+            //  ->where('id_supplier', $id_supplier)
             ->where('type_piutang', "Usaha")
             ->first();
 
         if ($existingData) {
             $this->mdPiutangUsaha
+                ->where('kode_supplier', $kode_supplier)
+                // ->where('id_supplier', $id_supplier)
+                ->where('type_piutang', "Usaha")
                 ->increment('jumlah_piutang', $jumlah_piutang);
         } else {
             $data2 = [
@@ -275,7 +282,8 @@ class purchaseOrderController extends BaseController
                 // 'id_purchase_order_detail' => $id_purchase_order_detail,
                 'id_user' => Session('userData')['id_user'],
                 // 'id_purchase_order' => $id_purchase_order,
-                'id_supplier' => $id_supplier,
+                // 'id_supplier' => $id_supplier,
+                'kode_supplier' => $kode_supplier,
                 //  'minggu-ke' => $minggu_purchase_order,
                 'harga_beli' => $harga_beli,
                 'jumlah_piutang' => $jumlah_piutang,

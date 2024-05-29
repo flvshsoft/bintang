@@ -151,6 +151,30 @@
                                             <?= 'Rp. ' . number_format($grand_saldo, 0, ',', '.') ?>
                                         </td>
                                     </tr>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="4" align="left"><b>Deviasi 10 % </b></td>
+                                        <td colspan="1" align="left">
+
+                                        </td>
+                                        <td colspan="1" align="left">
+
+                                        </td>
+                                        <td colspan="1" align="left">
+                                            <?= 'Rp. ' . number_format($grand_saldo / 10, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="4" align="left"><b> Total Bersih Nota </b></td>
+                                        <td colspan="1" align="left">
+
+                                        </td>
+                                        <td colspan="1" align="left">
+
+                                        </td>
+                                        <td colspan="1" align="left">
+                                            <?= 'Rp. ' . number_format($grand_saldo - ($grand_saldo / 10), 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div><br>
 
@@ -552,10 +576,325 @@
                                 </tfoot>
                             </table><br>
                             <!-- End Pengeluaran Kantor -->
+                            <!-- Start Pengeluaran Kantor -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="3" style="text-align:center;">Penjualan Bruto dan Cost Ratio</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Penjualan Bruto</th>
+                                        <th style="text-align:center;">Cost Ratio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style=" font-size:11px ;">
+                                        <td align="center" width="20px">1</td>
+                                        <td align="center"> <?= 'Rp ' . number_format(0, 0, ',', '.') ?></td>
+                                        <td align="center">
+                                            0 %
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <!-- <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2" align="left"><b>Grand Pengeluaran </b></td>
+                                        <td colspan="1" align="center">
+                                            <? //= 'Rp. ' . number_format($total_bop, 0, ',', '.') 
+                                            ?>
+                                        </td>
+                                    </tr>
+                                </tfoot> -->
+                            </table><br>
+                            <!-- End Pengeluaran Kantor -->
                         </div>
                     </div>
                 </div>
-            </div>
+            </div><br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-description"> Report Summary Deviasi
+                            </p>
+                            <!-- Start Report -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="2" style="text-align:center;">Report Summary</th>
+                                        <th colspan="2" style="text-align:center;">Before Deviasi</th>
+                                        <th colspan="2" style="text-align:center;">After Deviasi</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Keterangan</th>
+                                        <th style="text-align:center;">Modal</th>
+                                        <th style="text-align:center;">Jual</th>
+                                        <th style="text-align:center;">Modal</th>
+                                        <th style="text-align:center;">Jual</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total_piutang_internal = 0;
+                                    $total_piutang_usaha = 0;
+                                    $total_piutang_internal += $jumlah_piutang_internal;
+                                    $total_piutang_usaha += $jumlah_piutang_usaha;
+                                    $total_saldo_bank = 0;
+                                    $total_saldo_bank += $saldo_bank;
+                                    // foreach ($nota_putih as $value) {
+                                    ?>
+                                    <tr style=" font-size:11px ;">
+                                        <td width="20px"><?= $no++ ?> </td>
+                                        <td> Piutang Internal </td>
+                                        <td><?= 'Rp. ' . number_format($total_piutang_internal, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($total_piutang_internal, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($total_piutang_internal, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($total_piutang_internal, 0, ',', '.') ?></td>
+                                    </tr>
+                                    <tr style=" font-size:11px ;">
+                                        <td width="20px"><?= $no++ ?> </td>
+                                        <td> Nota Putih </td>
+                                        <td><?= 'Rp. ' . number_format($grand_saldo, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($grand_saldo, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($grand_saldo - ($grand_saldo / 10), 0, ',', '.') ?>
+                                        </td>
+                                        <td><?= 'Rp. ' . number_format($grand_saldo - ($grand_saldo / 10), 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                    <tr style=" font-size:11px ;">
+                                        <td width="20px"><?= $no++ ?> </td>
+                                        <td> Neraca </td>
+                                        <td><?= 'Rp. ' . number_format($total_saldo_bank, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($total_saldo_bank, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($total_saldo_bank, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($total_saldo_bank, 0, ',', '.') ?></td>
+                                    </tr>
+                                    <tr style=" font-size:11px ;">
+                                        <td width="20px"><?= $no++ ?> </td>
+                                        <td> Modal | Jual </td>
+                                        <td><?= 'Rp. ' . number_format($total_modal, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($all_total_jual, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($total_modal, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($all_total_jual, 0, ',', '.') ?></td>
+                                    </tr>
+                                    <tr style=" font-size:11px ;">
+                                        <td width="20px"><?= $no++ ?> </td>
+                                        <td> Hutang Usaha </td>
+                                        <td><?= 'Rp. ' . number_format($total_piutang_usaha, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($total_piutang_usaha, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($total_piutang_usaha, 0, ',', '.') ?></td>
+                                        <td><?= 'Rp. ' . number_format($total_piutang_usaha, 0, ',', '.') ?></td>
+                                    </tr>
+                                    <?php $no++;
+                                    //} 
+                                    ?>
+                                </tbody>
+
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2" align="center"><b>Grand Pengeluaran </b></td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format($total, 0, ',', '.') ?>
+                                        </td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format($total, 0, ',', '.') ?>
+                                        </td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format($total, 0, ',', '.') ?>
+                                        </td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format($total, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!-- End Report-->
+                        </div>
+                    </div>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-description"> All Neraca
+                            </p>
+                            <!-- Start Report -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="3" style="text-align:center;">Neraca </th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Nama Bank</th>
+                                        <th style="text-align:center;">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total_neraca_saldo = 0;
+                                    foreach ($bank as $value) {
+                                        $total_neraca_saldo += $value['saldo'];
+                                    ?>
+                                        <tr style=" font-size:11px ;">
+                                            <td width="20px"><?= $no ?> </td>
+                                            <td align="center"> <?= $value['nama_bank'] ?> </td>
+                                            <td align="center"><?= 'Rp. ' . number_format($value['saldo'], 0, ',', '.') ?>
+                                            </td>
+                                        </tr>
+                                    <?php $no++;
+                                    }
+                                    ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2" align="left"><b>Grand Total Neraca Saldo </b></td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format($total_neraca_saldo, 0, ',', '.') ?>
+                                        </td>
+
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!-- End Report-->
+                        </div>
+                    </div>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-description"> ALL Mutasi
+                            </p>
+                            <!-- Start Piutang Internal -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="3" style="text-align:center;">Mutasi HO BOP</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Remark</th>
+                                        <th style="text-align:center;">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total_bop = 0;
+                                    $total_bop += $biaya_ho_bop;
+                                    foreach ($ho_bop as $value) {
+                                    ?>
+                                        <tr style=" font-size:11px ;">
+                                            <td width="20px"><?= $no ?> </td>
+                                            <td align="center"> <?= $value['remark_mutasi_bank'] ?> </td>
+                                            <td align="center">
+                                                <?= 'Rp. ' . number_format($biaya_ho_bop, 0, ',', '.') ?></td>
+                                        </tr>
+                                    <?php $no++;
+                                    } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2" align="left"><b>Grand Total </b></td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format($total_bop, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!-- End Piutang Internal -->
+                            <br><br>
+                            <!-- Start Piutang Karyawan -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="3" style="text-align:center;">Mutasi HO Deviden</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Remark</th>
+                                        <th style="text-align:center;">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total_deviden = 0;
+                                    foreach ($ho_deviden as $value) {
+                                        $total_deviden += $biaya_ho_deviden;
+                                    ?>
+                                        <tr style=" font-size:11px ;">
+                                            <td width="20px"><?= $no ?> </td>
+                                            <td align="center"> <?= $value['remark_mutasi_bank'] ?> </td>
+                                            <td align="center"><?= 'Rp. ' . number_format($biaya_ho_deviden, 0, ',', '.') ?>
+                                            </td>
+                                        </tr>
+                                    <?php $no++;
+                                    } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2" align="left"><b>Grand Total </b></td>
+                                        <td colspan="1" align="center">
+                                            <?= 'Rp. ' . number_format($total_deviden, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!-- End Piutang Karyawan -->
+                            <br><br>
+                            <!-- Start Hutang Usaha -->
+                            <table class="table table-striped" width="100%" height="88%" cellspacing="0">
+                                <thead class="table table-success">
+                                    <tr style="font-size:11px;">
+                                        <th colspan="3" style="text-align:center;">Mutasi Kas Pengembangan</th>
+                                    </tr>
+                                    <tr style="font-size:11px;">
+                                        <th style="text-align:center;">No.</th>
+                                        <th style="text-align:center;">Remark</th>
+                                        <th style="text-align:center;">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    $total_kas_pengembangan = 0;
+                                    $total_kas_pengembangan += $biaya_kas_pengembangan;
+                                    foreach ($kas_pengembangan as $value) {
+                                    ?>
+                                        <tr style=" font-size:11px ;">
+                                            <td align="center" width="20px"><?= $no ?> </td>
+                                            <td align="center"><?= $value['remark_mutasi_bank'] ?> </td>
+                                            <td align="center">
+                                                <?= 'Rp. ' . number_format($biaya_kas_pengembangan, 0, ',', '.') ?></td>
+                                        </tr>
+                                    <?php $no++;
+                                    } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="font-size:11px ;">
+                                        <td colspan="2"><b>Grand Total </b></td>
+                                        <td colspan=" 1" align="center">
+                                            <?= 'Rp. ' . number_format($total_kas_pengembangan, 0, ',', '.') ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!-- End Hutang Usaha-->
+                            <br><br>
+                            <input type="hidden" name="week" class="form-control" value="<?= $week ?>">
+                            <input type="hidden" name="year" class="form-control" value="<?= $year ?>">
+                        </div>
+                    </div>
+                </div>
+            </div><br><br>
             <div class="col-md-6">
                 <button type="submit" class="btn btn-gradient-warning btn-rounded btn-fw text-black">
                     Closing

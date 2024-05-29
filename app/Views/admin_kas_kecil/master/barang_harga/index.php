@@ -92,7 +92,7 @@
                                             </td>
                                             <td style="font-size: 11px;">
                                                 <div class="justify-content-center">
-                                                    <a href="<? //= base_url('/akk/del_barang_harga/' . $value['id_barang_harga']) 
+                                                    <a href="<?= $value['id_barang_harga'];//base_url('/akk/del_barang_harga/' . $value['id_barang_harga']) 
                                                                 ?>">
                                                         <i class="mdi mdi-delete-circle icon-md text-default"></i>
                                                     </a>
