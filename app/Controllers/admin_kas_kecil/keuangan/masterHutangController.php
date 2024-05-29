@@ -8,7 +8,22 @@ class masterHutangController extends BaseController
     {
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'MASTER HUTANG';
-        $data['model'] = $this->mdPiutangUsaha
+        $level_user = Session('userData')['level_user'];
+        // print_r(Session('userData')['level_user']);
+        // exit;
+        if($level_user == 'superadmin'){
+            $data['model'] = $this->mdPiutangUsaha
+            ->select(['*', 'piutang_usaha.created_at as created_at'])
+            ->join('supplier', 'supplier.kode_supplier=piutang_usaha.kode_supplier')
+            ->join('user', 'user.id_user=piutang_usaha.id_user')
+            ->where('piutang_usaha.id_branch', Session('userData')['id_branch'])
+            // ->where('supplier.id_branch', Session('userData')['id_branch'])
+            ->where('jumlah_piutang !=', 0)
+            //->where('status', 0)
+            ->orderBy('id_piutang_usaha', 'DESC')
+            ->findAll();
+        }else{
+            $data['model'] = $this->mdPiutangUsaha
             ->select(['*', 'piutang_usaha.created_at as created_at'])
             ->join('supplier', 'supplier.kode_supplier=piutang_usaha.kode_supplier')
             ->join('user', 'user.id_user=piutang_usaha.id_user')
@@ -18,6 +33,7 @@ class masterHutangController extends BaseController
             //->where('status', 0)
             ->orderBy('id_piutang_usaha', 'DESC')
             ->findAll();
+        }
         $data['bank'] = $this->mdBank
             ->where('id_branch', Session('userData')['id_branch'])
             ->findAll();

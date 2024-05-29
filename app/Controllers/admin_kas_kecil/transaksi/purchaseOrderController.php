@@ -310,15 +310,31 @@ class purchaseOrderController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'MASTER DATA PURCHASE ORDER';
         $data['model'] = $this->mdPurchaseOrderDetail
-            ->select(['*', 'purchase_order.created_at as created_at'])
+            // ->select(['*', 'purchase_order.created_at as created_at'])
+            // ->select('*, purchase_order.created_at as created_at, (purchase_order_detail.jumlah_product * purchase_order_detail.harga_beli) as total_value')
+            ->select('purchase_order.id_branch, purchase_order.id_user, purchase_order.kode_supplier, SUM(purchase_order_detail.jumlah_product * purchase_order_detail.harga_beli) as jumlah_piutang')
             ->join('purchase_order', 'purchase_order.id_purchase_order=purchase_order_detail.id_purchase_order')
             // ->join('user', 'user.id_user=purchase_order.id_user')
             // ->join('supplier', 'supplier.id_supplier=purchase_order.id_supplier')
-            ->where('purchase_order.id_branch', Session('userData')['id_branch'])
+            // ->where('purchase_order.id_branch', Session('userData')['id_branch'])
+            ->where('purchase_order.kode_supplier >', 0)
+            ->groupBy('purchase_order.kode_supplier')
             // ->groupBy('purchase_order.id_purchase_order')
             // ->orderBy('purchase_order.id_purchase_order', 'DESC')
             ->findAll();
-        print_r($data['model']);
+
+            foreach ($data['model'] as $key => $value) {
+                $data_save = [
+                    'id_branch' => $value['id_branch'],
+                    'id_user' => $value['id_user'],
+                    'kode_supplier' => $value['kode_supplier'],
+                    'type_piutang' => 'Usaha',
+                    'jumlah_piutang' => $value['jumlah_piutang'],
+                ];
+                print_r($data_save);
+                $this->mdPiutangUsaha->insert($data_save);
+            }
+        // print_r($data['model']);
         // return view('admin_kas_kecil/transaksi/purchase_order/index', $data);
     }
 }
