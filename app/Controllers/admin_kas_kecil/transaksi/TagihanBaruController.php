@@ -506,7 +506,7 @@ class TagihanBaruController extends BaseController
             ->orderBy('sales.id_sales', 'DESC')
             ->find();
 
-        //  $week = $data['model'][0]['week'];
+        $id_nota = $data['model'][0]['id_nota'];
 
         if (!empty($data['model'])) {
             if (!empty($data['model'][0]['id_nota'])) {
@@ -535,6 +535,7 @@ class TagihanBaruController extends BaseController
         foreach ($data['cek_nota'] as $key => $value) {
             $notaList[$value['id_nota']] = $value['id_nota'];
         }
+        // $id_nota = $value['id_nota'];
 
         // nota detail
         $mdNotaDetail = $this->mdNotaDetail
@@ -543,36 +544,37 @@ class TagihanBaruController extends BaseController
             ->join('sales', 'sales.id_sales=nota.id_sales')
             ->join('product', 'product.id_product=nota_detail.id_product')
             ->whereIn('nota_detail.id_nota', $notaList)
-            // ->join('barang_harga', 'barang_harga.id_product=nota_detail.id_product')
-            // ->where('sales.week', $week)
-            // ->groupBy('id_product')
             ->findAll();
-        // print_r($mdNotaDetail[0]);
-        // exit;
-        // print_r([count($mdNotaDetail)]);
-        // exit;
 
         $temp = [];
         $temp['CASH'] = [];
         $temp['KREDIT'] = [];
         foreach ($mdNotaDetail as $key => $value) {
-            // print_r($value);
             $temp2 = [];
             $temp2['nama_product'] = $value['nama_product'];
             if (isset($temp[$value['payment_method']][$value['id_product']][$value['harga_nota']])) {
                 $temp2['qty'] = $temp[$value['payment_method']][$value['id_product']][$value['harga_nota']]['qty'] + $value['satuan_penjualan'];
-                //$temp2['qty'] = $temp[$value['payment_method']][$value['id_product']]['qty'] + $value['satuan_penjualan'];
             } else {
                 $temp2['qty'] = $value['satuan_penjualan'];
             }
             $temp2['harga_aktif'] = $value['harga_nota'];
-            // print_r($temp2);
             $temp[$value['payment_method']][$value['id_product']][$value['harga_nota']] = $temp2;
         }
         $data['product_list'] = $temp;
-        // print_r($temp);
-        // exit;
-        $data['lastIdNota'] = $this->mdNota->getLastIdNota();
+
+        //Nota Tertagih
+        $mdNotaTertagih = $this->mdNota
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->where('payment_method', 'KREDIT')
+            ->whereIn('nota.id_nota', $notaList)
+            ->findAll();
+
+        $nota_tertagih = 0;
+        foreach ($mdNotaTertagih as $key => $value) {
+            $nota_tertagih = $value['pay'];
+        }
+        //$data['nota_tertagih_kredit'] = $nota_tertagih;
+
         return view('admin_kas_kecil/transaksi/tagihan_baru/closing_sales', $data);
     }
 
@@ -766,21 +768,30 @@ class TagihanBaruController extends BaseController
         $temp['CASH'] = [];
         $temp['KREDIT'] = [];
         foreach ($mdNotaDetail as $key => $value) {
-            // print_r($value);
             $temp2 = [];
             $temp2['nama_product'] = $value['nama_product'];
-            if (isset($temp[$value['payment_method']][$value['id_product']])) {
-                $temp2['qty'] = $temp[$value['payment_method']][$value['id_product']]['qty'] + $value['satuan_penjualan'];
+            if (isset($temp[$value['payment_method']][$value['id_product']][$value['harga_nota']])) {
+                $temp2['qty'] = $temp[$value['payment_method']][$value['id_product']][$value['harga_nota']]['qty'] + $value['satuan_penjualan'];
             } else {
                 $temp2['qty'] = $value['satuan_penjualan'];
             }
             $temp2['harga_aktif'] = $value['harga_nota'];
-            // print_r($temp2);
-            $temp[$value['payment_method']][$value['id_product']] = $temp2;
+            $temp[$value['payment_method']][$value['id_product']][$value['harga_nota']] = $temp2;
         }
         $data['product_list'] = $temp;
 
-        $data['lastIdNota'] = $this->mdNota->getLastIdNota();
+        //Nota Tertagih
+        $mdNotaTertagih = $this->mdNota
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->where('payment_method', 'KREDIT')
+            ->whereIn('nota.id_nota', $notaList)
+            ->findAll();
+
+        $nota_tertagih = 0;
+        foreach ($mdNotaTertagih as $key => $value) {
+            $nota_tertagih = $value['pay'];
+        }
+        //$data['nota_tertagih_kredit'] = $nota_tertagih;
         return view('admin_kas_kecil/transaksi/tagihan_baru/riwayat_detail', $data);
     }
 }

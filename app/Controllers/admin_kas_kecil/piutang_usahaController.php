@@ -15,7 +15,7 @@ class piutang_usahaController extends BaseController
             ->join('customer', 'customer.id_customer=nota.id_customer')
             ->join('partner', 'partner.id_partner=nota.id_partner')
             ->join('user', 'user.id_user=nota.created_by')
-            ->join('nota_detail', 'nota_detail.id_nota=nota.id_nota')
+            ->join('nota_detail', 'nota_detail.id_nota=nota.id_nota', 'left')
             ->groupBy('nota.id_nota')
             ->findAll();
 

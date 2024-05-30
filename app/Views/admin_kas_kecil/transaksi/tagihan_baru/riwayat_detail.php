@@ -141,21 +141,23 @@
                                     $total_qty = 0;
                                     $total = 0; ?>
                                     <?php foreach ($product_list['CASH'] as $key => $value) { ?>
+                                    <?php foreach ($value as $key2 => $value2) { ?>
                                     <?php
-                                        $qty = $value['qty'];
-                                        $harga_aktif = $value['harga_aktif'];
-                                        $sub_total = $qty * $harga_aktif;
-                                        $total_qty += $qty;
-                                        $total += $sub_total;
-                                        ?>
+                                            $qty = $value2['qty'];
+                                            $harga_aktif = $value2['harga_aktif'];
+                                            $sub_total = $qty * $harga_aktif;
+                                            $total_qty += $qty;
+                                            $total += $sub_total;
+                                            ?>
                                     <tr>
                                         <td style=" font-size: 11px;"><?= $no++ ?></td>
                                         <td style=" font-size: 11px;"><?= $key ?></td>
-                                        <td style=" font-size: 11px;"><?= $value['nama_product'] ?></td>
+                                        <td style=" font-size: 11px;"><?= $value2['nama_product'] ?></td>
                                         <td style=" font-size: 11px;"><?= number_format($harga_aktif) ?></td>
                                         <td style=" font-size: 11px;"><?= number_format($qty) ?></td>
                                         <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
                                     </tr>
+                                    <?php }; ?>
                                     <?php }; ?>
                                 </tbody>
                                 <tfoot>
@@ -190,21 +192,23 @@
                                     $total_qty = 0;
                                     $total = 0; ?>
                                     <?php foreach ($product_list['KREDIT'] as $key => $value) { ?>
+                                    <?php foreach ($value as $key2 => $value2) { ?>
                                     <?php
-                                        $qty = $value['qty'];
-                                        $harga_aktif = $value['harga_aktif'];
-                                        $sub_total = $qty * $harga_aktif;
-                                        $total_qty += $qty;
-                                        $total += $sub_total;
-                                        ?>
+                                            $qty = $value2['qty'];
+                                            $harga_aktif = $value2['harga_aktif'];
+                                            $sub_total = $qty * $harga_aktif;
+                                            $total_qty += $qty;
+                                            $total += $sub_total;
+                                            ?>
                                     <tr>
                                         <td style=" font-size: 11px;"><?= $no++ ?></td>
                                         <td style=" font-size: 11px;"><?= $key ?></td>
-                                        <td style=" font-size: 11px;"><?= $value['nama_product'] ?></td>
+                                        <td style=" font-size: 11px;"><?= $value2['nama_product'] ?></td>
                                         <td style=" font-size: 11px;"><?= number_format($harga_aktif) ?></td>
                                         <td style=" font-size: 11px;"><?= number_format($qty) ?></td>
                                         <td style=" font-size: 11px;"><?= number_format($sub_total) ?></td>
                                     </tr>
+                                    <?php }; ?>
                                     <?php }; ?>
                                 </tbody>
                                 <tfoot>
@@ -224,6 +228,8 @@
                         <h3>TOTAL</h3>
                         <?php
                         $totalList['Nota Tertagih'] = $nota_tertagih;
+                       // $totalList['Nota Tertagih Kredit'] = $nota_tertagih_kredit;
+
                         ?>
                         <div class="table-responsive">
                             <table class="table table-striped" width="100%" height="88%" cellspacing="0">
