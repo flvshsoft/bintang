@@ -789,9 +789,9 @@ class TagihanBaruController extends BaseController
 
         $nota_tertagih = 0;
         foreach ($mdNotaTertagih as $key => $value) {
-            $nota_tertagih = $value['pay'];
+            $nota_tertagih += $value['pay'];
         }
-        //$data['nota_tertagih_kredit'] = $nota_tertagih;
+        $data['nota_tertagih_kredit'] = $nota_tertagih;
         return view('admin_kas_kecil/transaksi/tagihan_baru/riwayat_detail', $data);
     }
 }
