@@ -335,6 +335,7 @@ class purchaseOrderController extends BaseController
                 ];
                 print_r($data_save);
                 $this->mdPiutangUsaha->insert($data_save);
+               
             }
         // print_r($data['model']);
         // return view('admin_kas_kecil/transaksi/purchase_order/index', $data);

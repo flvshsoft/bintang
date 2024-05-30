@@ -16,7 +16,7 @@ class masterHutangController extends BaseController
             ->select(['*', 'piutang_usaha.created_at as created_at'])
             ->join('supplier', 'supplier.kode_supplier=piutang_usaha.kode_supplier')
             ->join('user', 'user.id_user=piutang_usaha.id_user')
-            ->where('piutang_usaha.id_branch', Session('userData')['id_branch'])
+            // ->where('piutang_usaha.id_branch', Session('userData')['id_branch'])
             // ->where('supplier.id_branch', Session('userData')['id_branch'])
             ->where('jumlah_piutang !=', 0)
             //->where('status', 0)
