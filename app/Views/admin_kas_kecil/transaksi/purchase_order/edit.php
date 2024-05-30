@@ -26,11 +26,11 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Cabang</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="id_supplier">
-                                        <option value="<?= $model['id_supplier'] ?>"><?= $model['nama_supplier'] ?>
+                                    <select class="form-control" name="kode_supplier">
+                                        <option value="<?= $model['kode_supplier'] ?>"><?= $model['nama_supplier'] ?>
                                         </option>
                                         <?php foreach ($supplier as $value) { ?>
-                                        <option value="<?= $value['id_supplier'] ?>"><?= $value['nama_supplier'] ?>
+                                        <option value="<?= $value['kode_supplier'] ?>"><?= $value['nama_supplier'] ?>
                                         </option>
                                         <?php }; ?>
                                     </select>

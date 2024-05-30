@@ -67,11 +67,9 @@ class purchaseOrderController extends BaseController
     public function edit_po()
     {
         $id_purchase_order = $this->request->getPost('id_purchase_order');
-        $id_supplier = $this->request->getPost('id_supplier');
         $kode_supplier = $this->request->getPost('kode_supplier');
         $data = [
             'id_purchase_order' => $id_purchase_order,
-            'id_supplier' => $id_supplier,
             'kode_supplier' => $kode_supplier,
             'minggu_purchase_order' => $this->request->getPost('minggu_purchase_order'),
             'status_purchase_order' => $this->request->getPost('status_purchase_order'),
