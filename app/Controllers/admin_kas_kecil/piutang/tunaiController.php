@@ -47,6 +47,7 @@ class tunaiController extends BaseController
     public function add()
     {
         $id_nota =  $this->request->getPost('id_nota');
+        $minggu =  $this->request->getPost('week');
         $notaData = $this->mdNota->where('id_nota', $id_nota)->find();
         $id_customer = $notaData[0]['id_customer'];
 
@@ -58,17 +59,20 @@ class tunaiController extends BaseController
             ->find();
         $id_bank = $bank[0]['id_bank'];
         $nota = $this->mdNota
-            ->where('id_branch', Session('userData')['id_branch'])
-            ->where('id_sales', $id_sales)
-            ->where('id_customer', $id_customer)
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->where('nota.id_branch', Session('userData')['id_branch'])
+            ->where('nota.id_sales', $id_sales)
+            ->where('nota.id_customer', $id_customer)
             ->find();
         $metode_bayar = $nota[0]['payment_method'];
+        $id_partner = $nota[0]['id_partner'];
+        // $minggu = $nota[0]['week'];
 
         if ($notaData) {
             $totalBeli = $notaData[0]['total_beli'] - $notaData[0]['pay'];
             $totalBeliKredit = $notaData[0]['total_beli'];
 
-            $this->mdNota->update($id_nota, ['pay' => $totalBeliKredit,  'status' => 'Lunas']);
+            $this->mdNota->update($id_nota, ['pay' => $totalBeliKredit,  'status' => 'Lunas', 'weeks' => $minggu]);
             $data = [
                 'id_sales' => $id_sales,
                 'id_konsumen' => $id_customer,
@@ -78,6 +82,8 @@ class tunaiController extends BaseController
                 'id_user' => Session('userData')['id_user'],
                 'id_branch' => Session('userData')['id_branch'],
                 'uang_kas' => $totalBeli,
+                'id_partner' => $id_partner,
+                'minggu' => $minggu,
             ];
             $this->mdKas->save($data);
             $this->mdBank->where('id_bank', $id_bank)->increment('saldo', $totalBeli);

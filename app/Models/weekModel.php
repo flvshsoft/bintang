@@ -14,7 +14,7 @@ class weekModel extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['id_user', 'id_branch', 'nama_week', 'bulan_week', 'bulan', 'tahun_week', 'status_week', 'status_closing'];
+    protected $allowedFields = ['id_user', 'id_branch', 'nama_week', 'bulan_week', 'bulan', 'tahun_week', 'status_week', 'status_closing', 'status_aktif'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

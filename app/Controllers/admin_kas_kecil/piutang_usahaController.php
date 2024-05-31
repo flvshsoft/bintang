@@ -9,6 +9,7 @@ class piutang_usahaController extends BaseController
         $data['judul'] = 'Bintang Distributor';
         $data['judul1'] = 'RIWAYAT DATA PELUNASAN PIUTANG';
         $data['model'] = $this->mdNota
+            ->select(['*', 'nota.created_at as created_at'])
             ->where('status', 'Lunas')
             ->where('nota.id_branch', Session('userData')['id_branch'])
             ->where('payment_method', 'KREDIT')
@@ -19,8 +20,6 @@ class piutang_usahaController extends BaseController
             ->groupBy('nota.id_nota')
             ->findAll();
 
-        // print_r($data['model']);
-        // exit;
         return view('admin_kas_kecil/piutang_usaha/index', $data);
     }
     public function index_internal(): string

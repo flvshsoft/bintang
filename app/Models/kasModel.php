@@ -14,7 +14,7 @@ class kasModel extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['id_sales', 'id_branch', 'id_konsumen', 'id_bank', 'id_user', 'metode_bayar', 'ket', 'uang_kas', 'minggu', 'pergantian_minggu'];
+    protected $allowedFields = ['id_sales', 'id_branch', 'id_konsumen', 'id_bank', 'id_user', 'metode_bayar', 'ket', 'uang_kas', 'minggu', 'id_partner', 'pergantian_minggu'];
 
     protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';

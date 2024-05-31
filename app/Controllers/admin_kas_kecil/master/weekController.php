@@ -40,6 +40,7 @@ class weekController extends BaseController
                     'tahun_week' => $year,
                     'bulan' => $month,
                     'status_week' => 0,
+                    'status_aktif' => 0,
                     'status_closing' => 0,
                     'id_user' => SESSION('userData')['id_user'],
                     'id_branch' => SESSION('userData')['id_branch'],
@@ -82,6 +83,7 @@ class weekController extends BaseController
             'bulan_week' => $this->request->getPost('bulan_week'),
             'tahun_week' => $this->request->getPost('tahun_week'),
             'status_week' => $this->request->getPost('status_week'),
+            'status_aktif' => $this->request->getPost('status_aktif'),
             'bulan' => $this->request->getPost('bulan'),
             'status_closing' => $this->request->getPost('status_closing'),
         ];
@@ -109,6 +111,7 @@ class weekController extends BaseController
             'bulan_week' => $this->request->getPost('bulan_week'),
             'tahun_week' => $this->request->getPost('tahun_week'),
             'status_week' => $this->request->getPost('status_week'),
+            'status_aktif' => $this->request->getPost('status_aktif'),
             'bulan' => $this->request->getPost('bulan'),
             'status_closing' => $this->request->getPost('status_closing'),
         ];

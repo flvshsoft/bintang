@@ -383,18 +383,20 @@ class TagihanBaruController extends BaseController
 
         // Nota
         $mdNota = $this->mdNota
-            ->where('id_nota', $id_nota)
+            ->join('sales', 'sales.id_sales=nota.id_sales')
+            ->where('nota.id_nota', $id_nota)
             ->find();
         $id_sales = $mdNota[0]['id_sales'];
+        $id_partner = $mdNota[0]['id_partner'];
         $metode_bayar = $mdNota[0]['payment_method'];
         $id_customer = $mdNota[0]['id_customer'];
+        $minggu = $mdNota[0]['week'];
 
         $bank = $this->mdBank
             ->where('nama_bank', 'KAS')
             ->where('id_branch', Session('userData')['id_branch'])
             ->find();
         $id_bank = $bank[0]['id_bank'];
-
 
         if ($mdNota[0]['payment_method'] == 'CASH') {
             $this->mdNota->where('id_nota', $id_nota)->set(['total_beli' => $total, 'pay' => $total])->update();
@@ -407,8 +409,9 @@ class TagihanBaruController extends BaseController
                 'id_user' => Session('userData')['id_user'],
                 'id_branch' => Session('userData')['id_branch'],
                 'uang_kas' => $total,
+                'id_partner' => $id_partner,
+                'minggu' => $minggu,
             ];
-
             $this->mdKas->save($data);
             $this->mdBank->where('id_bank', $id_bank)->increment('saldo', $total);
         } else {
@@ -506,7 +509,7 @@ class TagihanBaruController extends BaseController
             ->orderBy('sales.id_sales', 'DESC')
             ->find();
 
-        $id_nota = $data['model'][0]['id_nota'];
+        $id_partner = $data['model'][0]['id_partner'];
 
         if (!empty($data['model'])) {
             if (!empty($data['model'][0]['id_nota'])) {
@@ -528,8 +531,6 @@ class TagihanBaruController extends BaseController
             //->where('total_beli !=', 0)
             // ->where('total_beli !=', '0')
             ->findAll();
-        // print_r($data['cek_nota']);
-        // exit;
 
         $notaList = [];
         foreach ($data['cek_nota'] as $key => $value) {
@@ -562,18 +563,24 @@ class TagihanBaruController extends BaseController
         }
         $data['product_list'] = $temp;
 
+        // $week = $this->mdWeek->where('status_aktif', 1)->find();
+        //  $week_aktif = $week[0]['nama_week'];
+
         //Nota Tertagih
-        $mdNotaTertagih = $this->mdNota
-            ->join('sales', 'sales.id_sales=nota.id_sales')
-            ->where('payment_method', 'KREDIT')
-            ->whereIn('nota.id_nota', $notaList)
+        $mdNotaTertagih = $this->mdKas
+            ->where('metode_bayar', 'KREDIT')
+            //->where('minggu', $week_aktif)
+            //->where('kas_bank.id_sales', $id_sales)
+            ->where('kas_bank.id_partner', $id_partner)
             ->findAll();
 
         $nota_tertagih = 0;
         foreach ($mdNotaTertagih as $key => $value) {
-            $nota_tertagih = $value['pay'];
+            $nota_tertagih = $value['uang_kas'];
         }
-        //$data['nota_tertagih_kredit'] = $nota_tertagih;
+        $data['nota_tertagih_kredit'] = $nota_tertagih;
+        // print_r($data['nota_tertagih_kredit']);
+        // exit;
 
         return view('admin_kas_kecil/transaksi/tagihan_baru/closing_sales', $data);
     }
@@ -720,6 +727,8 @@ class TagihanBaruController extends BaseController
             ->orderBy('sales.id_sales', 'DESC')
             ->find();
 
+        $id_partner = $data['model'][0]['id_partner'];
+
         if (!empty($data['model'])) {
             if (!empty($data['model'][0]['id_nota'])) {
                 $data['model'] = $data['model'][0];
@@ -780,16 +789,20 @@ class TagihanBaruController extends BaseController
         }
         $data['product_list'] = $temp;
 
+        // $week = $this->mdWeek->where('status_aktif', 1)->find();
+        // $week_aktif = $week[0]['nama_week'];
+
         //Nota Tertagih
-        $mdNotaTertagih = $this->mdNota
-            ->join('sales', 'sales.id_sales=nota.id_sales')
-            ->where('payment_method', 'KREDIT')
-            ->whereIn('nota.id_nota', $notaList)
+        $mdNotaTertagih = $this->mdKas
+            ->where('metode_bayar', 'KREDIT')
+            //->where('minggu', $week_aktif)
+            //->where('kas_bank.id_sales', $id_sales)
+            ->where('kas_bank.id_partner', $id_partner)
             ->findAll();
 
         $nota_tertagih = 0;
         foreach ($mdNotaTertagih as $key => $value) {
-            $nota_tertagih += $value['pay'];
+            $nota_tertagih = $value['uang_kas'];
         }
         $data['nota_tertagih_kredit'] = $nota_tertagih;
         return view('admin_kas_kecil/transaksi/tagihan_baru/riwayat_detail', $data);

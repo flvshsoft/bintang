@@ -64,8 +64,15 @@
                             <div class="form-group row mb-0">
                                 <label for="exampleInputMobile" class="col-sm-3 col-form-label">Status Closing</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control form-control-sm"
-                                        name="status_closing" value="<?= $model['status_closing'] ?>">
+                                    <input class="form-control form-control-sm" name="status_closing"
+                                        value="<?= $model['status_closing'] ?>">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-0">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Status Aktif</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-sm" name="status_aktif"
+                                        value="<?= $model['status_aktif'] ?>">
                                 </div>
                             </div>
 
